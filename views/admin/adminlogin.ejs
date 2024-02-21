@@ -83,13 +83,13 @@
 
     <h2 class="text-center mb-4">Admin Login</h2>
 
-    <form action="" method="post">
+    <form action="/admin/login" method="post">
       <% if (typeof error !== 'undefined' && error !== null) { %>
           <p style="color: red;"><%= error %></p>
       <% } %>
       <input type="email" name="email" id="" class="form-control my-4 py-2" placeholder="email" />
       <input type="password" name="password" id="" class="form-control my-4 py-2" placeholder="Password" />
-      <button class="btn btn-primary btn-block">Login</button>
+      <button class="btn btn-primary btn-block" type="submit">Login</button>
 
       
       <!-- <a href="/auth/google" class="btn btn-primary btn-block ">Login Google</a>
