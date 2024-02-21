@@ -8,6 +8,18 @@ const initializeSession = (req, res, next) => {
   next();
 };
 
+
+//ADMIN DASHBOARD DISPLAY
+let dashboardPage = (req, res) => {
+    try {
+      res.render("admin/index", { user: res.locals.user });
+      res.status(200);
+    } catch (error) {
+      console.error("Failed to get home:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
+
 //ADMIN LOGIN PAGE DISPLAY
 let loginGetPage = (req, res) => {
   try {
@@ -52,8 +64,22 @@ let loginPostPage = async (req, res) => {
   }
 };
 
+//ADMIN LOGOUT
+let adminLogout = (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return res.status(500).send("Internal Server Error");
+      }
+      res.redirect('/admin')
+      console.log("admin logged out");
+    });
+};
+
 module.exports = {
   loginGetPage,
   loginPostPage,
+  adminLogout,
+  dashboardPage,
   initializeSession,
 };
