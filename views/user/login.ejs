@@ -290,7 +290,7 @@
                                     </li>
                                     <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
                                         <ul class="submenu bold-content text-right">
-                                            <li><a href="login.html">My Account</a></li>
+                                            <li><a href="/userProfile">My Account</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
                                             <li><a href="shop.html">Shop</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
@@ -401,28 +401,30 @@
                         <div class="basic-login">
                             <h3 class="text-center mb-60">Login From Here</h3>
 
-                            <p><%= Err %></p>
+                            
 
 
 
-                            <form action="/user/login" method="POST">
+                            <form action="/user/login" method="post">
+                                <% if (typeof error !== 'undefined' && error !== null) { %>
+                                    <p style="color: red;"><%= error %></p>
+                                <% } %>
                                 <label for="name">Email Address <span>**</span></label>
-                                <input id="name" name="email" type="text" placeholder="Enter Username or Email address..." />
+                                <input id="name" name="email" type="text" placeholder="Email address..." />
                                
                             
                                 <label for="pass">Password <span>**</span></label>
                                 <input id="pass" name="password" type="password" placeholder="Enter password..." />
                             
                                 <div class="login-action mb-20 fix">
-                                    <span class="log-rem f-left">
-                                        <input id="remember" name="remember" type="checkbox" />
-                                        <label for="remember">Remember me!</label>
-                                    </span>
                                     <span class="forgot-login f-right">
                                         <a href="javascript:void(0)">Lost your password?</a>
                                     </span>
                                 </div>
-                                <button type="submit" class="btn theme-btn-2 w-100">Login Now</button>
+                                <button type="submit" class="btn theme-btn-2 w-100">Login Now</button><br>
+                                <button class="btn theme-btn-2 w-100 mt-30"><a href="/auth/google" style="color: white;">login with google</a></button>
+                                
+
                             
                                 <div class="or-divide"><span>or</span></div>
                             </form>

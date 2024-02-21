@@ -1,12 +1,17 @@
 const User = require("../models/usersModel");
-const bcrypt = require("bcryptjs"); // for hashing password
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const bcrypt = require("bcryptjs");
 
-//HOME PAGE DISPLAY
+const initializeSession = (req, res, next) => {
+  if (req.session.user) {
+    res.locals.user = req.session.user;
+  }
+  next();
+};
+
+// HOME PAGE DISPLAY
 let homePage = (req, res) => {
   try {
-    res.render("user/home");
+    res.render("user/home", { user: res.locals.user });
     res.status(200);
   } catch (error) {
     console.error("Failed to get home:", error);
@@ -14,23 +19,26 @@ let homePage = (req, res) => {
   }
 };
 
-//USER SIGNUP PAGE DISPLAY
+// AUTH
+const loadAuth = (req,res) =>[
+  res.render('auth')
+]
+
+// USER SIGNUP PAGE DISPLAY
 let signupGetPage = async (req, res) => {
   try {
     res.render("user/signup");
   } catch (error) {
     console.error("Failed to get login page:", error);
-
     res.status(500).send("Internal Server Error");
   }
 };
 
-//USER SIGNUP
+// USER SIGNUP
 let signupPostPage = async (req, res) => {
   try {
     const { userName, email, phoneNumber, password } = req.body;
 
-    // HASHED PASSWORD
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
@@ -53,45 +61,86 @@ let signupPostPage = async (req, res) => {
   }
 };
 
-//USER LOGIN PAGE DISPLAY
+// USER LOGIN PAGE DISPLAY
 let loginGetPage = async (req, res) => {
   try {
     res.render("user/login", { Err: " " });
   } catch (error) {
     console.error("Failed to get login page:", error);
-
     res.status(500).send("Internal Server Error");
   }
 };
 
-//USER LOGIN
+// USER LOGIN
 let loginPostPage = async (req, res) => {
   try {
     const foundUser = await User.findOne({ email: req.body.email });
 
     if (foundUser) {
-      const passworMatch = await bcrypt.compare(
+      const passwordMatch = await bcrypt.compare(
         req.body.password,
         foundUser.password
       );
 
-      if (passworMatch) {
-        res.redirect("/");
-        console.log("user loged");
+      if (passwordMatch) {
+        req.session.user = {
+          id: foundUser._id,
+          userName: foundUser.userName,
+          email: foundUser.email,
+        };
+
+        res.status(200).redirect("/");
+        console.log("User logged in successfully");
       } else {
-        res.render("user/login", { Err: "Invalid Password" });
+        res.status(401).render("user/login", { error: "Wrong password" });
       }
     } else {
-      res.render("user/login", { Err: "User not found" });
+      console.log("User not found:", req.body.email);
+      res.status(404).render("user/login", { error: "User not found" });
     }
   } catch (error) {
-    res.render("user/login", { Err: "Internal server error" });
+    console.error("Internal server error:", error);
+    res.status(500).render("user/login", { error: "Internal server error" });
   }
+};
+
+//LOGIN WITH GOOGLE
+const succesGoogleLogin = (req, res) => {
+  if (!req.user) res.redirect("/failure");
+  console.log(req.user);
+  res.redirect("/");
+};
+
+const failureGooglelogin = (req, res) => {
+  res.send("Error");
+};
+
+// USER LOGOUT
+let userLogout = (req, res) => {
+  if (!req.session.user) {
+    // User is already logged out, redirect to a page with a message
+    const alertScript = `
+      <script>
+        alert("You are already logged out.");
+        window.location.href = "/login";
+      </script>
+    `;
+    return res.send(alertScript);
+  }
+
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.status(500).send("Internal Server Error");
+    }
+    res.redirect("/login");
+    console.log("User logged out");
+  });
 };
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
-  res.render("user/account");
+  res.render("user/account", { user: res.locals.user });
 };
 
 module.exports = {
@@ -100,5 +149,10 @@ module.exports = {
   signupPostPage,
   loginGetPage,
   loginPostPage,
+  userLogout,
   userProfile,
+  initializeSession,
+  loadAuth,
+  succesGoogleLogin,
+  failureGooglelogin,
 };
