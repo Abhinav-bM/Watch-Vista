@@ -8,6 +8,11 @@ require("dotenv").config();
 const path = require("path");
 const app = express();
 
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "views")));
+
+
 // Set up session middleware
 app.use(
   session({
@@ -24,9 +29,7 @@ app.use(
 
 app.set("view engine", "ejs");
 
-app.use(express.static(path.join(__dirname, "views")));
-app.use(express.static(path.join(__dirname, "views")));
-app.use(express.static("public"));
+
 
 const { parsed: config } = require("dotenv").config();
 global.config = config;

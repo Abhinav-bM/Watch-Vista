@@ -39,7 +39,7 @@ router.get(
   );
 
 //successs
-router.get('/success', userController.succesGoogleLogin);
+router.get('/success', userController.successGoogleLogin);
 
 //failuer
 router.get('/failure', userController.failureGooglelogin);

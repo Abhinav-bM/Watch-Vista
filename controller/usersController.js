@@ -104,15 +104,42 @@ let loginPostPage = async (req, res) => {
   }
 };
 
-//LOGIN WITH GOOGLE
-const succesGoogleLogin = (req, res) => {
-  if (!req.user) res.redirect("/failure");
-  console.log(req.user);
-  res.redirect("/");
+// LOGIN WITH GOOGLE
+const successGoogleLogin = async (req, res) => {
+  try {
+    if (!req.user) {
+      // If no user data
+      return res.send("no user data , login failed");
+    }
+
+    console.log(req.user);
+
+    // Checking user already exists in database
+    let user = await User.findOne({ email: req.user.email });
+
+    if (!user) {
+      // If the user does not exist, create a new user
+      user = new User({
+        userName: req.user.displayName,
+        email: req.user.email,
+        
+      });
+
+      // Save the new user to the database
+      await user.save();
+    }
+
+    // Log the user in or set session variables
+    req.session.user = user; // Set the user in the session
+    res.render("user/home");
+  } catch (error) {
+    console.error("Error logging in with Google:", error);
+    res.redirect("/failure");
+  }
 };
 
 const failureGooglelogin = (req, res) => {
-  res.send("Error");
+  res.send("Error logging in with Google");
 };
 
 // USER LOGOUT
@@ -153,6 +180,6 @@ module.exports = {
   userProfile,
   initializeSession,
   loadAuth,
-  succesGoogleLogin,
+  successGoogleLogin,
   failureGooglelogin,
 };
