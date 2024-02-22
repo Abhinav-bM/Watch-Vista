@@ -1,8 +1,8 @@
 const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const nodemailer = require("nodemailer");
-const twilio = require('twilio');
-require('dotenv').config();
+const twilio = require("twilio");
+require("dotenv").config();
 
 const initializeSession = (req, res, next) => {
   if (req.session.user) {
@@ -142,17 +142,16 @@ const failureGooglelogin = (req, res) => {
   res.status(500).send("Error logging in with Google");
 };
 
-
 // LOGIN WITH OTP STARTS HERE
 
 // LOGIN WITH OTP PAGE DISPLAY
 let loginWithOtpGetPage = async (req, res) => {
-  try{
-    res.render("user/loginOtpPhone")
-  }catch(error){
-    res.status(404).send("page not found")
+  try {
+    res.render("user/loginOtpPhone");
+  } catch (error) {
+    res.status(404).send("page not found");
   }
-}
+};
 
 // .ENV DETAILS
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
@@ -173,7 +172,7 @@ const loginRequestOTP = async (req, res) => {
     const user = await User.findOne({ phoneNumber });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
 
     const otp = generateOTP();
@@ -188,34 +187,31 @@ const loginRequestOTP = async (req, res) => {
         from: twilioPhoneNumber,
         to: process.env.TO_NUMBER,
       });
-      console.log('OTP SMS sent');
+      console.log("OTP SMS sent");
     } catch (error) {
-      console.error('Error sending OTP SMS:', error);
-      return res.status(500).json({ message: 'Error sending OTP' });
+      console.error("Error sending OTP SMS:", error);
+      return res.status(500).json({ message: "Error sending OTP" });
     }
 
-    res.render('user/loginOtp',{phoneNumber});
+    res.render("user/loginOtp", { phoneNumber });
   } catch (error) {
-    console.error('Error requesting OTP:', error);
-    res.status(500).json({ message: 'Server Error' });
+    console.error("Error requesting OTP:", error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
-
-
 
 const loginVerifyOTP = async (req, res) => {
   const { phoneNumber, otp } = req.body;
 
   try {
-    
     const user = await User.findOne({ phoneNumber });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
-    
+
     if (user.otp !== otp || Date.now() > user.otpExpiration) {
-      return res.status(400).json({ message: 'Invalid or expired OTP' });
+      return res.status(400).json({ message: "Invalid or expired OTP" });
     }
 
     // Clear OTP fields after successful verification
@@ -223,15 +219,14 @@ const loginVerifyOTP = async (req, res) => {
     user.otpExpiration = undefined;
     await user.save();
 
-    res.status(200).redirect('/');
+    res.status(200).redirect("/");
     console.log("user loggined using otp");
   } catch (error) {
-    console.error('Error verifying OTP:', error);
-    res.status(500).json({ message: 'Server Error' });
+    console.error("Error verifying OTP:", error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 // LOGIN WITH OTP ENDS HERE
-
 
 // FORGOT PASSWORD -- STARTS FROM HERE
 
@@ -247,8 +242,8 @@ let forgotGetPage = async (req, res) => {
 ////////////////////////////////////////////////
 const transporter = nodemailer.createTransport({
   service: "gmail",
-  host: 'smtp.gmail.com',
-   port: 465,
+  host: "smtp.gmail.com",
+  port: 465,
   auth: {
     user: "watchvista6@gmail.com",
     pass: "capvhkkfrmhrjeuy",
@@ -263,7 +258,6 @@ const sendOtpEmail = async (email, otp) => {
     text: `Your OTP to reset your password is: ${otp}`,
   };
 
-
   try {
     await transporter.sendMail(mailOptions);
     console.log("Email sent");
@@ -272,7 +266,6 @@ const sendOtpEmail = async (email, otp) => {
   }
 };
 ////////////////////////////////////////////
-
 
 // FORGOT EMAIL POST + OTP GENERATION AND MAIL SEND
 let forgotEmailPostPage = async (req, res) => {
@@ -292,7 +285,7 @@ let forgotEmailPostPage = async (req, res) => {
 
     await sendOtpEmail(email, otp);
 
-    res.render("user/forgototp",{email})
+    res.render("user/forgototp", { email });
   } catch (error) {
     console.error("Error sending OTP:", error);
     res.status(500).json({ message: "Server Error" });
@@ -318,7 +311,7 @@ let resetPassword = async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
-    const bcryptedNewPassword = await bcrypt.hash(newPassword, 10)
+    const bcryptedNewPassword = await bcrypt.hash(newPassword, 10);
     // Reset password
     user.password = bcryptedNewPassword;
     // Clear OTP fields
@@ -327,7 +320,6 @@ let resetPassword = async (req, res) => {
     await user.save();
     console.log("password resetted");
 
-  
     res.status(200).render("user/login");
   } catch (error) {
     console.error("Error resetting password:", error);
