@@ -153,8 +153,6 @@ let forgotGetPage = async (req, res) => {
   }
 };
 
-
-
 ////////////////////////////////////////////////
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -245,6 +243,7 @@ let resetPassword = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+// FORGOT PASSWORD -- ENDS HERE
 
 // USER LOGOUT
 let userLogout = (req, res) => {
