@@ -22,11 +22,14 @@ router.get("/userProfile", userController.userProfile);
 router.get("/user/logout", userController.userLogout);
 router.get("/", userController.loadAuth);
 router.get("/forgotPassword", userController.forgotGetPage);
+router.get("/loginOtp",userController.loginWithOtpGetPage)
 
 router.post("/user/signup", userController.signupPostPage);
 router.post("/user/login", userController.loginPostPage);
 router.post("/forgotPassword", userController.forgotEmailPostPage);
 router.post("/resetPassword", userController.resetPassword);
+router.post("/loginOtp",userController.loginRequestOTP)
+router.post("/loginOtpDone",userController.loginVerifyOTP)
 
 //Auth
 router.get(
