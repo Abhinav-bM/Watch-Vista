@@ -378,13 +378,6 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="breadcrumb-content" style="flex-direction: column;">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb p-0 m-0">
-                                    <li class="breadcrumb-item"><a href="index5.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Login</li>
-                                </ol>
-                            </nav>
-                         <h2 class="login-title mt-40">Login</h2>
                         </div>
                     </div>
                 </div>
@@ -399,13 +392,13 @@
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
                         <div class="basic-login">
-                            <h3 class="text-center mb-60">Login From Here</h3>
+                            <h3 class="text-center mb-60">Reset Password</h3>
 
                             
 
 
 
-                            <form action="/restPassword" method="post">
+                            <form action="/resetPassword" method="post">
 
                                 <% if (typeof error !== 'undefined' && error !== null) { %>
                                     <p style="color: red;"><%= error %></p>

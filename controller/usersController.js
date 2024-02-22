@@ -140,14 +140,7 @@ const failureGooglelogin = (req, res) => {
   res.status(500).send("Error logging in with Google");
 };
 
-// LOGIN WITH OTP PAGE DISPLAY
-// let loginOtpGetPage = async (req, res)=>{
-//   try{
-//     res.render("user/loginphoneotp")
-//   }catch(error){
 
-//   }
-// }
 
 // FORGOT PASSWORD -- STARTS FROM HERE
 
@@ -160,28 +153,27 @@ let forgotGetPage = async (req, res) => {
   }
 };
 
-// FORGOT EMAIL POST DISPALY
-let forgotEmailPostPage = async (req, res) => {
-  const { email } = req.query;
-  res.render("user/forgototp", { email });
-};
+
 
 ////////////////////////////////////////////////
 const transporter = nodemailer.createTransport({
-  service: "Gmail",
+  service: "gmail",
+  host: 'smtp.gmail.com',
+   port: 465,
   auth: {
-    user: "watchvista4@gmail.com",
-    pass: "watchvista@123",
+    user: "watchvista6@gmail.com",
+    pass: "capvhkkfrmhrjeuy",
   },
 });
 
 const sendOtpEmail = async (email, otp) => {
   const mailOptions = {
-    from: "watchvista4@gmail.com",
+    from: "watchvista6@gmail.com",
     to: email,
     subject: "Reset Your Password",
     text: `Your OTP to reset your password is: ${otp}`,
   };
+
 
   try {
     await transporter.sendMail(mailOptions);
@@ -192,8 +184,9 @@ const sendOtpEmail = async (email, otp) => {
 };
 ////////////////////////////////////////////
 
-// FORGOT PASSWORD
-let forgotPassword = async (req, res) => {
+
+// FORGOT EMAIL POST + OTP GENERATION AND MAIL SEND
+let forgotEmailPostPage = async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -210,7 +203,7 @@ let forgotPassword = async (req, res) => {
 
     await sendOtpEmail(email, otp);
 
-    res.redirect(`/reset-password?email=${email}`);
+    res.render("user/forgototp",{email})
   } catch (error) {
     console.error("Error sending OTP:", error);
     res.status(500).json({ message: "Server Error" });
@@ -236,15 +229,17 @@ let resetPassword = async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
+    const bcryptedNewPassword = await bcrypt.hash(newPassword, 10)
     // Reset password
-    user.password = newPassword;
+    user.password = bcryptedNewPassword;
     // Clear OTP fields
     user.otp = undefined;
     user.otpExpiration = undefined;
     await user.save();
+    console.log("password resetted");
 
-    // res.status(200).json({ message: 'Password reset successful' });
-    es.status(200).render("user/login");
+  
+    res.status(200).render("user/login");
   } catch (error) {
     console.error("Error resetting password:", error);
     res.status(500).json({ message: "Server Error" });
