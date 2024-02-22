@@ -1,5 +1,6 @@
 const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
+const nodemailer = require("nodemailer");
 
 const initializeSession = (req, res, next) => {
   if (req.session.user) {
@@ -20,9 +21,7 @@ let homePage = (req, res) => {
 };
 
 // AUTH
-const loadAuth = (req,res) =>[
-  res.render('auth')
-]
+const loadAuth = (req, res) => [res.render("auth")];
 
 // USER SIGNUP PAGE DISPLAY
 let signupGetPage = async (req, res) => {
@@ -109,7 +108,7 @@ const successGoogleLogin = async (req, res) => {
   try {
     if (!req.user) {
       // If no user data
-      return res.send("no user data , login failed");
+      return res.status(401).send("no user data , login failed");
     }
 
     console.log(req.user);
@@ -122,7 +121,6 @@ const successGoogleLogin = async (req, res) => {
       user = new User({
         userName: req.user.displayName,
         email: req.user.email,
-        
       });
 
       // Save the new user to the database
@@ -131,15 +129,126 @@ const successGoogleLogin = async (req, res) => {
 
     // Log the user in or set session variables
     req.session.user = user; // Set the user in the session
-    res.render("user/home");
+    res.status(200).render("user/home");
   } catch (error) {
     console.error("Error logging in with Google:", error);
-    res.redirect("/failure");
+    res.status(500).redirect("/login");
   }
 };
 
 const failureGooglelogin = (req, res) => {
-  res.send("Error logging in with Google");
+  res.status(500).send("Error logging in with Google");
+};
+
+// LOGIN WITH OTP PAGE DISPLAY
+// let loginOtpGetPage = async (req, res)=>{
+//   try{
+//     res.render("user/loginphoneotp")
+//   }catch(error){
+
+//   }
+// }
+
+// FORGOT PASSWORD -- STARTS FROM HERE
+
+// FORGOT PASSWORD PAGE DISPLAY
+let forgotGetPage = async (req, res) => {
+  try {
+    res.render("user/forgotemail");
+  } catch (error) {
+    res.status(404).send("page not found");
+  }
+};
+
+// FORGOT EMAIL POST DISPALY
+let forgotEmailPostPage = async (req, res) => {
+  const { email } = req.query;
+  res.render("user/forgototp", { email });
+};
+
+////////////////////////////////////////////////
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  auth: {
+    user: "watchvista4@gmail.com",
+    pass: "watchvista@123",
+  },
+});
+
+const sendOtpEmail = async (email, otp) => {
+  const mailOptions = {
+    from: "watchvista4@gmail.com",
+    to: email,
+    subject: "Reset Your Password",
+    text: `Your OTP to reset your password is: ${otp}`,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log("Email sent");
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
+};
+////////////////////////////////////////////
+
+// FORGOT PASSWORD
+let forgotPassword = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    user.otp = otp;
+    user.otpExpiration = Date.now() + 10 * 60 * 1000; // OTP expires in 10 minutes
+    await user.save();
+
+    await sendOtpEmail(email, otp);
+
+    res.redirect(`/reset-password?email=${email}`);
+  } catch (error) {
+    console.error("Error sending OTP:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// RESET PASSWORD
+let resetPassword = async (req, res) => {
+  const { email, otp, newPassword, confirmPassword } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.otp !== otp || Date.now() > user.otpExpiration) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    // Reset password
+    user.password = newPassword;
+    // Clear OTP fields
+    user.otp = undefined;
+    user.otpExpiration = undefined;
+    await user.save();
+
+    // res.status(200).json({ message: 'Password reset successful' });
+    es.status(200).render("user/login");
+  } catch (error) {
+    console.error("Error resetting password:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
 };
 
 // USER LOGOUT
@@ -182,4 +291,7 @@ module.exports = {
   loadAuth,
   successGoogleLogin,
   failureGooglelogin,
+  forgotGetPage,
+  forgotEmailPostPage,
+  resetPassword,
 };
