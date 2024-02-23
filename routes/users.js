@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controller/usersController");
 const passport = require("../helpers/passport");
-require("../passport");
 require("dotenv").config();
 const bodyParser = require("body-parser");
 
@@ -49,7 +48,7 @@ router.get(
 //successs
 router.get("/success", userController.successGoogleLogin);
 
-//failuer
+//failure
 router.get("/failure", userController.failureGooglelogin);
 
 module.exports = router;
