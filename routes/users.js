@@ -30,12 +30,12 @@ router.post("/resetPassword", userController.resetPassword);
 router.post("/loginOtp",userController.loginRequestOTP)
 router.post("/loginOtpDone",userController.loginVerifyOTP)
 
+// LOGIN WITH GOOGLE
 //Auth
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
-
 //Auth callback
 router.get(
   "/auth/google/callback",
@@ -45,10 +45,7 @@ router.get(
   })
 );
 
-//successs
 router.get("/success", userController.successGoogleLogin);
-
-//failure
 router.get("/failure", userController.failureGooglelogin);
 
 module.exports = router;

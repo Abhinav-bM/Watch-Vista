@@ -405,11 +405,11 @@
 
 
 
-                            <form action="/loginOtpDone" method="post">
+                            <form id="loginOtpForm" action="/loginOtpDone" method="post">
 
-                                <% if (typeof error !== 'undefined' && error !== null) { %>
-                                    <p style="color: red;"><%= error %></p>
-                                <% } %>
+                                
+                                <p id="errorMessage" style="color: red;"></p>
+                                
                                 
                                 <input type="hidden" name="phoneNumber" value="<%= phoneNumber %>">          
 
@@ -419,6 +419,11 @@
                                 <button type="submit" class="btn theme-btn-2 w-100">Log In</button><br>                                
                             
                             </form>
+
+
+                            <script>
+                            
+                            </script>
                             
                         </div>
                     </div>

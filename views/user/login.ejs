@@ -405,35 +405,28 @@
 
 
 
-                            <form action="/user/login" method="post">
-                                <% if (typeof error !== 'undefined' && error !== null) { %>
-                                    <p style="color: red;"><%= error %></p>
-                                <% } %>
-                                <label for="name">Email Address <span>**</span></label>
-                                <input id="name" name="email" type="text" placeholder="Email address..." />
+                            <form id="loginForm" action="/user/login" method="post">
+                                <!-- <% if (typeof error !== 'undefined' && error !== null) { %> -->
+                                    <!-- <p id="msg" style="color: red;"><%= error %></p> -->
+                                    <p id="errorMessage" style="color: red;"></p>
+                          <!--       <% } %> -->
+                                <label for="email">Email Address <span>**</span></label>
+                                <input id="email" name="email" type="text" placeholder="Email address..." />
                                
-                            
                                 <label for="pass">Password <span>**</span></label>
                                 <input id="pass" name="password" type="password" placeholder="Enter password..." />
-                            
- 
 
                                 <div class="login-action mb-20 fix">
-
                                     <span class="forgot-login f-left">
                                         <a href="/loginOtp">Log in with OTP</a>
                                     </span>
-
                                     <span class="forgot-login f-right">
                                         <a href="/forgotPassword">Forgot Password</a>
                                     </span>
-                                    
                                 </div>
-                                <button type="submit" class="btn theme-btn-2 w-100">Login Now</button><br>
+                                <button type="submit"  class="btn theme-btn-2 w-100">Login Now</button><br>
                                 <button class="btn theme-btn-2 w-100 mt-30"><a href="/auth/google" style="color: white;">login with google</a></button>
-                                
-
-                            
+                        
                                 <div class="or-divide"><span>or</span></div>
                             </form>
                             
@@ -444,13 +437,76 @@
             </div>
         </section>
         <!-- login Area End-->
-
-
-
         </main>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                console.log("DOM Loaded");
 
+                // Get the form element
+                const loginForm = document.getElementById("loginForm");
 
+                // Check if the form element is found
+                if (loginForm) {
+                    console.log("Form found");
 
+                    // Add event listener for form submission
+                    loginForm.addEventListener("submit", async function(event) {
+                        // Prevent the default form submission
+                        event.preventDefault();
+
+                        console.log("Form submitted"); // Check if form submission is detected
+
+                        // Get email and password values
+                        const email = document.getElementById('email').value;
+                        const password = document.getElementById('pass').value;
+                        const errorMessage = document.getElementById('errorMessage');
+
+                        console.log("Email:", email); // Check the email value
+                        console.log("Password:", password); // Check the password value
+
+                        if (email === "" || password === "") {
+                            errorMessage.textContent = "Please fill both input fields.";
+                            return;
+                        }
+
+                        try {
+                            const response = await fetch("/user/login", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify({ email, password }),
+                            });
+
+                            const data = await response.json();
+
+                            console.log("Response:", data); // Check the response data
+
+                            if (response.ok) {
+                                // Redirect or handle successful login
+                                window.location.href = "/"; // Redirect to home page
+                            } else if (response.status === 401) {
+                                // Password error
+                                errorMessage.textContent = "Incorrect password";
+                            } else if (response.status === 404) {
+                                // User not found error
+                                errorMessage.textContent = data.error; // Display the error message from backend
+                            } else {
+                                // Handle other errors
+                                errorMessage.textContent = "An error occurred. Please try again later.";
+                            }
+                        } catch (error) {
+                            console.error("Error:", error);
+                            errorMessage.textContent = "An error occurred. Please try again later.";
+                        }
+                    });
+                } else {
+                    console.log("Form not found");
+                }
+            });
+                
+        </script>
 
 
 

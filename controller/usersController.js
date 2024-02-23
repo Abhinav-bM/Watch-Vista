@@ -53,9 +53,8 @@ let signupPostPage = async (req, res) => {
 
     console.log(newUser);
 
-    res.redirect("/login");
+    res.status(201).redirect("/login");
 
-    res.status(201);
   } catch (error) {
     console.error("Signup failed:", error);
     res.status(500).json({ error: "Signup failed. Please try again later." });
@@ -65,7 +64,7 @@ let signupPostPage = async (req, res) => {
 // USER LOGIN PAGE DISPLAY
 let loginGetPage = async (req, res) => {
   try {
-    res.render("user/login", { Err: " " });
+    res.render("user/login", { error: " " });
   } catch (error) {
     console.error("Failed to get login page:", error);
     res.status(500).send("Internal Server Error");
@@ -90,18 +89,18 @@ let loginPostPage = async (req, res) => {
           email: foundUser.email,
         };
 
-        res.status(200).redirect("/");
+        res.status(200).json({ message: "User logged in successfully" });
         console.log("User logged in successfully");
       } else {
-        res.status(401).render("user/login", { error: "Wrong password" });
+        res.status(401).json({ error: "Incorrect password" });
       }
     } else {
       console.log("User not found:", req.body.email);
-      res.status(404).render("user/login", { error: "User not found" });
+      res.status(404).json({ error: "User not found" })
     }
   } catch (error) {
     console.error("Internal server error:", error);
-    res.status(500).render("user/login", { error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -132,6 +131,7 @@ const successGoogleLogin = async (req, res) => {
     // Log the user in or set session variables
     req.session.user = user; // Set the user in the session
     res.status(200).render("user/home");
+    console.log("user logged in with google");
   } catch (error) {
     console.error("Error logging in with Google:", error);
     res.status(500).redirect("/login");
@@ -141,6 +141,7 @@ const successGoogleLogin = async (req, res) => {
 const failureGooglelogin = (req, res) => {
   res.status(500).send("Error logging in with Google");
 };
+
 
 // LOGIN WITH OTP STARTS HERE
 
@@ -167,7 +168,7 @@ const generateOTP = () => {
 // REQUESTON FOR OTP AFTER ENTERED PHONE
 const loginRequestOTP = async (req, res) => {
   const { phoneNumber } = req.body;
-
+  
   try {
     const user = await User.findOne({ phoneNumber });
 
@@ -219,6 +220,12 @@ const loginVerifyOTP = async (req, res) => {
     user.otp = undefined;
     user.otpExpiration = undefined;
     await user.save();
+
+    req.session.user = {
+      id: user._id,
+      userName: user.userName,
+      email: user.email,
+    };
 
     res.status(200).redirect("/");
     console.log("user loggined using otp");
@@ -327,6 +334,7 @@ let resetPassword = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
 // FORGOT PASSWORD -- ENDS HERE
 
 // USER LOGOUT

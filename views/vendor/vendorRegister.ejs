@@ -81,22 +81,23 @@
     <br>
     <br>
 
-    <h2 class="text-center mb-4">Vendor Login</h2>
+    <h2 class="text-center mb-4">Vendor Register</h2>
 
-    <form action="/vendor/login" method="post">
-
+    <form action="/vendor/register" method="post">
       <% if (typeof error !== 'undefined' && error !== null) { %>
           <p style="color: red;"><%= error %></p>
       <% } %>
+
+      <input type="text" name="name" id="" class="form-control my-4 py-2" placeholder="name" required/>
       <input type="email" name="email" id="" class="form-control my-4 py-2" placeholder="email" required />
+      <input type="text" name="phone" id="" class="form-control my-4 py-2" placeholder="phone" required />
       <input type="password" name="password" id="" class="form-control my-4 py-2" placeholder="Password" required />
-      <small><a href="">Forgot password ?</a></small><br>
-      <small><a href="/vendor/register">New vendor ?</a></small>
-      <button class="mt-3 btn btn-primary btn-block">Login</button>
       
+     
+      <button class="mt-3 btn btn-primary btn-block">Register</button>
     </form>
   
-  
+  </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

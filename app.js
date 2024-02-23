@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const userRouter = require("./routes/users");
 const adminRouter = require("./routes/admin");
+const vendorRouter = require("./routes/vendor")
 // const passport = require("./passport")
 require("dotenv").config();
 const path = require("path");
@@ -11,6 +12,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
+
 
 
 // Set up session middleware
@@ -43,8 +45,9 @@ mongoose.connect("mongodb://localhost:27017/watch-store", {
 // // Set up routes
 app.use("/", userRouter);
 app.use("/", adminRouter);
+app.use("/", vendorRouter)
 
 // Start the server
 app.listen(3000, () => {
-  console.log(`Server is running on port 3000`);
+  console.log(`Server is running on : http://localhost:${3000}`);
 });
