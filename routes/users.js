@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controller/usersController");
-const passport = require("passport");
+const passport = require("../helpers/passport");
 require("../passport");
 require("dotenv").config();
 const bodyParser = require("body-parser");
