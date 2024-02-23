@@ -183,7 +183,7 @@ const loginRequestOTP = async (req, res) => {
     // Send OTP via Twilio SMS
     try {
       await client.messages.create({
-        body: `Your OTP for login is: ${otp}`,
+        body: `Your OTP for login to WATCH-VISTA is: ${otp}`,
         from: twilioPhoneNumber,
         to: process.env.TO_NUMBER,
       });
