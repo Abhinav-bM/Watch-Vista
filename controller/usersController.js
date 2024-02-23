@@ -360,10 +360,31 @@ let userLogout = (req, res) => {
   });
 };
 
+// SHOP PAGE DISPLAY
+let shopGetPage = async (req, res)=>{
+  try {
+    res.status(200).render("user/shop")
+  } catch (error) {
+    console.log("page not found :",error);
+    res.status(404).send("page not found")
+  }
+}
+
+// DISPLAY SINGLE PRODUCT PAGE
+let singleProductGetPage = async (req, res)=>{
+  try {
+    res.status(200).render("user/singleProduct")
+  } catch (error) {
+    console.log("page not found :",error);
+    res.status(404).send("page not found")
+  }
+}
+
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
   res.render("user/account", { user: res.locals.user });
 };
+
 
 module.exports = {
   homePage,
@@ -383,4 +404,6 @@ module.exports = {
   forgotGetPage,
   forgotEmailPostPage,
   resetPassword,
+  shopGetPage,
+  singleProductGetPage,
 };

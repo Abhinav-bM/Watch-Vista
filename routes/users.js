@@ -22,6 +22,9 @@ router.get("/user/logout", userController.userLogout);
 router.get("/", userController.loadAuth);
 router.get("/forgotPassword", userController.forgotGetPage);
 router.get("/loginOtp",userController.loginWithOtpGetPage)
+router.get("/shop",userController.shopGetPage)
+router.get("/singleProduct",userController.singleProductGetPage)
+
 
 router.post("/user/signup", userController.signupPostPage);
 router.post("/user/login", userController.loginPostPage);
