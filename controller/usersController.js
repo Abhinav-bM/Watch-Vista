@@ -385,7 +385,6 @@ let userProfile = async (req, res) => {
   res.render("user/account", { user: res.locals.user });
 };
 
-
 module.exports = {
   homePage,
   signupGetPage,

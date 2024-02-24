@@ -1,9 +1,8 @@
 const Vendor = require("../models/vendorsModel");
 const bcrypt = require("bcryptjs");
-const nodemailer = require("nodemailer");
 
 const initializeSession = (req, res, next) => {
-  if (req.session.user) {
+  if (req.session.vendor) {
     res.locals.user = req.session.user;
   }
   next();
@@ -57,19 +56,19 @@ let vendorRegisterPostPage = async (req, res) => {
 // VENDOR LOGIN POST PAGE
 let vendorLoginPostPage = async (req, res)=>{
   try {
-    const foundVendor = await Vendor.findOne({ email: req.body.email });
+    const vendor = await Vendor.findOne({ email: req.body.email });
 
-    if (foundVendor) {
+    if (vendor) {
       const passwordMatch = await bcrypt.compare(
         req.body.password,
-        foundVendor.password
+        vendor.password
       );
 
       if (passwordMatch) {
-        req.session.user = {
-          id: foundVendor._id,
-          userName: foundVendor.userName,
-          email: foundVendor.email,
+        req.session.vendor = {
+          id: vendor._id,
+          userName: vendor.userName,
+          email: vendor.email,
         };
 
         res.status(200).render("vendor/index");

@@ -1,8 +1,7 @@
 const Admin = require("../models/adminModel");
-const bcrypt = require("bcryptjs");
 
 const initializeSession = (req, res, next) => {
-  if (req.session.user) {
+  if (req.session.admin) {
     res.locals.user = req.session.user;
   }
   next();
@@ -31,14 +30,14 @@ let loginGetPage = (req, res) => {
 //ADMIN LOGIN
 let loginPostPage = async (req, res) => {
   try {
-    const foundUser = await Admin.findOne({ email: req.body.email });
+    const admin = await Admin.findOne({ email: req.body.email });
 
-    if (foundUser) {
-      if (req.body.password === foundUser.password) {
+    if (admin) {
+      if (req.body.password === admin.password) {
         req.session.admin = {
-          id: foundUser._id,
-          userName: foundUser.name,
-          email: foundUser.email,
+          id: admin._id,
+          userName: admin.name,
+          email: admin.email,
         };
 
         res.status(200).render("admin/index");
@@ -53,9 +52,7 @@ let loginPostPage = async (req, res) => {
   } catch (error) {
     
     console.error("Internal server error:", error);
-    res
-      .status(500)
-      .render("admin/adminlogin", { error: "Internal server error" });
+    res.status(500).render("admin/adminlogin", { error: "Internal server error" });
   }
 };
 
