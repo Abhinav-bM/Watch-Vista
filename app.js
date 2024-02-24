@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
+const cookieParser = require("cookie-parser")
 const userRouter = require("./routes/users");
 const adminRouter = require("./routes/admin");
 const vendorRouter = require("./routes/vendor")
@@ -13,7 +14,8 @@ const app = express();
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
 
-
+app.use(express.json());
+app.use(cookieParser());
 
 // Set up session middleware
 app.use(
@@ -49,5 +51,5 @@ app.use("/", vendorRouter)
 
 // Start the server
 app.listen(3000, () => {
-  console.log(`Server is running on : http://localhost:${3000}`);
+  console.log(`Server is running on : http://localhost:${process.env.PORT}`);
 });

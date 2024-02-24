@@ -1,21 +1,15 @@
 const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const twilio = require("twilio");
 require("dotenv").config();
 
-const initializeSession = (req, res, next) => {
-  if (req.session.user) {
-    res.locals.user = req.session.user;
-  }
-  next();
-};
-
 // HOME PAGE DISPLAY
 let homePage = (req, res) => {
   try {
-    res.render("user/home", { user: res.locals.user });
-    res.status(200);
+    res.status(200).render("user/home");
+    // res.status(200).render("user/home", { user: res.locals.user });
   } catch (error) {
     console.error("Failed to get home:", error);
     res.status(500).send("Internal Server Error");
@@ -43,14 +37,14 @@ let signupPostPage = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    if(!phone.startsWith("+91")){
-      phone = "+91" + phone
+    if (!phone.startsWith("+91")) {
+      phone = "+91" + phone;
     }
 
     const newUser = new User({
       userName,
       email,
-      phoneNumber:phone,
+      phoneNumber: phone,
       password: hashedPassword,
     });
 
@@ -59,7 +53,6 @@ let signupPostPage = async (req, res) => {
     console.log(newUser);
 
     res.status(201).redirect("/login");
-
   } catch (error) {
     console.error("Signup failed:", error);
     res.status(500).json({ error: "Signup failed. Please try again later." });
@@ -78,33 +71,32 @@ let loginGetPage = async (req, res) => {
 
 // USER LOGIN
 let loginPostPage = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    const foundUser = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email });
 
-    if (foundUser) {
-      const passwordMatch = await bcrypt.compare(
-        req.body.password,
-        foundUser.password
-      );
-
-      if (passwordMatch) {
-        req.session.user = {
-          id: foundUser._id,
-          userName: foundUser.userName,
-          email: foundUser.email,
-        };
-
-        res.status(200).json({ message: "User logged in successfully" });
-        console.log("User logged in successfully");
-      } else {
-        res.status(401).json({ error: "Incorrect password" });
-      }
-    } else {
-      console.log("User not found:", req.body.email);
-      res.status(404).json({ error: "User not found" })
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
     }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_KEY, {
+      expiresIn: "24h",
+    });
+
+
+    res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
+
+    res.status(200).json({ message: "Login successful", token });
+    console.log("user logged in with email and password : jwt created");
   } catch (error) {
-    console.error("Internal server error:", error);
+    console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -133,10 +125,25 @@ const successGoogleLogin = async (req, res) => {
       await user.save();
     }
 
-    // Log the user in or set session variables
-    req.session.user = user; // Set the user in the session
-    res.status(200).render("user/home");
-    console.log("user logged in with google");
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_KEY,
+      { expiresIn: "24h" }
+    );
+
+    // Set JWT token in a cookie
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours in milliseconds
+      secure: process.env.NODE_ENV === "production", // Set to true in production for HTTPS
+    });
+
+    // Redirect the user to the home page
+    res.status(200).redirect("/");
+
+    console.log("User logged in with Google : jwt created");
   } catch (error) {
     console.error("Error logging in with Google:", error);
     res.status(500).redirect("/login");
@@ -146,7 +153,6 @@ const successGoogleLogin = async (req, res) => {
 const failureGooglelogin = (req, res) => {
   res.status(500).send("Error logging in with Google");
 };
-
 
 // LOGIN WITH OTP STARTS HERE
 
@@ -173,20 +179,17 @@ const generateOTP = () => {
 // REQUESTON FOR OTP AFTER ENTERED PHONE
 const loginRequestOTP = async (req, res) => {
   const { phoneNumber } = req.body;
-  
+
   try {
-    let phone = phoneNumber
+    let phone = phoneNumber;
 
+    if (!phone.startsWith("+91")) {
+      phone = "+91" + phone;
+    }
 
-  if(!phone.startsWith("+91")){
-    phone = "+91" + phone
-  }
-
-
-  console.log(phone);
-    const user = await User.findOne({ phoneNumber:phone });
+    console.log(phone);
+    const user = await User.findOne({ phoneNumber: phone });
     // const user = await User.findOne({ phone: { $regex: `^${phone}$`, $options: 'i' } });
-
 
     console.log(user);
     if (!user) {
@@ -210,14 +213,13 @@ const loginRequestOTP = async (req, res) => {
       console.error("Error sending OTP SMS:", error);
       return res.status(500).json({ message: "Error sending OTP" });
     }
-    
+
     res.render("user/loginOtp", { phone });
   } catch (error) {
     console.error("Error requesting OTP:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
-
 
 const loginVerifyOTP = async (req, res) => {
   const { phoneNumber, otp } = req.body;
@@ -238,14 +240,13 @@ const loginVerifyOTP = async (req, res) => {
     user.otpExpiration = undefined;
     await user.save();
 
-    req.session.user = {
-      id: user._id,
-      userName: user.userName,
-      email: user.email,
-    };
+    const token = jwt.sign({ id: user._id, phoneNumber: user.phoneNumber },process.env.JWT_KEY, { expiresIn: '24h' });
+
+    res.cookie('jwt', token, { httpOnly: true, maxAge: 86400000 }); // 24 hours expiry
 
     res.status(200).redirect("/");
-    console.log("user loggined using otp");
+    console.log("User logged in using OTP : JWT created");
+
   } catch (error) {
     console.error("Error verifying OTP:", error);
     res.status(500).json({ message: "Server Error" });
@@ -253,8 +254,8 @@ const loginVerifyOTP = async (req, res) => {
 };
 // LOGIN WITH OTP ENDS HERE
 
-// FORGOT PASSWORD -- STARTS FROM HERE
 
+// FORGOT PASSWORD -- STARTS FROM HERE
 // FORGOT PASSWORD PAGE DISPLAY
 let forgotGetPage = async (req, res) => {
   try {
@@ -354,54 +355,64 @@ let resetPassword = async (req, res) => {
 
 // FORGOT PASSWORD -- ENDS HERE
 
+// LOGOUT STARTS HERE
+// LOGOUT JWT
+let blacklistedTokens = [];
+
+const addToBlacklist = (token) => {
+  blacklistedTokens.push(token);
+};
+
+const isInBlacklist = (token) => {
+  return blacklistedTokens.includes(token);
+};
 // USER LOGOUT
-let userLogout = (req, res) => {
-  if (!req.session.user) {
-    // User is already logged out, redirect to a page with a message
-    const alertScript = `
-      <script>
-        alert("You are already logged out.");
-        window.location.href = "/login";
-      </script>
-    `;
-    return res.send(alertScript);
+let userLogout = async (req, res) => {
+
+
+  const token = req.cookies.jwt;
+
+  if (!token) {
+    return res.redirect("/login"); // If no token, redirect to login
   }
 
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      return res.status(500).send("Internal Server Error");
-    }
+  try {
+    // Add the JWT to the blacklist (could be a database, cache, etc.)
+    await addToBlacklist(token);
+
+    res.clearCookie("jwt"); // Clear the JWT cookie
     res.redirect("/login");
     console.log("User logged out");
-  });
+  } catch (error) {
+    console.error("Error logging out:", error);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 // SHOP PAGE DISPLAY
-let shopGetPage = async (req, res)=>{
+let shopGetPage = async (req, res) => {
   try {
-    res.status(200).render("user/shop")
+    res.status(200).render("user/shop");
   } catch (error) {
-    console.log("page not found :",error);
-    res.status(404).send("page not found")
+    console.log("page not found :", error);
+    res.status(404).send("page not found");
   }
-}
+};
 
 // DISPLAY SINGLE PRODUCT PAGE
-let singleProductGetPage = async (req, res)=>{
+let singleProductGetPage = async (req, res) => {
   try {
-    res.status(200).render("user/singleProduct")
+    res.status(200).render("user/singleProduct");
   } catch (error) {
-    console.log("page not found :",error);
-    res.status(404).send("page not found")
+    console.log("page not found :", error);
+    res.status(404).send("page not found");
   }
-}
+};
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
   res.render("user/account", { user: res.locals.user });
 };
-
 
 module.exports = {
   homePage,
@@ -409,9 +420,9 @@ module.exports = {
   signupPostPage,
   loginGetPage,
   loginPostPage,
+  isInBlacklist,
   userLogout,
   userProfile,
-  initializeSession,
   loadAuth,
   successGoogleLogin,
   failureGooglelogin,

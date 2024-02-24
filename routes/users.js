@@ -4,21 +4,20 @@ const userController = require("../controller/usersController");
 const passport = require("../helpers/passport");
 require("dotenv").config();
 const bodyParser = require("body-parser");
-const {ensureAuthenticatedUser } = require("../middleware/auth");
+const jwtMiddleware = require('../middleware/jwtMiddleware');
+
 
 router.use(passport.initialize());
 router.use(passport.session());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-// Initialize session in controller
-router.use(userController.initializeSession);
 
 // ROUTER
 router.get("/", userController.homePage);
 router.get("/login", userController.loginGetPage);
 router.get("/signup", userController.signupGetPage);
-router.get("/userProfile", ensureAuthenticatedUser, userController.userProfile);
+router.get("/userProfile", jwtMiddleware, userController.userProfile);
 router.get("/user/logout", userController.userLogout);
 router.get("/", userController.loadAuth);
 router.get("/forgotPassword", userController.forgotGetPage);

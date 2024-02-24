@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controller/adminController");
-const { ensureAuthenticated } = require("../middleware/auth");
+// const { ensureAuthenticated } = require("../middleware/auth");
 const bodyParser = require("body-parser");
 
 // body parser middleware
@@ -14,7 +14,7 @@ router.use(adminController.initializeSession);
 // ROUTER
 router.get("/admin", adminController.loginGetPage);
 router.get("/admin/logout", adminController.adminLogout);
-router.get("/admin/index", ensureAuthenticated, adminController.dashboardPage);
+// router.get("/admin/index", ensureAuthenticated, adminController.dashboardPage);
 
 router.post("/admin/login", adminController.loginPostPage);
 

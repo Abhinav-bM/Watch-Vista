@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const vendorController = require("../controller/vendorController");
-const { ensureAuthenticated } = require("../middleware/auth");
+// const { ensureAuthenticated } = require("../middleware/auth");
 const bodyParser = require("body-parser");
 
 router.use(bodyParser.json());
