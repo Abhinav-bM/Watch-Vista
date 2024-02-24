@@ -4,6 +4,7 @@ const adminController = require("../controller/adminController");
 const { ensureAuthenticated } = require("../middleware/auth");
 const bodyParser = require("body-parser");
 
+// body parser middleware
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 

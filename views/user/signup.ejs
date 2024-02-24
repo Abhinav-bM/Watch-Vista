@@ -355,21 +355,24 @@
                             
 
                             <form action="/user/signup" method="post" onsubmit="return validateAndSubmit()">
-                                <label for="name">Username <span>**</span></label>
-                                <input id="userName" type="text" name="userName" placeholder="Enter Username" />
+                                <label for="name">Name <span>**</span></label>
                                 <small id="name-error" style="color:red; display: none;">Invalid Name</small>
+                                <input id="userName" type="text" name="userName" placeholder="Enter your name" />
+                                
                                 
                                 <label for="email-id">Email Address <span>**</span></label>
-                                <input id="email-id" type="text" name="email" placeholder="Enter Email address..." />
                                 <small id="email-error" style="color:red; display: none;">Invalid email</small>
+                                <input id="email-id" type="text" name="email" placeholder="Enter Email address..." />
+                                
                             
                                 <label for="phone">Phone <span>**</span></label>
-                                <input id="phone" type="text" name="phoneNumber" placeholder="Enter phone number" />
                                 <small id="phone-error" style="color:red; display: none;">Invalid phone</small>
+                                <input id="phone" type="text" name="phoneNumber" placeholder="Enter phone number" />
+                                
                             
                                 <label for="pass">Password <span>**</span></label>
-                                <input id="pass" type="password" name="password" placeholder="Enter password..." />
                                 <small id="password-error" style="color:red; display: none;">Invalid password</small>
+                                <input id="pass" type="password" name="password" placeholder="Enter password..." />
                                 
                                 
                                 <div class="mt-10"></div>
@@ -398,7 +401,7 @@
 
                                     var isValidName = /^[a-zA-Z\s]{3,}$/.test(nameInput.value)
                                     var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)
-                                    var isvalidPhone = /^\d{10}$/.test(phoneInput.value);
+                                    var isvalidPhone = /^(\+91)?\d{10}$/.test(phoneInput.value);
                                     var isvalidPassword = passwordInput.value.length >= 6;
                                 
 

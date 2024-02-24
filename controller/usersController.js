@@ -39,13 +39,18 @@ let signupGetPage = async (req, res) => {
 let signupPostPage = async (req, res) => {
   try {
     const { userName, email, phoneNumber, password } = req.body;
+    let phone = phoneNumber;
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
+    if(!phone.startsWith("+91")){
+      phone = "+91" + phone
+    }
 
     const newUser = new User({
       userName,
       email,
-      phoneNumber,
+      phoneNumber:phone,
       password: hashedPassword,
     });
 
@@ -170,8 +175,20 @@ const loginRequestOTP = async (req, res) => {
   const { phoneNumber } = req.body;
   
   try {
-    const user = await User.findOne({ phoneNumber });
+    let phone = phoneNumber
 
+
+  if(!phone.startsWith("+91")){
+    phone = "+91" + phone
+  }
+
+
+  console.log(phone);
+    const user = await User.findOne({ phoneNumber:phone });
+    // const user = await User.findOne({ phone: { $regex: `^${phone}$`, $options: 'i' } });
+
+
+    console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -193,8 +210,8 @@ const loginRequestOTP = async (req, res) => {
       console.error("Error sending OTP SMS:", error);
       return res.status(500).json({ message: "Error sending OTP" });
     }
-
-    res.render("user/loginOtp", { phoneNumber });
+    
+    res.render("user/loginOtp", { phone });
   } catch (error) {
     console.error("Error requesting OTP:", error);
     res.status(500).json({ message: "Server Error" });
@@ -384,6 +401,7 @@ let singleProductGetPage = async (req, res)=>{
 let userProfile = async (req, res) => {
   res.render("user/account", { user: res.locals.user });
 };
+
 
 module.exports = {
   homePage,
