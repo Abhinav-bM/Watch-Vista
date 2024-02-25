@@ -6,12 +6,10 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const jwtMiddleware = require('../middleware/jwtMiddleware');
 
-
 router.use(passport.initialize());
 router.use(passport.session());
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
-
 
 // ROUTER
 router.get("/", userController.homePage);
@@ -38,6 +36,7 @@ router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
+
 //Auth callback
 router.get(
   "/auth/google/callback",

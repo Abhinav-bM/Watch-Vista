@@ -42,7 +42,7 @@ let signupPostPage = async (req, res) => {
     }
 
     const newUser = new User({
-      userName,
+      name:userName,
       email,
       phoneNumber: phone,
       password: hashedPassword,
@@ -86,10 +86,17 @@ let loginPostPage = async (req, res) => {
       return res.status(401).json({ error: "Invalid password" });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_KEY, {
-      expiresIn: "24h",
-    });
-
+    const token = jwt.sign(
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
 
     res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
 
@@ -117,7 +124,7 @@ const successGoogleLogin = async (req, res) => {
     if (!user) {
       // If the user does not exist, create a new user
       user = new User({
-        userName: req.user.displayName,
+        name: req.user.displayName,
         email: req.user.email,
       });
 
@@ -125,12 +132,17 @@ const successGoogleLogin = async (req, res) => {
       await user.save();
     }
 
-
     // Generate JWT token
     const token = jwt.sign(
-      { id: user._id, email: user.email },
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
       process.env.JWT_KEY,
-      { expiresIn: "24h" }
+      {
+        expiresIn: "24h",
+      }
     );
 
     // Set JWT token in a cookie
@@ -240,20 +252,28 @@ const loginVerifyOTP = async (req, res) => {
     user.otpExpiration = undefined;
     await user.save();
 
-    const token = jwt.sign({ id: user._id, phoneNumber: user.phoneNumber },process.env.JWT_KEY, { expiresIn: '24h' });
+    const token = jwt.sign(
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
 
-    res.cookie('jwt', token, { httpOnly: true, maxAge: 86400000 }); // 24 hours expiry
+    res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hours expiry
 
     res.status(200).redirect("/");
     console.log("User logged in using OTP : JWT created");
-
   } catch (error) {
     console.error("Error verifying OTP:", error);
     res.status(500).json({ message: "Server Error" });
   }
 };
 // LOGIN WITH OTP ENDS HERE
-
 
 // FORGOT PASSWORD -- STARTS FROM HERE
 // FORGOT PASSWORD PAGE DISPLAY
@@ -271,8 +291,8 @@ const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 465,
   auth: {
-    user: "watchvista6@gmail.com",
-    pass: "capvhkkfrmhrjeuy",
+    user: process.env.APP_EMAIL,
+    pass: process.env.APP_PASSWORD,
   },
 });
 
@@ -346,7 +366,7 @@ let resetPassword = async (req, res) => {
     await user.save();
     console.log("password resetted");
 
-    res.status(200).render("user/login");
+    res.status(200).redirect("/login");
   } catch (error) {
     console.error("Error resetting password:", error);
     res.status(500).json({ message: "Server Error" });
@@ -368,8 +388,6 @@ const isInBlacklist = (token) => {
 };
 // USER LOGOUT
 let userLogout = async (req, res) => {
-
-
   const token = req.cookies.jwt;
 
   if (!token) {
@@ -411,7 +429,9 @@ let singleProductGetPage = async (req, res) => {
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
-  res.render("user/account", { user: res.locals.user });
+  console.log(req.user);
+  const user = req.user;
+  res.render("user/account", { user });
 };
 
 module.exports = {

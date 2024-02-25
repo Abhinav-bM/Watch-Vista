@@ -354,10 +354,9 @@
 
 
                             <form id="loginForm" action="/user/login" method="post">
-                                <!-- <% if (typeof error !== 'undefined' && error !== null) { %> -->
-                                    <!-- <p id="msg" style="color: red;"><%= error %></p> -->
+                                
                                     <p id="errorMessage" style="color: red;"></p>
-                          <!--       <% } %> -->
+            
                                 <label for="email">Email Address <span>**</span></label>
                                 <input id="email" name="email" type="text" placeholder="Email address..." />
                                
@@ -440,7 +439,8 @@
                             } else if (response.status === 404) {
                                 // User not found error
                                 errorMessage.textContent = data.error; // Display the error message from backend
-                            } else {
+                            }
+                             else {
                                 // Handle other errors
                                 errorMessage.textContent = "An error occurred. Please try again later.";
                             }
