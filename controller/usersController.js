@@ -42,7 +42,7 @@ let signupPostPage = async (req, res) => {
     }
 
     const newUser = new User({
-      name:userName,
+      name: userName,
       email,
       phoneNumber: phone,
       password: hashedPassword,
@@ -167,7 +167,6 @@ const failureGooglelogin = (req, res) => {
 };
 
 // LOGIN WITH OTP STARTS HERE
-
 // LOGIN WITH OTP PAGE DISPLAY
 let loginWithOtpGetPage = async (req, res) => {
   try {
@@ -201,9 +200,7 @@ const loginRequestOTP = async (req, res) => {
 
     console.log(phone);
     const user = await User.findOne({ phoneNumber: phone });
-    // const user = await User.findOne({ phone: { $regex: `^${phone}$`, $options: 'i' } });
 
-    console.log(user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -212,13 +209,14 @@ const loginRequestOTP = async (req, res) => {
     user.otp = otp;
     user.otpExpiration = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
     await user.save();
+    console.log(`generatete otp id :${otp}`);
 
     // Send OTP via Twilio SMS
     try {
       await client.messages.create({
         body: `Your OTP for login to WATCH-VISTA is: ${otp}`,
         from: twilioPhoneNumber,
-        to: process.env.TO_NUMBER,
+        to: phone,
       });
       console.log("OTP SMS sent");
     } catch (error) {
@@ -238,6 +236,7 @@ const loginVerifyOTP = async (req, res) => {
 
   try {
     const user = await User.findOne({ phoneNumber });
+
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -406,6 +405,7 @@ let userLogout = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
+// LOGOUT ENDS HERE
 
 // SHOP PAGE DISPLAY
 let shopGetPage = async (req, res) => {
