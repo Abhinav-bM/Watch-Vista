@@ -68,6 +68,8 @@ let adminLogout = (req, res) => {
     return res.redirect("/login"); // If no token, redirect to login
   }
 
+
+  
   try {
     // Clear the JWT cookie
     res.clearCookie("jwt");
