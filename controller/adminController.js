@@ -1,11 +1,5 @@
 const Admin = require("../models/adminModel");
-
-const initializeSession = (req, res, next) => {
-  if (req.session.admin) {
-    res.locals.user = req.session.user;
-  }
-  next();
-};
+const jwt = require("jsonwebtoken")
 
 //ADMIN DASHBOARD DISPLAY
 let dashboardPage = (req, res) => {
@@ -13,7 +7,7 @@ let dashboardPage = (req, res) => {
     res.render("admin/index");
     res.status(200);
   } catch (error) {
-    console.error("Failed to get dasgboard:", error);
+    console.error("Failed to get dashboard:", error);
     res.status(500).send("Internal Server Error");
   }
 };
@@ -34,14 +28,24 @@ let loginPostPage = async (req, res) => {
 
     if (admin) {
       if (req.body.password === admin.password) {
-        req.session.admin = {
-          id: admin._id,
-          userName: admin.name,
-          email: admin.email,
-        };
+
+        const token = jwt.sign(
+          {
+            id: admin._id,
+            name: admin.name,
+            email: admin.email,
+          },
+          process.env.JWT_KEY,
+          {
+            expiresIn: "24h",
+          }
+        );
+
+        res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
+
 
         res.status(200).render("admin/index");
-        console.log("Admin logged in successfully");
+        console.log("Admin logged in successfully, jwt created");
       } else {
         res.status(401).render("admin/adminlogin", { error: "Wrong password" });
       }
@@ -58,14 +62,22 @@ let loginPostPage = async (req, res) => {
 
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
-  req.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      return res.status(500).send("Internal Server Error");
-    }
+  const token = req.cookies.jwt;
+
+  if (!token) {
+    return res.redirect("/login"); // If no token, redirect to login
+  }
+
+  try {
+    // Clear the JWT cookie
+    res.clearCookie("jwt");
+
     res.redirect("/admin");
-    console.log("admin logged out");
-  });
+    console.log("Admin logged out");
+  } catch (error) {
+    console.error("Error logging out:", error);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 module.exports = {
@@ -73,5 +85,4 @@ module.exports = {
   loginPostPage,
   adminLogout,
   dashboardPage,
-  initializeSession,
 };

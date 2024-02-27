@@ -1,17 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
-const cookieParser = require("cookie-parser")
+const cookieParser = require("cookie-parser");
 const userRouter = require("./routes/users");
 const adminRouter = require("./routes/admin");
-const vendorRouter = require("./routes/vendor")
-
+const vendorRouter = require("./routes/vendor");
 
 // const passport = require("./passport")
 require("dotenv").config();
 const path = require("path");
 const app = express();
-
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
@@ -35,8 +33,6 @@ app.use(
 
 app.set("view engine", "ejs");
 
-
-
 const { parsed: config } = require("dotenv").config();
 global.config = config;
 
@@ -49,7 +45,7 @@ mongoose.connect("mongodb://localhost:27017/watch-store", {
 // // Set up routes
 app.use("/", userRouter);
 app.use("/", adminRouter);
-app.use("/", vendorRouter)
+app.use("/", vendorRouter);
 
 // Start the server
 app.listen(3000, () => {

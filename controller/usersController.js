@@ -52,7 +52,7 @@ let signupPostPage = async (req, res) => {
 
     console.log(newUser);
 
-    res.status(201).redirect("/login");
+    res.status(201).render("user/login");
   } catch (error) {
     console.error("Signup failed:", error);
     res.status(500).json({ error: "Signup failed. Please try again later." });
@@ -209,14 +209,14 @@ const loginRequestOTP = async (req, res) => {
     user.otp = otp;
     user.otpExpiration = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
     await user.save();
-    console.log(`generatete otp id :${otp}`);
+    console.log(`generated otp is :${otp}`);
 
     // Send OTP via Twilio SMS
     try {
       await client.messages.create({
         body: `Your OTP for login to WATCH-VISTA is: ${otp}`,
-        from: twilioPhoneNumber,
-        to: phone,
+        from: process.env.TWILIO_SERVICE_SID,
+        to: process.env.TO_NUMBER,
       });
       console.log("OTP SMS sent");
     } catch (error) {
@@ -375,17 +375,6 @@ let resetPassword = async (req, res) => {
 // FORGOT PASSWORD -- ENDS HERE
 
 // LOGOUT STARTS HERE
-// LOGOUT JWT
-let blacklistedTokens = [];
-
-const addToBlacklist = (token) => {
-  blacklistedTokens.push(token);
-};
-
-const isInBlacklist = (token) => {
-  return blacklistedTokens.includes(token);
-};
-// USER LOGOUT
 let userLogout = async (req, res) => {
   const token = req.cookies.jwt;
 
@@ -394,10 +383,9 @@ let userLogout = async (req, res) => {
   }
 
   try {
-    // Add the JWT to the blacklist (could be a database, cache, etc.)
-    await addToBlacklist(token);
+    // Clear the JWT cookie
+    res.clearCookie("jwt");
 
-    res.clearCookie("jwt"); // Clear the JWT cookie
     res.redirect("/login");
     console.log("User logged out");
   } catch (error) {
@@ -407,7 +395,7 @@ let userLogout = async (req, res) => {
 };
 // LOGOUT ENDS HERE
 
-// SHOP PAGE DISPLAY
+// SHOP PAGE DISPLAY  
 let shopGetPage = async (req, res) => {
   try {
     res.status(200).render("user/shop");
@@ -440,7 +428,6 @@ module.exports = {
   signupPostPage,
   loginGetPage,
   loginPostPage,
-  isInBlacklist,
   userLogout,
   userProfile,
   loadAuth,

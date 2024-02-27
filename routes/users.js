@@ -13,7 +13,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 // ROUTER
 router.get("/", userController.homePage);
-router.get("/login", userController.loginGetPage);
+router.get("/login",jwtMiddleware, userController.loginGetPage);
 router.get("/signup", userController.signupGetPage);
 router.get("/userProfile", jwtMiddleware, userController.userProfile);
 router.get("/user/logout", userController.userLogout);
