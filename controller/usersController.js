@@ -52,7 +52,7 @@ let signupPostPage = async (req, res) => {
 
     console.log(newUser);
 
-    res.status(201).render("user/login");
+    res.status(201).redirect("/login");
   } catch (error) {
     console.error("Signup failed:", error);
     res.status(500).json({ error: "Signup failed. Please try again later." });

@@ -1,4 +1,5 @@
 const Admin = require("../models/adminModel");
+const User = require("../models/usersModel")
 const jwt = require("jsonwebtoken");
 
 // ADMIN LOGIN PAGE DISPLAY
@@ -30,7 +31,7 @@ let loginPostPage = async (req, res) => {
           }
         );
 
-        res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
+        res.cookie("admin_jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
 
         res.redirect("/admin/dashboard");
         console.log("Admin logged in successfully, jwt created");
@@ -61,11 +62,22 @@ let dashboardPage = (req, res) => {
   }
 };
 
+// CUSTOMERS LIST
+let customersList = async (req, res)=>{
+  try {
+    let user = await User.find()
+    console.log(user);
+    res.render("admin/customersList",{user})
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
   try {
     // Clear the JWT cookie
-    res.clearCookie("jwt");
+    res.clearCookie("admin_jwt");
 
     res.redirect("/adminLogin");
     console.log("Admin logged out");
@@ -79,6 +91,8 @@ let adminLogout = (req, res) => {
 module.exports = {
   loginGetPage,
   loginPostPage,
-  adminLogout,
   dashboardPage,
+  customersList,
+  adminLogout,
+  
 };

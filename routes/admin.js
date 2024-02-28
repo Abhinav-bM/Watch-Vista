@@ -13,6 +13,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 router.get("/adminLogin", adminController.loginGetPage);
 router.get("/admin/dashboard",adminAuthMiddleware,adminController.dashboardPage)
 router.get("/admin/logout",adminController.adminLogout)
+router.get("/customersList",adminAuthMiddleware,adminController.customersList)
 
 
 

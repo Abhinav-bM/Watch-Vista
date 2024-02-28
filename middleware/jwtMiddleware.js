@@ -20,7 +20,7 @@ const verifyToken = (req, res, next) => {
 // ADMIN
 const adminAuthMiddleware = (req, res, next) => {
   // Get token from cookies
-  const token = req.cookies.jwt;
+  const token = req.cookies.admin_jwt;
 
   if (token) {
     jwt.verify(token, process.env.JWT_KEY, (err, decodedToken)=>{
