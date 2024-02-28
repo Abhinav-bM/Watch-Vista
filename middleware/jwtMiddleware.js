@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
   const token = req.cookies.jwt; // Assuming you're using cookies for token storage
@@ -16,4 +17,30 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-module.exports = verifyToken;
+// ADMIN
+const adminAuthMiddleware = (req, res, next) => {
+  // Get token from cookies
+  const token = req.cookies.jwt;
+
+  if (token) {
+    jwt.verify(token, process.env.JWT_KEY, (err, decodedToken)=>{
+      if(err){
+        // Token expired or invalid 
+        res.redirect("/adminLogin")
+      }
+      else{
+        // Token is valid and attach decoded token to request
+        req.user = decodedToken
+        next()
+      }
+    })
+  }else{
+    // No token provided
+    res.redirect("/adminLogin")
+  }
+};
+
+module.exports = {
+  verifyToken,
+  adminAuthMiddleware,
+};

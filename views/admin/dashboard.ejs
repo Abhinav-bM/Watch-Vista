@@ -261,7 +261,7 @@
                             </div>
                             <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
                                 <div class="u-info me-2">
-                                    <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">John Quinn</span></p>
+                                    <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold"><%= user.name %></span></p>
                                     <small>Admin Profile</small>
                                 </div>
                                 <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
@@ -273,8 +273,8 @@
                                             <div class="d-flex py-1">
                                                 <img class="avatar rounded-circle" src="/admin/assets/images/profile_av.svg" alt="profile">
                                                 <div class="flex-fill ms-3">
-                                                    <p class="mb-0"><span class="font-weight-bold">John	Quinn</span></p>
-                                                    <small class="">Johnquinn@gmail.com</small>
+                                                    <p class="mb-0"><span class="font-weight-bold"><%= user.name %></span></p>
+                                                    <small class=""><%= user.email %></small>
                                                 </div>
                                             </div>
                                             
@@ -397,7 +397,7 @@
                                             <div class="card">
                                                 <div class="card-body py-xl-4 py-3 d-flex flex-wrap align-items-center justify-content-between">
                                                     <div class="left-info">
-                                                        <span class="text-muted">Order</span>
+                                                        <span class="text-muted">Orders</span>
                                                         <div><span class="fs-6 fw-bold me-2">2314</span></div>
                                                     </div>
                                                     <div class="right-icon">
@@ -419,7 +419,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+                                        <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
                                             <div class="card">
                                                 <div class="card-body py-xl-4 py-3 d-flex flex-wrap align-items-center justify-content-between">
                                                     <div class="left-info">
@@ -431,7 +431,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
                                             <div class="card">
                                                 <div class="card-body py-xl-4 py-3 d-flex flex-wrap align-items-center justify-content-between">
