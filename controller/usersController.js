@@ -2,11 +2,8 @@ const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-// const twilio = require("twilio");
+const twilio = require("twilio");
 require("dotenv").config();
-
-
-const authService = require('../helpers/authService');
 
 
 // HOME PAGE DISPLAY
@@ -181,15 +178,15 @@ let loginWithOtpGetPage = async (req, res) => {
 };
 
 // .ENV DETAILS
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
 
-// const client = twilio(accountSid, authToken);
+const client = twilio(accountSid, authToken);
 
-// const generateOTP = () => {
-//   return Math.floor(100000 + Math.random() * 900000).toString();
-// };
+const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
 
 // REQUEST FOR OTP AFTER ENTERED PHONE
 const loginRequestOTP = async (req, res) => {
@@ -217,11 +214,12 @@ const loginRequestOTP = async (req, res) => {
 
     // Send OTP via Twilio SMS
     try {
+
       await client.messages.create({
-        body: `Your OTP for login to WATCH-VISTA is: ${otp}`,
-        from: process.env.TWILIO_SERVICE_SID,
-        to: process.env.TO_NUMBER,
-      });
+        body:`your otp for login to watchVista is: ${otp}`,
+        from:twilioPhoneNumber,
+        to: phone,
+    })
       console.log("OTP SMS sent");
     } catch (error) {
       console.error("Error sending OTP SMS:", error);
