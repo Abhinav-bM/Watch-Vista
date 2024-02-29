@@ -71,7 +71,7 @@
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu collapse show" id="customers-info">
                             <li><a class="ms-link active" href="customers.html">Customers List</a></li>
-                            <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li>
+                            <!-- <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li> -->
                         </ul>
                     </li>
                     <li class="collapsed">
@@ -321,7 +321,7 @@
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
                                 <h3 class="fw-bold mb-0">Customers Information</h3>
                                 <div class="col-auto d-flex w-sm-100">
-                                    <button type="button" class="btn btn-primary btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#expadd"><i class="icofont-plus-circle me-2 fs-6"></i>Add Customers</button>
+                                    <!-- <button type="button" class="btn btn-primary btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#expadd"><i class="icofont-plus-circle me-2 fs-6"></i>Add Customers</button> -->
                                 </div>
                             </div>
                         </div>
@@ -335,7 +335,7 @@
                                             <tr>
                                                 <!-- <th>Id</th> -->
                                                 <th>Customers</th> 
-                                                <th>Register  Date</th>
+                                                <!-- <th>Register  Date</th> -->
                                                 <th>Mail</th>
                                                 <th>Phone</th> 
                                                 <!-- <th>Country</th>  -->
@@ -353,16 +353,28 @@
                                                             <span class="fw-bold ms-1"><%= data.name %></span>
                                                         </a>
                                                 </td>
-                                                <td><%= data.createdAt %></td>
+                                                <!-- <td><%= data.createdAt %></td> -->
                                                 <td><%= data.email %></td>
                                                 <td><%= data.phoneNumber %></td>
                                                 <!-- <td>South Africa</td> -->
                                                 <td>18</td>
                                                 <td>
-                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                        <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#expedit"><i class="icofont-edit text-success"></i></button>
-                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
-                                                    </div>
+                                                        <% if (data.blocked) { %>
+                                                            <form class="unblock-form" method="post" action="/blockUser">
+                                                                <input type="hidden" name="email" value="<%= data.email %>">
+                                                                <button type="submit" class="btn btn-success text-light">UnBlock</button>  
+                                                            </form>
+                                                        <% } else { %>
+                                                            <form class="block-form" method="post" action="/blockUser">
+                                                                <input type="hidden" name="email" value="<%= data.email %>">
+                                                                <button type="submit" class="btn btn-danger text-light">Block</button>  
+                                                            </form>
+                                                        <% } %>
+                                                        <!-- <div class="btn-group" role="group" aria-label="Basic outlined example"> -->
+                                                            <!-- <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#expedit"><i class="icofont-edit text-success"></i></button> -->
+                                                            <!-- <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button> -->
+                                                        <!-- </div> -->
+                                                    
                                                 </td>
                                             </tr>
                                             <%  }) %>

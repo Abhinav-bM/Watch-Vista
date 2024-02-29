@@ -1,5 +1,5 @@
 const Admin = require("../models/adminModel");
-const User = require("../models/usersModel")
+const User = require("../models/usersModel");
 const jwt = require("jsonwebtoken");
 
 // ADMIN LOGIN PAGE DISPLAY
@@ -7,10 +7,9 @@ let loginGetPage = (req, res) => {
   try {
     res.render("admin/adminLogin");
   } catch (error) {
-    res.status(500).json({msg:"Internal server error"});
+    res.status(500).json({ msg: "Internal server error" });
   }
 };
-
 
 // ADMIN LOGIN
 let loginPostPage = async (req, res) => {
@@ -38,40 +37,56 @@ let loginPostPage = async (req, res) => {
         return;
       } else {
         res.status(401).render("admin/adminlogin", { error: "Wrong password" });
-        return
+        return;
       }
     } else {
       console.log("User not found:", req.body.email);
       res.status(404).render("admin/adminlogin", { error: "User not found" });
-      return
+      return;
     }
   } catch (error) {
     console.error("Internal server error:", error);
-    res.status(500).render("admin/adminlogin", { error: "Internal server error" });
-    return
+    res
+      .status(500)
+      .render("admin/adminlogin", { error: "Internal server error" });
+    return;
   }
 };
 
 // ADMIN DASHBOARD DISPLAY
 let dashboardPage = (req, res) => {
   try {
-    const user = req.user
-    res.render("admin/dashboard",{user})
+    const user = req.user;
+    res.render("admin/dashboard", { user });
   } catch (error) {
-    res.status(500).json({msg:"server side error"})
+    res.status(500).json({ msg: "server side error" });
   }
 };
 
 // CUSTOMERS LIST
-let customersList = async (req, res)=>{
+let customersList = async (req, res) => {
   try {
-    let user = await User.find()
-    console.log(user);
-    res.render("admin/customersList",{user})
+    let user = await User.find();
+    res.render("admin/customersList", { user });
   } catch (error) {
     console.log(error);
   }
-}
+};
+
+let blockUser = async (req, res) => {
+  let email = req.body.email;
+  try {
+    const user = await User.findOne({ email });
+    console.log(user);
+    if (user) {
+      user.blocked = !user.blocked;
+      await user.save();
+    }
+    res.redirect("/customersList");
+  } catch (error) {
+    res.status(500).send("Error on admin Changing User status");
+  }
+};
 
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
@@ -81,7 +96,7 @@ let adminLogout = (req, res) => {
 
     res.redirect("/adminLogin");
     console.log("Admin logged out");
-    return
+    return;
   } catch (error) {
     console.error("Error logging out:", error);
     res.status(500).send("Internal Server Error");
@@ -93,6 +108,6 @@ module.exports = {
   loginPostPage,
   dashboardPage,
   customersList,
+  blockUser,
   adminLogout,
-  
 };

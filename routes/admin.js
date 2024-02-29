@@ -16,8 +16,8 @@ router.get("/admin/logout",adminController.adminLogout)
 router.get("/customersList",adminAuthMiddleware,adminController.customersList)
 
 
-
 router.post("/admin/login", adminController.loginPostPage);
+router.post('/blockUser',adminController.blockUser);
 
 
 module.exports = router;

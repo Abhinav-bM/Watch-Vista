@@ -2,8 +2,12 @@ const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const twilio = require("twilio");
+// const twilio = require("twilio");
 require("dotenv").config();
+
+
+const authService = require('../helpers/authService');
+
 
 // HOME PAGE DISPLAY
 let homePage = (req, res) => {
@@ -177,17 +181,17 @@ let loginWithOtpGetPage = async (req, res) => {
 };
 
 // .ENV DETAILS
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
 
-const client = twilio(accountSid, authToken);
+// const client = twilio(accountSid, authToken);
 
-const generateOTP = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
-};
+// const generateOTP = () => {
+//   return Math.floor(100000 + Math.random() * 900000).toString();
+// };
 
-// REQUESTON FOR OTP AFTER ENTERED PHONE
+// REQUEST FOR OTP AFTER ENTERED PHONE
 const loginRequestOTP = async (req, res) => {
   const { phoneNumber } = req.body;
 
