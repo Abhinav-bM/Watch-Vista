@@ -3,8 +3,8 @@ const Nexmo = require('nexmo');
 
 // INITIALIZE NEXMO WITH API KEY AND SECRET
 const nexmo = new Nexmo({
-  apiKey: '1cdedad8',
-  apiSecret: 'EEcAWgyUqR4b5N6F'
+  apiKey: '',
+  apiSecret: ''
 });
 
 // SECRET GENERATION
