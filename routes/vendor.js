@@ -1,19 +1,22 @@
 const express = require("express");
 const router = express.Router();
 const vendorController = require("../controller/vendorController");
-// const { ensureAuthenticated } = require("../middleware/auth");
+const { vendorAuthMiddleware } = require("../middleware/jwtMiddleware");
 const bodyParser = require("body-parser");
 
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
-// Initialize session in controller
-router.use(vendorController.initializeSession);
 
-router.get("/vendor", vendorController.loginGetPage);
+router.get("/vendor/dashboard",vendorAuthMiddleware,vendorController.dashboard)
+router.get("/vendor/login", vendorController.loginGetPage);
 router.get("/vendor/register",vendorController.registerGetPage)
+router.get("/vendor/logout",vendorController.vendorLogout)
+router.get("/vendor/addProduct",vendorAuthMiddleware,vendorController.addProduct)
 
 router.post("/vendor/register",vendorController.vendorRegisterPostPage)
 router.post("/vendor/login",vendorController.vendorLoginPostPage)
+router.post("/vendor/addProduct",vendorController.addProductpost)
+
 
 module.exports = router;

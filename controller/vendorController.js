@@ -1,12 +1,19 @@
 const Vendor = require("../models/vendorsModel");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+require("dotenv").config()
 
-const initializeSession = (req, res, next) => {
-  if (req.session.vendor) {
-    res.locals.user = req.session.user;
+// VENDOR DASHBOARD PAGE DISPLAY
+let dashboard = async (req, res) =>{
+  try {
+    let email = req.user.email
+    let vendor = await Vendor.findOne({email})
+    console.log(vendor);
+    res.status(200).render("vendor/dashboard",{vendor})
+  } catch (error) {
+    res.status(404).send("page not found")
   }
-  next();
-};
+}
 
 // VENDOR LOGIN PAGE DISPLAY
 let loginGetPage = (req, res) => {
@@ -42,11 +49,12 @@ let vendorRegisterPostPage = async (req, res) => {
 
     console.log(newVendor);
 
+
     await newVendor.save()
 
     console.log(newVendor);
 
-    res.status(201).redirect("/vendor")
+    res.status(201).redirect("/vendor/login")
   } catch (error) {
     console.error("Signup failed:", error);
     res.status(500).json({ error: "Signup failed. Please try again later." });
@@ -65,13 +73,21 @@ let vendorLoginPostPage = async (req, res)=>{
       );
 
       if (passwordMatch) {
-        req.session.vendor = {
-          id: vendor._id,
-          userName: vendor.userName,
-          email: vendor.email,
-        };
+        const token = jwt.sign(
+          {
+            id: vendor._id,
+            name: vendor.name,
+            email: vendor.email,
+          },
+          process.env.JWT_KEY,
+          {
+            expiresIn: "24h",
+          }
+        );
 
-        res.status(200).render("vendor/index");
+        res.cookie("vendor_jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
+
+        res.status(200).redirect("/vendor/dashboard");
         console.log("Vendor logged in successfully");
       } else {
         res.status(200).render("user/login", { error: "Wrong password" });
@@ -86,10 +102,47 @@ let vendorLoginPostPage = async (req, res)=>{
   }
 }
 
+// ADD PRODUCT PAGE DISPLAY
+let addProduct = async (req, res)=>{
+  try {
+    res.status(200).render("vendor/product-add")
+  } catch (error) {
+    console.error(error)
+    res.status(404).send("page not found")
+  }
+}
+
+// ADD PRODUCT POST PAGE
+let addProductpost = async (req, res)=>{
+  try {
+    console.log(req.body);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// VENDOR LOGOUT
+let vendorLogout = (req, res) => {
+  try {
+    // Clear the JWT cookie
+    res.clearCookie("vendor_jwt");
+
+    res.redirect("/vendor/login");
+    console.log("vendor logged out");
+    return;
+  } catch (error) {
+    console.error("Error logging out:", error);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
 module.exports = {
-  initializeSession,
   loginGetPage,
   registerGetPage,
   vendorRegisterPostPage,
-  vendorLoginPostPage
+  vendorLoginPostPage,
+  dashboard,
+  vendorLogout,
+  addProduct,
+  addProductpost
 };

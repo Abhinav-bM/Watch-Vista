@@ -238,7 +238,7 @@ let deleteSubcategory = async (req, res)=>{
       (cat) => cat._id.toString() === deleteSubcategoryId
     );
 
-    if (subcategoryIdcategoryIndex === -1) {
+    if (subcategoryIndex === -1) {
       // Category not found
       return res.status(404).json({ error: "Category not found" });
     }
@@ -257,6 +257,8 @@ let deleteSubcategory = async (req, res)=>{
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
+
+
 
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {

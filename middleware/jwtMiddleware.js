@@ -40,7 +40,31 @@ const adminAuthMiddleware = (req, res, next) => {
   }
 };
 
+// ADMIN
+const vendorAuthMiddleware = (req, res, next) => {
+  // Get token from cookies
+  const token = req.cookies.vendor_jwt;
+
+  if (token) {
+    jwt.verify(token, process.env.JWT_KEY, (err, decodedToken)=>{
+      if(err){
+        // Token expired or invalid 
+        res.redirect("/vendor/login")
+      }
+      else{
+        // Token is valid and attach decoded token to request
+        req.user = decodedToken
+        next()
+      }
+    })
+  }else{
+    // No token provided
+    res.redirect("/vendor/login")
+  }
+};
+
 module.exports = {
   verifyToken,
   adminAuthMiddleware,
+  vendorAuthMiddleware,
 };

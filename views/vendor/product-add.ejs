@@ -1,24 +1,29 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/department.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/addProduct by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:26 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>::eBazar:: Departments </title>
+    <title>Vendor Product Add </title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
 
-    <!-- plugin css file  -->
-    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/dataTables.bootstrap5.min.css">
-    
-    <!-- project css file  -->
+    <!--plugin css file -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/multi-select/css/multi-select.css"><!-- Multi Select Css -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/bootstrap-tagsinput/bootstrap-tagsinput.css"><!-- Bootstrap Tagsinput Css -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/cropper/cropper.min.css"><!--Cropperer Css -->   
+    <link rel="stylesheet" href="/vendor/assets/plugin/dropify/dist/css/dropify.min.css"/><!-- Dropify Css -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/responsive.dataTables.min.css"><!-- Datatable Css -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/dataTables.bootstrap5.min.css"><!-- Datatable Css -->
+
+    <!-- Project css file  -->
     <link rel="stylesheet" href="/vendor/assets/css/ebazar.style.min.css">
+    
 </head>
 <body>
     <div id="ebazar-layout" class="theme-blue">
-
+        
         <!-- sidebar -->
         <div class="sidebar px-4 py-4 py-md-4 me-0">
             <div class="d-flex flex-column h-100">
@@ -32,17 +37,17 @@
                 <ul class="menu-list flex-grow-1 mt-3">
                     <li><a class="m-link" href="index.html"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
+                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse" id="menu-product">
-                                <li><a class="ms-link" href="product-grid.html">Product Grid</a></li>
-                                <li><a class="ms-link" href="product-list.html">Product List</a></li>
+                            <ul class="sub-menu collapse show" id="menu-product">
+                                <!-- <li><a class="ms-link" href="product-grid.html">Product Grid</a></li> -->
+                                <li><a class="ms-link" href="/vendor/productList">Product List</a></li>
                                 <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
                                 <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
-                                <li><a class="ms-link" href="product-add.html">Product Add</a></li>
-                                <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li>
-                                <li><a class="ms-link" href="checkout.html">Checkout</a></li>
+                                <li><a class="ms-link active" href="/vendor/addProduct">Add Product</a></li>
+                                <!-- <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li> -->
+                                <!-- <li><a class="ms-link" href="checkout.html">Checkout</a></li> -->
                             </ul>
                     </li>
                     <li class="collapsed">
@@ -85,15 +90,15 @@
                         </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
                         <i class="icofont-chart-histogram fs-5"></i> <span>Inventory</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse show" id="menu-inventory">
+                        <ul class="sub-menu collapse" id="menu-inventory">
                             <li><a class="ms-link" href="inventory-info.html">Stock List</a></li>
                             <li><a class="ms-link" href="purchase.html">Purchase</a></li>
                             <li><a class="ms-link" href="supplier.html">Supplier</a></li>
                             <li><a class="ms-link" href="returns.html">Returns</a></li>
-                            <li><a class="ms-link active" href="department.html">Department</a></li>
+                            <li><a class="ms-link" href="department.html">Department</a></li>
                         </ul>
                     </li>
                     <li class="collapsed">
@@ -133,22 +138,23 @@
                             <li><a class="ms-link" href="todo-list.html">Todo List</a></li>
                         </ul>
                     </li>
+                    
                 </ul>
                 <!-- Menu: menu collepce btn -->
                 <button type="button" class="btn btn-link sidebar-mini-btn text-light">
                     <span class="ms-2"><i class="icofont-bubble-right"></i></span>
                 </button>
             </div>
-        </div>
+        </div>    
 
         <!-- main body area -->
-        <div class="main px-lg-4 px-md-4">
+        <div class="main px-lg-4 px-md-4"> 
 
             <!-- Body: Header -->
             <div class="header">
                 <nav class="navbar py-4">
                     <div class="container-xxl">
-
+        
                         <!-- header rightbar icon -->
                         <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
                             <div class="d-flex">
@@ -294,188 +300,179 @@
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#Settingmodal"><i class="icofont-gear-alt fs-5"></i></a>
                             </div>
                         </div>
-
+        
                         <!-- menu toggler -->
                         <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
                             <span class="fa fa-bars"></span>
                         </button>
-
+        
                         <!-- main menu Search-->
                         <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
                             <div class="input-group flex-nowrap input-group-lg">
                                 <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
                                 <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
-                                
                             </div>
                         </div>
-
+        
                     </div>
                 </nav>
             </div>
 
-            <!-- Body: Body -->       
-            <div class="body d-flex py-lg-3 py-md-2">
-                <div class="container-xxl">
-                    <div class="row align-items-center">
-                        <div class="border-0 mb-4">
-                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold mb-0">Departments</h3>
-                                <div class="col-auto d-flex w-sm-100">
-                                    <button type="button" class="btn btn-primary btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#depadd"><i class="icofont-plus-circle me-2 fs-6"></i>Add Departments</button>
+<!-- Body: Body --><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<div class="body d-flex py-3">
+    <div class="container-xxl">
+        <div class="row align-items-center">
+            <div class="border-0 mb-4">
+                <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                    <h3 class="fw-bold mb-0">Add Product</h3>
+                    <button type="submit" class="btn btn-primary btn-set-task w-sm-100 py-2 px-5 text-uppercase">Save</button>
+                </div>
+            </div>
+        </div> <!-- Row end  -->  
+        
+        <div class="row g-3 mb-3">
+            <div class="col-xl-4 col-lg-4">
+                <div class="sticky-lg-top">
+                    <div class="card mb-3">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                            <h6 class="m-0 fw-bold">Pricing Info</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-12">
+                                    <label class="form-label">MRP</label>
+                                    <input type="text" class="form-control" name="productMRP" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Price</label>
+                                    <input type="text" class="form-control" name="productPrice" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Discount</label>
+                                    <input type="text" class="form-control" name="productDiscount">
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- Row end  -->
-                    <div class="row clearfix g-3">
-                    <div class="col-sm-12">
-                            <div class="card mb-3">
-                                <div class="card-body">
-                                    <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Department Head</th> 
-                                                <th>Department Name</th> 
-                                                <th>Staff UnderWork</th>   
-                                                <th>Actions</th>  
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-bold">1</span>
-                                                </td>
-                                            <td>
-                                                <img class="avatar rounded" src="/vendor/assets/images/xs/avatar1.svg" alt="">
-                                                <span class="fw-bold ms-1">Joan Dyer</span>
-                                            </td>
-                                            <td>
-                                                Logistics
-                                            </td>
-                                            <td>
-                                                    40
-                                            </td>
-                                                <td>
-                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#depedit"><i class="icofont-edit text-success"></i></button>
-                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-bold">2</span>
-                                                </td>
-                                                <td>
-                                                    <img class="avatar rounded" src="/vendor/assets/images/xs/avatar2.svg" alt="">
-                                                    <span class="fw-bold ms-1">Ryan	Randall</span>
-                                                </td>
-                                                <td>
-                                                    Digital Marketing
-                                                </td>
-                                                <td>
-                                                    48
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#depedit"><i class="icofont-edit text-success"></i></button>
-                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-bold">3</span>
-                                                </td>
-                                                <td>
-                                                    <img class="avatar rounded" src="/vendor/assets/images/xs/avatar3.svg" alt="">
-                                                    <span class="fw-bold ms-1">Phil	Glover</span>
-                                                </td>
-                                                <td>
-                                                    Customer Service
-                                                </td>
-                                                <td>
-                                                    15
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#depedit"><i class="icofont-edit text-success"></i></button>
-                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-bold">4</span>
-                                                </td>
-                                                <td>
-                                                    <img class="avatar rounded" src="/vendor/assets/images/xs/avatar4.svg" alt="">
-                                                    <span class="fw-bold ms-1">Victor Rampling</span>
-                                                </td>
-                                                <td>
-                                                    Inventory Associates
-                                                </td>
-                                                <td>
-                                                    39
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#depedit"><i class="icofont-edit text-success"></i></button>
-                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-bold">5</span>
-                                                </td>
-                                                <td>
-                                                    <img class="avatar rounded" src="/vendor/assets/images/xs/avatar5.svg" alt="">
-                                                    <span class="fw-bold ms-1">Sally Graham</span>
-                                                </td>
-                                                <td>
-                                                    Finance and Accounting 
-                                                </td>
-                                                <td>
-                                                    12
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#depedit"><i class="icofont-edit text-success"></i></button>
-                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="fw-bold">6</span>
-                                                </td>
-                                                <td>
-                                                    <img class="avatar rounded" src="/vendor/assets/images/xs/avatar6.svg" alt="">
-                                                    <span class="fw-bold ms-1">Robert Anderson</span>
-                                                </td>
-                                                <td>
-                                                    Business Analyst
-                                                </td>
-                                                <td>
-                                                    8
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                        <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#depedit"><i class="icofont-edit text-success"></i></button>
-                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                            <h6 class="m-0 fw-bold">Size</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck1" value="Small">
+                                <label class="form-check-label" for="sizeCheck1">Small</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck2" value="Midsize">
+                                <label class="form-check-label" for="sizeCheck2">Midsize</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck3" value="Standard">
+                                <label class="form-check-label" for="sizeCheck3">Standard</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck4" value="XL/Oversize">
+                                <label class="form-check-label" for="sizeCheck4">XL/Oversize</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck5" value="XXL">
+                                <label class="form-check-label" for="sizeCheck5">XXL</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                            <h6 class="m-0 fw-bold">Categories</h6>
+                        </div>
+                        <div class="card-body">
+                            <label class="form-label">Categories Select</label>
+                            <select class="form-select" name="categories" size="3" aria-label="size 3 select example" required>
+                                <option value="MensWatches">Mens's Watches</option>
+                                <option value="WomensWatches">Women's Watches</option>
+                                <option value="UnisexWatches">Unisex Watches</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                            <h6 class="m-0 fw-bold">Subcategories</h6>
+                        </div>
+                        <div class="card-body">
+                            <label class="form-label">Subcategories Select</label>
+                            <select class="form-select" name="subcategories" size="3" aria-label="size 3 select example" required>
+                                <option value="AnalogWatches">Analog Watches</option>
+                                <option value="DigitalWatches">Digital Watches</option>
+                                <option value="Smartwatches">Smartwatches</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                            <h6 class="m-0 fw-bold">Inventory Info</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-12">
+                                    <label class="form-label">Total Stock Quantity</label>
+                                    <input type="number" class="form-control" name="totalStockQuantity" required>
                                 </div>
                             </div>
+                        </div>
                     </div>
-                    </div><!-- Row End -->
                 </div>
             </div>
-            
+            <div class="col-xl-8 col-lg-8">
+                <div class="card mb-3">
+                    <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
+                        <h6 class="mb-0 fw-bold ">Basic information</h6>
+                    </div>
+                    <div class="card-body">
+                        <form id="addProductForm" action="/vendor/addProduct" method="POST">
+                            <div class="row g-3 align-items-center">
+                                <div class="col-md-6">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control" name="productName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Brand</label>
+                                    <input type="text" class="form-control" name="productBrand" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Product Description</label>
+                                    <textarea class="form-control" name="productDescription" required></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Color</label>
+                                    <input type="text" class="form-control" name="productColor" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="form-label">Upload Images</label>
+                                    <input type="file" name="productImages" accept="image/*" multiple required>
+                                    <div id="imagePreview" class="mt-2"></div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary mt-3">Add Product</button>
+                        </form>
+                    </div>
+                </div>
+            </div>        
+        </div>        
+    </div> 
+</div>
+
+<script>
+    document.getElementById("addProductForm").addEventListener("submit", function(event) {
+        var form = event.target;
+        var isValid = form.checkValidity();
+        if (!isValid) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        form.classList.add("was-validated");
+    });
+</script>    
+            <!--------------------------------------------------------------------------------------------------------------------------------------------->   
             <!-- Modal Custom Settings-->
             <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">
                 <div class="modal-dialog  modal-sm">
@@ -616,99 +613,51 @@
                 </div>
             </div> 
 
-            <!-- Add Department-->
-            <div class="modal fade" id="depadd" tabindex="-1"  aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title  fw-bold" id="depaddLabel"> Add Department </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput1111" class="form-label">Department Name</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput1111">
+            <!-- Modal Cropper-->
+            <div class="modal docs-cropped" id="getCroppedCanvasModal" tabindex="-1"  aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cropped</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="deadline-form">
-                            <form>
-                                <div class="row g-3 mb-3">
-                                <div class="col-sm-6">
-                                    <label for="depone" class="form-label">Department Head</label>
-                                    <input type="text" class="form-control" id="depone">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="deptwo" class="form-label">Staff UnderWork</label>
-                                    <input type="text" class="form-control" id="deptwo">
-                                </div>
-                                </div>
-                            </form>
+                        <div class="modal-body"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white border lift" data-bs-dismiss="modal">Close</button>
+                            <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.html">Download</a>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
-                    </div>
-                </div>
                 </div>
             </div>
 
-            <!-- Edit Department-->
-            <div class="modal fade" id="depedit" tabindex="-1"  aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title  fw-bold" id="depeditLabel"> Edit Department </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput11111" class="form-label">Department Name</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput11111" value="Logistics"> 
-                        </div>
-                        <div class="deadline-form">
-                            <form>
-                                <div class="row g-3 mb-3">
-                                <div class="col-sm-6">
-                                    <label class="form-label">Department Head</label>
-                                    <select class="form-select">
-                                        <option selected>Joan Dyer</option>
-                                        <option value="1">Ryan Randall</option>
-                                        <option value="2">Phil Glover</option>
-                                        <option value="3">Victor Rampling</option>
-                                        <option value="4">Sally Graham</option>
-                                    </select>
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="deptwo48" class="form-label">Staff UnderWork</label>
-                                    <input type="text" class="form-control" id="deptwo48" value="40">
-                                </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-                </div>
-            </div> 
-        </div>
-                
+        </div>      
+
     </div>
-    
-    <!-- Jquery Core Js -->
+
+    <!-- Jquery Core Js -->      
     <script src="/vendor/assets/bundles/libscripts.bundle.js"></script>
 
-    <!-- Plugin Js-->
+    <!-- Jquery Plugin -->  
+    <script src="../../../../../cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+    <script src="/vendor/assets/plugin/multi-select/js/jquery.multi-select.js"></script>
+    <script src="/vendor/assets/plugin/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>  
+    <script src="/vendor/assets/plugin/cropper/cropper.min.js"></script>
+    <script src="/vendor/assets/plugin/cropper/cropper-init.js"></script>
+    <script src="/vendor/assets/bundles/dropify.bundle.js"></script>
     <script src="/vendor/assets/bundles/dataTables.bundle.js"></script>
 
-    <!-- Jquery Page Js -->
+    <!-- Jquery Page Js -->   
     <script src="../js/template.js"></script>
     <script>
-        // project data table
         $(document).ready(function() {
-            $('#myProjectTable')
+        //Ch-editer
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+            //Datatable
+            $('#myCartTable')
             .addClass( 'nowrap' )
             .dataTable( {
                 responsive: true,
@@ -719,15 +668,40 @@
             $('.deleterow').on('click',function(){
             var tablename = $(this).closest('table').DataTable();  
             tablename
-                .row( $(this)
-                .parents('tr') )
-                .remove()
-                .draw();
+                    .row( $(this)
+                    .parents('tr') )
+                    .remove()
+                    .draw();
 
             } );
+           //Multiselect
+           $('#optgroup').multiSelect({ selectableOptgroup: true });
         });
+
+        $(function() {
+            $('.dropify').dropify();
+
+            var drEvent = $('#dropify-event').dropify();
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+            });
+
+            drEvent.on('dropify.afterClear', function(event, element) {
+                alert('File deleted');
+            });
+
+            $('.dropify-fr').dropify({
+                messages: {
+                    default: 'Glissez-dÃ©posez un fichier ici ou cliquez',
+                    replace: 'Glissez-dÃ©posez un fichier ou cliquez pour remplacer',
+                    remove: 'Supprimer',
+                    error: 'DÃ©solÃ©, le fichier trop volumineux'
+                }
+            });
+        });
+            
     </script>
 </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/department.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
-</html>
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/addProduct by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:27 GMT -->
+</html> 

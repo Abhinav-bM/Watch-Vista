@@ -36,13 +36,12 @@
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
                             <ul class="sub-menu collapse" id="menu-product">
-                                <li><a class="ms-link" href="product-grid.html">Product Grid</a></li>
-                                <li><a class="ms-link" href="product-list.html">Product List</a></li>
-                                <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
-                                <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
-                                <li><a class="ms-link" href="product-add.html">Product Add</a></li>
-                                <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li>
-                                <li><a class="ms-link" href="checkout.html">Checkout</a></li>
+                                <li><a class="ms-link" href="/vendor/productList">Products List</a></li>
+                                <li><a class="ms-link" href="product-edit.html">Edit Product</a></li>
+                                <li><a class="ms-link" href="product-detail.html">Products Details</a></li>
+                                <li><a class="ms-link" href="/vendor/addProduct">Add Products</a></li>
+                                <!-- <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li> -->
+                                <!-- <li><a class="ms-link" href="checkout.html">Checkout</a></li> -->
                             </ul>
                     </li>
                     <li class="collapsed">
@@ -261,8 +260,8 @@
                             </div>
                             <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
                                 <div class="u-info me-2">
-                                    <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">John Quinn</span></p>
-                                    <small>Admin Profile</small>
+                                    <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold"><%= vendor.vendorName %></span></p>
+                                    <!-- <small>Admin Profile</small> -->
                                 </div>
                                 <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
                                     <img class="avatar lg rounded-circle img-thumbnail" src="/vendor/assets/images/profile_av.svg" alt="profile">
@@ -273,8 +272,8 @@
                                             <div class="d-flex py-1">
                                                 <img class="avatar rounded-circle" src="/vendor/assets/images/profile_av.svg" alt="profile">
                                                 <div class="flex-fill ms-3">
-                                                    <p class="mb-0"><span class="font-weight-bold">John	Quinn</span></p>
-                                                    <small class="">Johnquinn@gmail.com</small>
+                                                    <p class="mb-0"><span class="font-weight-bold"><%= vendor.vendorName %></span></p>
+                                                    <small class=""><%= vendor.email %></small>
                                                 </div>
                                             </div>
                                             
@@ -283,7 +282,7 @@
                                         <div class="list-group m-2 ">
                                             <a href="admin-profile.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user fs-5 me-3"></i>Profile Page</a>
                                             <a href="order-invoices.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a>
-                                            <a href="ui-elements/auth-signin.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-5 me-3"></i>Signout</a>
+                                            <a href="/vendor/logout" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-5 me-3"></i>Signout</a>
                                         </div>
                                     </div>
                                 </div>

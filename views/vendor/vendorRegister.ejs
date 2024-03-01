@@ -83,19 +83,58 @@
 
     <h2 class="text-center mb-4">Vendor Register</h2>
 
-    <form action="/vendor/register" method="post">
-      <% if (typeof error !== 'undefined' && error !== null) { %>
-          <p style="color: red;"><%= error %></p>
-      <% } %>
+    <form action="/vendor/register" method="post" onsubmit="return validateAndSubmit()" >
 
-      <input type="text" name="name" id="" class="form-control my-4 py-2" placeholder="name" required/>
-      <input type="email" name="email" id="" class="form-control my-4 py-2" placeholder="email" required />
-      <input type="text" name="phone" id="" class="form-control my-4 py-2" placeholder="phone" required />
-      <input type="password" name="password" id="" class="form-control my-4 py-2" placeholder="Password" required />
-      
+      <small id="name-error" style="color:red; display: none;">Invalid Name</small>
+      <input type="text" name="name" id="name" class="form-control my-2 py-2" placeholder="name" />
+
+      <small id="email-error" style="color:red; display: none;">Invalid email</small>
+      <input type="email" name="email" id="email" class="form-control my-2 py-2" placeholder="email" />
+
+      <small id="phone-error" style="color:red; display: none;">Invalid phone</small>
+      <input type="text" name="phone" id="phone" class="form-control my-2 py-2" placeholder="phone" />
+
+      <small id="password-error" style="color:red; display: none;">Invalid password</small>
+      <input type="password" name="password" id="password" class="form-control my-2 py-2" placeholder="Password" />
      
-      <button class="mt-3 btn btn-primary btn-block">Register</button>
+      <button class="mt-3 btn btn-primary btn-block" type="submit">Register</button>
     </form>
+
+    <script>
+      function validateAndSubmit(){
+
+          var nameInput = document.getElementById('name')
+          var emailInput = document.getElementById('email')
+          var phoneInput = document.getElementById('phone')
+          var passwordInput = document.getElementById('password')
+          
+          var nameError = document.getElementById('name-error')
+          var emailError = document.getElementById('email-error')
+          var phoneError = document.getElementById("phone-error");
+          var passwordError = document.getElementById('password-error')
+          
+
+
+          var isValidName = /^[a-zA-Z\s]{3,}$/.test(nameInput.value)
+          var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)
+          var isvalidPhone = /^(\+91)?\d{10}$/.test(phoneInput.value);
+          var isvalidPassword = passwordInput.value.length >= 6;
+      
+
+          // Show/hide error messages based on validation
+          nameError.style.display = isValidName ? 'none' : 'block';
+          emailError.style.display = isvalidEmail ? 'none' : 'block';
+          phoneError.style.display = isvalidPhone ? 'none' : 'block';
+          passwordError.style.display = isvalidPassword ? 'none' : 'block';
+
+          // Return false if any validation fails to prevent form submission
+          if (!isValidName || !isvalidEmail || !isvalidPhone || !isvalidPassword) {
+              return false;
+          }
+
+          return true;
+      }
+  </script>
   
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
