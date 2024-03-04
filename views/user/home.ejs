@@ -25,6 +25,36 @@
         <link rel="stylesheet" href="css/default.css">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/responsive.css">
+
+        <style>
+            /* Additional styling if needed */
+            
+            .product-img {
+            position: relative;
+            overflow: hidden;
+            }
+
+            .product-img img {
+            transition: transform 0.5s ease;
+            }
+
+            .product-img:hover img {
+            animation: zoom-in 5s infinite;
+            }
+
+            @keyframes zoom-in {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+            }
+
+        </style>
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -53,14 +83,7 @@
                                                 </li>
                                                 <li><a href="javascript:void(0)"><span>Blog <i class="fal fa-angle-down"></i></span> </a>
 
-                                                </li>
-                                                <!-- <li><a href="javascript:void(0)"><span>Portfolio <i class="fal fa-angle-down"></i></span> </a>
-                                                    <ul class="submenu">
-                                                        <li><a href="portfolio.html">Single project</a></li>
-                                                        <li><a href="portfolio2.html">Two Columns</a></li>
-                                                        <li><a href="portfolio3.html">Three Columns</a></li>
-                                                    </ul>
-                                                </li> -->
+                        
                                                 <li><a href="javascript:void(0)"><span>Page</span> <i class="fal fa-angle-down"></i></a>
                                                     <ul class="submenu">
                                                         <li><a href="about.html">About</a></li>
@@ -391,8 +414,7 @@
                             <div class="service-box service-box-3">
                                 <div class="service-box-content text-center">
                                     <h4 class="title">Worldwide Shipping</h4>
-                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit vulputate
-velit esse molestie consequat.</p>
+                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit vulputatevelit esse molestie consequat.</p>
                                 </div>
                             </div>
                         </div>
@@ -410,8 +432,7 @@ velit esse molestie consequat.</p>
                             <div class="service-box service-box-3">
                                 <div class="service-box-content text-center">
                                     <h4 class="title">Money Return Guarantee</h4>
-                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit vulputate
-velit esse molestie consequat.</p>
+                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit vulputatevelit esse molestie consequat.</p>
                                 </div>
                             </div>
                         </div>
@@ -425,364 +446,54 @@ velit esse molestie consequat.</p>
             <!-- new arrival section start -->
             <section class="new-arrival mt-120">
                 <div class="container container-1430">
-                    <div class="generic-title text-center">
-                        <h2 class="mb-20">#New Arrivals</h2>
-                        <p>Nam liber tempor cum soluta nobis eleifend option congue nihil</p>
-                        <p>doming id quod mazim placerat facer possim assum typi non habent claritatem insitam.</p>
+                  <div class="generic-title text-center">
+                    <h2 class="mb-20">#New Arrivals</h2>
+                    <p>Nam liber tempor cum soluta nobis eleifend option congue nihil</p>
+                    <p>doming id quod mazim placerat facer possim assum typi non habent claritatem insitam.</p>
+                  </div>
+                  
+                  <div class="new-arrival-wrapper mt-55">
+                    <div class="row">
+                      <% let count = 0; %>
+                      <% products.forEach(vendor => { %>
+                        <% if (count < 12 && vendor.products && vendor.products.length > 0) { %>
+                          <% vendor.products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 12 - count).forEach(product => { %>
+                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                              <div class="product-box mb-40">
+                                <div class="product-box-wrapper">
+                                  <div class="product-img">
+                                    <% if (product.productImages && product.productImages.length > 0) { %>
+                                      <img src="<%= product.productImages[0].imageUrl %>" class="w-100" alt="<%= product.productName %>">
+                                    <% } else { %>
+                                      <img src="path_to_default_image.jpg" class="w-100" alt="Default Image">
+                                    <% } %>
+                                  </div>
+                        
+                                  <div class="product-desc pb-20">
+                                    <div class="product-desc-top">
+                                      <div class="categories">
+                                        <a href="shop.html" class="product-category"><span><%= product.productCategory %></span></a>
+                                      </div>
+                                      <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
+                                    </div>
+                                    <a href="single-product-6.html" class="product-title"><%= product.productName %></a>
+                                    <div class="price-switcher">
+                                      <span class="price switcher-item">₹ <%= product.productPrice %>/-</span>
+                                      <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <% count++; %>
+                          <% }); %>
+                        <% } %>
+                      <% }); %>
                     </div>
-
-                    <div class="new-arrival-wrapper mt-55">
-                        <div class="row">
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/5.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/5-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">CASIO - EDIFIC</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$58.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/4.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/4-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">PATEK-PHILIPE</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$85.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/7.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/7-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <!-- <a href="shop.html"  class="product-category"><span></span></a> -->
-                                                    <!-- <a href="shop.html"  class="product-category"><span></span></a> -->
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">Fasttrack-smartwatch</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$3.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/8.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/8-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                            <span class="sale bg-red text-white">sale!</span>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <!-- <a href="shop.html"  class="product-category"><span>Shoes</span></a> -->
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">Fasttrack-Analog</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$45-$10.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/9.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/9-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                            <span class="sale bg-red text-white">sale!</span>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">Titan-Analog</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$250.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/4.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/4-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">PATEK-PHILIPE</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$85.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/8.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/8-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                            <span class="sale bg-red text-white">sale!</span>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <!-- <a href="shop.html"  class="product-category"><span>Shoes</span></a> -->
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">Fasttrack-Analog</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$45-$10.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/6.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/6-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <!-- <a href="shop.html"  class="product-category"><span>Handbag</span></a> -->
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">PATEK-PHILIPE-ANALOG</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$7.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/4.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/4-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <a href="shop.html"  class="product-category"><span>Woman</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">PATEK-PHILIPE</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$85.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/7.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/7-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <!-- <a href="shop.html"  class="product-category"><span>Shoes</span></a> -->
-                                                    <!-- <a href="shop.html"  class="product-category"><span>Sneaker</span></a> -->
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">Fasttrack-smartwatch</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$25.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/8.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/8-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                            <span class="sale bg-red text-white">sale!</span>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <!-- <a href="shop.html"  class="product-category"><span>Shoes</span></a> -->
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">Fasttrack-Analog</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$45-$10.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                <div class="product-box mb-40">
-                                    <div class="product-box-wrapper">
-                                        <div class="product-img">
-                                            <img src="img/product/6.jpg" class="w-100" alt="">
-                                            <a href="single-product-6.html" class="d-block"><div class="second-img">
-                                                <img src="img/product/6-hover.jpg" alt="" class="w-100">
-                                            </div></a>
-                                            <a href="javascript:void(0)" class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                        </div>
-
-                                        <div class="product-desc pb-20">
-                                            <div class="product-desc-top">
-                                                <div class="categories">
-                                                    <!-- <a href="shop.html"  class="product-category"><span>Handbag</span></a> -->
-                                                    <a href="shop.html"  class="product-category"><span>Men</span></a>
-                                                </div>
-                                                <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                            </div>
-                                            <a href="single-product-6.html" class="product-title">PATEK-PHILIPE-ANALOG</a>
-                                            <div class="price-switcher">
-                                                    <span class="price switcher-item">$70.00</span>
-                                                    <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-center load-btn mt-20">
-                            <a href="shop.html" class="load-more">LOAD MORE...</a>
-                       </div>
-                    </div>
+                  </div>
                 </div>
-            </section>
-            <!-- new arrival section end -->
+              </section>           
+              <!-- new arrival section end -->
 
             <!-- footer section start -->
             <section class="footer">

@@ -1,16 +1,18 @@
 const User = require("../models/usersModel");
+const Vendor = require("../models/vendorsModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const twilio = require("twilio");
+// const twilio = require("twilio");
+// const firebase = require('firebase-admin');
 require("dotenv").config();
 
-
 // HOME PAGE DISPLAY
-let homePage = (req, res) => {
+let homePage = async (req, res) => {
   try {
-    res.status(200).render("user/home");
-    // res.status(200).render("user/home", { user: res.locals.user });
+    let products = await Vendor.find().select("products");
+    console.log(products);
+    res.status(200).render("user/home", { products: products });
   } catch (error) {
     console.error("Failed to get home:", error);
     res.status(500).send("Internal Server Error");
@@ -177,16 +179,32 @@ let loginWithOtpGetPage = async (req, res) => {
   }
 };
 
-// .ENV DETAILS
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+const firebase = require('firebase/app');
+const {getAuth , signInWithPhoneNumber} = require('firebase/auth');
 
-const client = twilio(accountSid, authToken);
-
-const generateOTP = () => {
-  return Math.floor(100000 + Math.random() * 900000).toString();
+const firebaseConfig = {
+  apiKey: "AIzaSyDImRMUzZK1H48nkc3ENtqRG9aJQNO1EGs",
+  authDomain: "watch-vista.firebaseapp.com",
+  projectId: "watch-vista",
+  storageBucket: "watch-vista.appspot.com",
+  messagingSenderId: "751318778459",
+  appId: "1:751318778459:web:9917ac2b15e9a25087357e",
+  measurementId: "G-L7QECNXGZ0"
 };
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = getAuth();
+// .ENV DETAILS
+// const accountSid = process.env.TWILIO_ACCOUNT_SID;
+// const authToken = process.env.TWILIO_AUTH_TOKEN;
+// const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+
+// const client = twilio(accountSid, authToken);
+
+// const generateOTP = () => {
+//   return Math.floor(100000 + Math.random() * 900000).toString();
+// };
 
 // REQUEST FOR OTP AFTER ENTERED PHONE
 const loginRequestOTP = async (req, res) => {
@@ -206,27 +224,18 @@ const loginRequestOTP = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const otp = generateOTP();
-    user.otp = otp;
-    user.otpExpiration = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
-    await user.save();
-    console.log(`generated otp is :${otp}`);
-
-    // Send OTP via Twilio SMS
-    try {
-
-      await client.messages.create({
-        body:`your otp for login to watchVista is: ${otp}`,
-        from:twilioPhoneNumber,
-        to: phone,
-    })
-      console.log("OTP SMS sent");
-    } catch (error) {
-      console.error("Error sending OTP SMS:", error);
-      return res.status(500).json({ message: "Error sending OTP" });
-    }
-
-    res.render("user/loginOtp", { phone });
+    // Send OTP using Firebase Authentication
+    signInWithPhoneNumber(auth, phone)
+    .then((confirmationResult) => {
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      res.render("user/loginOtp");
+      // ...
+    }).catch((error) => {
+      console.log("dhbfdjbgdfjbvj,",error);
+    });
+    
+    
   } catch (error) {
     console.error("Error requesting OTP:", error);
     res.status(500).json({ message: "Server Error" });
@@ -234,41 +243,33 @@ const loginRequestOTP = async (req, res) => {
 };
 
 const loginVerifyOTP = async (req, res) => {
-  const { phoneNumber, otp } = req.body;
+  const { otp, verificationId, phone } = req.body;
 
   try {
-    const user = await User.findOne({ phoneNumber });
-
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    const user = await User.findOne({phone})
+    const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, otp);
+    const userCredential = await firebase.auth().signInWithCredential(credential);
+   
+    if (userCredential) {
+      // User authenticated successfully
+      const token = jwt.sign(
+        {
+          id: user._id,
+          name: user.name,
+          email: user.email,
+        },
+        process.env.JWT_KEY,
+        {
+          expiresIn: "24h",
+        }
+      );
+  
+      res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hours expiry
+  
+      res.status(200).redirect("/");
+      console.log("User logged in using OTP : JWT created");
     }
 
-    if (user.otp !== otp || Date.now() > user.otpExpiration) {
-      return res.status(400).json({ message: "Invalid or expired OTP" });
-    }
-
-    // Clear OTP fields after successful verification
-    user.otp = undefined;
-    user.otpExpiration = undefined;
-    await user.save();
-
-    const token = jwt.sign(
-      {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
-      process.env.JWT_KEY,
-      {
-        expiresIn: "24h",
-      }
-    );
-
-    res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hours expiry
-
-    res.status(200).redirect("/");
-    console.log("User logged in using OTP : JWT created");
   } catch (error) {
     console.error("Error verifying OTP:", error);
     res.status(500).json({ message: "Server Error" });
@@ -397,10 +398,11 @@ let userLogout = async (req, res) => {
 };
 // LOGOUT ENDS HERE
 
-// SHOP PAGE DISPLAY  
+// SHOP PAGE DISPLAY
 let shopGetPage = async (req, res) => {
   try {
-    res.status(200).render("user/shop");
+    let products = await Vendor.find().select("products");
+    res.status(200).render("user/shop", { products: products });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
@@ -410,7 +412,19 @@ let shopGetPage = async (req, res) => {
 // DISPLAY SINGLE PRODUCT PAGE
 let singleProductGetPage = async (req, res) => {
   try {
-    res.status(200).render("user/singleProduct");
+    const productId = req.params.productId;
+    console.log(productId);
+    const vendors = await Vendor.find();
+    let products;
+    vendors.forEach((vendor) => {
+      vendor.products.forEach((prod) => {
+        if (prod._id.toString() === productId) {
+          products = prod;
+        }
+      });
+    });
+    console.log(products);
+    res.render("user/singleProduct", { products: products });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");

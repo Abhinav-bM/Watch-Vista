@@ -12,10 +12,8 @@ const productSchema = new mongoose.Schema({
   productSubCategory: { type: String, required: true },
   productBrand: { type: String, required: true },
   productColor: { type: String, required: true },
-  productSizeAndQty: [{ 
-    size: { type: String, required: true },
-    quantity: { type: Number, required: true }
-  }],
+  productSize: { type: String, required: true },
+  productQTY: { type: Number, required: true },
   productPrice: { type: Number, required: true },
   productMRP: { type: Number, required: true },
   productDiscount: { type: Number, required: true },

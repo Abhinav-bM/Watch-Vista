@@ -1,19 +1,21 @@
 const Vendor = require("../models/vendorsModel");
+const Admin = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-require("dotenv").config()
+
+require("dotenv").config();
 
 // VENDOR DASHBOARD PAGE DISPLAY
-let dashboard = async (req, res) =>{
+let dashboard = async (req, res) => {
   try {
-    let email = req.user.email
-    let vendor = await Vendor.findOne({email})
+    let email = req.user.email;
+    let vendor = await Vendor.findOne({ email });
     console.log(vendor);
-    res.status(200).render("vendor/dashboard",{vendor})
+    res.status(200).render("vendor/dashboard", { vendor });
   } catch (error) {
-    res.status(404).send("page not found")
+    res.status(404).send("page not found");
   }
-}
+};
 
 // VENDOR LOGIN PAGE DISPLAY
 let loginGetPage = (req, res) => {
@@ -41,20 +43,19 @@ let vendorRegisterPostPage = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newVendor = new Vendor({
-        vendorName : name,
-        email,
-        phoneNumber:phone,
-        password:hashedPassword
-    })
+      vendorName: name,
+      email,
+      phoneNumber: phone,
+      password: hashedPassword,
+    });
 
     console.log(newVendor);
 
-
-    await newVendor.save()
+    await newVendor.save();
 
     console.log(newVendor);
 
-    res.status(201).redirect("/vendor/login")
+    res.status(201).redirect("/vendor/login");
   } catch (error) {
     console.error("Signup failed:", error);
     res.status(500).json({ error: "Signup failed. Please try again later." });
@@ -62,7 +63,7 @@ let vendorRegisterPostPage = async (req, res) => {
 };
 
 // VENDOR LOGIN POST PAGE
-let vendorLoginPostPage = async (req, res)=>{
+let vendorLoginPostPage = async (req, res) => {
   try {
     const vendor = await Vendor.findOne({ email: req.body.email });
 
@@ -100,26 +101,52 @@ let vendorLoginPostPage = async (req, res)=>{
     console.error("Internal server error:", error);
     res.status(500).render("user/login", { error: "Internal server error" });
   }
-}
+};
 
 // ADD PRODUCT PAGE DISPLAY
-let addProduct = async (req, res)=>{
+let addProduct = async (req, res) => {
   try {
-    res.status(200).render("vendor/product-add")
+    const admin = await Admin.findOne();
+    const categories = admin.category;
+    const subcategories = admin.subcategory;
+    res.status(200).render("vendor/product-add", { categories, subcategories });
   } catch (error) {
-    console.error(error)
-    res.status(404).send("page not found")
+    console.error(error);
+    res.status(404).send("page not found");
   }
-}
+};
 
 // ADD PRODUCT POST PAGE
-let addProductpost = async (req, res)=>{
+let addProductpost = async (req, res) => {
   try {
-    console.log(req.body);
+    let {email} = req.user
+    let vendor = await Vendor.findOne({email})
+
+    const productImages = req.files.map((file) => ({
+      imageUrl: file.path, // Assuming 'path' contains the path to the uploaded file
+    }));
+    // Create a new Product instance with uploaded image URLs
+    const newProduct = {
+      productName: req.body.productName,
+      productCategory: req.body.productCategory,
+      productSubCategory: req.body.productSubcategory,
+      productBrand: req.body.productBrand,
+      productColor: req.body.productColor,
+      productSize: req.body.productSize,
+      productQTY: req.body.productQuantity,
+      productPrice: req.body.productPrice,
+      productMRP: req.body.productMRP,
+      productDiscount: req.body.productDiscount,
+      productImages: productImages,
+      productDescription: req.body.productDescription,
+    }
+    vendor.products.push(newProduct)
+    await vendor.save()
+    console.log("product added successful");
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 // VENDOR LOGOUT
 let vendorLogout = (req, res) => {
@@ -144,5 +171,5 @@ module.exports = {
   dashboard,
   vendorLogout,
   addProduct,
-  addProductpost
+  addProductpost,
 };

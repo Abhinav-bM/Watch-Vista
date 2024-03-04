@@ -19,6 +19,60 @@
 
     <!-- Project css file  -->
     <link rel="stylesheet" href="/vendor/assets/css/ebazar.style.min.css">
+
+    <style>
+        /* Add your CSS styles here */
+        body {
+          font-family: Arial, sans-serif;
+          margin: 20px;
+        }
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        select {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        .form-group {
+          margin-bottom: 20px;
+        }
+        .form-group label {
+          font-weight: bold;
+        }
+        .form-group.images label {
+          display: block;
+          margin-bottom: 5px;
+        }
+        .form-group.images input[type="file"] {
+          margin-bottom: 10px;
+        }
+        .btn-submit {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .btn-submit:hover {
+          background-color: #0056b3;
+        }
+      </style>
     
 </head>
 <body>
@@ -319,159 +373,78 @@
             </div>
 
 <!-- Body: Body --><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-<div class="body d-flex py-3">
-    <div class="container-xxl">
-        <div class="row align-items-center">
-            <div class="border-0 mb-4">
-                <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                    <h3 class="fw-bold mb-0">Add Product</h3>
-                    <button type="submit" class="btn btn-primary btn-set-task w-sm-100 py-2 px-5 text-uppercase">Save</button>
-                </div>
-            </div>
-        </div> <!-- Row end  -->  
-        
-        <div class="row g-3 mb-3">
-            <div class="col-xl-4 col-lg-4">
-                <div class="sticky-lg-top">
-                    <div class="card mb-3">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                            <h6 class="m-0 fw-bold">Pricing Info</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row g-3 align-items-center">
-                                <div class="col-md-12">
-                                    <label class="form-label">MRP</label>
-                                    <input type="text" class="form-control" name="productMRP" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Price</label>
-                                    <input type="text" class="form-control" name="productPrice" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Discount</label>
-                                    <input type="text" class="form-control" name="productDiscount">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                            <h6 class="m-0 fw-bold">Size</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck1" value="Small">
-                                <label class="form-check-label" for="sizeCheck1">Small</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck2" value="Midsize">
-                                <label class="form-check-label" for="sizeCheck2">Midsize</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck3" value="Standard">
-                                <label class="form-check-label" for="sizeCheck3">Standard</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck4" value="XL/Oversize">
-                                <label class="form-check-label" for="sizeCheck4">XL/Oversize</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="size[]" id="sizeCheck5" value="XXL">
-                                <label class="form-check-label" for="sizeCheck5">XXL</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                            <h6 class="m-0 fw-bold">Categories</h6>
-                        </div>
-                        <div class="card-body">
-                            <label class="form-label">Categories Select</label>
-                            <select class="form-select" name="categories" size="3" aria-label="size 3 select example" required>
-                                <option value="MensWatches">Mens's Watches</option>
-                                <option value="WomensWatches">Women's Watches</option>
-                                <option value="UnisexWatches">Unisex Watches</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="card mb-3">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                            <h6 class="m-0 fw-bold">Subcategories</h6>
-                        </div>
-                        <div class="card-body">
-                            <label class="form-label">Subcategories Select</label>
-                            <select class="form-select" name="subcategories" size="3" aria-label="size 3 select example" required>
-                                <option value="AnalogWatches">Analog Watches</option>
-                                <option value="DigitalWatches">Digital Watches</option>
-                                <option value="Smartwatches">Smartwatches</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                            <h6 class="m-0 fw-bold">Inventory Info</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="row g-3 align-items-center">
-                                <div class="col-md-12">
-                                    <label class="form-label">Total Stock Quantity</label>
-                                    <input type="number" class="form-control" name="totalStockQuantity" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-8 col-lg-8">
-                <div class="card mb-3">
-                    <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
-                        <h6 class="mb-0 fw-bold ">Basic information</h6>
-                    </div>
-                    <div class="card-body">
-                        <form id="addProductForm" action="/vendor/addProduct" method="POST">
-                            <div class="row g-3 align-items-center">
-                                <div class="col-md-6">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control" name="productName" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Brand</label>
-                                    <input type="text" class="form-control" name="productBrand" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Product Description</label>
-                                    <textarea class="form-control" name="productDescription" required></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Color</label>
-                                    <input type="text" class="form-control" name="productColor" required>
-                                </div>
-                                <div class="col-md-12">
-                                    <label class="form-label">Upload Images</label>
-                                    <input type="file" name="productImages" accept="image/*" multiple required>
-                                    <div id="imagePreview" class="mt-2"></div>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary mt-3">Add Product</button>
-                        </form>
-                    </div>
-                </div>
-            </div>        
-        </div>        
-    </div> 
-</div>
+<h1>Add New Product</h1>
+  <form action="/vendor/addProduct" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="productName">Product Name:</label>
+      <input type="text" id="productName" name="productName" required>
+    </div>
 
-<script>
-    document.getElementById("addProductForm").addEventListener("submit", function(event) {
-        var form = event.target;
-        var isValid = form.checkValidity();
-        if (!isValid) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        form.classList.add("was-validated");
-    });
-</script>    
+    <div class="form-group">
+      <label for="productBrand">Product Brand:</label>
+      <input type="text" id="productBrand" name="productBrand">
+    </div>
+
+    <div class="form-group">
+      <label for="productColor">Product Color:</label>
+      <input type="text" id="productColor" name="productColor">
+    </div>
+
+    <div class="form-group">
+      <label for="productSize">Product Size:</label>
+      <input type="text" id="productSize" name="productSize">
+    </div>
+
+    <div class="form-group">
+      <label for="productQuantity">Product Quantity:</label>
+      <input type="number" id="productQuantity" name="productQuantity" min="0">
+    </div>
+
+    <div class="form-group">
+      <label for="productPrice">Product Price:</label>
+      <input type="number" id="productPrice" name="productPrice" min="0">
+    </div>
+
+    <div class="form-group">
+      <label for="productMRP">Product MRP:</label>
+      <input type="number" id="productMRP" name="productMRP" min="0">
+    </div>
+
+    <div class="form-group">
+      <label for="productDiscount">Product Discount:</label>
+      <input type="number" id="productDiscount" name="productDiscount">
+    </div>
+
+    <div class="form-group">
+      <label for="productDescription">Product Description:</label>
+      <textarea id="productDescription" name="productDescription" rows="5"></textarea>
+    </div>
+
+    <div class="form-group images">
+      <label for="productImages">Product Images (up to 4):</label>
+      <input type="file" id="productImages" name="productImages" accept="images/*"  multiple>
+    </div>
+
+    <div class="form-group">
+      <label for="productCategory">Category:</label>
+      <select id="productCategory" name="productCategory" required>
+        <% categories.forEach(category => { %>
+          <option value="<%= category.categoryName %>"><%= category.categoryName %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="productSubcategory">Subcategory:</label>
+      <select id="productSubcategory" name="productSubcategory" required>
+        <% subcategories.forEach(subcategory => { %>
+          <option value="<%= subcategory.subcategoryName %>"><%= subcategory.subcategoryName %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <input type="submit" value="Add Product" class="btn-submit">
+  </form>
             <!--------------------------------------------------------------------------------------------------------------------------------------------->   
             <!-- Modal Custom Settings-->
             <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">
