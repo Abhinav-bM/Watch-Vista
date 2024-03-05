@@ -377,9 +377,81 @@
             </div>
         </section>
         <!-- login Area End-->
-        <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
+        
+        <!-- Firebase SDK -->
+        <!-- <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-messaging.js"></script>
 
+        <script>
+            const firebaseConfig = {
+                    apiKey: "AIzaSyDImRMUzZK1H48nkc3ENtqRG9aJQNO1EGs",
+                    authDomain: "watch-vista.firebaseapp.com",
+                    projectId: "watch-vista",
+                    storageBucket: "watch-vista.appspot.com",
+                    messagingSenderId: "751318778459",
+                    appId: "1:751318778459:web:9917ac2b15e9a25087357e",
+                    measurementId: "G-L7QECNXGZ0"
+                };
+
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+
+    // Request permission for notifications
+    messaging.requestPermission().then(() => {
+        console.log('Notification permission granted.');
+        return messaging.getToken();
+    }).then((token) => {
+        console.log('FCM Token:', token);
+        // Call the function to send the FCM token to the server
+        sendTokenToServer(token);
+    }).catch((err) => {
+        console.log('Unable to get permission to notify.', err);
+    });
+
+    const sendTokenToServer = async (token) => {
+        try {
+            const response = await fetch('/loginOtp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ fcmToken: token })
+            });
+
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error sending FCM token to server:', error);
+        }
+    };
+
+    document.getElementById('otpForm').addEventListener('submit', async (event) => {
+        event.preventDefault(); // Prevent form submission
+        
+        const phoneNumber = document.getElementById('phone').value;
+        const condition = `'${phoneNumber}' in topics`;
+
+        try {
+            const response = await fetch('/loginOtp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ phoneNumber, condition })
+            });
+
+            const data = await response.json();
+            console.log(data);
+
+            // Handle response as needed, maybe show a success message to the user
+        } catch (error) {
+            console.error('Error sending OTP request:', error);
+            // Handle error, maybe show an error message to the user
+        }
+    });
+
+
+        </script> -->
 
 
         </main>

@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="css/default.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
+
 </head>
 
 <body>
@@ -383,10 +384,11 @@
 
                             
                             <button class="btn theme-btn w-100"><a href="/login">Login Now</a></button>
+                            
+                            
 
                             <script>
-                                function validateAndSubmit(){
-
+                                function validateAndSubmit() {
                                     var nameInput = document.getElementById('userName')
                                     var emailInput = document.getElementById('email-id')
                                     var phoneInput = document.getElementById('phone')
@@ -397,14 +399,11 @@
                                     var phoneError = document.getElementById("phone-error");
                                     var passwordError = document.getElementById('password-error')
                                     
-
-
                                     var isValidName = /^[a-zA-Z\s]{3,}$/.test(nameInput.value)
                                     var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)
                                     var isvalidPhone = /^(\+91)?\d{10}$/.test(phoneInput.value);
                                     var isvalidPassword = passwordInput.value.length >= 6;
-                                
-
+                                    
                                     // Show/hide error messages based on validation
                                     nameError.style.display = isValidName ? 'none' : 'block';
                                     emailError.style.display = isvalidEmail ? 'none' : 'block';
@@ -415,9 +414,36 @@
                                     if (!isValidName || !isvalidEmail || !isvalidPhone || !isvalidPassword) {
                                         return false;
                                     }
+                                    
+                                    // If phone and email are valid, show OTP modal
+                                    if (isvalidPhone && isvalidEmail) {
+                                        document.getElementById("otpModal").style.display = "block";
+                                    }
 
-                                    return true;
+                                    return false; // Prevent form submission for now
                                 }
+
+                                function verifyOTPs() {
+                                    var phoneOtpInput = document.getElementById('phoneOtpInput');
+                                    var emailOtpInput = document.getElementById('emailOtpInput');
+                                    var otpError = document.getElementById('otp-error');
+                                    
+                                    // Dummy OTP validation (replace with your actual logic)
+                                    var isValidPhoneOTP = phoneOtpInput.value === "1234"; // Change "1234" to your actual phone OTP
+                                    var isValidEmailOTP = emailOtpInput.value === "5678"; // Change "5678" to your actual email OTP
+                                    
+                                    if (isValidPhoneOTP && isValidEmailOTP) {
+                                        // If both OTPs are valid, submit the form
+                                        document.getElementById("signupForm").submit();
+                                    } else {
+                                        otpError.style.display = 'block';
+                                    }
+                                }
+
+                                function closeModal() {
+                                    document.getElementById("otpModal").style.display = "none";
+                                }
+
                             </script>
                         </div>
                     </div>

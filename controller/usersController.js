@@ -3,8 +3,7 @@ const Vendor = require("../models/vendorsModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-// const twilio = require("twilio");
-// const firebase = require('firebase-admin');
+const smsService = require("../helpers/smsService");
 require("dotenv").config();
 
 // HOME PAGE DISPLAY
@@ -179,32 +178,9 @@ let loginWithOtpGetPage = async (req, res) => {
   }
 };
 
-const firebase = require('firebase/app');
-const {getAuth , signInWithPhoneNumber} = require('firebase/auth');
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDImRMUzZK1H48nkc3ENtqRG9aJQNO1EGs",
-  authDomain: "watch-vista.firebaseapp.com",
-  projectId: "watch-vista",
-  storageBucket: "watch-vista.appspot.com",
-  messagingSenderId: "751318778459",
-  appId: "1:751318778459:web:9917ac2b15e9a25087357e",
-  measurementId: "G-L7QECNXGZ0"
+const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
 };
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = getAuth();
-// .ENV DETAILS
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
-
-// const client = twilio(accountSid, authToken);
-
-// const generateOTP = () => {
-//   return Math.floor(100000 + Math.random() * 900000).toString();
-// };
 
 // REQUEST FOR OTP AFTER ENTERED PHONE
 const loginRequestOTP = async (req, res) => {
@@ -224,18 +200,15 @@ const loginRequestOTP = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Send OTP using Firebase Authentication
-    signInWithPhoneNumber(auth, phone)
-    .then((confirmationResult) => {
-      // SMS sent. Prompt user to type the code from the message, then sign the
-      // user in with confirmationResult.confirm(code).
-      res.render("user/loginOtp");
-      // ...
-    }).catch((error) => {
-      console.log("dhbfdjbgdfjbvj,",error);
-    });
-    
-    
+    const otp = generateOTP();
+    user.otp = otp;
+    user.otpExpiration = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
+    await user.save();
+
+    smsService.sendOTP(phoneNumber, otp);
+
+    res.status(200).render("user/loginOtp", { phone });
+    console.log("OTP SMS sent");
   } catch (error) {
     console.error("Error requesting OTP:", error);
     res.status(500).json({ message: "Server Error" });
@@ -243,33 +216,40 @@ const loginRequestOTP = async (req, res) => {
 };
 
 const loginVerifyOTP = async (req, res) => {
-  const { otp, verificationId, phone } = req.body;
+  const { phoneNumber, otp } = req.body;
 
   try {
-    const user = await User.findOne({phone})
-    const credential = firebase.auth.PhoneAuthProvider.credential(verificationId, otp);
-    const userCredential = await firebase.auth().signInWithCredential(credential);
-   
-    if (userCredential) {
-      // User authenticated successfully
-      const token = jwt.sign(
-        {
-          id: user._id,
-          name: user.name,
-          email: user.email,
-        },
-        process.env.JWT_KEY,
-        {
-          expiresIn: "24h",
-        }
-      );
-  
-      res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hours expiry
-  
-      res.status(200).redirect("/");
-      console.log("User logged in using OTP : JWT created");
+    const user = await User.findOne({ phoneNumber });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
 
+    if (user.otp !== otp || Date.now() > user.otpExpiration) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+
+    // Clear OTP fields after successful verification
+    user.otp = undefined;
+    user.otpExpiration = undefined;
+    await user.save();
+
+    const token = jwt.sign(
+      {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+      process.env.JWT_KEY,
+      {
+        expiresIn: "24h",
+      }
+    );
+
+    res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hours expiry
+
+    res.status(200).redirect("/");
+    console.log("User logged in using OTP : JWT created");
   } catch (error) {
     console.error("Error verifying OTP:", error);
     res.status(500).json({ message: "Server Error" });

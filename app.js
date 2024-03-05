@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
-// const firebase = require('firebase-admin');
 const userRouter = require("./routes/users");
 const adminRouter = require("./routes/admin");
 const vendorRouter = require("./routes/vendor");
@@ -11,9 +10,6 @@ const vendorRouter = require("./routes/vendor");
 require("dotenv").config();
 const path = require("path");
 const app = express();
-
-
-
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
