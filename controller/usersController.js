@@ -4,10 +4,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const smsService = require("../helpers/smsService");
 const { sendOtpEmail } = require("../helpers/emailService");
-const {
-  PhoneNumberContextImpl,
-} = require("twilio/lib/rest/proxy/v1/service/phoneNumber");
 require("dotenv").config();
+
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
@@ -16,7 +14,6 @@ const generateOTP = () => {
 let homePage = async (req, res) => {
   try {
     let products = await Vendor.find().select("products");
-    console.log(products);
     res.status(200).render("user/home", { products: products });
   } catch (error) {
     console.error("Failed to get home:", error);
@@ -126,6 +123,10 @@ let signupVerify = async (req, res) => {
 // USER LOGIN PAGE DISPLAY
 let loginGetPage = async (req, res) => {
   try {
+    if (req.cookies.jwt) {
+      return res.redirect("/");
+    }
+
     res.render("user/login", { error: " " });
   } catch (error) {
     console.error("Failed to get login page:", error);
@@ -255,7 +256,9 @@ const loginRequestOTP = async (req, res) => {
     const user = await User.findOne({ phoneNumber: phone });
 
     if (!user) {
-      return res.status(404).render("user/loginOtpPhone",{ error: "User not found"});
+      return res
+        .status(404)
+        .render("user/loginOtpPhone", { error: "User not found" });
     }
 
     const otp = generateOTP();
@@ -280,8 +283,8 @@ const loginVerifyOTP = async (req, res) => {
     const user = await User.findOne({ phoneNumber });
 
     if (!user) {
-      return res.status(404).json({ message: "User not found"});
-    } 
+      return res.status(404).json({ message: "User not found" });
+    }
 
     if (user.otp !== otp || Date.now() > user.otpExpiration) {
       return res.status(400).json({ message: "Invalid or expired OTP" });
