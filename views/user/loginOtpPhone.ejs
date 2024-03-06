@@ -356,16 +356,16 @@
                         <div class="basic-login">
                             <h3 class="text-center mb-60">Login with OTP</h3>
 
-                            <form action="/loginOtp" method="post">
+                            <form action="/loginOtp" method="post" onsubmit="return validatePhone()" >
 
                                 <% if (typeof error !== 'undefined' && error !== null) { %>
                                     <p style="color: red;"><%= error %></p>
                                 <% } %>
                                 <label for="phone">Phone <span>**</span></label>
-                                <small id="phone-error" style="color: red; display: none;">Please enter a valid phone number</small>
+                                <small id="phone-error" style="color: red; display: none;margin-bottom: 10px;">Please enter a valid phone number</small>
                                 <input id="phone" name="phoneNumber" type="text" placeholder="Enter phone number..." />
                             
-                                <button type="button" class="btn theme-btn-2 w-100" onclick="validatePhone()">Generate OTP</button><br>  
+                                <button class="btn theme-btn-2 w-100 ">Generate OTP</button><br>  
                                 
                             </form> 
 

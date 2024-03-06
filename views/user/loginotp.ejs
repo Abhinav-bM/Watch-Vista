@@ -360,24 +360,36 @@
 
 
 
-                            <form id="loginOtpForm" action="/loginOtpDone" method="post">
-
-                                
-                                <p id="errorMessage" style="color: red;"></p>
+                            <form  action="/loginOtpDone" method="post" onsubmit="return validate()">
                                 
-                                
+                                <% if (typeof error !== 'undefined' && error !== null) { %>
+                                    <p style="color: red;"><%= error %></p>
+                                <% } %>
                                 <input type="hidden" name="phoneNumber" value="<%= phone %>">          
 
                                 <label for="otp">OTP <span>**</span></label>
+                                <p id="errMessage" style="color: red;"></p>
                                 <input id="otp" name="otp" type="text" placeholder="Enter otp..." />
                             
-                                <button type="submit" class="btn theme-btn-2 w-100">Log In</button><br>                                
+                                <button class="btn theme-btn-2 w-100">Log In</button><br>                                
                             
                             </form>
 
 
                             <script>
-           
+                                function validate (){
+                                    var otpInput = document.getElementById("otp").value;
+                                    
+                                    var errMessage = document.getElementById("errMessage")
+
+                                    if(otpInput.length !== 6){
+                                        errMessage.textContent = "Enter the 6 digit otp"
+                                        return false
+                                    }
+                                    else{
+                                        return true
+                                    }
+                                }
                             </script>
                             
                         </div>

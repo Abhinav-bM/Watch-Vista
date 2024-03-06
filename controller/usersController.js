@@ -68,6 +68,7 @@ let signupPostPage = async (req, res) => {
     res.status(500).json({ error: "Signup failed. Please try again later." });
   }
 };
+
 let signupVerify = async (req, res) => {
   try {
     const { userName, email, phoneNumber, password, phoneOtp, emailOtp } =
@@ -281,13 +282,9 @@ const loginVerifyOTP = async (req, res) => {
 
   try {
     const user = await User.findOne({ phoneNumber });
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
+    let phone = phoneNumber
     if (user.otp !== otp || Date.now() > user.otpExpiration) {
-      return res.status(400).json({ message: "Invalid or expired OTP" });
+      return res.status(400).render("user/loginOtp",{ error: "Invalid or expired OTP" , phone});
     }
 
     // Clear OTP fields after successful verification
