@@ -356,21 +356,47 @@
                         <div class="basic-login">
                             <h3 class="text-center mb-60">Login with OTP</h3>
 
-                            
-
-
-
                             <form action="/loginOtp" method="post">
 
                                 <% if (typeof error !== 'undefined' && error !== null) { %>
                                     <p style="color: red;"><%= error %></p>
                                 <% } %>
                                 <label for="phone">Phone <span>**</span></label>
+                                <small id="phone-error" style="color: red; display: none;">Please enter a valid phone number</small>
                                 <input id="phone" name="phoneNumber" type="text" placeholder="Enter phone number..." />
                             
-                                <button type="submit" class="btn theme-btn-2 w-100">Generate OTP</button><br>  
+                                <button type="button" class="btn theme-btn-2 w-100" onclick="validatePhone()">Generate OTP</button><br>  
+                                
+                            </form> 
 
-                            </form>                                
+                            <script>
+                                  function validatePhone() {
+                                    var phoneInput = document.getElementById('phone');
+                                    var phoneError = document.getElementById('phone-error');
+
+                                    // Check if the input field is empty
+                                    if (phoneInput.value.trim() === '') {
+                                    phoneError.textContent = 'Please fill in the phone number field';
+                                    phoneError.style.display = 'block';
+                                    return false;
+                                    } else {
+                                    phoneError.style.display = 'none';
+                                    }
+
+                                    // Check if the phone number matches the pattern
+                                    if (!/^(\+91)?\d{10}$/.test(phoneInput.value.trim())) {
+                                    phoneError.textContent = 'Please enter a valid phone number';
+                                    phoneError.style.display = 'block';
+                                    return false;
+                                    } else {
+                                    phoneError.style.display = 'none';
+                                    }
+
+                                    return true;
+                                }
+
+                            </script>
+                                   
                         </div>
                     </div>
                 </div>
@@ -378,80 +404,7 @@
         </section>
         <!-- login Area End-->
         
-        <!-- Firebase SDK -->
-        <!-- <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-messaging.js"></script>
-
-        <script>
-            const firebaseConfig = {
-                    apiKey: "AIzaSyDImRMUzZK1H48nkc3ENtqRG9aJQNO1EGs",
-                    authDomain: "watch-vista.firebaseapp.com",
-                    projectId: "watch-vista",
-                    storageBucket: "watch-vista.appspot.com",
-                    messagingSenderId: "751318778459",
-                    appId: "1:751318778459:web:9917ac2b15e9a25087357e",
-                    measurementId: "G-L7QECNXGZ0"
-                };
-
-    firebase.initializeApp(firebaseConfig);
-    const messaging = firebase.messaging();
-
-    // Request permission for notifications
-    messaging.requestPermission().then(() => {
-        console.log('Notification permission granted.');
-        return messaging.getToken();
-    }).then((token) => {
-        console.log('FCM Token:', token);
-        // Call the function to send the FCM token to the server
-        sendTokenToServer(token);
-    }).catch((err) => {
-        console.log('Unable to get permission to notify.', err);
-    });
-
-    const sendTokenToServer = async (token) => {
-        try {
-            const response = await fetch('/loginOtp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ fcmToken: token })
-            });
-
-            const data = await response.json();
-            console.log(data);
-        } catch (error) {
-            console.error('Error sending FCM token to server:', error);
-        }
-    };
-
-    document.getElementById('otpForm').addEventListener('submit', async (event) => {
-        event.preventDefault(); // Prevent form submission
         
-        const phoneNumber = document.getElementById('phone').value;
-        const condition = `'${phoneNumber}' in topics`;
-
-        try {
-            const response = await fetch('/loginOtp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ phoneNumber, condition })
-            });
-
-            const data = await response.json();
-            console.log(data);
-
-            // Handle response as needed, maybe show a success message to the user
-        } catch (error) {
-            console.error('Error sending OTP request:', error);
-            // Handle error, maybe show an error message to the user
-        }
-    });
-
-
-        </script> -->
 
 
         </main>

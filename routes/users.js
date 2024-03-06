@@ -23,7 +23,8 @@ router.get("/loginOtp", userController.loginWithOtpGetPage);
 router.get("/shop", userController.shopGetPage);
 router.get("/products/:productId", userController.singleProductGetPage);
 
-router.post("/user/signup", userController.signupPostPage);
+router.post("/user/send-otp", userController.signupPostPage);
+router.post('/verify-otp', userController.signupVerify)
 router.post("/user/login", userController.loginPostPage);
 router.post("/forgotPassword", userController.forgotEmailPostPage);
 router.post("/resetPassword", userController.resetPassword);

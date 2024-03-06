@@ -353,17 +353,51 @@
 
 
 
-                            <form action="/forgotPassword" method="post">
+                            <form id="forgotPasswordForm" action="/forgotPassword" method="post">
 
                                 <% if (typeof error !== 'undefined' && error !== null) { %>
                                     <p style="color: red;"><%= error %></p>
                                 <% } %>
-                                <label for="email">Email Address <span>**</span></label>
-                                <input id="email" name="email" type="email" placeholder="Enter email address..." />
+
+                                <small id="emailOrPhone-error" style="color:red; display: none;">Please enter Email or Phone</small><br>
+                                <label for="email">Email or Phone <span>**</span></label>
+                                <input id="emailOrPhone" name="emailOrPhone" type="text" placeholder="Enter Email or phone" />
                             
-                                <button type="submit" class="btn theme-btn-2 w-100">Generate OTP</button><br>  
+                                <button type="button" class="btn theme-btn-2 w-100" onclick="validateAndSendOTP()">Generate OTP</button><br>  
 
                             </form>                                
+
+                            <script>
+                                function validateAndSendOTP() {
+                                    var emailOrPhone = document.getElementById('emailOrPhone').value.trim();
+                                    var emailOrPhoneError = document.getElementById('emailOrPhone-error');
+
+                                    // Check if the input field is empty
+                                    if (emailOrPhone === '') {
+                                        emailOrPhoneError.textContent = 'Please enter Email or Phone';
+                                        emailOrPhoneError.style.display = 'block';
+                                        return;
+                                    } else {
+                                        emailOrPhoneError.style.display = 'none';
+                                    }
+
+                                    var isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailOrPhone);
+                                    var isPhone = /^(\+91)?\d{10}$/.test(emailOrPhone);
+
+                                    // Check if input matches email or phone number format
+                                    if (!isEmail && !isPhone) {
+                                        emailOrPhoneError.textContent = 'Please enter a valid Email or Phone';
+                                        emailOrPhoneError.style.display = 'block';
+                                        return;
+                                    } else {
+                                        emailOrPhoneError.style.display = 'none';
+                                    }
+
+                                    // If everything is valid, submit the form
+                                    document.getElementById('forgotPasswordForm').submit();
+                                }
+
+                            </script>
                         </div>
                     </div>
                 </div>

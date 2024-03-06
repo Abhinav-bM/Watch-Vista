@@ -28,6 +28,12 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/responsive.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
+
+
+
 </head>
 
 <body>
@@ -355,96 +361,188 @@
                             <h3 class="text-center mb-60">Signup From Here</h3>
                             
 
-                            <form action="/user/signup" method="post" onsubmit="return validateAndSubmit()">
-                                <label for="name">Name <span>**</span></label>
+                            <form id="signupForm" method="post" >
+                                <label for="userName">Name <span>**</span></label>
                                 <small id="name-error" style="color:red; display: none;">Invalid Name</small>
                                 <input id="userName" type="text" name="userName" placeholder="Enter your name" />
-                                
-                                
+                                                            
                                 <label for="email-id">Email Address <span>**</span></label>
                                 <small id="email-error" style="color:red; display: none;">Invalid email</small>
                                 <input id="email-id" type="text" name="email" placeholder="Enter Email address..." />
-                                
-                            
+                                                            
                                 <label for="phone">Phone <span>**</span></label>
                                 <small id="phone-error" style="color:red; display: none;">Invalid phone</small>
                                 <input id="phone" type="text" name="phoneNumber" placeholder="Enter phone number" />
-                                
-                            
+                                                            
                                 <label for="pass">Password <span>**</span></label>
                                 <small id="password-error" style="color:red; display: none;">Invalid password</small>
                                 <input id="pass" type="password" name="password" placeholder="Enter password..." />
-                                
-                                
+                                                            
                                 <div class="mt-10"></div>
-                                <button class="btn theme-btn-2 w-100" type="submit" >Register now</button>
-                            <div class="or-divide"><span>or</span></div>
-
+                                <button class="btn theme-btn-2 w-100" type="button" onclick="validateAndSendOTP()">Register now</button>
+                                <div class="or-divide"><span>or</span></div>
                             </form>
-
                             
                             <button class="btn theme-btn w-100"><a href="/login">Login Now</a></button>
                             
-                            
+                            <!-- Bootstrap Modal for OTP Verification -->
+                            <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="otpModalLabel">Enter OTPs</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label for="phoneOtpInput">Phone OTP</label>
+                                                <input type="text" class="form-control" id="phoneOtpInput" placeholder="Enter Phone OTP">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="emailOtpInput">Email OTP</label>
+                                                <input type="text" class="form-control" id="emailOtpInput" placeholder="Enter Email OTP">
+                                            </div>
+                                            <small id="otp-error" class="text-danger"></small>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" id="verifyOtpBtn" class="btn btn-primary">Verify OTPs</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+  
+
+                            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+                            <!-- Bootstrap JS -->
+                            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
                             <script>
-                                function validateAndSubmit() {
-                                    var nameInput = document.getElementById('userName')
-                                    var emailInput = document.getElementById('email-id')
-                                    var phoneInput = document.getElementById('phone')
-                                    var passwordInput = document.getElementById('pass')
-                                    
-                                    var nameError = document.getElementById('name-error')
-                                    var emailError = document.getElementById('email-error')
+                                // VERIFY OTP
+                                $(document).on('click', '#verifyOtpBtn', function() {
+                                    console.log('Verify OTP button clicked'); // Check if function is being called
+
+                                    var nameInput = document.getElementById('userName').value;
+                                    var emailInput = document.getElementById('email-id').value;
+                                    var phoneInput = document.getElementById('phone').value;
+                                    var passwordInput = document.getElementById('pass').value;
+
+                                    var phoneOtpInput = document.getElementById('phoneOtpInput').value;
+                                    var emailOtpInput = document.getElementById('emailOtpInput').value;
+                                    var otpError = document.getElementById('otp-error');
+
+                                    // Check if OTP fields are not empty
+                                    if (phoneOtpInput.trim() === '' || emailOtpInput.trim() === '') {
+                                        otpError.textContent = 'Please enter both OTPs';
+                                        otpError.style.display = 'block';
+                                        return;
+                                    }
+
+                                    // Send OTPs to backend for verification
+                                    const formData = {
+                                        userName: nameInput,
+                                        email: emailInput,
+                                        phoneNumber: phoneInput,
+                                        password: passwordInput,
+
+                                        phoneOtp: phoneOtpInput,
+                                        emailOtp: emailOtpInput
+                                    };
+
+                                    fetch('/verify-otp', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(formData)
+                                    })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            return response.json();
+                                        } else {
+                                            throw new Error('Failed to verify OTPs');
+                                        }
+                                    })
+                                    .then(result => {
+                                        if (result.success) {
+                                            $('#otpModal').modal('hide');
+                                            // Redirect user to dashboard or any other page
+                                            window.location.href = "/";
+                                        } else {
+                                            // OTPs are invalid
+                                            otpError.textContent = 'Invalid OTPs. Please try again.';
+                                            // otpError.style.display = 'block';
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error verifying OTPs:', error);
+                                        otpError.textContent = 'Invalid OTPs. Please try again.';
+                                        // otpError.style.display = 'block';
+                                    });
+                                });
+
+                                function validateAndSendOTP() {
+                                    var nameInput = document.getElementById('userName').value;
+                                    var emailInput = document.getElementById('email-id').value;
+                                    var phoneInput = document.getElementById('phone').value;
+                                    var passwordInput = document.getElementById('pass').value;
+
+                                    var nameError = document.getElementById('name-error');
+                                    var emailError = document.getElementById('email-error');
                                     var phoneError = document.getElementById("phone-error");
-                                    var passwordError = document.getElementById('password-error')
-                                    
-                                    var isValidName = /^[a-zA-Z\s]{3,}$/.test(nameInput.value)
-                                    var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)
-                                    var isvalidPhone = /^(\+91)?\d{10}$/.test(phoneInput.value);
-                                    var isvalidPassword = passwordInput.value.length >= 6;
-                                    
+                                    var passwordError = document.getElementById('password-error');
+
+                                    var isValidName = /^[a-zA-Z\s]{3,}$/.test(nameInput);
+                                    var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput);
+                                    var isvalidPhone = /^(\+91)?\d{10}$/.test(phoneInput);
+                                    var isvalidPassword = passwordInput.length >= 6;
+
                                     // Show/hide error messages based on validation
                                     nameError.style.display = isValidName ? 'none' : 'block';
                                     emailError.style.display = isvalidEmail ? 'none' : 'block';
                                     phoneError.style.display = isvalidPhone ? 'none' : 'block';
                                     passwordError.style.display = isvalidPassword ? 'none' : 'block';
 
-                                    // Return false if any validation fails to prevent form submission
+                                    // Return if any validation fails
                                     if (!isValidName || !isvalidEmail || !isvalidPhone || !isvalidPassword) {
-                                        return false;
-                                    }
-                                    
-                                    // If phone and email are valid, show OTP modal
-                                    if (isvalidPhone && isvalidEmail) {
-                                        document.getElementById("otpModal").style.display = "block";
+                                        console.log("Form validation failed.");
+                                        return;
                                     }
 
-                                    return false; // Prevent form submission for now
-                                }
+                                    // IF VALIDATION IS OK THEN MOVE TO SEND OTP
+                                    const formData = {
+                                        userName: nameInput,
+                                        email: emailInput,
+                                        phoneNumber: phoneInput,
+                                        password: passwordInput
+                                    };
 
-                                function verifyOTPs() {
-                                    var phoneOtpInput = document.getElementById('phoneOtpInput');
-                                    var emailOtpInput = document.getElementById('emailOtpInput');
-                                    var otpError = document.getElementById('otp-error');
-                                    
-                                    // Dummy OTP validation (replace with your actual logic)
-                                    var isValidPhoneOTP = phoneOtpInput.value === "1234"; // Change "1234" to your actual phone OTP
-                                    var isValidEmailOTP = emailOtpInput.value === "5678"; // Change "5678" to your actual email OTP
-                                    
-                                    if (isValidPhoneOTP && isValidEmailOTP) {
-                                        // If both OTPs are valid, submit the form
-                                        document.getElementById("signupForm").submit();
-                                    } else {
-                                        otpError.style.display = 'block';
-                                    }
+                                    // Send data to backend to start OTP verification process
+                                    fetch('/user/send-otp', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        body: JSON.stringify(formData)
+                                    })
+                                    .then(response => {
+                                        if (response.ok) {
+                                            // Show the Bootstrap modal
+                                            $('#otpModal').modal('show');
+                                        } else {
+                                            console.log('Failed to send OTP');
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error('Error sending OTP:', error);
+                                    });
                                 }
-
-                                function closeModal() {
-                                    document.getElementById("otpModal").style.display = "none";
-                                }
-
                             </script>
+
                         </div>
                     </div>
                 </div>

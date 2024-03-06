@@ -1,5 +1,5 @@
-const springedge = require('springedge');
-require("dotenv").config()
+const springedge = require("springedge");
+require("dotenv").config();
 
 const apiKey = process.env.SPRING_EDGE_API;
 
@@ -11,7 +11,7 @@ function sendOTP(phoneNumber, otp) {
     apikey: apiKey,
     to: [`${phoneNumber}`],
     message: message,
-    format: "json"
+    format: "json",
   };
 
   springedge.messages.send(params, 5000, function (err, response) {

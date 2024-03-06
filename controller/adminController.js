@@ -114,7 +114,7 @@ let addCategory = async (req, res) => {
     console.error(error);
   }
 };
-
+  
 // UPDATE CATEGORY
 let updateCategory = async (req, res) => {
   let categoryId = req.body.editCategoryId;
