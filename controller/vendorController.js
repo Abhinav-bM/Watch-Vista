@@ -2,6 +2,7 @@ const Vendor = require("../models/vendorsModel");
 const Admin = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const cloudinary = require('../config/cloudinary')
 
 require("dotenv").config();
 
@@ -119,12 +120,24 @@ let addProduct = async (req, res) => {
 // ADD PRODUCT POST PAGE
 let addProductpost = async (req, res) => {
   try {
-    let {email} = req.user
-    let vendor = await Vendor.findOne({email})
+    let { email } = req.user;
+    let imageData = req.files;
+    let productData = req.body
 
-    const productImages = req.files.map((file) => ({
-      imageUrl: file.path, // Assuming 'path' contains the path to the uploaded file
-    }));
+    let vendor = await Vendor.findOne({ email });
+
+    const imageUrls = [];
+
+    if(productData){
+      for (const file of imageData) {
+        const result = await cloudinary.uploader.upload(file.path);
+        imageUrls.push(result.secure_url);
+      }
+      console.log(imageUrls);
+    }else{
+      console.log("No product data found");
+    }
+
     // Create a new Product instance with uploaded image URLs
     const newProduct = {
       productName: req.body.productName,
@@ -137,14 +150,29 @@ let addProductpost = async (req, res) => {
       productPrice: req.body.productPrice,
       productMRP: req.body.productMRP,
       productDiscount: req.body.productDiscount,
-      productImages: productImages,
+      productImages: imageUrls,
       productDescription: req.body.productDescription,
-    }
-    vendor.products.push(newProduct)
-    await vendor.save()
-    console.log("product added successful");
+    };
+    vendor.products.push(newProduct);
+    await vendor.save();
+    res.redirect("/vendor/productList")
+    console.log("product added successful")
   } catch (error) {
     console.log(error);
+  }
+};
+
+// PRODUCT LIST
+let producList = async (req, res) => {
+  try {
+    let _id = req.user.id
+    const vendor = await Vendor.findOne({_id})
+    let products = vendor.products
+    console.log("product : ", products)
+    res.status(200).render("vendor/product-list",{products})
+  } catch (error) {
+    console.error("vendor product list error", error)
+    res.status(404).send("page not found")
   }
 };
 
@@ -172,4 +200,5 @@ module.exports = {
   vendorLogout,
   addProduct,
   addProductpost,
+  producList,
 };

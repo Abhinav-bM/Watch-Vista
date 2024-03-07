@@ -14,6 +14,7 @@ const generateOTP = () => {
 let homePage = async (req, res) => {
   try {
     let products = await Vendor.find().select("products");
+    console.log("products : ",products)
     res.status(200).render("user/home", { products: products });
   } catch (error) {
     console.error("Failed to get home:", error);
@@ -282,9 +283,11 @@ const loginVerifyOTP = async (req, res) => {
 
   try {
     const user = await User.findOne({ phoneNumber });
-    let phone = phoneNumber
+    let phone = phoneNumber;
     if (user.otp !== otp || Date.now() > user.otpExpiration) {
-      return res.status(400).render("user/loginOtp",{ error: "Invalid or expired OTP" , phone});
+      return res
+        .status(400)
+        .render("user/loginOtp", { error: "Invalid or expired OTP", phone });
     }
 
     // Clear OTP fields after successful verification
@@ -470,7 +473,7 @@ let shopGetPage = async (req, res) => {
     res.status(404).send("page not found");
   }
 };
-
+ 
 // DISPLAY SINGLE PRODUCT PAGE
 let singleProductGetPage = async (req, res) => {
   try {

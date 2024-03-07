@@ -454,19 +454,14 @@
                   
                   <div class="new-arrival-wrapper mt-55">
                     <div class="row">
-                      <% let count = 0; %>
-                      <% products.forEach(vendor => { %>
-                        <% if (count < 12 && vendor.products && vendor.products.length > 0) { %>
-                          <% vendor.products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, 12 - count).forEach(product => { %>
+
+                        <% products.forEach(prod=>{ %>
+                            <% prod.products.forEach(product=>{ %>
                             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
                               <div class="product-box mb-40">
                                 <div class="product-box-wrapper">
                                   <div class="product-img">
-                                    <% if (product.productImages && product.productImages.length > 0) { %>
-                                      <img src="<%= product.productImages[0].imageUrl %>" class="w-100" alt="<%= product.productName %>">
-                                    <% } else { %>
-                                      <img src="path_to_default_image.jpg" class="w-100" alt="Default Image">
-                                    <% } %>
+                                      <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= products.productName %>">
                                   </div>
                         
                                   <div class="product-desc pb-20">
@@ -485,10 +480,8 @@
                                 </div>
                               </div>
                             </div>
-                            <% count++; %>
-                          <% }); %>
-                        <% } %>
-                      <% }); %>
+                            <% }); %>
+                        <% }); %>
                     </div>
                   </div>
                 </div>

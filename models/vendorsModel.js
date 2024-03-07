@@ -1,24 +1,20 @@
 const mongoose = require("mongoose");
 
-// PRODUCT IMAGE SCHEMA
-const productImageSchema = new mongoose.Schema({
-  imageUrl: { type: String, required: true },
-});
 
 // PRODUCT SCHEMA
 const productSchema = new mongoose.Schema({
-  productName: { type: String, required: true },
-  productCategory: { type: String, required: true },
-  productSubCategory: { type: String, required: true },
-  productBrand: { type: String, required: true },
-  productColor: { type: String, required: true },
-  productSize: { type: String, required: true },
-  productQTY: { type: Number, required: true },
-  productPrice: { type: Number, required: true },
-  productMRP: { type: Number, required: true },
-  productDiscount: { type: Number, required: true },
-  productImages: [productImageSchema],
-  productDescription: { type: String, required: true }
+  productName: { type: String,  },
+  productCategory: { type: String,  },
+  productSubCategory: { type: String, },
+  productBrand: { type: String, },
+  productColor: { type: String, },
+  productSize: { type: String,},
+  productQTY: { type: Number,  },
+  productPrice: { type: Number,  },
+  productMRP: { type: Number,  },
+  productDiscount: { type: Number,  },
+  productImages: {type:Array},
+  productDescription: { type: String,  }
 }, { timestamps: true });
 
 

@@ -291,18 +291,17 @@
                         <div class="col-xl-6 col-lg-6 col-12">
                             <div class="shop-img">
                                 <div class="row">
-                                    
                                     <div class="col-10">
                                         <div class="tab-content" id="v-pills-tabContent">
                                             <div class="tab-pane fade show active" id="tab-1">
 
                                                 <div class="product-img">
-                                                    <a href="" class="popup-image" ><img src="" class="w-100" alt=""></a>
+                                                    <a href="<%= products.productImages[0] %>" class="popup-image" ><img src="<%= products.productImages[0] %>" class="w-100" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-2">
                                                 <div class="product-img">
-                                                    <a href="/img/product/farniture-8.jpg" class="popup-image" ><img src="/img/product/farniture-8.jpg" class="w-100" alt=""></a>
+                                                    <a href="" class="popup-image" ><img src= "" class="w-100" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-3">
@@ -321,19 +320,21 @@
                                     <div class="col-2">
                                         <div class="nav nav-pills has-border-img" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                             <a class="active" data-toggle="pill" href="#tab-1">
-                                                <img src="/img/product/farniture-7.jpg" class="w-100" alt="">
+                                                <img src="<%= products.productImages[0] %>" class="w-100" alt="">
                                             </a>
                                             <a data-toggle="pill" href="#tab-2">
-                                                <img src="/img/product/farniture-8.jpg" class="w-100 mt-5-px" alt="">
+                                                <img src="" class="w-100 mt-5-px" alt="">
                                             </a>
                                             <a data-toggle="pill" href="#tab-3">
-                                                <img src="/img/product/farniture-9.jpg" class="w-100 mt-5-px" alt="">
+                                                <img src="" class="w-100 mt-5-px" alt="">
                                             </a>
                                             <a data-toggle="pill" href="#tab-4">
-                                                <img src="/img/product/farniture-10.jpg" class="w-100 mt-5-px" alt="">
+                                                <img src="" class="w-100 mt-5-px" alt="">
                                             </a>
                                           </div>
+                                          
                                     </div>
+                                    
                                     
                              
                                 </div>
@@ -347,40 +348,9 @@
                                         <h2><%= products.productName %></h2>
                                     </div>
                                     <div class="single-product-price">₹ <span><%= products.productPrice %>/-</span><span></span></div>
-                                    <div class="single-product-desc mb-25">
-                                        <p><%= products.productDescription %></p>
-                                            <!-- <div class="product-list single-product-list">
-                                                <ul>
-                                                    <li>– Light green crewneck sweatshirt.</li>
-                                                    <li>– Hand pockets.</li>
-                                                    <li>– Relaxed fit.</li>
-                                                </ul>
-                                            </div> -->
-                                    </div>
+
                                     <div class="single-product-component">
                                         <h6>Color : <span class="color-value"><%= products.productColor %></span></h6>
-                                        <!-- <form action="#" style="overflow: hidden;" class="mt-15">
-                                            <div class="color-input">
-                                                <label for="gold" style="background-color: #FFD700;"></label>
-                                                <input type="radio" class="d-none" id="gold">
-                                                <span>Gold</span>
-                                            </div>
-                                            <div class="color-input">
-                                                <label for="green" style="background-color: #008000"></label>
-                                                <input type="radio" class="d-none" id="green">
-                                                <span>green</span>
-                                            </div>
-                                            <div class="color-input">
-                                                <label for="white" style="background-color: #fff;"></label>
-                                                <input type="radio" class="d-none" id="white">
-                                                <span>white</span>
-                                            </div>
-                                            <div class="color-input">
-                                                <label for="yellow"  style="background-color: #FFFF00;"></label>
-                                                <input type="radio" class="d-none" id="yellow">
-                                                <span>Yellow</span>
-                                            </div> -->
-                                        </form>
                                     </div>
                                     <div class="single-product-component mt-15">
                                         <div class="size">
@@ -433,9 +403,6 @@
                           <a class="active" data-toggle="pill" href="#desc-tab-1">Description</a>
                         </li>
                         <li class="nav-item">
-                            <a data-toggle="pill" href="#desc-tab-3">Additional information</a>
-                          </li>
-                        <li class="nav-item">
                           <a class="" data-toggle="pill" href="#desc-tab-2">Reviews (0)</a>
                         </li>
                       </ul>
@@ -444,9 +411,7 @@
                             <div class="tab-pane fade show active" id="desc-tab-1">
                                 <div class="single-product-tab-content">
                                     <h3 class="title mb-30">Description</h3>
-                                    <p>Designed by Hans J. Wegner in 1949 as one of the first models created especially for Carl Hansen & Son, and produced since 1950. The last of a series of chairs Wegner designed based on inspiration from antique Chinese armchairs. The gently rounded top together with the back and seat offers a variety of comfortable seating positions, ideal for both long visits to the dining table and relaxed lounging. A light chair, easy to move around the dining table and about the room.</p>
-                                    <p>The characteristic “Y” provides comfortable back support and stability to the steam-bent top, also inspiring the chair’s names An excellent example of Wegner’s constant striving towards organic simplicity to create sculptural beauty, comfort and outstanding stability.</p>
-                                    <p>The gently rounded top together with the back and seat offers a variety of comfortable seating positions, ideal for both long visits to the dining table and relaxed lounging. A light chair, easy to move around the dining table and about the room.</p>
+                                    <p><%= products.productDescription %></p>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="desc-tab-2">
@@ -791,7 +756,7 @@
                         <div class="product-box mb-40">
                             <div class="product-box-wrapper">
                                 <div class="product-img">
-                                    <img src="/img/product/farniture-8.jpg" class="w-100" alt="">
+                                    <img src="<%= products.productImages[0] %>" class="w-100" alt="">
                                     <a href="single-product-3.html" class="d-block">
                                         <div class="second-img">
                                             <img src="/img/product/farniture-8-hover.jpg" alt="" class="w-100">
@@ -1084,7 +1049,7 @@
                         <div class="product-box mb-40">
                             <div class="product-box-wrapper">
                                 <div class="product-img">
-                                    <img src="/img/product/farniture-8.jpg" class="w-100" alt="">
+                                    <img src= "<%= products.productImages[0] %>" class="w-100" alt="">
                                     <a href="single-product-3.html" class="d-block">
                                         <div class="second-img">
                                             <img src="/img/product/farniture-8-hover.jpg" alt="" class="w-100">
@@ -1114,6 +1079,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="carousel-single-item">
                     <div class="col-12">
                         <div class="product-box mb-40">
