@@ -27,6 +27,25 @@
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
+
+    <style>
+        /* CSS for Image Zoom */
+        .zoomable {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zoomable__img {
+            transform-origin: var(--zoom-pos-x, 0%) var(--zoom-pos-y, 0%);
+            transition: transform 0.40s linear;
+        }
+
+        .zoomable--zoomed .zoomable__img {
+            cursor: zoom-in;
+            transform: scale(var(--zoom, 1));
+        }
+
+    </style>
 </head>
 
 <body>
@@ -92,12 +111,12 @@
                                                 <div class="search-content pt-55">
                                                     <ul class="text-center">
                                                         <li><a href="javascript:void(0)" class="active">All categories</a></li>
-                                                        <li><a href="javascript:void(0)">Clothing</a></li>
-                                                        <li><a href="javascript:void(0)">Gift Cards</a></li>
-                                                        <li><a href="javascript:void(0)">Handbag</a></li>
+                                                        <li><a href="javascript:void(0)">Men</a></li>
+                                                        <!-- <li><a href="javascript:void(0)">Gift Cards</a></li> -->
+                                                        <!-- <li><a href="javascript:void(0)">Handbag</a></li> -->
+                                                        <!-- <li><a href="javascript:void(0)">Kids</a></li> -->
+                                                        <!-- <li><a href="javascript:void(0)">Shoes</a></li> -->
                                                         <li><a href="javascript:void(0)">Kids</a></li>
-                                                        <li><a href="javascript:void(0)">Shoes</a></li>
-                                                        <li><a href="javascript:void(0)">Sneaker</a></li>
                                                         <li><a href="javascript:void(0)">Women</a></li>
                                                     </ul>
 
@@ -112,55 +131,10 @@
                                                         <ul class="text-left">
                                                             <li class="d-block d-flex align-items-center">
                                                                 <div class="search-result-img">
-                                                                    <img src="/img/product/1.jpg" class="w-100" alt="">
+                                                                    <img src="" class="w-100" alt="">
                                                                 </div>
                                                                 <div class="search-result-desc pl-10">
                                                                     <a href="single-product-4.html" class="title px-0">ELLE  - Recliner syntheti chair</a>
-                                                                    <div class="price">$<span>399</span></div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="d-block d-flex align-items-center">
-                                                                <div class="search-result-img">
-                                                                    <img src="/img/product/2.jpg" class="w-100" alt="">
-                                                                </div>
-                                                                <div class="search-result-desc pl-10">
-                                                                    <a href="single-product-4.html" class="title px-0">RIMINI  - Folding leather deck chair</a>
-                                                                    <div class="price">$<span>399</span></div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="d-block d-flex align-items-center">
-                                                                <div class="search-result-img">
-                                                                    <img src="/img/product/3.jpg" class="w-100" alt="">
-                                                                </div>
-                                                                <div class="search-result-desc pl-10">
-                                                                    <a href="single-product-4.html" class="title px-0">LANDSCAPE  - Folding fabric deck chair</a>
-                                                                    <div class="price">$<span>399</span></div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="d-block d-flex align-items-center">
-                                                                <div class="search-result-img">
-                                                                    <img src="/img/product/1.jpg" class="w-100" alt="">
-                                                                </div>
-                                                                <div class="search-result-desc pl-10">
-                                                                    <a href="single-product-4.html" class="title px-0">ELLE  - Recliner syntheti chair</a>
-                                                                    <div class="price">$<span>399</span></div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="d-block d-flex align-items-center">
-                                                                <div class="search-result-img">
-                                                                    <img src="/img/product/2.jpg" class="w-100" alt="">
-                                                                </div>
-                                                                <div class="search-result-desc pl-10">
-                                                                    <a href="single-product-4.html" class="title px-0">RIMINI  - Folding leather deck chair</a>
-                                                                    <div class="price">$<span>399</span></div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="d-block d-flex align-items-center">
-                                                                <div class="search-result-img">
-                                                                    <img src="/img/product/3.jpg" class="w-100" alt="">
-                                                                </div>
-                                                                <div class="search-result-desc pl-10">
-                                                                    <a href="single-product-4.html" class="title px-0">LANDSCAPE  - Folding fabric deck chair</a>
                                                                     <div class="price">$<span>399</span></div>
                                                                 </div>
                                                             </li>
@@ -291,27 +265,28 @@
                         <div class="col-xl-6 col-lg-6 col-12">
                             <div class="shop-img">
                                 <div class="row">
+                                    
                                     <div class="col-10">
                                         <div class="tab-content" id="v-pills-tabContent">
                                             <div class="tab-pane fade show active" id="tab-1">
-
-                                                <div class="product-img">
-                                                    <a href="<%= products.productImages[0] %>" class="popup-image" ><img src="<%= products.productImages[0] %>" class="w-100" alt=""></a>
+                                               
+                                                <div class="product-img zoomable d-flex justify-content-center">
+                                                    <a href="<%= products.productImages[0] %>" class="popup-image"  ><img src="<%= products.productImages[0] %>" class=" zoomable__img" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-2">
-                                                <div class="product-img">
-                                                    <a href="" class="popup-image" ><img src= "" class="w-100" alt=""></a>
+                                                <div class="product-img zoomable d-flex justify-content-center">
+                                                    <a href="<%= products.productImages[1] %>" class="popup-image" ><img src= "<%= products.productImages[1] %>" class=" zoomable__img" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-3">
-                                                <div class="product-img">
-                                                    <a href="/img/product/farniture-9.jpg" class="popup-image" ><img src="/img/product/farniture-9.jpg" class="w-100" alt=""></a>
+                                                <div class="product-img zoomable d-flex justify-content-center">
+                                                    <a href="<%= products.productImages[2] %>" class="popup-image" ><img src="<%= products.productImages[2] %>" class=" zoomable__img" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-4">
-                                                <div class="product-img">
-                                                    <a href="/img/product/farniture-10.jpg" class="popup-image" ><img src="/img/product/farniture-10.jpg" class="w-100" alt=""></a>
+                                                <div class="product-img zoomable d-flex justify-content-center">
+                                                    <a href="<%= products.productImages[3] %>" class="popup-image" ><img src="<%= products.productImages[3] %>" class=" zoomable__img" alt=""></a>
                                                 </div>
                                             </div>
                                             
@@ -323,13 +298,13 @@
                                                 <img src="<%= products.productImages[0] %>" class="w-100" alt="">
                                             </a>
                                             <a data-toggle="pill" href="#tab-2">
-                                                <img src="" class="w-100 mt-5-px" alt="">
+                                                <img src="<%= products.productImages[1] %>" class="w-100 mt-5-px" alt="">
                                             </a>
                                             <a data-toggle="pill" href="#tab-3">
-                                                <img src="" class="w-100 mt-5-px" alt="">
+                                                <img src="<%= products.productImages[2] %>" class="w-100 mt-5-px" alt="">
                                             </a>
                                             <a data-toggle="pill" href="#tab-4">
-                                                <img src="" class="w-100 mt-5-px" alt="">
+                                                <img src="<%= products.productImages[3] %>" class="w-100 mt-5-px" alt="">
                                             </a>
                                           </div>
                                           
@@ -347,7 +322,7 @@
                                     <div class="single-product-title">
                                         <h2><%= products.productName %></h2>
                                     </div>
-                                    <div class="single-product-price">₹ <span><%= products.productPrice %>/-</span><span></span></div>
+                                    <div class="single-product-price">₹ <span><%= products.productPrice %>/-</span></div>
 
                                     <div class="single-product-component">
                                         <h6>Color : <span class="color-value"><%= products.productColor %></span></h6>
@@ -383,7 +358,7 @@
                                     <!-- <div class="sku"><span>Sku: </span> <strong>M-Hat-8</strong></div> -->
                                     <div class="single-product-category">
                                         <ul>
-                                            <li class="mb-0"><a href="javascript:void(0)" class="title">Category : </a></li>
+                                            <li class="mb-0"><a href="javascript:void(0)" class="title">Tags : </a></li>
                                             <li class="mb-0"><a href="single-product-4.html"><%= products.productCategory %></a></li>
                                             <li class="mb-0"><a href="single-product-4.html"><%= products.productSubCategory %></a></li>
                                         </ul>
@@ -421,7 +396,7 @@
                                         <div class="row">
                                             <div class="col-xl-1 col-lg-2 col-md-2 col-3 pr-xl-0">
                                                 <div class="review-box-img d-block text-right">
-                                                    <img src="/img/small-/img/1.jpg" width="60" height="60" class="avatar-img" alt="">
+                                                    <img src="<%= products.productImages[0] %>" width="60" height="60" class="avatar-img" alt="">
                                                 </div>
                                             </div>
                                             <div class="col-xl-11 col-lg-10 col-9 pl-0">
@@ -531,299 +506,7 @@
     </section>
     <!-- single product end -->
 
-    <!-- sugession start -->
-    <section class="sugession-product mt-120">
-        <div class="container-fluid">
-            <div class="generic-title text-center">
-                <h2 class="mb-20">You May Also Like</h2>
-            </div>
-            <div class="main-product-carousel owl-carousel red-nav mt-50">
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="/img/product/farniture-1.jpg" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-1-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                        class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                </div>
 
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="shop3.html" class="product-category"><span>Woman</span></a>
-                                        </div>
-                                        <a href="wishlist.html" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="single-product-3.html" class="product-title">Light green crewneck
-                                        sweatshir</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$58.00</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to
-                                            cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="/img/product/farniture-2.jpg" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-2-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                        class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                </div>
-
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="shop3.html" class="product-category"><span>Woman</span></a>
-                                        </div>
-                                        <a href="wishlist.html" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="single-product-3.html" class="product-title">Light green crewneck
-                                        sweatshir</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$58.00</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to
-                                            cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="/img/product/farniture-4.jpg" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-4-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                        class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                </div>
-
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="shop3.html" class="product-category"><span>Woman</span></a>
-                                        </div>
-                                        <a href="wishlist.html" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="single-product-3.html" class="product-title">Tassels Pendant Earrings</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$85.00</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to
-                                            cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box mb-40">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="/img/product/farniture-5.jpg" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-5-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                        class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                </div>
-
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="shop3.html" class="product-category"><span>Shoes</span></a>
-                                            <a href="shop3.html" class="product-category"><span>Sneaker</span></a>
-                                            <a href="shop3.html" class="product-category"><span>Women</span></a>
-                                        </div>
-                                        <a href="wishlist.html" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="single-product-3.html" class="product-title">Leather Courriere duffle
-                                        bag</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$3.00</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to
-                                            cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box mb-40">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="/img/product/farniture-6.jpg" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-6-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                        class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                    <span class="sale bg-red text-white">sale!</span>
-                                </div>
-
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="shop3.html" class="product-category"><span>Shoes</span></a>
-                                            <a href="shop3.html" class="product-category"><span>Sneaker</span></a>
-                                        </div>
-                                        <a href="wishlist.html" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="single-product-3.html" class="product-title">Wood design bedroom clook</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$45-$10.00</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to
-                                            cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box mb-40">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="/img/product/farniture-7.jpg" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-7-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                        class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                    <span class="sale bg-red text-white">sale!</span>
-                                </div>
-
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="shop3.html" class="product-category"><span>Woman</span></a>
-                                        </div>
-                                        <a href="wishlist.html" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="single-product-3.html" class="product-title">Capitalize on low hanging
-                                        fruit to</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$250.00</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to
-                                            cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box mb-40">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="<%= products.productImages[0] %>" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-8-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                        class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                </div>
-
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="shop3.html" class="product-category"><span>Woman</span></a>
-                                        </div>
-                                        <a href="wishlist.html" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="single-product-3.html" class="product-title">Light green crewneck
-                                        sweatshir</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$58.00</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to
-                                            cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box mb-40">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="/img/product/farniture-9.jpg" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-9-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                    <a href="javascript:void(0)"
-                                        class="product-img-link quick-view-1 text-capitalize">Quick view</a>
-                                </div>
-
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="shop3.html" class="product-category"><span>Woman</span></a>
-                                        </div>
-                                        <a href="wishlist.html" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="single-product-3.html" class="product-title">Tassels Pendant Earrings</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$85.00</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to
-                                            cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- sugession end -->
     <!-- related product start -->
     <section class="related-product mt-120">
         <div class="container-fluid">
@@ -1386,8 +1069,148 @@
 
 
 
+<script>
+    // Constants
+const Default = {
+    initialZoom: 3,
+    minZoom: 1.25,
+    maxZoom: 4,
+    zoomSpeed: 0.01
+};
 
+// Class definition
+class Zoomable {
+    constructor(element, config) {
+        this.element = element;
+        this.config = this._mergeConfig(config);
 
+        const { initialZoom, minZoom, maxZoom } = this.config;
+
+        this.zoomed = false;
+        this.initialZoom = Math.max(Math.min(initialZoom, maxZoom), minZoom);
+        this.zoom = this.initialZoom;
+
+        this.img = element.querySelector(".zoomable__img");
+        this.img.draggable = false;
+        this.element.style.setProperty("--zoom", this.initialZoom);
+
+        this._addEventListeners();
+    }
+
+    static get Default() {
+        return Default;
+    }
+
+    _addEventListeners() {
+        this.element.addEventListener("mouseover", () =>
+            this._handleMouseover()
+        );
+        this.element.addEventListener("mousemove", (evt) =>
+            this._handleMousemove(evt)
+        );
+        this.element.addEventListener("mouseout", () => this._handleMouseout());
+        this.element.addEventListener("wheel", (evt) => this._handleWheel(evt));
+
+        this.element.addEventListener("touchstart", (evt) =>
+            this._handleTouchstart(evt)
+        );
+        this.element.addEventListener("touchmove", (evt) =>
+            this._handleTouchmove(evt)
+        );
+        this.element.addEventListener("touchend", () => this._handleTouchend());
+    }
+
+    _handleMouseover() {
+        if (this.zoomed) {
+            return;
+        }
+
+        this.element.classList.add("zoomable--zoomed");
+        this.zoomed = true;
+    }
+
+    _handleMousemove(evt) {
+        if (!this.zoomed) {
+            return;
+        }
+
+        const elPos = this.element.getBoundingClientRect();
+
+        const percentageX = `${((evt.clientX - elPos.left) * 100) / elPos.width}%`;
+        const percentageY = `${((evt.clientY - elPos.top) * 100) / elPos.height}%`;
+
+        this.element.style.setProperty("--zoom-pos-x", percentageX);
+        this.element.style.setProperty("--zoom-pos-y", percentageY);
+    }
+
+    _handleMouseout() {
+        if (!this.zoomed) {
+            return;
+        }
+
+        this.element.style.setProperty("--zoom", this.initialZoom);
+        this.element.classList.remove("zoomable--zoomed");
+
+        this.zoomed = false;
+    }
+
+    _handleWheel(evt) {
+        if (!this.zoomed) {
+            return;
+        }
+
+        evt.preventDefault();
+
+        const newZoom = this.zoom + evt.deltaY * (this.config.zoomSpeed * -1);
+        const { minZoom, maxZoom } = this.config;
+
+        this.zoom = Math.max(Math.min(newZoom, maxZoom), minZoom);
+        this.element.style.setProperty("--zoom", this.zoom);
+    }
+
+    _handleTouchstart(evt) {
+        evt.preventDefault();
+
+        this._handleMouseover();
+    }
+
+    _handleTouchmove(evt) {
+        if (!this.zoomed) {
+            return;
+        }
+
+        const elPos = this.element.getBoundingClientRect();
+
+        let percentageX = ((evt.touches[0].clientX - elPos.left) * 100) / elPos.width;
+        let percentageY = ((evt.touches[0].clientY - elPos.top) * 100) / elPos.height;
+
+        percentageX = Math.max(Math.min(percentageX, 100), 0);
+        percentageY = Math.max(Math.min(percentageY, 100), 0);
+
+        this.element.style.setProperty("--zoom-pos-x", `${percentageX}%`);
+        this.element.style.setProperty("--zoom-pos-y", `${percentageY}%`);
+    }
+
+    _handleTouchend(evt) {
+        this._handleMouseout();
+    }
+
+    _mergeConfig(config) {
+        return {
+            ...this.constructor.Default,
+            ...(typeof config === "object" ? config : {})
+        };
+    }
+}
+
+// Implementation
+const zoomableImages = document.querySelectorAll(".zoomable");
+
+for (const image of zoomableImages) {
+    new Zoomable(image);
+}
+
+</script>
 
 
 

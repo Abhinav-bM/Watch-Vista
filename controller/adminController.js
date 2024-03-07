@@ -1,5 +1,6 @@
 const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
+const Vendor = require("../models/vendorsModel")
 const jwt = require("jsonwebtoken");
 
 // ADMIN LOGIN PAGE DISPLAY
@@ -258,6 +259,18 @@ let deleteSubcategory = async (req, res)=>{
   }
 }
 
+// LIST PRODUCT PAGE
+let productList = async (req, res)=>{
+  try {
+    let _id = req.user.id;
+    let products =  await Vendor.find().select("products");
+    console.log("product : ", products);
+    res.status(200).render("admin/product-list", { products });
+  } catch (error) {
+    console.error("vendor product list error", error);
+    res.status(404).send("page not found");
+  }
+}
 
 
 //ADMIN LOGOUT
@@ -289,5 +302,7 @@ module.exports = {
   subcategoryList,
   addSubcategory,
   updateSubcategory,
-  deleteSubcategory
+  deleteSubcategory,
+  productList,
 };
+

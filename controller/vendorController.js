@@ -2,7 +2,7 @@ const Vendor = require("../models/vendorsModel");
 const Admin = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const cloudinary = require('../config/cloudinary')
+const cloudinary = require("../config/cloudinary");
 
 require("dotenv").config();
 
@@ -122,19 +122,19 @@ let addProductpost = async (req, res) => {
   try {
     let { email } = req.user;
     let imageData = req.files;
-    let productData = req.body
+    let productData = req.body;
 
     let vendor = await Vendor.findOne({ email });
 
     const imageUrls = [];
 
-    if(productData){
+    if (productData) {
       for (const file of imageData) {
         const result = await cloudinary.uploader.upload(file.path);
         imageUrls.push(result.secure_url);
       }
       console.log(imageUrls);
-    }else{
+    } else {
       console.log("No product data found");
     }
 
@@ -155,8 +155,8 @@ let addProductpost = async (req, res) => {
     };
     vendor.products.push(newProduct);
     await vendor.save();
-    res.redirect("/vendor/productList")
-    console.log("product added successful")
+    res.redirect("/vendor/productList");
+    console.log("product added successful");
   } catch (error) {
     console.log(error);
   }
@@ -165,14 +165,117 @@ let addProductpost = async (req, res) => {
 // PRODUCT LIST
 let producList = async (req, res) => {
   try {
-    let _id = req.user.id
-    const vendor = await Vendor.findOne({_id})
-    let products = vendor.products
-    console.log("product : ", products)
-    res.status(200).render("vendor/product-list",{products})
+    let _id = req.user.id;
+    const vendor = await Vendor.findOne({ _id });
+    let products = vendor.products;
+    console.log("product : ", products);
+    res.status(200).render("vendor/product-list", { products });
   } catch (error) {
-    console.error("vendor product list error", error)
-    res.status(404).send("page not found")
+    console.error("vendor product list error", error);
+    res.status(404).send("page not found");
+  }
+};
+
+// EDIT PRODUCT GET PAGE
+let editProduct = async (req, res) => {
+  try {
+    let productId = req.params.id;
+    let vendorId = req.user.id;
+    let vendor = await Vendor.findOne({ _id: vendorId });
+    if (!vendor) {
+      res.status(400).send("Vendor not found");
+    }
+
+    let admin = await Admin.findOne();
+    let product = vendor.products.find(
+      (prod) => prod._id.toString() === productId
+    );
+    if (!product) {
+      return res.status(404).send("Product Not Found");
+    }
+
+    let categories = admin.category;
+    let subcategories = admin.subcategory;
+    res.render("vendor/product-edit", { product, categories, subcategories });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("failed to get editproduct page");
+  }
+};
+
+// EDIT PRODUDT POST PAGE
+let editProductPost = async (req, res) => {
+  try {
+    let productId = req.params.id;
+    let vendorId = req.user.id;
+    const imageUrls = [];
+
+    if (req.files) {
+      for (const file of req.files) {
+        const result = await cloudinary.uploader.upload(file.path);
+        imageUrls.push(result.secure_url);
+      }
+    }
+
+    let vendor = await Vendor.findOne({ _id: vendorId });
+
+    let productIndex = await vendor.products.findIndex(
+      (product) => product._id.toString() === productId
+    );
+    console.log("prodctIndex :", productIndex);
+    if (productIndex === -1) {
+      res.status(404).send("Product Not Found");
+    } else {
+      let updatedProduct = vendor.products[productIndex];
+      updatedProduct.productName = req.body.productName;
+      updatedProduct.productCategory = req.body.productCategory;
+      updatedProduct.productSubCategory = req.body.productSubcategory;
+      updatedProduct.productBrand = req.body.productBrand;
+      updatedProduct.productColor = req.body.productColor;
+      updatedProduct.productSize = req.body.productSize;
+      updatedProduct.productQTY = req.body.productQuantity;
+      updatedProduct.productPrice = req.body.productPrice;
+      updatedProduct.productMRP = req.body.productMRP;
+      updatedProduct.productDiscount = req.body.productDiscount;
+      updatedProduct.productDescription = req.body.productDescription;
+      updatedProduct.productImages = imageUrls;
+      await vendor.save();
+
+      res.status(200).redirect("/vendor/productList");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("server error edit failed");
+  }
+};
+
+// DELETE PRODUCT POST PAGE
+let deleteProduct = async (req, res) => {
+  try {
+    let vendorId = req.user.id;
+    let productId = req.params.id;
+
+    // FINDING VENDOR
+    let vendor = await Vendor.findOne({ _id: vendorId });
+
+    if (!vendor) {
+      return res.status(404).json({ message: "Vendor not found" });
+    }
+
+    // FINDING THE INDEX OF THE PRODUCT
+    const productIndex = vendor.products.findIndex((product) => {
+      product._id.toString() === productId;
+    });
+
+    // REMOVING PRODUCTS FORM THE PRODUCT ARRAY
+    vendor.products.splice(productIndex, 1)
+
+    await vendor.save()
+
+    res.status(200).redirect("/vendor/productList")
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
 
@@ -201,4 +304,7 @@ module.exports = {
   addProduct,
   addProductpost,
   producList,
+  editProduct,
+  editProductPost,
+  deleteProduct,
 };

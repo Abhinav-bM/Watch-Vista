@@ -85,7 +85,7 @@
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link" href="index.html"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li><a class="m-link" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
                         <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
@@ -93,8 +93,8 @@
                             <ul class="sub-menu collapse show" id="menu-product">
                                 <!-- <li><a class="ms-link" href="product-grid.html">Product Grid</a></li> -->
                                 <li><a class="ms-link" href="/vendor/productList">Product List</a></li>
-                                <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
-                                <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
+                                <!-- <li><a class="ms-link" href="product-edit.html">Product Edit</a></li> -->
+                                <!-- <li><a class="ms-link" href="product-detail.html">Product Details</a></li> -->
                                 <li><a class="ms-link active" href="/vendor/addProduct">Add Product</a></li>
                                 <!-- <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li> -->
                                 <!-- <li><a class="ms-link" href="checkout.html">Checkout</a></li> -->
@@ -417,8 +417,11 @@
     </div>
 
     <div class="form-group images">
-      <label for="productImages">Product Images ( 4 images ):</label>
-      <input type="file" id="productImages" name="productImages"required     multiple>
+      <label for="productImages">Product Images ( 4 images ):</label><br>
+      <input type="file" id="productImages" name="productImages" >
+      <input type="file" id="productImages" name="productImages" >
+      <input type="file" id="productImages" name="productImages" >
+      <input type="file" id="productImages" name="productImages" >
     </div>
 
     <div class="form-group">
@@ -440,7 +443,7 @@
     </div>
 
     <input type="submit" value="Add Product" class="btn-submit">
-  </form>
+  </form><br>
             <!--------------------------------------------------------------------------------------------------------------------------------------------->   
             <!-- Modal Custom Settings-->
             <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">

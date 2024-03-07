@@ -16,6 +16,7 @@ router.get("/admin/logout",adminController.adminLogout)
 router.get("/admin/customersList",adminAuthMiddleware,adminController.customersList)
 router.get("/admin/categoryList",adminAuthMiddleware,adminController.categoryList)
 router.get("/admin/subcategoryList",adminAuthMiddleware,adminController.subcategoryList)
+router.get("/admin/productList",adminAuthMiddleware,adminController.productList)
 
 
 router.post("/admin/login", adminController.loginPostPage);

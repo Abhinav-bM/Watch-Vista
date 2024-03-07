@@ -1,23 +1,78 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/product-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:27 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/addProduct by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:26 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>::eBazar::  Shopping Cart </title>
+    <title>Vendor Product Add </title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
 
-    <!-- plugin css file  -->
-    <link rel="stylesheet" href="assets/plugin/datatables/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="assets/plugin/datatables/dataTables.bootstrap5.min.css">
+    <!--plugin css file -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/multi-select/css/multi-select.css"><!-- Multi Select Css -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/bootstrap-tagsinput/bootstrap-tagsinput.css"><!-- Bootstrap Tagsinput Css -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/cropper/cropper.min.css"><!--Cropperer Css -->   
+    <link rel="stylesheet" href="/vendor/assets/plugin/dropify/dist/css/dropify.min.css"/><!-- Dropify Css -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/responsive.dataTables.min.css"><!-- Datatable Css -->
+    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/dataTables.bootstrap5.min.css"><!-- Datatable Css -->
 
-    <!-- project css file  -->
-    <link rel="stylesheet" href="assets/css/ebazar.style.min.css">
+    <!-- Project css file  -->
+    <link rel="stylesheet" href="/vendor/assets/css/ebazar.style.min.css">
+
+    <style>
+        /* Add your CSS styles here */
+        label {
+          display: block;
+          margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        select {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+        }
+        .form-group {
+          margin-bottom: 20px;
+        }
+        .form-group label {
+          font-weight: bold;
+        }
+        .form-group.images label {
+          display: block;
+          margin-bottom: 5px;
+        }
+        .form-group.images input[type="file"] {
+          margin-bottom: 10px;
+        }
+        .btn-submit {
+          background-color: #007bff;
+          color: white;
+          padding: 10px 20px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .btn-submit:hover {
+          background-color: #0056b3;
+        }
+      </style>
+    
 </head>
 <body>
-    <div id="ebazar-layout" class="theme-blue">                          
+    <div id="ebazar-layout" class="theme-blue">
         
         <!-- sidebar -->
         <div class="sidebar px-4 py-4 py-md-4 me-0">
@@ -30,19 +85,19 @@
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link" href="index.html"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li><a class="m-link" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
                         <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
                             <ul class="sub-menu collapse show" id="menu-product">
-                                <li><a class="ms-link" href="product-grid.html">Product Grid</a></li>
-                                <li><a class="ms-link" href="product-list.html">Product List</a></li>
-                                <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
-                                <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
-                                <li><a class="ms-link" href="product-add.html">Product Add</a></li>
-                                <li><a class="ms-link active" href="product-cart.html">Shopping Cart</a></li>
-                                <li><a class="ms-link" href="checkout.html">Checkout</a></li>
+                                <!-- <li><a class="ms-link" href="product-grid.html">Product Grid</a></li> -->
+                                <li><a class="ms-link" href="/vendor/productList">Product List</a></li>
+                                <!-- <li><a class="ms-link" href="product-edit.html">Product Edit</a></li> -->
+                                <!-- <li><a class="ms-link" href="product-detail.html">Product Details</a></li> -->
+                                <li><a class="ms-link active" href="/vendor/addProduct">Add Product</a></li>
+                                <!-- <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li> -->
+                                <!-- <li><a class="ms-link" href="checkout.html">Checkout</a></li> -->
                             </ul>
                     </li>
                     <li class="collapsed">
@@ -50,8 +105,9 @@
                             <i class="icofont-chart-flow fs-5"></i> <span>Categories</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
                             <ul class="sub-menu collapse" id="categories">
-                                <li><a class="ms-link" href="product-grid.html">Category List</a></li>
-                                <li><a class="ms-link" href="product-list.html">Subcategory List</a></li>
+                                <li><a class="ms-link" href="categorie-list.html">Categories List</a></li>
+                                <!-- <li><a class="ms-link" href="categories-edit.html">Categories Edit</a></li> -->
+                                <li><a class="ms-link" href="categories-add.html">Categories Add</a></li>
                             </ul>
                     </li>
                     <li class="collapsed">
@@ -132,13 +188,14 @@
                             <li><a class="ms-link" href="todo-list.html">Todo List</a></li>
                         </ul>
                     </li>
+                    
                 </ul>
                 <!-- Menu: menu collepce btn -->
                 <button type="button" class="btn btn-link sidebar-mini-btn text-light">
                     <span class="ms-2"><i class="icofont-bubble-right"></i></span>
                 </button>
             </div>
-        </div>      
+        </div>    
 
         <!-- main body area -->
         <div class="main px-lg-4 px-md-4"> 
@@ -157,25 +214,25 @@
                             </div>
                             <div class="dropdown zindex-popover">
                                 <a class="nav-link dropdown-toggle pulse" href="#" role="button" data-bs-toggle="dropdown">
-                                    <img src="assets/images/flag/GB.png" alt="">
+                                    <img src="/vendor/assets/images/flag/GB.png" alt="">
                                 </a>
                                 <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-md-end p-0 m-0 mt-3">
                                     <div class="card border-0">
                                         <ul class="list-unstyled py-2 px-3">
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/GB.png" alt=""> English</a>
+                                                <a href="#" class=""><img src="/vendor/assets/images/flag/GB.png" alt=""> English</a>
                                             </li>
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/DE.png" alt=""> German</a>
+                                                <a href="#" class=""><img src="/vendor/assets/images/flag/DE.png" alt=""> German</a>
                                             </li>
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/FR.png" alt=""> French</a>
+                                                <a href="#" class=""><img src="/vendor/assets/images/flag/FR.png" alt=""> French</a>
                                             </li>
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/IT.png" alt=""> Italian</a>
+                                                <a href="#" class=""><img src="/vendor/assets/images/flag/IT.png" alt=""> Italian</a>
                                             </li>
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/RU.png" alt=""> Russian</a>
+                                                <a href="#" class=""><img src="/vendor/assets/images/flag/RU.png" alt=""> Russian</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -200,7 +257,7 @@
                                                 <ul class="list-unstyled list mb-0">
                                                     <li class="py-2 mb-1 border-bottom">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar1.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar1.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Chloe Walkerr</span> <small>2MIN</small></p>
                                                                 <span class="">Added New Product 2021-07-15 <span class="badge bg-success">Add</span></span>
@@ -218,7 +275,7 @@
                                                     </li>
                                                     <li class="py-2 mb-1 border-bottom">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar3.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar3.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Melanie	Oliver</span> <small>1HR</small></p>
                                                                 <span class="">Orader  Return RT-00004</span>
@@ -227,7 +284,7 @@
                                                     </li>
                                                     <li class="py-2 mb-1 border-bottom">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar5.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar5.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Boris Hart</span> <small>13MIN</small></p>
                                                                 <span class="">Product Order to Toyseller</span>
@@ -236,7 +293,7 @@
                                                     </li>
                                                     <li class="py-2 mb-1 border-bottom">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar6.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar6.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Alan	Lambert</span> <small>1HR</small></p>
                                                                 <span class="">Leave Apply</span>
@@ -245,7 +302,7 @@
                                                     </li>
                                                     <li class="py-2">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar7.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar7.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Zoe Wright</span> <small class="">1DAY</small></p>
                                                                 <span class="">Product Stoke Entry Updated</span>
@@ -265,13 +322,13 @@
                                     <small>Admin Profile</small>
                                 </div>
                                 <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
-                                    <img class="avatar lg rounded-circle img-thumbnail" src="assets/images/profile_av.svg" alt="profile">
+                                    <img class="avatar lg rounded-circle img-thumbnail" src="/vendor/assets/images/profile_av.svg" alt="profile">
                                 </a>
                                 <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
                                     <div class="card border-0 w280">
                                         <div class="card-body pb-0">
                                             <div class="d-flex py-1">
-                                                <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                <img class="avatar rounded-circle" src="/vendor/assets/images/profile_av.svg" alt="profile">
                                                 <div class="flex-fill ms-3">
                                                     <p class="mb-0"><span class="font-weight-bold">John	Quinn</span></p>
                                                     <small class="">Johnquinn@gmail.com</small>
@@ -311,172 +368,95 @@
                 </nav>
             </div>
 
-            <!-- Body: Body -->
-            <div class="body d-flex py-3">  
-                <div class="container-xxl"> 
-                    <div class="row align-items-center"> 
-                        <div class="border-0 mb-4"> 
-                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold mb-0">Cart Detail</h3>
-                            </div>
-                        </div>
-                    </div> <!-- Row end  -->
-                    <div class="row g-3 mb-3 justify-content-center"> 
-                        <div class="col-lg-12 col-xl-12 col-xxl-9">
-                            <div class="card">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Order Summary</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="product-cart">
-                                        <div class="checkout-table">
-                                            <div class="table-responsive">
-                                                <table id="myCartTable" class="table display dataTable table-hover align-middle" style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="product">Product Image</th>
-                                                            <th>Product Name</th>
-                                                            <th class="quantity">Quantity</th>
-                                                            <th class="price">Price</th>
-                                                            <th class="action">Action</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <img src="assets/images/product/product-1.jpg" class="avatar rounded lg" alt="Product">
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="title">Oculus VR <span class="d-block fs-6 text-primary">Pr-1204</span></h6>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" value="1" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <p class="price">$149.00</p>
-                                                            </td>
-                                                            <td>
-                                                                <ul class="action">
-                                                                    <li><a class="favorite" href="product-detail.html"><i class="icofont-ui-edit"></i></a></li>
-                                                                    <li><a class="delete" href="#0"><i class="icofont-ui-delete"></i></a></li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <img src="assets/images/product/product-2.jpg" class="avatar rounded lg" alt="Product">
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="title">Wall Clock <span class="d-block fs-6 text-primary">Pr-1004</span></h6>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" value="1" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <p class="price">$399.00</p>
-                                                            </td>
-                                                            <td>
-                                                                <ul class="action">
-                                                                    <li><a class="favorite" href="product-detail.html"><i class="icofont-ui-edit"></i></a></li>
-                                                                    <li><a class="delete" href="#0"><i class="icofont-ui-delete"></i></a></li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <img src="assets/images/product/product-3.jpg" class="avatar rounded lg" alt="Product">
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="title">Note Diaries <span class="d-block fs-6 text-primary">Pr-1224</span></h6>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" value="1" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <p class="price">$149.00</p>
-                                                            </td>
-                                                            <td>
-                                                                <ul class="action">
-                                                                    <li><a class="favorite" href="product-detail.html"><i class="icofont-ui-edit"></i></a></li>
-                                                                    <li><a class="delete" href="#0"><i class="icofont-ui-delete"></i></a></li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <img src="assets/images/product/product-4.jpg" class="avatar rounded lg" alt="Product">
-                                                            </td>
-                                                            <td>
-                                                                <h6 class="title">Flower Port  <span class="d-block fs-6 text-primary">Pr-1414</span></h6>
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" value="1" class="form-control">
-                                                            </td>
-                                                            <td>
-                                                                <p class="price">$399.00</p>
-                                                            </td>
-                                                            <td>
-                                                                <ul class="action">
-                                                                    <li><a class="favorite" href="product-detail.html"><i class="icofont-ui-edit"></i></a></li>
-                                                                    <li><a class="delete" href="#0"><i class="icofont-ui-delete"></i></a></li>
-                                                                </ul>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="checkout-coupon-total checkout-coupon-total-2 d-flex flex-wrap mt-2">
-                                            <div class="checkout-coupon">
-                                                <span>Apply Coupon to get discount!</span>
-                                                <form action="#">
-                                                    <div class="single-form form-default d-inline-flex mt-3">
-                                                        <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Coupon Code" aria-label="Apply Coupon">
-                                                            <button class="btn btn-primary" type="button">Apply</button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="checkout-total">
-                                                <div class="single-total">
-                                                    <p class="value">Subotal Price:</p>
-                                                    <p class="price">$1096.00</p>
-                                                </div>
-                                                <div class="single-total">
-                                                    <p class="value">Shipping Cost (+):</p>
-                                                    <p class="price">$12.00</p>
-                                                </div>
-                                                <div class="single-total">
-                                                    <p class="value">Discount (-):</p>
-                                                    <p class="price">$10.00</p>
-                                                </div>
-                                                <div class="single-total">
-                                                    <p class="value">Tax(18%):</p>
-                                                    <p class="price">$198.00</p>
-                                                </div>
-                                                <div class="single-total total-payable">
-                                                    <p class="value">Total Payable:</p>
-                                                    <p class="price">$1296.00</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="checkout-btn d-flex justify-content-between pt-3 flex-wrap mt-2">
-                                            <div class="single-btn w-sm-100">
-                                                <a href="product-grid.html" class="btn btn-secondary w-sm-100">Continue Shopping</a>
-                                            </div>
-                                            <div class="single-btn w-sm-100">
-                                                <a href="checkout.html" class="btn btn-primary w-sm-100">Proceed to Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div>     
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Body: Body --><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+<h1>Edit Product</h1>
+  <form action="/vendor/editProduct/<%= product._id %>" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="productName">Product Name:</label>
+      <input type="text" id="productName" name="productName" value="<%= product.productName %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productBrand">Product Brand:</label>
+      <input type="text" id="productBrand" name="productBrand" value="<%= product.productBrand %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productColor">Product Color:</label>
+      <input type="text" id="productColor" name="productColor" value="<%= product.productColor %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productSize">Product Size:</label>
+      <input type="text" id="productSize" name="productSize" value="<%= product.productSize %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productQuantity">Product Quantity:</label>
+      <input type="number" id="productQuantity" name="productQuantity" value="<%= product.productQTY %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productPrice">Product Price:</label>
+      <input type="number" id="productPrice" name="productPrice" value="<%= product.productPrice %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productMRP">Product MRP:</label>
+      <input type="number" id="productMRP" name="productMRP" value="<%= product.productMRP %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productDiscount">Product Discount:</label>
+      <input type="number" id="productDiscount" name="productDiscount" value="<%= product.productDiscount %>" required>
+    </div>
+
+    <div class="form-group">
+      <label for="productDescription">Product Description:</label>
+      <textarea id="productDescription" name="productDescription" rows="5" required><%= product.productDescription %></textarea>
+    </div>
+
+    <div class="form-group images">
         
+      <label for="productImages">Product Images ( 4 images ):</label><br>
+
+      <input type="file" id="productImages" name="productImages" value="<%= product.productImages[0] %>">
+      <img src="<%= product.productImages[0] %>" alt="No image added" style="max-width: 100px;"><br>
+
+      <input type="file" id="productImages" name="productImages" value="<%= product.productImages[1] %>" >
+      <img src="<%= product.productImages[1] %>" alt="No image added" style="max-width: 100px;"><br>
+
+      <input type="file" id="productImages" name="productImages" value="<%= product.productImages[2] %>"  >
+      <img src="<%= product.productImages[2] %>" alt="No image added" style="max-width: 100px;"><br>
+
+      <input type="file" id="productImages" name="productImages" value="<%= product.productImages[3] %>" >
+      <img src="<%= product.productImages[3] %>" alt="No image added" style="max-width: 100px;"><br>
+
+        
+    </div>
+
+    <div class="form-group">
+      <label for="productCategory">Category:</label>
+      <select id="productCategory" name="productCategory" required>
+        <% categories.forEach(category => { %>
+          <option><%= category.categoryName %></option>
+        <% }) %>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="productSubcategory">Subcategory:</label>
+      <select id="productSubcategory" name="productSubcategory" required>
+        <% subcategories.forEach(subcategory => { %>
+          <option ><%= subcategory.subcategoryName %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <input type="submit" value="Edit Product" class="btn-submit">
+  </form><br>
+
+            <!--------------------------------------------------------------------------------------------------------------------------------------------->   
             <!-- Modal Custom Settings-->
             <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">
                 <div class="modal-dialog  modal-sm">
@@ -616,32 +596,96 @@
                     </div>
                 </div>
             </div> 
-            
-        </div>                                 
 
-    </div> 
+            <!-- Modal Cropper-->
+            <div class="modal docs-cropped" id="getCroppedCanvasModal" tabindex="-1"  aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Cropped</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body"></div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white border lift" data-bs-dismiss="modal">Close</button>
+                            <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.html">Download</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Jquery Core Js -->
-    <script src="assets/bundles/libscripts.bundle.js"></script>
+        </div>      
 
-    <!-- Plugin Js-->
-    <script src="assets/bundles/dataTables.bundle.js"></script>
+    </div>
 
-    <!-- Jquery Page Js -->
+    <!-- Jquery Core Js -->      
+    <script src="/vendor/assets/bundles/libscripts.bundle.js"></script>
+
+    <!-- Jquery Plugin -->  
+    <script src="../../../../../cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
+    <script src="/vendor/assets/plugin/multi-select/js/jquery.multi-select.js"></script>
+    <script src="/vendor/assets/plugin/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>  
+    <script src="/vendor/assets/plugin/cropper/cropper.min.js"></script>
+    <script src="/vendor/assets/plugin/cropper/cropper-init.js"></script>
+    <script src="/vendor/assets/bundles/dropify.bundle.js"></script>
+    <script src="/vendor/assets/bundles/dataTables.bundle.js"></script>
+
+    <!-- Jquery Page Js -->   
     <script src="../js/template.js"></script>
     <script>
         $(document).ready(function() {
-        $('#myCartTable')
-        .addClass( 'nowrap' )
-        .dataTable( {
-            responsive: true,
-            columnDefs: [
-                { targets: [-1, -3], className: 'dt-body-right' }
-            ]
+        //Ch-editer
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+            //Datatable
+            $('#myCartTable')
+            .addClass( 'nowrap' )
+            .dataTable( {
+                responsive: true,
+                columnDefs: [
+                    { targets: [-1, -3], className: 'dt-body-right' }
+                ]
+            });
+            $('.deleterow').on('click',function(){
+            var tablename = $(this).closest('table').DataTable();  
+            tablename
+                    .row( $(this)
+                    .parents('tr') )
+                    .remove()
+                    .draw();
+
+            } );
+           //Multiselect
+           $('#optgroup').multiSelect({ selectableOptgroup: true });
         });
-    });
+
+        $(function() {
+            $('.dropify').dropify();
+
+            var drEvent = $('#dropify-event').dropify();
+            drEvent.on('dropify.beforeClear', function(event, element) {
+                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
+            });
+
+            drEvent.on('dropify.afterClear', function(event, element) {
+                alert('File deleted');
+            });
+
+            $('.dropify-fr').dropify({
+                messages: {
+                    default: 'Glissez-dÃ©posez un fichier ici ou cliquez',
+                    replace: 'Glissez-dÃ©posez un fichier ou cliquez pour remplacer',
+                    remove: 'Supprimer',
+                    error: 'DÃ©solÃ©, le fichier trop volumineux'
+                }
+            });
+        });
+            
     </script>
 </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/product-cart.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:27 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/addProduct by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:27 GMT -->
 </html> 

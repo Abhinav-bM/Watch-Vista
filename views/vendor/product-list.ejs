@@ -29,15 +29,15 @@
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link" href="index.html"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li><a class="m-link" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
                         <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
                             <ul class="sub-menu collapse show" id="menu-product">
                                 <li><a class="ms-link active" href="/vendor/productList">Product List</a></li>
-                                <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
-                                <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
+                                <!-- <li><a class="ms-link" href="product-edit.html">Product Edit</a></li> -->
+                                <!-- <li><a class="ms-link" href="product-detail.html">Product Details</a></li> -->
                                 <li><a class="ms-link" href="/vendor/addProduct">Add Products</a></li>
                             </ul>
                     </li>
@@ -611,8 +611,8 @@
                                                 }
                                             } %>
                                             <div class="d-flex flex-md-row flex-wrap align-items-center justify-content-center justify-content-md-start">
-                                                <div class="text-muted small">Description</div>
-                                                <strong><%= truncateWords(product.productDescription, 10) %></strong>
+                                                <div class="text-muted small">Description :</div>
+                                                <strong>:  <%= truncateWords(product.productDescription, 10) %></strong>
                                             </div>
                                                     
                                         </div>
@@ -622,7 +622,7 @@
                                         </div>
 
                                         <div class="col-1 form-check form-switch  d-flex top-0 end-0 py-3 px-3 d-none d-md-block">
-                                            <form action="/vendor/editProduct/<%= product._id %>" method="post" class="editProduct">
+                                            <form action="/vendor/editProduct/<%= product._id %>" method="get" class="editProduct">
                                                 <button type="submit" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></button>
                                             </form><br>
                                             <form action="/vendor/deleteProduct/<%= product._id %>" method="post" class="deleteProduct">
