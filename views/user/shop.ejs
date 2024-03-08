@@ -73,13 +73,25 @@
                             <div class="header-nav">
                                 <nav>
                                     <ul>
-                                        <li><a href="/" class="active"><span>Home  <i class="fal fa-angle-down"></i></span></a></li>
-                                        <li class="position-static"><a href="/shop"><span>Shop  <i class="fal fa-angle-down"></i></span></a></li>
-                                        <li><a href="javascript:void(0)"><span>Blog <i class="fal fa-angle-down"></i></span> </a>   </li>
-                                        <li><a href="javascript:void(0)"><span>Page</span> <i class="fal fa-angle-down"></i></a>
-                                            <ul class="submenu">
-                                                <li><a href="about.html">About</a></li>
-                                            </ul>
+                                        <li>
+                                            <a href="/" class="">
+                                                <span>Home </span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="/shop" class="active">
+                                                <span>Shop </span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="">
+                                                <span>Blog</span> 
+                                            </a>   
+                                        </li>
+                                        <li>
+                                            <a href=""><span>About</span>
+                                            </a>
+                                            
                                         </li>
                                         <li><a href="contact.html"><span>Contact</span></a></li>
                                     </ul>
@@ -126,35 +138,31 @@
                                                     <div class="search-result-list">
                                                         <ul class="text-left">
                         
-                                                            <% products.forEach(vendor => { %>
-                                                                <% vendor.products.forEach(product => { %>
-                                                                  <% if (product.productImages && product.productImages.length > 0) { %>
-                                                                    <% product.productImages.forEach(image => { %>
+                                                            <% products.forEach(prod=>{ %>
+                                                                <% prod.products.forEach(product=>{ %>
                                                                       <li class="d-block d-flex align-items-center">
                                                                         <!-- Display the image if available -->
                                                                         <div class="search-result-img">
-                                                                          <img src="<%= image.imageUrl %>" class="w-100" alt="<%= product.productName %>">
+                                                                          <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= product.productName %>">
                                                                         </div>
                                                                         <div class="search-result-desc pl-10">
                                                                           <a href="/singleProduct" class="title px-0"><%= product.productName %></a>
                                                                           <div class="price"><span>₹ <%= product.productPrice %></span></div>
                                                                         </div>
                                                                       </li>
-                                                                    <% }); %>
-                                                                  <% } else { %>
+                    
                                                                     <!-- Use a default image if no images available -->
                                                                     <li class="d-block d-flex align-items-center">
                                                                       <div class="search-result-img">
-                                                                        <img src="/path_to_default_image.jpg" class="w-100" alt="Default Image">
+                                                                        <img src="" class="w-100" alt="Default Image">
                                                                       </div>
                                                                       <div class="search-result-desc pl-10">
                                                                         <a href="/singleProduct" class="title px-0"><%= product.productName %></a>
                                                                         <div class="price"><span>₹ <%= product.productPrice %></span></div>
                                                                       </div>
                                                                     </li>
-                                                                  <% } %>
                                                                 <% }); %>
-                                                              <% }); %>
+                                                            <% }); %>
                                                               
                                                               
 
@@ -491,7 +499,7 @@
                                 <div class="tab-pane fade  show active" id="shop-tab-3">
                                     <div class="product-wrapper mt-55">
                                         <div class="row">
-                                            
+<!------------------------------------------------------------------------------------------------------------------------------------------>  
                                             <% products.forEach(prod=>{ %>
                                                 <% prod.products.forEach(product=>{ %>
                                                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
@@ -519,7 +527,8 @@
                                                     </div>
                                                 <% }); %>
                                             <% }); %>
-                                                                                               
+<!------------------------------------------------------------------------------------------------------------------------------------------>  
+                                                    
                                                    
                                         </div>
                                         <div class="text-center mt-20">

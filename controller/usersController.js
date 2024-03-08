@@ -255,7 +255,6 @@ const loginRequestOTP = async (req, res) => {
       phone = "+91" + phone;
     }
 
-    console.log(phone);
     const user = await User.findOne({ phoneNumber: phone });
 
     if (!user) {
@@ -365,7 +364,8 @@ let forgotEmailPostPage = async (req, res) => {
           .status(404)
           .render("user/forgotemail", { error: "User not found" });
       }
-      await smsService.sendOTP(emailOrPhone, otp);
+      smsService.sendOTP(emailOrPhone, otp);
+
     } else {
       return res.status(400).json({ message: "Invalid email or phone number" });
     }
@@ -483,7 +483,7 @@ let shopGetPage = async (req, res) => {
 let singleProductGetPage = async (req, res) => {
   try {
     const productId = req.params.productId;
-    console.log(productId);
+    // console.log("heeeell", productId);
     const vendors = await Vendor.find();
     let products;
     vendors.forEach((vendor) => {
@@ -493,7 +493,7 @@ let singleProductGetPage = async (req, res) => {
         }
       });
     });
-    console.log(products);
+    // console.log(products);
     res.render("user/singleProduct", { products: products });
   } catch (error) {
     console.log("page not found :", error);

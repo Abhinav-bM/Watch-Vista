@@ -78,20 +78,30 @@
                                     <div class="header-nav">
                                         <nav>
                                             <ul>
-                                                <li><a href="/" class="active"><span>Home  <i class="fal fa-angle-down"></i></span></a></li>
-                                                <li class="position-static"><a href="/shop"><span>Shop  <i class="fal fa-angle-down"></i></span></a>
+                                                <li>
+                                                    <a href="/" class="active">
+                                                        <span>Home</span>
+                                                    </a>
                                                 </li>
-                                                <li><a href="javascript:void(0)"><span>Blog <i class="fal fa-angle-down"></i></span> </a>
+                                                <li class="position-static">
+                                                    <a href="/shop">
+                                                        <span>Shop</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="">
+                                                        <span>Blog</span> 
+                                                    </a>
+                                                </li>
 
                         
-                                                <li><a href="javascript:void(0)"><span>Page</span> <i class="fal fa-angle-down"></i></a>
-                                                    <ul class="submenu">
-                                                        <li><a href="about.html">About</a></li>
-                                                        <li><a href="question.html">Frequently Questions</a></li>
-                                                        <li><a href="contact.html">Contact</a></li>
-                                                    </ul>
+                                                <li>
+                                                    <a href="">
+                                                        <span>About</span>
+                                                    </a>
+                
                                                 </li>
-                                                <li><a href="contact.html"><span>Contact</span></a></li>
+                                                <li><a href=""><span>Contact</span></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -385,21 +395,21 @@
                             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
                               <div class="product-box mb-40">
                                 <div class="product-box-wrapper">
-                                  <div class=" col-12">
+                                  <div class=" col-12 product-img img-container">
                                       <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= products.productName %>">
                                   </div>
                         
                                   <div class="product-desc pb-20">
                                     <div class="product-desc-top">
                                       <div class="categories">
-                                        <a href="shop.html" class="product-category"><span><%= product.productCategory %></span></a>
+                                        <a href="/products/<%= product._id %>" class="product-category"><span><%= product.productCategory %></span></a>
                                       </div>
-                                      <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
+                                      <a href="" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
                                     </div>
-                                    <a href="single-product-6.html" class="product-title"><%= product.productName %></a>
+                                    <a href="/products/<%= product._id %>" class="product-title"><%= product.productName %></a>
                                     <div class="price-switcher">
                                       <span class="price switcher-item">₹ <%= product.productPrice %>/-</span>
-                                      <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
+                                      <a href="" class="add-cart text-capitalize switcher-item">+add to cart</a>
                                     </div>
                                   </div>
                                 </div>
