@@ -1,23 +1,24 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/productList by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:19 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/customers.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:28 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Admin Products List </title>
-    <link rel="icon" href="" type="image/x-icon"> <!-- Favicon-->
-    
-    <!--plugin css file -->
-    <link rel="stylesheet" href="/admin/assets/plugin/nouislider/nouislider.min.css">
+    <title>vendors List </title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
 
+    <!-- plugin css file  -->
+    <link rel="stylesheet" href="/admin/assets/plugin/datatables/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="/admin/assets/plugin/datatables/dataTables.bootstrap5.min.css">
+    
     <!-- project css file  -->
     <link rel="stylesheet" href="/admin/assets/css/ebazar.style.min.css">
 </head>
 <body>
     <div id="ebazar-layout" class="theme-blue">
-        
+
         <!-- sidebar -->
         <div class="sidebar px-4 py-4 py-md-4 me-0">
             <div class="d-flex flex-column h-100">
@@ -29,19 +30,30 @@
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link" href="/admin/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li><a class="m-link" href="index.html"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
-                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse show" id="menu-product">
-                                <li><a class="ms-link active" href="/vendor/productList">Product List</a></li>
-                                <!-- <li><a class="ms-link" href="product-edit.html">Product Edit</a></li> -->
-                                <!-- <li><a class="ms-link" href="product-detail.html">Product Details</a></li> -->
-                                <!-- <li><a class="ms-link" href="/vendor/addProduct">Add Products</a></li> -->
+                            <ul class="sub-menu collapse" id="menu-product">
+                                <li><a class="ms-link" href="product-list.html">Product List</a></li>
+                                <!-- <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
+                                <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
+                                <li><a class="ms-link" href="product-add.html">Product Add</a></li>
+                                <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li>
+                                <li><a class="ms-link" href="checkout.html">Checkout</a></li> -->
                             </ul>
                     </li>
-
+                    <li class="collapsed">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#categories" href="#">
+                            <i class="icofont-chart-flow fs-5"></i> <span>Categories</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                            <!-- Menu: Sub menu ul -->
+                            <ul class="sub-menu collapse" id="categories">
+                                <li><a class="ms-link" href="/admin/categoryList">Category List</a></li>
+                                <li><a class="ms-link" href="/admin/subcategoryList">Subcategory List</a></li>
+                                <!-- <li><a class="ms-link" href="categories-add.html">Add category</a></li> -->
+                            </ul>
+                    </li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-order" href="#">
                         <i class="icofont-notepad fs-5"></i> <span>Orders</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
@@ -56,9 +68,9 @@
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
                         <i class="icofont-funky-man fs-5"></i> <span>Customers</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="customers-info">
+                        <ul class="sub-menu collapse show" id="customers-info">
                             <li><a class="ms-link" href="customers.html">Customers List</a></li>
-                            <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li>
+                            <!-- <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li> -->
                         </ul>
                     </li>
                     <li class="collapsed">
@@ -72,12 +84,12 @@
                         </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
+                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
                         <i class="icofont-funky-man fs-5"></i> <span>Vendors</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu collapse" id="menu-inventory">
-                            <li><a class="ms-link" href="/admin/vendorsList">Vendors List</a></li>
-                            <li><a class="ms-link" href="purchase.html">Purchase</a></li>
+                            <li><a class="ms-link " href="/admin/vendorsList">Vendors List</a></li>
+                            <!-- <li><a class="ms-link" href="purchase.html">Purchase</a></li> -->
                         </ul>
                     </li>
                     <li class="collapsed">
@@ -123,7 +135,7 @@
                     <span class="ms-2"><i class="icofont-bubble-right"></i></span>
                 </button>
             </div>
-        </div>        
+        </div>
 
         <!-- main body area -->
         <div class="main px-lg-4 px-md-4"> 
@@ -132,7 +144,7 @@
             <div class="header">
                 <nav class="navbar py-4">
                     <div class="container-xxl">
-        
+
                         <!-- header rightbar icon -->
                         <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
                             <div class="d-flex">
@@ -278,12 +290,12 @@
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#Settingmodal"><i class="icofont-gear-alt fs-5"></i></a>
                             </div>
                         </div>
-        
+
                         <!-- menu toggler -->
                         <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
                             <span class="fa fa-bars"></span>
                         </button>
-        
+
                         <!-- main menu Search-->
                         <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
                             <div class="input-group flex-nowrap input-group-lg">
@@ -292,381 +304,80 @@
                                 
                             </div>
                         </div>
-        
+
                     </div>
                 </nav>
             </div>
 
-            <!-- Body: Body -->
-            <div class="body d-flex py-3">
+            <!-- Body: Body -->       
+            <div class="body d-flex py-lg-3 py-md-2">
                 <div class="container-xxl">
                     <div class="row align-items-center">
                         <div class="border-0 mb-4">
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold mb-0">Products</h3>
-
+                                <h3 class="fw-bold mb-0">Vendors</h3>
+                                <div class="col-auto d-flex w-sm-100">
+                                    <!-- <button type="button" class="btn btn-primary btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#expadd"><i class="icofont-plus-circle me-2 fs-6"></i>Add Customers</button> -->
+                                </div>
                             </div>
                         </div>
                     </div> <!-- Row end  -->
-                    <div class="row g-3 mb-3">
-                        <!-- <div class="col-md-12 col-lg-4 col-xl-4 col-xxl-3"> -->
-                            <!-- <div class="sticky-lg-top"> -->
-                                <!-- <div class="card mb-3"> -->
-                                    <!-- <div class="reset-block">
-                                        <div class="filter-title">
-                                            <h4 class="title">Filter</h4>
-                                        </div>
-                                        <div class="filter-btn">
-                                            <a class="btn btn-primary" href="#">Reset</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card mb-3">
-                                    <div class="categories">
-                                        <div class="filter-title">
-                                            <a class="title" data-bs-toggle="collapse" href="#category" role="button" aria-expanded="true">Categories</a>
-                                        </div>
-                                        <div class="collapse show" id="category" >
-                                            <div class="filter-search">
-                                                <form action="#">
-                                                    <input type="text" placeholder="Search" class="form-control">
-                                                    <button><i class="lni lni-search-alt"></i></button>
-                                                </form>
-                                            </div>
-                                            <div class="filter-category">
-                                                <ul class="category-list">
-                                                    <li><a href="#" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" class="collapsed">Game accessories</a>
-                                                        <ul id="collapseOne" class="sub-category collapse" data-parent="#category" >
-                                                            <li><a href="#">PlayStation 4</a></li>
-                                                            <li><a href="#">Oculus VR</a></li>
-                                                            <li><a href="#">Remote</a></li>
-                                                            <li><a href="#">Lighting Keyborad</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a class="collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo">Bags</a>
-                                                        <ul id="collapseTwo" class="sub-category collapse" data-parent="#category">
-                                                            <li><a href="#">School Bags</a></li>
-                                                            <li><a href="#">Traveling Bags</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a class="collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseThree">Flower Port</a>
-                                                        <ul id="collapseThree" class="sub-category collapse" data-parent="#category">
-                                                            <li><a href="#">Woodan Port</a></li>
-                                                            <li><a href="#">Pattern Port</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a class="collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseFour">Watch</a>
-                                                        <ul id="collapseFour" class="sub-category collapse" data-parent="#category">
-                                                            <li><a href="#">Wall Clock</a></li>
-                                                            <li><a href="#">Smart Watch</a></li>
-                                                            <li><a href="#">Rado Watch</a></li>
-                                                            <li><a href="#">Fasttrack Watch</a></li>
-                                                            <li><a href="#">Noise Watch</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a class="collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseFive">Accessories</a>
-                                                        <ul id="collapseFive" class="sub-category collapse" data-parent="#category">
-                                                            <li><a href="#">Note Diaries</a></li>
-                                                            <li><a href="#">Fold Diaries</a></li>
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card mb-3">
-                                    <div class="size-block">
-                                        <div class="filter-title">
-                                            <a class="title" data-bs-toggle="collapse" href="#size" role="button" aria-expanded="true">Select Size</a>
-                                        </div>
-                                        <div class="collapse show" id="size" >
-                                            <div class="filter-size" id="filter-size-1">
-                                                <ul>
-                                                    <li>XS</li>
-                                                    <li>S</li>
-                                                    <li class="">M</li>
-                                                    <li>L</li>
-                                                    <li>XL</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card mb-3">
-                                    <div class="color-block">
-                                        <div class="filter-title">
-                                            <a class="title" data-bs-toggle="collapse" href="#color" role="button" aria-expanded="false">Select Color</a>
-                                        </div>
-                                        <div class="collapse show" id="color">
-                                            <div class="filter-color">
-                                                <ul>
-                                                    <li>
-                                                        <div class="color-check">
-                                                            <p><span style="background-color: #4114e4;"></span> <strong>Blue</strong></p>
-                
-                                                            <input type="checkbox" id="color-1">
-                                                            <label for="color-1"><span></span></label>                                            
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="color-check">
-                                                            <p><span style="background-color: #E14C7B;"></span> <strong>Red</strong></p>
-                
-                                                            <input type="checkbox" id="color-2">
-                                                            <label for="color-2"><span></span></label>                                            
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="color-check">
-                                                            <p><span style="background-color: #7CB637;"></span> <strong>Green</strong></p>
-                
-                                                            <input type="checkbox" id="color-3">
-                                                            <label for="color-3"><span></span></label>                                            
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="color-check">
-                                                            <p><span style="background-color: #161359;"></span> <strong>Dark</strong></p>
-                
-                                                            <input type="checkbox" id="color-4">
-                                                            <label for="color-4"><span></span></label>                                            
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card mb-3">
-                                    <div class="price-range-block">
-                                        <div class="filter-title">
-                                            <a class="title" data-bs-toggle="collapse" href="#pricingTwo" role="button" aria-expanded="false">Pricing Range</a>
-                                        </div>
-                                        <div class="collapse show" id="pricingTwo">
-                                            <div class="price-range">
-                                                <div class="price-amount flex-wrap">
-                                                    <div class="amount-input mt-1">
-                                                        <label class="fw-bold">Minimum Price</label>
-                                                        <input type="text" id="minAmount2" class="form-control">
-                                                    </div>
-                                                    <div class="amount-input mt-1">
-                                                        <label class="fw-bold">Maximum Price</label>
-                                                        <input type="text" id="maxAmount2" class="form-control">
-                                                    </div>                                    
-                                                </div>
-                                                <div id="slider-range2" class="slider-range noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="rating-block">
-                                        <div class="filter-title">
-                                            <a class="title" data-bs-toggle="collapse" href="#rating" role="button" aria-expanded="false">Select Rating</a>
-                                        </div>
-                                        <div class="collapse show" id="rating">
-                                            <div class="filter-rating">
-                                                <ul>
-                                                    <li>
-                                                        <div class="rating-check">
-                                                            <input type="checkbox" id="rating-5">
-                                                            <label for="rating-5"><span></span>
-                                                                
-                                                            </label>
-                                                            <p>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating-check">
-                                                            <input type="checkbox" id="rating-4">
-                                                            <label for="rating-4"><span></span></label>
-                                                            <p>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating-check">
-                                                            <input type="checkbox" id="rating-3">
-                                                            <label for="rating-3"><span></span></label>
-                                                            <p>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating-check">
-                                                            <input type="checkbox" id="rating-2">
-                                                            <label for="rating-2"><span></span></label>
-                                                            <p>
-                                                                <i class="icofont-star"></i>
-                                                                <i class="icofont-star"></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="rating-check">
-                                                            <input type="checkbox" id="rating-1">
-                                                            <label for="rating-1"><span></span></label>
-                                                            <p>
-                                                                <i class="icofont-star"></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                        <!-- </div> -->
-                        <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-12 ">
-                            <div class="card mb-3 bg-transparent p-2 border-5">
-
-                                <% products.forEach(prod=>{ %>
-                                    <% prod.products.forEach(product=>{ %>
-                                <div class="card border-3 mb-1 d-flex">
-                                    <div class="col-12  card-body d-flex align-items-center flex-column flex-md-row ">
-                                        <div class="col-3">
-                                            <a class="d-flex justify-content-center" href="product-detail.html" >
-                                                <img class="w-50 h-50 rounded  img-fluid" src="<%= product.productImages[0] %>" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="d-lg-flex flex-column ms-md-4 m-0 mt-4 mt-md-0 text-md-start text-center w-100">
-                                            <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                <div class="text-muted small">Product Name</div>
-                                                <strong><%= product.productName %></strong>
-                                            </div>
-
-                                            <div class="d-flex flex-md-row flex-wrap align-items-center justify-content-center justify-content-md-start">
-
-                                                <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                    <div class="text-muted small">Size</div>
-                                                    <strong><%= product.productSize %></strong>
-                                                </div>
-
-                                                <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                    <div class="text-muted small">Color</div>
-                                                    <strong><%= product.productColor %></strong>
-                                                </div>
-
-                                                <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                    <div class="text-muted small">VENDOR</div>
-                                                    <strong><%= product.productBrand %></strong>
-                                                </div>
-
-                                                
-                                            </div>
-
-                                            <div class="d-flex flex-md-row flex-wrap align-items-center justify-content-center justify-content-md-start">
-                                                <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                    <div class="text-muted small">Category</div>
-                                                    <strong><%= product.productCategory %></strong>
-                                                </div>
-
-                                                <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                    <div class="text-muted small">sub-category</div>
-                                                    <strong><%= product.productSubCategory %></strong>
-                                                </div>
-                                            </div>
-                                            
-                                            <div>
-                                                <!-- <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                    <div class="text-muted small">Ratings</div>
-                                                    <strong><i class="icofont-star text-warning"></i>4.5 <span class="text-muted">(145)</span></strong>
-                                                </div> -->
-                                            </div>
-                                            
-                                            <div class="d-flex flex-md-row flex-wrap align-items-center justify-content-center justify-content-md-start">
-                                                <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                    <div class="text-muted small">Price</div>
-                                                    <strong><%= product.productPrice %>/-</strong>
-                                                </div>
-
-                                                <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                        <div class="text-muted small">QTY</div>
-                                                        <strong><%= product.productQTY %>/-</strong>
-                                                </div>
-
-                                                <!-- <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                    <div class="text-muted small">Discount</div>
-                                                    <strong><%= product.productDiscount %>/</strong>
-                                                </div> -->
-                                            </div>
-
-                                            <!-- EJS Template -->
-                                            <% function truncateWords(text, numWords) {
-                                                const words = text.split(' ');
-                                                if (words.length > numWords) {
-                                                return words.slice(0, numWords).join(' ') + '...';
-                                                } else {
-                                                return text;
-                                                }
-                                            } %>
-                                            <div class="d-flex flex-md-row flex-wrap align-items-center justify-content-center justify-content-md-start">
-                                                <div class="text-muted small">Description :</div>
-                                                <strong>:  <%= truncateWords(product.productDescription, 10) %></strong>
-                                            </div>
+                    <div class="row clearfix g-3">
+                        <div class="col-sm-12">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th>Id</th> -->
+                                                <th>Vendors</th> 
+                                                <!-- <th>Register  Date</th> -->
+                                                <th>Mail</th>
+                                                <th>Phone</th> 
+                                                <!-- <th>Country</th>  -->
+                                                <!-- <th>Total Order</th> -->
+                                                <th>Actions</th>  
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% vendors.forEach(data=>{ %>
+                                            <tr>
+                                                <!-- <td><strong>#CS-00002</strong></td> -->
+                                                <td>
+                                                        <a href="customer-detail.html">
+                                                            <!-- <img class="avatar rounded" src="/admin/assets/images/xs/avatar1.svg" alt=""> -->
+                                                            <span class="fw-bold ms-1"><%= data.vendorName %></span>
+                                                        </a>
+                                                </td>
+                                                <td><%= data.email %></td>
+                                                <td><%= data.phoneNumber %></td>
+                                                <!-- <td>South Africa</td> -->
+                                                <!-- <td>18</td> -->
+                                                <td>
+                                                        <% if (data.status) { %>
+                                                            <form class="unblock-form" method="post" action="/admin/vendorVerify">
+                                                                <input type="hidden" name="email" value="<%= data.email %>">
+                                                                <button type="submit" class="btn btn-danger text-light">Denied</button>  
+                                                            </form>
+                                                        <% } else { %>
+                                                            <form class="block-form" method="post" action="/admin/vendorVerify">
+                                                                <input type="hidden" name="email" value="<%= data.email %>">
+                                                                <button type="submit" class="btn btn-success text-light">Verified</button>  
+                                                            </form>
+                                                        <% } %>
                                                     
-                                        </div>
-
-                                        <div>
-                                            
-                                        </div>
-
-                                        <!-- <div class="col-1 form-check form-switch  d-flex top-0 end-0 py-3 px-3 d-none d-md-block">
-                                            <form action="/vendor/editProduct/<%= product._id %>" method="get" class="editProduct">
-                                                <button type="submit" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></button>
-                                            </form><br>
-                                            <form action="/vendor/deleteProduct/<%= product._id %>" method="post" class="deleteProduct">
-                                                <button type="submit" class="btn btn-outline-secondary"><i class="icofont-ui-delete text-danger"></i></button>
-                                            </form>
-                                        </div> -->
-                                    </div>
-
-                                    
-                                </div>  
-                                <%  }) %>
-                            <%  }) %>
-
-                          
-                            </div>
-                            <div class="row g-3 mb-3">
-                                <div class="col-md-12">
-                                    <nav class="justify-content-end d-flex">
-                                        <ul class="pagination">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active" aria-current="page">
-                                            <a class="page-link text-light" href="#">2</a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">Next</a>
-                                        </li>
-                                        </ul>
-                                    </nav>
+                                                </td>
+                                            </tr>
+                                            <%  }) %>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    </div> <!-- Row end  -->
+                    </div><!-- Row End -->
                 </div>
             </div>
-        
+            
             <!-- Modal Custom Settings-->
             <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">
                 <div class="modal-dialog  modal-sm">
@@ -806,40 +517,162 @@
                     </div>
                 </div>
             </div> 
-            
+
+            <!-- Add Customers-->
+            <div class="modal fade" id="expadd" tabindex="-1"  aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title  fw-bold" id="expaddLabel">Add Customers</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="deadline-form">
+                            <form>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label for="item" class="form-label">Customers Name</label>
+                                        <input type="text" class="form-control" id="item">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="taxtno" class="form-label">Customers Profile</label>
+                                        <input type="File" class="form-control" id="taxtno">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label for="depone" class="form-label">Country</label>
+                                    <input type="text" class="form-control" id="depone">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="abc" class="form-label">Customers Register date</label>
+                                    <input type="date" class="form-control w-100" id="abc">
+                                </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                    <label for="abc11" class="form-label">Mail</label>
+                                    <input type="text" class="form-control" id="abc11">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="abc111" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="abc111">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Total Order</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Edit Customers-->
+            <div class="modal fade" id="expedit" tabindex="-1"  aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title  fw-bold" id="expeditLabel"> Edit Customers</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="deadline-form">
+                            <form>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label for="item1" class="form-label">Customers Name</label>
+                                        <input type="text" class="form-control" id="item1" value="Cloth"> 
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="taxtno1" class="form-label">Customers Profile</label>
+                                        <input type="file" class="form-control" id="taxtno1">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" value="South Africa">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="abc1" class="form-label">Customers Register date</label>
+                                    <input type="date" class="form-control w-100" id="abc1" value="2021-03-12">
+                                </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                    <label for="mailid" class="form-label">Mail</label>
+                                    <input type="text" class="form-control" id="mailid" value="PhilGlover@gmail.com">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="phoneid" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="phoneid" value="843-555-0175">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <label class="form-label">Total Order</label>
+                                        <input type="text" class="form-control" value="18">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
         </div> 
-
+            
     </div>
-
+    
     <!-- Jquery Core Js -->
     <script src="/admin/assets/bundles/libscripts.bundle.js"></script>
 
-    <!-- Jquery Plugin --> 
-    <script src="/admin/assets/plugin/nouislider/nouislider.min.js"></script>
+    <!-- Plugin Js-->
+    <script src="/admin/assets/bundles/dataTables.bundle.js"></script>
 
-    <!-- Jquery Page Js --> 
+    <!-- Jquery Page Js -->
     <script src="../js/template.js"></script>
     <script>
-        var stepsSlider2 = document.getElementById('slider-range2');
-            var input3 = document.getElementById('minAmount2');
-            var input4 = document.getElementById('maxAmount2');
-            var inputs2 = [input3, input4];
-            noUiSlider.create(stepsSlider2, {
-                start: [149, 399],
-                connect: true,
-                step: 1,
-                range: {
-                    'min': [0],
-                    'max': 2000
-                },
-
+        // project data table
+        $(document).ready(function() {
+            $('#myProjectTable')
+            .addClass( 'nowrap' )
+            .dataTable( {
+                responsive: true,
+                columnDefs: [
+                    { targets: [-1, -3], className: 'dt-body-right' }
+                ]
             });
+            $('.deleterow').on('click',function(){
+            var tablename = $(this).closest('table').DataTable();  
+            tablename
+                    .row( $(this)
+                    .parents('tr') )
+                    .remove()
+                    .draw();
 
-            stepsSlider2.noUiSlider.on('update', function (values, handle) {
-                inputs2[handle].value = values[handle];
-            });
+            } );
+        });
     </script>
 </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/productList by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:19 GMT -->
-</html> 
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/customers.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
+</html>

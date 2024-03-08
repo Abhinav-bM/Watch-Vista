@@ -1,6 +1,6 @@
 const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
-const Vendor = require("../models/vendorsModel")
+const Vendor = require("../models/vendorsModel");
 const jwt = require("jsonwebtoken");
 
 // ADMIN LOGIN PAGE DISPLAY
@@ -83,7 +83,7 @@ let blockUser = async (req, res) => {
       user.blocked = !user.blocked;
       await user.save();
     }
-    res.redirect("/customersList");
+    res.redirect("/admin/customersList");
   } catch (error) {
     res.status(500).send("Error on admin Changing User status");
   }
@@ -92,10 +92,9 @@ let blockUser = async (req, res) => {
 // CATEGORY LIST DISPLAY
 let categoryList = async (req, res) => {
   try {
-    let admin = await Admin.findOne()
-    let data = admin.category
-    // console.log(data);
-    res.render("admin/category-list",{data});
+    let admin = await Admin.findOne();
+    let data = admin.category;
+    res.render("admin/category-list", { data });
   } catch (error) {
     console.error(error);
     res.status(404).send("page not found");
@@ -107,15 +106,15 @@ let addCategory = async (req, res) => {
   let { categoryName } = req.body;
   try {
     console.log(categoryName);
-    let admin = await Admin.findOne()
-    admin.category.push({categoryName})
-    admin.save()
-    res.redirect("/admin/categoryList")
+    let admin = await Admin.findOne();
+    admin.category.push({ categoryName });
+    admin.save();
+    res.redirect("/admin/categoryList");
   } catch (error) {
     console.error(error);
   }
 };
-  
+
 // UPDATE CATEGORY
 let updateCategory = async (req, res) => {
   let categoryId = req.body.editCategoryId;
@@ -124,25 +123,25 @@ let updateCategory = async (req, res) => {
   try {
     let admin = await Admin.findOne();
     if (!admin) {
-      return res.status(400).send('Admin Not Found');
+      return res.status(400).send("Admin Not Found");
     }
 
-    let categoryInd = admin.category.findIndex(cat => cat._id == categoryId);
+    let categoryInd = admin.category.findIndex((cat) => cat._id == categoryId);
     if (categoryInd === -1) {
-      return res.status(400).send('Category Not Found');
+      return res.status(400).send("Category Not Found");
     }
 
     admin.category[categoryInd].categoryName = categoryName;
     await admin.save();
 
-    res.redirect('/admin/categoryList');
+    res.redirect("/admin/categoryList");
   } catch (error) {
-    console.error('Error updating category:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error updating category:", error);
+    res.status(500).send("Internal Server Error");
   }
 };
 
-// CATEGORY DELETE 
+// CATEGORY DELETE
 let deleteCategory = async (req, res) => {
   const deleteCategoryId = req.body.deleteCategoryId;
 
@@ -173,34 +172,33 @@ let deleteCategory = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
 
 // SUBCATEGORY PAGE DISPLAY
-let subcategoryList = async (req, res) =>{
+let subcategoryList = async (req, res) => {
   try {
-    let admin = await Admin.findOne()
-    let data = admin.subcategory
+    let admin = await Admin.findOne();
+    let data = admin.subcategory;
     console.log(data);
-    res.render("admin/subcategory-list",{data});
+    res.render("admin/subcategory-list", { data });
   } catch (error) {
     console.error(error);
     res.status(404).send("page not found");
   }
-}
-
+};
 
 let addSubcategory = async (req, res) => {
   let { subcategoryName } = req.body;
   try {
     console.log(subcategoryName);
-    let admin = await Admin.findOne()
-    admin.subcategory.push({subcategoryName})
-    admin.save()
-    res.redirect("/admin/subcategoryList")
+    let admin = await Admin.findOne();
+    admin.subcategory.push({ subcategoryName });
+    admin.save();
+    res.redirect("/admin/subcategoryList");
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 let updateSubcategory = async (req, res) => {
   let subcategoryId = req.body.editSubcategoryId;
@@ -209,25 +207,27 @@ let updateSubcategory = async (req, res) => {
   try {
     let admin = await Admin.findOne();
     if (!admin) {
-      return res.status(400).send('Admin Not Found');
+      return res.status(400).send("Admin Not Found");
     }
 
-    let subcategoryInd = admin.subcategory.findIndex(cat => cat._id == subcategoryId);
+    let subcategoryInd = admin.subcategory.findIndex(
+      (cat) => cat._id == subcategoryId
+    );
     if (subcategoryInd === -1) {
-      return res.status(400).send('Category Not Found');
+      return res.status(400).send("Category Not Found");
     }
 
     admin.subcategory[subcategoryInd].subcategoryName = subcategoryName;
     await admin.save();
 
-    res.redirect('/admin/subcategoryList');
+    res.redirect("/admin/subcategoryList");
   } catch (error) {
-    console.error('Error updating category:', error);
-    res.status(500).send('Internal Server Error');
+    console.error("Error updating category:", error);
+    res.status(500).send("Internal Server Error");
   }
-}
+};
 
-let deleteSubcategory = async (req, res)=>{
+let deleteSubcategory = async (req, res) => {
   const deleteSubcategoryId = req.body.deleteSubcategoryId;
 
   try {
@@ -257,21 +257,45 @@ let deleteSubcategory = async (req, res)=>{
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
-}
+};
+
+// VENODRS LIST
+let vendorsList = async (req, res) => {
+  try {
+    const vendors = await Vendor.find();
+    res.status(200).render("admin/vendorsList", { vendors });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("server error");
+  }
+};
 
 // LIST PRODUCT PAGE
-let productList = async (req, res)=>{
+let productList = async (req, res) => {
   try {
-    let _id = req.user.id;
-    let products =  await Vendor.find().select("products");
-    console.log("product : ", products);
+    let products = await Vendor.find().select("products");
     res.status(200).render("admin/product-list", { products });
   } catch (error) {
     console.error("vendor product list error", error);
     res.status(404).send("page not found");
   }
-}
+};
 
+// BLOCK AND UNBLOCK VENDORS
+let verifyVendor = async (req, res) => {
+  try {
+    let email = req.body.email;
+    const vendor = await Vendor.findOne({ email });
+    if (vendor) {
+      vendor.status = !vendor.status;
+      await vendor.save();
+    }
+    res.redirect("/admin/vendorsList");
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Error on vendor verification')
+  }
+};
 
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
@@ -303,6 +327,7 @@ module.exports = {
   addSubcategory,
   updateSubcategory,
   deleteSubcategory,
+  vendorsList,
   productList,
+  verifyVendor,
 };
-

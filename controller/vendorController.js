@@ -2,7 +2,11 @@ const Vendor = require("../models/vendorsModel");
 const Admin = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { sendOtpEmail } = require("../helpers/emailService");
 const cloudinary = require("../config/cloudinary");
+const generateOTP = () => {
+  return Math.floor(100000 + Math.random() * 900000).toString();
+};
 
 require("dotenv").config();
 
@@ -11,7 +15,6 @@ let dashboard = async (req, res) => {
   try {
     let email = req.user.email;
     let vendor = await Vendor.findOne({ email });
-    console.log(vendor);
     res.status(200).render("vendor/dashboard", { vendor });
   } catch (error) {
     res.status(404).send("page not found");
@@ -50,8 +53,6 @@ let vendorRegisterPostPage = async (req, res) => {
       password: hashedPassword,
     });
 
-    console.log(newVendor);
-
     await newVendor.save();
 
     console.log(newVendor);
@@ -68,7 +69,11 @@ let vendorLoginPostPage = async (req, res) => {
   try {
     const vendor = await Vendor.findOne({ email: req.body.email });
 
-    if (vendor) {
+    if (vendor.status) {
+      return res.render("vendor/vendorLogin", {
+        error: "you are restricted by admin",
+      });
+    } else if (vendor) {
       const passwordMatch = await bcrypt.compare(
         req.body.password,
         vendor.password
@@ -92,15 +97,19 @@ let vendorLoginPostPage = async (req, res) => {
         res.status(200).redirect("/vendor/dashboard");
         console.log("Vendor logged in successfully");
       } else {
-        res.status(200).render("user/login", { error: "Wrong password" });
+        res
+          .status(200)
+          .render("vendor/VendorLogin", { error: "Wrong password" });
       }
-    } else {
+    } else if (!vendor) {
       console.log("Vendor not found:", req.body.email);
-      res.status(200).render("user/login", { error: "User not found" });
+      res.status(200).render("vendor/vendorLogin", { error: "User not found" });
     }
   } catch (error) {
     console.error("Internal server error:", error);
-    res.status(500).render("user/login", { error: "Internal server error" });
+    res
+      .status(500)
+      .render("vendor/vendorLogin", { error: "Internal server error" });
   }
 };
 
@@ -133,7 +142,6 @@ let addProductpost = async (req, res) => {
         const result = await cloudinary.uploader.upload(file.path);
         imageUrls.push(result.secure_url);
       }
-      console.log(imageUrls);
     } else {
       console.log("No product data found");
     }
@@ -159,6 +167,7 @@ let addProductpost = async (req, res) => {
     console.log("product added successful");
   } catch (error) {
     console.log(error);
+    res.status(500).send("server error")
   }
 };
 
@@ -168,7 +177,6 @@ let producList = async (req, res) => {
     let _id = req.user.id;
     const vendor = await Vendor.findOne({ _id });
     let products = vendor.products;
-    console.log("product : ", products);
     res.status(200).render("vendor/product-list", { products });
   } catch (error) {
     console.error("vendor product list error", error);
@@ -222,7 +230,7 @@ let editProductPost = async (req, res) => {
     let productIndex = await vendor.products.findIndex(
       (product) => product._id.toString() === productId
     );
-    console.log("prodctIndex :", productIndex);
+
     if (productIndex === -1) {
       res.status(404).send("Product Not Found");
     } else {
@@ -268,14 +276,67 @@ let deleteProduct = async (req, res) => {
     });
 
     // REMOVING PRODUCTS FORM THE PRODUCT ARRAY
-    vendor.products.splice(productIndex, 1)
+    vendor.products.splice(productIndex, 1);
 
-    await vendor.save()
+    await vendor.save();
 
-    res.status(200).redirect("/vendor/productList")
+    res.status(200).redirect("/vendor/productList");
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// FORGOT PASSWORD
+let forgotEmail = async (req, res) => {
+  try {
+    res.status(200).render("vendor/vendorForgotEmail");
+  } catch (error) {
+    res.statusf(404).send("page not found");
+  }
+};
+let forgotPassEmailPost = async (req, res) => {
+  try {
+    const email = req.body.email;
+    const vendor = await Vendor.find({ email });
+    if (!vendor) {
+      return res
+        .status(404)
+        .render("vendor/vendorForgotEmail", { error: "User not found" });
+    }
+    const otp = generateOTP();
+    req.session.otp = otp;
+    req.session.email = email;
+    const message = `your otp for reset password is ${otp}`;
+    await sendOtpEmail(email, message);
+
+    res.status(200).render("vendor/forgotOtp");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("error occured try after some time");
+  }
+};
+let forgotOrpVerify = async (req, res) => {
+  try {
+    const { otp, newPassword } = req.body;
+    const email = req.session.email;
+    const storedOTP = req.session.otp;
+    const vendor = await Vendor.findOne({ email });
+    const bcryptedPass = await bcrypt.hash(newPassword, 10)
+    if (otp == storedOTP) {
+      vendor.password = bcryptedPass;
+      vendor.save();
+
+      delete req.session.otp;
+      delete req.session.email;
+      console.log("vendor password resetted")
+      res.render("vendor/vendorLogin")
+    }else{ 
+      res.status(400).render("vendor/forgotOtp", { error: "Invalid OTP" });
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).send("An error occured try again later")
   }
 };
 
@@ -299,6 +360,9 @@ module.exports = {
   registerGetPage,
   vendorRegisterPostPage,
   vendorLoginPostPage,
+  forgotEmail,
+  forgotPassEmailPost,
+  forgotOrpVerify,
   dashboard,
   vendorLogout,
   addProduct,

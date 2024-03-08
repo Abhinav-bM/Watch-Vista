@@ -25,7 +25,7 @@
                     <span class="logo-icon">
                         <i class="bi bi-bag-check-fill fs-4"></i>
                     </span>
-                    <span class="logo-text">eBazar</span>
+                    <span class="logo-text">Vendor</span>
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
@@ -539,11 +539,15 @@
                             <div class="card mb-3 bg-transparent p-2 border-5">
 
                                 <% products.forEach(product=>{ %>
-                                <div class="card border-0 mb-1 d-flex border-5">
-                                    <div class="col-12 card-body d-flex align-items-start flex-column flex-md-row">
-                                        <a class="d-flex justify-content-center" href="product-detail.html" >
-                                            <img class="w-50 h-50 rounded  img-fluid" src="<%= product.productImages[0] %>" alt="">
-                                        </a>
+                                <div class="card border-3 mb-1 d-flex">
+                                    <div class="col-12 card-body d-flex align-items-center flex-column flex-md-row">
+
+                                        <div class="col-3">
+                                            <a class="d-flex justify-content-center" href="product-detail.html" >
+                                                <img class="w-50 h-50 rounded  img-fluid" src="<%= product.productImages[0] %>" alt="">
+                                            </a>
+                                        </div>
+
                                         <div class="d-lg-flex flex-column ms-md-4 m-0 mt-4 mt-md-0 text-md-start text-center w-100">
                                             <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
                                                 <div class="text-muted small">Product Name</div>
@@ -591,14 +595,14 @@
                                                 </div>
 
                                                 <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
-                                                        <div class="text-muted small">MRP</div>
-                                                        <strong><%= product.productMRP %>/-</strong>
+                                                        <div class="text-muted small">QTY</div>
+                                                        <strong><%= product.productQTY %></strong>
                                                 </div>
 
-                                                <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
+                                                <!-- <div class="pe-xl-5 pe-md-4 ps-md-0 px-3 mb-2">
                                                     <div class="text-muted small">Discount</div>
                                                     <strong><%= product.productDiscount %>/</strong>
-                                                </div>
+                                                </div> -->
                                             </div>
 
                                             <!-- EJS Template -->

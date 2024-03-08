@@ -14,7 +14,6 @@ const generateOTP = () => {
 let homePage = async (req, res) => {
   try {
     let products = await Vendor.find().select("products");
-    console.log("products : ",products)
     res.status(200).render("user/home", { products: products });
   } catch (error) {
     console.error("Failed to get home:", error);
@@ -153,6 +152,10 @@ let loginPostPage = async (req, res) => {
       return res.status(401).json({ error: "Invalid password" });
     }
 
+    if(user.blocked){
+      return res.status(403).json({error: "You are restricted by admin"})
+    }
+
     const token = jwt.sign(
       {
         id: user._id,
@@ -183,8 +186,6 @@ const successGoogleLogin = async (req, res) => {
       return res.status(401).send("no user data , login failed");
     }
 
-    console.log(req.user);
-
     // Checking user already exists in database
     let user = await User.findOne({ email: req.user.email });
 
@@ -198,7 +199,7 @@ const successGoogleLogin = async (req, res) => {
       // Save the new user to the database
       await user.save();
     }
-
+    
     // Generate JWT token
     const token = jwt.sign(
       {
@@ -261,6 +262,10 @@ const loginRequestOTP = async (req, res) => {
       return res
         .status(404)
         .render("user/loginOtpPhone", { error: "User not found" });
+    }
+
+    if(user.blocked){
+      return res.status(403).render("user/loginOtpPhone", { error: "Your are restricted by admin" })
     }
 
     const otp = generateOTP();

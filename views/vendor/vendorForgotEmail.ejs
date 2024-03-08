@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Vendor Forgot Password</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f8f9fa;
+      /* Soft grayish background */
+    }
+
+    .signup-container {
+      max-width: 400px;
+      width: 100%;
+      padding: 20px;
+      text-align: center;
+      background-color: #ffffff;
+      /* White background */
+      border-radius: 10px;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      max-width: 100px;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      border: 2px solid #ced4da;
+      border-radius: 5px;
+      height: 46px;
+    }
+
+    .btn-primary {
+      background-color: #6610f2;
+      border-color: #6610f2;
+      height: 46px;
+      color: #ffffff;
+      /* White text */
+    }
+
+    .btn-primary:hover {
+      background-color: #512da8;
+      /* Darker purple on hover */
+      border-color: #512da8;
+    }
+
+    /* Remove underline from <a> tag */
+    a {
+      text-decoration: none;
+      color: #212529;
+      /* Dark gray text */
+    }
+
+    h2 {
+      font-weight: bold;
+      font-size: 28px;
+      color: #6610f2;
+      /* Purple heading */
+      margin-bottom: 20px;
+    }
+
+    /* Additional style for error message */
+    .error-message {
+      color: #dc3545;
+      /* Red error text */
+      font-size: 14px;
+      display: none;
+      /* Hide by default */
+    }
+
+    /* Custom style for success message */
+    .success-message {
+      color: #28a745;
+      /* Green success text */
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="signup-container">
+
+    <!-- <img src="path_to_your_logo.png" alt="logo" class="logo"> -->
+    <br>
+
+    <h2 class="text-center mb-4">Forgot Password</h2>
+
+    <!-- Error Message -->
+    <% if (typeof error !== 'undefined' && error !== null) { %>
+      <p class="error-message"><%= error %></p>
+    <% } %>
+
+    <form action="/vendor/forgotEmail" method="post" onsubmit="return validateAndSubmit()">
+
+      <small class="error-message" id="email-error">Invalid email</small>
+      <input type="email" name="email" id="email" class="form-control my-2 py-2" placeholder="Enter your email..."  />
+
+      <button class="mt-3 btn btn-primary btn-block" type="submit">Generate OTP</button>
+      
+    </form>
+
+    <script>
+      function validateAndSubmit() {
+        var emailInput = document.getElementById('email');
+        var emailError = document.getElementById('email-error');
+        var isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+
+        // Show/hide error messages based on validation
+        emailError.style.display = isValidEmail ? 'none' : 'block';
+
+        // Return false if any validation fails to prevent form submission
+        return isValidEmail;
+      }
+    </script>
+  
+  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  </div>
+
+</body>
+
+</html>

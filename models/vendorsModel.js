@@ -14,19 +14,20 @@ const productSchema = new mongoose.Schema({
   productMRP: { type: Number,  },
   productDiscount: { type: Number,  },
   productImages: {type:Array},
-  productDescription: { type: String,  }
+  productDescription: { type: String,  },
 }, { timestamps: true });
 
 
 const vendorSchema = new mongoose.Schema({
   vendorName: { type: String, required: true },
-  email: { type: String, unique: true, required: true },
+  email: { type: String,required: true  },
   phoneNumber: { type: String, required: true },
   password: { type: String, required: true },
   JoinedAt:{
     type:Date,
     default:Date.now
   },
+  status : {type:Boolean, default:true},
   products:[productSchema]
 });
 

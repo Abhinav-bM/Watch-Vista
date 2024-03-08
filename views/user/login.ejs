@@ -355,7 +355,7 @@
 
                             <form id="loginForm" action="/user/login" method="post">
                                 
-                                    <p id="errorMessage" style="color: red;"></p>
+                                    <p id="errorMessage" style="color: red;" ></p>
             
                                 <label for="email">Email Address <span>**</span></label>
                                 <input id="email" name="email" type="text" placeholder="Email address..." />
@@ -438,7 +438,11 @@
                                 errorMessage.textContent = "Incorrect password";
                             } else if (response.status === 404) {
                                 // User not found error
-                                errorMessage.textContent = data.error; // Display the error message from backend
+                                errorMessage.textContent = data.error; 
+                            }
+                            else if(response.status === 403){
+                                // User is blocked by admin
+                                errorMessage.textContent = data.error
                             }
                              else {
                                 // Handle other errors
