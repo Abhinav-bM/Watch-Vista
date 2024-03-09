@@ -189,6 +189,10 @@ const successGoogleLogin = async (req, res) => {
     // Checking user already exists in database
     let user = await User.findOne({ email: req.user.email });
 
+    if(user.blocked){
+     return res.render("user/login",{error : "You are restricted by admin"})
+    }
+
     if (!user) {
       // If the user does not exist, create a new user
       user = new User({
