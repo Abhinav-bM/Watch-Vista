@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const cookieParser = require("cookie-parser");
+const bodyParser = require('body-parser');
 const userRouter = require("./routes/users");
 const adminRouter = require("./routes/admin");
 const vendorRouter = require("./routes/vendor");
@@ -18,6 +19,7 @@ app.use('/uploads', express.static('uploads'));
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(bodyParser.json());
 
 // Set up session middleware
 app.use(

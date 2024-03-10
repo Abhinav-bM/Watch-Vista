@@ -334,6 +334,7 @@
 <!-- Body: Body --><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 <h1>Edit Product</h1>
   <form action="/vendor/editProduct/<%= product._id %>" method="post" enctype="multipart/form-data">
+    
     <div class="form-group">
       <label for="productName">Product Name:</label>
       <input type="text" id="productName" name="productName" value="<%= product.productName %>" required>

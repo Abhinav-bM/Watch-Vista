@@ -377,27 +377,33 @@
                                               </div>
                                             </td>
                                           </tr>
+
+
                                           <!-- Edit Modal for Each Row -->
-                                          <div class="modal fade" id="editModal<%= counter %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                  <form id="editCategoryForm<%= counter %>" class="editCategoryForm" action="/admin/updateCategory" method="POST">
-                                                    <div class="mb-3">
-                                                      <label for="editCategoryName<%= counter %>" class="form-label">Category Name</label>
-                                                      <input type="text" class="form-control" id="editCategoryName<%= counter %>" name="editCategoryName" value="<%= data.categoryName %>">
-                                                      <input type="hidden" id="editCategoryId<%= counter %>" name="editCategoryId" value="<%= data._id %>">
+                                            <div class="modal fade" id="editModal<%= counter %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                  </form>
+                                                    <div class="modal-body">
+
+                                                        <form id="editCategoryForm" action="/admin/updateCategory" method="">
+                                                            <div class="mb-3">
+                                                                <label for="editCategoryName" class="form-label">Category Name</label>
+                                                                <input type="text" class="form-control" id="editCategoryName" name="editCategoryName" value="<%= data.categoryName %>">
+                                                                <input type="hidden" id="editCategoryId" name="editCategoryId" value="<%= data._id %>">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                        </form>
+
+                                                    </div>
                                                 </div>
-                                              </div>
+                                                </div>
                                             </div>
-                                          </div>
+
+
                                           <!-- Delete Modal for Each Row -->
                                           <div class="modal fade" id="deleteModal<%= counter %>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -412,7 +418,7 @@
                                                 <div class="modal-footer">
                                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                                   <!-- Form for Delete Action -->
-                                                  <form id="deleteCategoryForm<%= counter %>" action="/admin/deleteCategory" method="POST">
+                                                  <form id="deleteCategoryForm" action="/admin/deleteCategory" method="POST">
                                                     <input type="hidden" name="deleteCategoryId" value="<%= data._id %>">
                                                     <button type="submit" class="btn btn-danger">Delete</button>
                                                   </form>
@@ -423,7 +429,12 @@
                                           <% counter++; %>
                                           <% }) %>
                                         </tbody>
+
+                                        <script>
+
+                                        </script>
                                       </table>
+                                      
                                                                            
                                 </div>
                             </div>
@@ -574,6 +585,38 @@
         </div> 
 
     </div>
+
+    <script>
+    document.getElementById("editCategoryForm").addEventListener("submit",function(event){
+        event.preventDefault()
+
+        const categoryName = document.getElementById("editCategoryName").value
+        const categoryId = document.getElementById("editCategoryId").value
+
+        fetch("/admin/updateCategory",{
+            method : "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body : JSON.stringify({categoryName,categoryId})
+        })
+    })
+    .then((response) => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('Failed to update category');
+        }
+    })
+    .then((data) => {
+        // Handle successful response here, maybe redirect or update UI
+        window.location.href = "/admin/categoryList";
+    })
+    .catch((err) => {
+        console.error("frontend error:", err);
+    });
+
+    </script>
 
     <!-- Jquery Core Js -->
     <script src="/admin/assets/bundles/libscripts.bundle.js"></script>

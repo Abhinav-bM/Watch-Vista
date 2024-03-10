@@ -92,7 +92,7 @@
                         <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
                             <div class="header-right">
                                 <ul class="text-right">
-                                    <li><a href="login.html" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block">Login/Sign up</article></a></li>
+                                    <li><a href="login.html" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
                                     <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a>
                                     
                                         <!-- search popup -->
@@ -344,7 +344,6 @@
                                     <li class="breadcrumb-item active" aria-current="page">Register</li>
                                 </ol>
                             </nav>
-                         <h2 class="login-title mt-40">Register</h2>
                         </div>
                     </div>
                 </div>
@@ -362,6 +361,7 @@
                             
 
                             <form id="signupForm" method="post" >
+
                                 <label for="userName">Name <span>**</span></label>
                                 <small id="name-error" style="color:red; display: none;">Invalid Name</small>
                                 <input id="userName" type="text" name="userName" placeholder="Enter your name" />
@@ -381,6 +381,7 @@
                                 <div class="mt-10"></div>
                                 <button class="btn theme-btn-2 w-100" type="button" onclick="validateAndSendOTP()">Register now</button>
                                 <div class="or-divide"><span>or</span></div>
+
                             </form>
                             
                             <button class="btn theme-btn w-100"><a href="/login">Login Now</a></button>
@@ -501,6 +502,7 @@
                                     var isvalidPhone = /^(\+91)?\d{10}$/.test(phoneInput);
                                     var isvalidPassword = passwordInput.length >= 6;
 
+                                    
                                     // Show/hide error messages based on validation
                                     nameError.style.display = isValidName ? 'none' : 'block';
                                     emailError.style.display = isvalidEmail ? 'none' : 'block';

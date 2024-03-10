@@ -93,7 +93,7 @@ let blockUser = async (req, res) => {
 let categoryList = async (req, res) => {
   try {
     let admin = await Admin.findOne();
-    let data = admin.category;
+    let data = admin.categories;
     res.render("admin/category-list", { data });
   } catch (error) {
     console.error(error);
@@ -107,34 +107,40 @@ let addCategory = async (req, res) => {
   try {
     console.log(categoryName);
     let admin = await Admin.findOne();
-    admin.category.push({ categoryName });
+    const newCategory = {
+      categoryName: categoryName,
+    };
+    admin.categories.push(newCategory);
     admin.save();
     res.redirect("/admin/categoryList");
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: "Error adding new category" });
   }
 };
 
 // UPDATE CATEGORY
 let updateCategory = async (req, res) => {
-  let categoryId = req.body.editCategoryId;
-  let categoryName = req.body.editCategoryName;
+
+  console.log(req.body)
+  let categoryId = req.body.categoryId;
+  let categoryName = req.body.categoryName;
+
+  console.log("category Id :", categoryId);
+  console.log("categoryName :", categoryName);
 
   try {
-    let admin = await Admin.findOne();
+    const admin = await Admin.updateOne(
+      { "categories._id": categoryId },
+      { $set: { "categories.$.categoryName": categoryName } }
+    );
+
+  
     if (!admin) {
-      return res.status(400).send("Admin Not Found");
+      return res.status(404).json({ message: "Category not found" });
     }
 
-    let categoryInd = admin.category.findIndex((cat) => cat._id == categoryId);
-    if (categoryInd === -1) {
-      return res.status(400).send("Category Not Found");
-    }
-
-    admin.category[categoryInd].categoryName = categoryName;
-    await admin.save();
-
-    res.redirect("/admin/categoryList");
+    res.status(200).json({message : "Category updated successfully  "})
   } catch (error) {
     console.error("Error updating category:", error);
     res.status(500).send("Internal Server Error");
@@ -292,8 +298,8 @@ let verifyVendor = async (req, res) => {
     }
     res.redirect("/admin/vendorsList");
   } catch (error) {
-    console.error(error)
-    res.status(500).send('Error on vendor verification')
+    console.error(error);
+    res.status(500).send("Error on vendor verification");
   }
 };
 

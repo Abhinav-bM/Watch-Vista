@@ -24,7 +24,7 @@ router.get("/admin/vendorsList",adminAuthMiddleware,adminController.vendorsList)
 router.post("/admin/login", adminController.loginPostPage);
 
 router.post("/admin/addCategory",adminAuthMiddleware,adminController.addCategory)
-router.post("/admin/updateCategory",adminAuthMiddleware,adminController.updateCategory)
+router.put("/admin/updateCategory",adminAuthMiddleware,adminController.updateCategory)
 router.post("/admin/deleteCategory",adminAuthMiddleware,adminController.deleteCategory)
 
 router.post("/admin/addSubcategory",adminAuthMiddleware,adminController.addSubcategory)
