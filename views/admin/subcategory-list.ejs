@@ -336,13 +336,58 @@
                                         </div>
                                         <div class="modal-body">
 
-                                            <form id="addsubcategoryForm" action="/admin/addSubcategory" method="POST">
+                                            <form id="addsubcategoryForm" action="/admin/addSubcategory" method="POST" onsubmit="return validateForm()">
+
                                                 <div class="mb-3">
-                                                <label for="subcategoryName" class="form-label">Subcategory Name</label>
-                                                <input type="text" class="form-control" id="subcategoryName" name="subcategoryName" required>
+                                                    <div id="categorySelectError" class="invalid-feedback">Please select a category.</div>
+                                                    <label for="categorySelect" class="form-label">Select Category</label>
+                                                    <select class="form-select" id="categorySelect" name="categoryId" >
+                                                      <% categories.forEach(category => { %>
+                                                        <option value="<%= category._id %>"><%= category.categoryName %></option>
+                                                      <% }); %>
+                                                    </select>
                                                 </div>
+
+                                                <div class="mb-3">
+                                                    <label for="subcategoryName" class="form-label">Subcategory Name</label>
+                                                    <div id="subcategoryNameError" class="invalid-feedback">Please enter a subcategory name.</div>
+                                                    <input type="text" class="form-control" id="subcategoryName" name="subcategoryName">
+                                                </div>
+
                                                 <button type="submit" class="btn btn-primary">Add</button>
                                             </form>
+
+                                            <script>
+                                                function validateForm() {
+                                                    const subcategoryName = document.getElementById("subcategoryName").value;
+                                                    const categoryId = document.getElementById("categorySelect").value;
+
+                                                    let isValid = true;
+
+                                                    // Validate subcategory name
+                                                    if (subcategoryName.trim() === "") {
+                                                        document.getElementById("subcategoryName").classList.add("is-invalid");
+                                                        document.getElementById("subcategoryNameError").style.display = "block";
+                                                        isValid = false;
+                                                    } else {
+                                                        document.getElementById("subcategoryName").classList.remove("is-invalid");
+                                                        document.getElementById("subcategoryNameError").style.display = "none";
+                                                    }
+
+                                                    // Validate category selection
+                                                    if (categoryId === "") {
+                                                        document.getElementById("categorySelect").classList.add("is-invalid");
+                                                        document.getElementById("categorySelectError").style.display = "block";
+                                                        isValid = false;
+                                                    } else {
+                                                        document.getElementById("categorySelect").classList.remove("is-invalid");
+                                                        document.getElementById("categorySelectError").style.display = "none";
+                                                    }
+
+                                                    return isValid;
+                                                    }
+
+                                            </script>
 
                                         </div>
                                       </div>
@@ -360,74 +405,76 @@
                                           <tr>
                                             <th>Id</th>
                                             <th>Subcategory</th>
+                                            <th>Main Category</th>
                                             <th>Date</th>
                                             <th>Action</th>
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <% let counter = 1; %>
-                                          <% data.forEach(data => { %>
-                                          <tr>
-                                            <td><strong><%= counter %></strong></td>
-                                            <td><%= data.subcategoryName %></td>
-                                            <td><%= data.createdAt.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) %></td>
-                                            <td>
-                                              <div class="btn-group" role="group" aria-label="Basic outlined example">
-                                                <button type="button" class="btn btn-outline-secondary editBtn" data-bs-toggle="modal" data-bs-target="#editModal<%= counter %>" data-id="<%= data._id %>" data-name="<%= data.categoryName %>">
-                                                  <i class="icofont-edit text-success"></i>
-                                                </button>
-                                                <!-- Delete Button Triggering Modal -->
-                                                <button type="button" class="btn btn-outline-secondary editBtn" data-bs-toggle="modal" data-bs-target="#deleteModal<%= counter %>">
-                                                  <i class="icofont-ui-delete text-"></i>
-                                                </button>
-                                              </div>
-                                            </td>
-                                          </tr>
-                                          <!-- Edit Modal for Each Row -->
-                                          <div class="modal fade" id="editModal<%= counter %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <% let counter = 1; %>
+                                            <% subcategories.forEach(subcategory => { %>
+                                            <tr>
+                                              <td><strong><%= counter %></strong></td>
+                                              <td><%= subcategory.subcategoryName %></td>
+                                              <td><%= subcategory.categoryName %></td>
+                                              <td><%= subcategory.createdAt.toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' }) %></td>
+                                              <td>
+                                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                  <button type="button" class="btn btn-outline-secondary editBtn" data-bs-toggle="modal" data-bs-target="#editModal<%= counter %>" data-id="<%= subcategory._id %>" data-name="<%= subcategory.subcategoryName %>">
+                                                    <i class="icofont-edit text-success"></i>
+                                                  </button>
+                                                  <!-- Delete Button Triggering Modal -->
+                                                  <button type="button" class="btn btn-outline-secondary editBtn" data-bs-toggle="modal" data-bs-target="#deleteModal<%= counter %>">
+                                                    <i class="icofont-ui-delete text-"></i>
+                                                  </button>
                                                 </div>
-                                                <div class="modal-body">
-                                                  <form id="editSubcategoryForm<%= counter %>" class="editSubcategoryForm" action="/admin/updateSubcategory" method="POST">
-                                                    <div class="mb-3">
-                                                      <label for="editSubcategoryName<%= counter %>" class="form-label">Category Name</label>
-                                                      <input type="text" class="form-control" id="editSubcategoryName<%= counter %>" name="editSubcategoryName" value="<%= data.subcategoryName %>">
-                                                      <input type="hidden" id="editSubcategoryId<%= counter %>" name="editSubcategoryId" value="<%= data._id %>">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                                                  </form>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <!-- Delete Modal for Each Row -->
-                                          <div class="modal fade" id="deleteModal<%= counter %>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                              <div class="modal-content">
-                                                <div class="modal-header">
-                                                  <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
-                                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                  Are you sure you want to delete the category "<%= data.categoryName %>"?
-                                                </div>
-                                                <div class="modal-footer">
-                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                  <!-- Form for Delete Action -->
-                                                  <form id="deleteSubcategoryForm<%= counter %>" action="/admin/deleteSubcategory" method="POST">
-                                                    <input type="hidden" name="deleteSubcategoryId" value="<%= data._id %>">
-                                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                                  </form>
+                                              </td>
+                                            </tr>
+                                            <!-- Edit Modal for Each Row -->
+                                            <div class="modal fade" id="editModal<%= counter %>" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <form id="editSubcategoryForm<%= counter %>" class="editSubcategoryForm" action="/admin/updateSubcategory" method="POST">
+                                                      <div class="mb-3">
+                                                        <label for="editSubcategoryName<%= counter %>" class="form-label">Category Name</label>
+                                                        <input type="text" class="form-control" id="editSubcategoryName<%= counter %>" name="editSubcategoryName" value="<%= subcategory.subcategoryName %>">
+                                                        <input type="hidden" id="editSubcategoryId<%= counter %>" name="editSubcategoryId" value="<%= subcategory.id %>">
+                                                      </div>
+                                                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                    </form>
+                                                  </div>
                                                 </div>
                                               </div>
                                             </div>
-                                          </div>
-                                          <% counter++; %>
-                                          <% }) %>
+                                            <!-- Delete Modal for Each Row -->
+                                            <div class="modal fade" id="deleteModal<%= counter %>" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    Are you sure you want to delete the category "<%= subcategory.subcategoryName %>"?
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <!-- Form for Delete Action -->
+                                                    <form id="deleteSubcategoryForm<%= counter %>" action="/admin/deleteSubcategory" method="POST">
+                                                      <input type="hidden" name="deleteSubcategoryId" value="<%= subcategory.id %>">
+                                                      <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <% counter++; %>
+                                            <% }) %>
                                         </tbody>
                                       </table>
                                                                            

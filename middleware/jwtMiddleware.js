@@ -40,6 +40,8 @@ const adminAuthMiddleware = (req, res, next) => {
   }
 };
 
+
+
 // ADMIN
 const vendorAuthMiddleware = (req, res, next) => {
   // Get token from cookies
