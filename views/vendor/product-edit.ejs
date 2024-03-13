@@ -399,27 +399,65 @@
         
     </div>
 
-    <div class="form-group">
-      <label for="productCategory">Category:</label>
-      <select id="productCategory" name="productCategory" required>
-        <% categories.forEach(category => { %>
-          <option><%= category.categoryName %></option>
-        <% }) %>
-      </select>
-    </div>
+    <div class="form-group px-3">
+        <label for="productCategory">Category:</label>
+        <select id="productCategory" name="productCategory" onchange="getSubcategory()" required>
+            <option value="">Select Category</option>
+                <% categories.forEach(category => { %>
+                    <option value="<%= category.categoryName %>"><%= category.categoryName %></option>
+                <% }); %>
+             </select>
+        </div>
 
-    <div class="form-group">
-      <label for="productSubcategory">Subcategory:</label>
-      <select id="productSubcategory" name="productSubcategory" required>
-        <% subcategories.forEach(subcategory => { %>
-          <option ><%= subcategory.subcategoryName %></option>
-        <% }); %>
-      </select>
+        <input type="hidden" id="categoriesData" value='<%= JSON.stringify(categories) %>'>
+
+        <div class="form-group px-3">
+        <label for="productSubcategory">Subcategory:</label>
+        <select id="productSubcategory" name="productSubcategory" required>
+            <option value="">Select Subcategory</option>
+        </select>
     </div>
 
     <input type="submit" value="Edit Product" class="btn-submit">
   </form><br>
 
+  <script>
+        function getSubcategory() {
+        const categoriesInput = document.getElementById('categoriesData');
+        const categoriesJson = categoriesInput.value;
+
+        // Parse the JSON string to get the categories array
+        const categories = JSON.parse(categoriesJson);
+
+        const categoryDropdown = document.getElementById('productCategory');
+        const subcategoryDropdown = document.getElementById('productSubcategory');
+        
+        // Clear previous options
+        subcategoryDropdown.innerHTML = '<option value="">Select Subcategory</option>';
+
+        const selectedCategory = categoryDropdown.value;
+        if (!selectedCategory) {
+        return;
+        }
+
+        // Find the selected category from the categories array
+        const selectedCategoryObj = categories.find(category => category.categoryName === selectedCategory);
+
+        if (selectedCategoryObj) {
+        selectedCategoryObj.subcategories.forEach(subcategory => {
+            const option = document.createElement('option');
+            option.text = subcategory;
+            option.value = subcategory;
+            subcategoryDropdown.add(option);
+        });
+        }
+    }
+
+    // Trigger getSubcategory() when the page loads
+    document.addEventListener('DOMContentLoaded', () => {
+        getSubcategory();
+    });
+  </script>
             <!--------------------------------------------------------------------------------------------------------------------------------------------->   
             <!-- Modal Custom Settings-->
             <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">

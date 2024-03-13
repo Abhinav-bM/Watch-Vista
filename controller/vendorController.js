@@ -117,9 +117,15 @@ let vendorLoginPostPage = async (req, res) => {
 let addProduct = async (req, res) => {
   try {
     const admin = await Admin.findOne();
-    const categories = admin.category;
-    const subcategories = admin.subcategory;
-    res.status(200).render("vendor/product-add", { categories, subcategories });
+    const categories = admin.categories.map((category) => ({
+      categoryName: category.categoryName,
+      subcategories: category.subcategories.map(
+        (subcategory) => subcategory.subcategoryName
+      ),
+    }));
+
+    console.log(categories);
+    res.status(200).render("vendor/product-add", { categories });
   } catch (error) {
     console.error(error);
     res.status(404).send("page not found");
@@ -167,7 +173,7 @@ let addProductpost = async (req, res) => {
     console.log("product added successful");
   } catch (error) {
     console.log(error);
-    res.status(500).send("server error")
+    res.status(500).send("server error");
   }
 };
 
@@ -188,6 +194,7 @@ let producList = async (req, res) => {
 let editProduct = async (req, res) => {
   try {
     let productId = req.params.id;
+
     let vendorId = req.user.id;
     let vendor = await Vendor.findOne({ _id: vendorId });
     if (!vendor) {
@@ -202,9 +209,13 @@ let editProduct = async (req, res) => {
       return res.status(404).send("Product Not Found");
     }
 
-    let categories = admin.category;
-    let subcategories = admin.subcategory;
-    res.render("vendor/product-edit", { product, categories, subcategories });
+    const categories = admin.categories.map((category) => ({
+      categoryName: category.categoryName,
+      subcategories: category.subcategories.map(
+        (subcategory) => subcategory.subcategoryName
+      ),
+    }));
+    res.render("vendor/product-edit", { product, categories });
   } catch (error) {
     console.error(error);
     res.status(500).send("failed to get editproduct page");
@@ -322,21 +333,21 @@ let forgotOrpVerify = async (req, res) => {
     const email = req.session.email;
     const storedOTP = req.session.otp;
     const vendor = await Vendor.findOne({ email });
-    const bcryptedPass = await bcrypt.hash(newPassword, 10)
+    const bcryptedPass = await bcrypt.hash(newPassword, 10);
     if (otp == storedOTP) {
       vendor.password = bcryptedPass;
       vendor.save();
 
       delete req.session.otp;
       delete req.session.email;
-      console.log("vendor password resetted")
-      res.render("vendor/vendorLogin")
-    }else{ 
+      console.log("vendor password resetted");
+      res.render("vendor/vendorLogin");
+    } else {
       res.status(400).render("vendor/forgotOtp", { error: "Invalid OTP" });
     }
   } catch (error) {
-    console.error(error)
-    res.status(500).send("An error occured try again later")
+    console.error(error);
+    res.status(500).send("An error occured try again later");
   }
 };
 
