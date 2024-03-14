@@ -21,8 +21,8 @@ router.get("/", userController.loadAuth);
 router.get("/forgotPassword", userController.forgotGetPage);
 router.get("/loginOtp", userController.loginWithOtpGetPage);
 router.get("/shop", userController.shopGetPage);
-router.get("/products/:productId", userController.singleProductGetPage);
-
+router.get("/products", userController.singleProductGetPage);
+ 
 router.post("/user/send-otp", userController.signupPostPage);
 router.post('/verify-otp', userController.signupVerify)
 router.post("/user/login", userController.loginPostPage);
@@ -30,6 +30,8 @@ router.post("/forgotPassword", userController.forgotEmailPostPage);
 router.post("/resetPassword", userController.resetPassword);
 router.post("/loginOtp", userController.loginRequestOTP);
 router.post("/loginOtpDone", userController.loginVerifyOTP);
+
+router.post("/cart/add-to-cart",verifyToken,userController.addToCart)
 
 // LOGIN WITH GOOGLE
 //Auth

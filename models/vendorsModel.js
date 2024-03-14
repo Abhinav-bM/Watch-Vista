@@ -17,7 +17,6 @@ const productSchema = new mongoose.Schema({
   productDescription: { type: String,  },
 }, { timestamps: true });
 
-
 const vendorSchema = new mongoose.Schema({
   vendorName: { type: String, required: true },
   email: { type: String,required: true  },

@@ -152,8 +152,8 @@ let loginPostPage = async (req, res) => {
       return res.status(401).json({ error: "Invalid password" });
     }
 
-    if(user.blocked){
-      return res.status(403).json({error: "You are restricted by admin"})
+    if (user.blocked) {
+      return res.status(403).json({ error: "You are restricted by admin" });
     }
 
     const token = jwt.sign(
@@ -189,8 +189,8 @@ const successGoogleLogin = async (req, res) => {
     // Checking user already exists in database
     let user = await User.findOne({ email: req.user.email });
 
-    if(user.blocked){
-     return res.render("user/login",{error : "You are restricted by admin"})
+    if (user.blocked) {
+      return res.render("user/login", { error: "You are restricted by admin" });
     }
 
     if (!user) {
@@ -203,7 +203,7 @@ const successGoogleLogin = async (req, res) => {
       // Save the new user to the database
       await user.save();
     }
-    
+
     // Generate JWT token
     const token = jwt.sign(
       {
@@ -267,8 +267,12 @@ const loginRequestOTP = async (req, res) => {
         .render("user/loginOtpPhone", { error: "User not found" });
     }
 
-    if(user.blocked){
-      return res.status(403).render("user/loginOtpPhone", { error: "Your are restricted by admin" })
+    if (user.blocked) {
+      return res
+        .status(403)
+        .render("user/loginOtpPhone", {
+          error: "Your are restricted by admin",
+        });
     }
 
     const otp = generateOTP();
@@ -369,7 +373,6 @@ let forgotEmailPostPage = async (req, res) => {
           .render("user/forgotemail", { error: "User not found" });
       }
       smsService.sendOTP(emailOrPhone, otp);
-
     } else {
       return res.status(400).json({ message: "Invalid email or phone number" });
     }
@@ -482,26 +485,69 @@ let shopGetPage = async (req, res) => {
     res.status(404).send("page not found");
   }
 };
- 
+
 // DISPLAY SINGLE PRODUCT PAGE
 let singleProductGetPage = async (req, res) => {
   try {
-    const productId = req.params.productId;
-    // console.log("heeeell", productId);
-    const vendors = await Vendor.find();
-    let products;
-    vendors.forEach((vendor) => {
-      vendor.products.forEach((prod) => {
-        if (prod._id.toString() === productId) {
-          products = prod;
-        }
-      });
-    });
-    // console.log(products);
+    const productId = req.query.productId;
+    
+    const vendor = await Vendor.findOne({ "products._id": productId });
+
+    if (!vendor) {
+      throw new Error("Product not found");
+    }
+
+    const products = vendor.products.find(
+      (prod) => prod._id.toString() === productId
+    );
+
+    if (!products) {
+      throw new Error("Product not found");
+    }
+
     res.render("user/singleProduct", { products: products });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
+  }
+};
+
+// ADD TO CART
+let addToCart = async (req, res) => {
+  const { productId } = req.body;
+  const userId = req.user.id; // Assuming you have a way to get the user's ID
+
+  console.log("Product id cart : ", productId);
+  console.log("User id  : ", userId);
+
+  try {
+    // Find the user by ID
+    const user = await User.findById(userId).populate("cart.products.productId");
+    console.log(user)
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Check if the product already exists in the cart
+    const existingProductIndex = user.cart.products.findIndex(
+      (product) => product.productId.toString() === productId
+    );
+
+    if (existingProductIndex !== -1) {
+      // If the product already exists, increase its quantity
+      user.cart.products[existingProductIndex].quantity += 1;
+    } else {
+      // If the product does not exist, add it to the cart
+      user.cart.products.push({ productId: productId, quantity: 1 });
+    }
+
+    // Save the updated user document
+    await user.save();
+
+    res.json({ message: "Product added to cart successfully", user });
+  } catch (error) {
+    console.error("Error adding product to cart:", error);
+    res.status(500).json({ error: "Unable to add product to cart" });
   }
 };
 
@@ -532,4 +578,5 @@ module.exports = {
   resetPassword,
   shopGetPage,
   singleProductGetPage,
+  addToCart,
 };

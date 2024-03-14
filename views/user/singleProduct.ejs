@@ -252,25 +252,26 @@
                                     
                                     <div class="col-10">
                                         <div class="tab-content" id="v-pills-tabContent">
+                                            
                                             <div class=" tab-pane fade show active" id="tab-1">
                                                
                                                 <div class="product-img zoomable d-flex justify-content-center">
-                                                    <a href="<%= products.productImages[0] %>" class="popup-image"  ><img  src="<%= products.productImages[0] %>" class=" zoomable__img w-100 " alt=""></a>
+                                                    <a href="" class="popup-image"  ><img  src="<%= products.productImages[0] %>" class=" zoomable__img w-100 " alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-2">
                                                 <div class="product-img zoomable d-flex justify-content-center">
-                                                    <a href="<%= products.productImages[1] %>" class="popup-image" ><img src= "<%= products.productImages[1] %>" class=" zoomable__img w-100" alt=""></a>
+                                                    <a href="" class="popup-image" ><img src= "<%= products.productImages[1] %>" class=" zoomable__img w-100" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-3">
                                                 <div class="product-img zoomable d-flex justify-content-center">
-                                                    <a href="<%= products.productImages[2] %>" class="popup-image" ><img src="<%= products.productImages[2] %>" class=" zoomable__img w-100" alt=""></a>
+                                                    <a href="" class="popup-image" ><img src="<%= products.productImages[2] %>" class=" zoomable__img w-100" alt=""></a>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab-4">
                                                 <div class="product-img zoomable d-flex justify-content-center">
-                                                    <a href="<%= products.productImages[3] %>" class="popup-image" ><img src="<%= products.productImages[3] %>" class=" zoomable__img w-100" alt=""></a>
+                                                    <a href="" class="popup-image" ><img src="<%= products.productImages[3] %>" class=" zoomable__img w-100" alt=""></a>
                                                 </div>
                                             </div>
                                             
@@ -325,14 +326,16 @@
                                         </div>
                                     </div>
                                     <div class="quick-quantity mt-60">
-                                        <form action="#" method="POST">
-                                            <button type="submit" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 20px;padding-right: 20px;transition: all .5s;">add to
-                                                cart
-                                            </button>
-                                            <button type="submit" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 25px;padding-right: 25px;transition: all .5s;">
-                                                Buy Now
-                                            </button>
-                                        </form>
+
+                                        
+                                    <button type="button" id="addToCartBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 20px;padding-right: 20px;transition: all .5s;" data-product-id="<%= products._id %>">
+                                        add to cart
+                                    </button>
+                                    <button type="button" id="buyNowBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 25px;padding-right: 25px;transition: all .5s;" data-product-id="<%= products._id %>">
+                                        Buy Now
+                                    </button>
+                                    
+
                                     </div>
                                     <div class="single-product-action mt-35">
                                         <ul>
@@ -800,7 +803,34 @@
         </div>
     </section>
     <!-- startup popup end -->
-
+<!--------------------------------------------Add to cart------------------------------------------------------->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Function to add product to cart
+        function addToCart(productId) {
+            console.log("add to cart function triggered :",productId )
+            axios.post('/cart/add-to-cart', {
+                productId: productId
+            })
+            .then(function (response) {
+                console.log(response.data);
+                // Optionally, show a success message to the user
+            })
+            .catch(function (error) {
+                console.error('Error adding product to cart:', error);
+                // Optionally, show an error message to the user
+            });
+        }
+    
+        // Get the product ID from the button's data attribute
+        const addToCartBtn = document.getElementById('addToCartBtn');
+    
+        addToCartBtn.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent default button behavior
+            const productId = this.getAttribute('data-product-id');
+            addToCart(productId);
+        });
+    </script>
 
 
 <script>

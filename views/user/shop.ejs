@@ -513,14 +513,14 @@
                                                                 <div class="product-desc pb-20">
                                                                     <div class="product-desc-top">
                                                                         <div class="categories">
-                                                                            <a href="shop2.html" class="product-category"><span><%= product.productCategory %></span></a>
+                                                                            <a href="/products?productId=<%= product._id %>" class="product-category"><span><%= product.productCategory %></span></a>
                                                                         </div>
-                                                                        <a href="wishlist.html" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
+                                                                        <a href="" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
                                                                     </div>
-                                                                    <a href="/products/<%= product._id %>" class="product-title"><%= product.productName %></a>
+                                                                    <a href="/products?productId=<%= product._id %>" class="product-title"><%= product.productName %></a>
                                                                     <div class="price-switcher">
                                                                         <span class="price switcher-item">₹ <%= product.productPrice %></span>
-                                                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
+                                                                        <a href="" class="add-cart text-capitalize switcher-item">+add to cart</a>
                                                                     </div>
                                                                 </div>
                                                             </div>

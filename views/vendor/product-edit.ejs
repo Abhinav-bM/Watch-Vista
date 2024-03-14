@@ -332,97 +332,104 @@
             </div>
 
 <!-- Body: Body --><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-<h1>Edit Product</h1>
-  <form action="/vendor/editProduct/<%= product._id %>" method="post" enctype="multipart/form-data">
+<h2 class="text-uppercase fw-bold px-3">Edit Product</h2>
+    <form class="needs-validation" action="/vendor/editProduct/<%= product._id %>" method="post" enctype="multipart/form-data">
+        
+        <div>
+            <div class="form-group px-3">
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" value="<%= product.productName %>" required>
+            </div>
     
-    <div class="form-group">
-      <label for="productName">Product Name:</label>
-      <input type="text" id="productName" name="productName" value="<%= product.productName %>" required>
-    </div>
-
-    <div class="form-group">
-      <label for="productBrand">Product Brand:</label>
-      <input type="text" id="productBrand" name="productBrand" value="<%= product.productBrand %>" required>
-    </div>
-
-    <div class="form-group">
-      <label for="productColor">Product Color:</label>
-      <input type="text" id="productColor" name="productColor" value="<%= product.productColor %>" required>
-    </div>
-
-    <div class="form-group">
-      <label for="productSize">Product Size:</label>
-      <input type="text" id="productSize" name="productSize" value="<%= product.productSize %>" required>
-    </div>
-
-    <div class="form-group">
-      <label for="productQuantity">Product Quantity:</label>
-      <input type="number" id="productQuantity" name="productQuantity" value="<%= product.productQTY %>" required>
-    </div>
-
-    <div class="form-group">
-      <label for="productPrice">Product Price:</label>
-      <input type="number" id="productPrice" name="productPrice" value="<%= product.productPrice %>" required>
-    </div>
-
-    <div class="form-group">
-      <label for="productMRP">Product MRP:</label>
-      <input type="number" id="productMRP" name="productMRP" value="<%= product.productMRP %>" required>
-    </div>
-
-    <div class="form-group">
-      <label for="productDiscount">Product Discount:</label>
-      <input type="number" id="productDiscount" name="productDiscount" value="<%= product.productDiscount %>" required>
-    </div>
-
-    <div class="form-group">
-      <label for="productDescription">Product Description:</label>
-      <textarea id="productDescription" name="productDescription" rows="5" required><%= product.productDescription %></textarea>
-    </div>
-
-    <div class="form-group images">
-        
-      <label for="productImages">Product Images ( 4 images ):</label><br>
-
-      <input type="file" id="productImages" name="productImages" value="<%= product.productImages[0] %>">
-      <img src="<%= product.productImages[0] %>" alt="No image added" style="max-width: 100px;"><br>
-
-      <input type="file" id="productImages" name="productImages" value="<%= product.productImages[1] %>" >
-      <img src="<%= product.productImages[1] %>" alt="No image added" style="max-width: 100px;"><br>
-
-      <input type="file" id="productImages" name="productImages" value="<%= product.productImages[2] %>"  >
-      <img src="<%= product.productImages[2] %>" alt="No image added" style="max-width: 100px;"><br>
-
-      <input type="file" id="productImages" name="productImages" value="<%= product.productImages[3] %>" >
-      <img src="<%= product.productImages[3] %>" alt="No image added" style="max-width: 100px;"><br>
-
-        
-    </div>
-
-    <div class="form-group px-3">
-        <label for="productCategory">Category:</label>
-        <select id="productCategory" name="productCategory" onchange="getSubcategory()" required>
-            <option value="">Select Category</option>
-                <% categories.forEach(category => { %>
-                    <option value="<%= category.categoryName %>"><%= category.categoryName %></option>
-                <% }); %>
-             </select>
+            <div class="form-group px-3">
+                <label for="productBrand">Product Brand:</label>
+                <input type="text" id="productBrand" name="productBrand" value="<%= product.productBrand %>" required>
+            </div>
+    
+            <div class="form-group px-3">
+                <label for="productColor">Product Color:</label>
+                <input type="text" id="productColor" name="productColor" value="<%= product.productColor %>" required>
+            </div>
+    
+            <div class="form-group px-3">
+                <label for="productSize">Product Size:</label>
+                <input type="text" id="productSize" name="productSize" value="<%= product.productSize %>" required>
+            </div>
+    
+            <div class="form-group px-3">
+                <label for="productQuantity">Product Quantity:</label>
+                <input type="number" id="productQuantity" name="productQuantity" value="<%= product.productQTY %>" required>
+            </div>
+    
+            <div class="form-group px-3">
+                <label for="productPrice">Product Price:</label>
+                <input type="number" id="productPrice" name="productPrice" value="<%= product.productPrice %>" required>
+            </div>
+    
+            <div class="form-group px-3">
+                <label for="productMRP">Product MRP:</label>
+                <input type="number" id="productMRP" name="productMRP" value="<%= product.productMRP %>" required>
+            </div>
+    
+            <div class="form-group px-3">
+                <label for="productDiscount">Product Discount:</label>
+                <input type="number" id="productDiscount" name="productDiscount" value="<%= product.productDiscount %>" required>
+            </div>
+    
+            <div class="form-group px-3">
+                <label for="productCategory">Category:</label>
+                <select id="productCategory" name="productCategory" onchange="getSubcategory()" required>
+                    <option value="">Select Category</option>
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category.categoryName %>"><%= category.categoryName %></option>
+                        <% }); %>
+                    </select>
+                </div>
+    
+                <input type="hidden" id="categoriesData" value='<%= JSON.stringify(categories) %>'>
+    
+                <div class="form-group px-3">
+                <label for="productSubcategory">Subcategory:</label>
+                <select id="productSubcategory" name="productSubcategory" required>
+                    <option value="">Select Subcategory</option>
+                </select>
+            </div>
+    
         </div>
 
-        <input type="hidden" id="categoriesData" value='<%= JSON.stringify(categories) %>'>
-
         <div class="form-group px-3">
-        <label for="productSubcategory">Subcategory:</label>
-        <select id="productSubcategory" name="productSubcategory" required>
-            <option value="">Select Subcategory</option>
-        </select>
-    </div>
+            <label for="productDescription">Product Description:</label>
+            <textarea id="productDescription" name="productDescription" rows="5" required><%= product.productDescription %></textarea>
+        </div>
 
-    <input type="submit" value="Edit Product" class="btn-submit">
-  </form><br>
+        <div class="form-group images px-3">
+            
+        <label for="productImages">Product Images ( 4 images ):</label><br>
+            <% product.productImages.forEach(x=>{ %>
+            <input type="file" id="productImages" name="productImages" value="<%= x %>" multiple>
+            <img src="<%= x %>" alt="No image added" style="max-width: 100px;"><br>
+
+            <!-- <input type="file" id="productImages" name="productImages" value="<%= product.productImages[1] %>" >
+            <img src="<%= product.productImages[1] %>" alt="No image added" style="max-width: 100px;"><br>
+
+            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[2] %>"  >
+            <img src="<%= product.productImages[2] %>" alt="No image added" style="max-width: 100px;"><br>
+
+            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[3] %>" >
+            <img src="<%= product.productImages[3] %>" alt="No image added" style="max-width: 100px;"><br> -->
+            <% }) %>
+            
+        </div>
+
+
+
+        <div class="px-3">
+            <input type="submit" value="Edit Product" class="btn-submit">
+        </div>
+    </form><br>
 
   <script>
-        function getSubcategory() {
+     function getSubcategory() {
         const categoriesInput = document.getElementById('categoriesData');
         const categoriesJson = categoriesInput.value;
 
