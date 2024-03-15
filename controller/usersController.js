@@ -580,6 +580,41 @@ let getCart = async (req, res) => {
   }
 };
 
+// UPDATE QUANTIY OF PRODUCT IN CART
+let updateCartQuantity = async (req, res) => {
+  const { productId, quantity } = req.body;
+  const userId = req.user.id;
+  console.log(quantity);
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Find the index of the product in the cart
+    const productIndex = user.cart.products.findIndex(
+      (product) => product.productId.toString() === productId
+    );
+
+    if (productIndex !== -1) {
+      // Update the quantity of the product
+      user.cart.products[productIndex].quantity = parseInt(quantity);
+
+      // Save the updated user document
+      await user.save();
+
+      console.log(user);
+      res
+        .status(200)
+        .json({ message: "Quantity updated successfully", quantity, user });
+    } else {
+      res.status(404).json({ error: "Product not found in cart" });
+    }
+  } catch (error) {}
+};
+
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
   console.log(req.user);
@@ -609,4 +644,5 @@ module.exports = {
   singleProductGetPage,
   addToCart,
   getCart,
+  updateCartQuantity,
 };

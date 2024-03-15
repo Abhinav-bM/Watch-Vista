@@ -269,12 +269,19 @@
                                                     </td>
                                                     <td>
                                                         <div class="table-data">
-                                                            <input type="number" min="1" value="<%= prod.quantity %>" style="margin-right: 20px; width: 119px;">
+                                                            <input 
+                                                                type="number" 
+                                                                min="1" 
+                                                                value="<%= prod.quantity %>" 
+                                                                style="margin-right: 20px; width: 119px;"    
+                                                                data-product-id="<%= prod.productId %>" 
+                                                                onchange="updateQuantity('<%= prod.productId %>', this.value)"
+                                                            >
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="table-data">
-                                                            <span class="total"><%= prod.price * prod.quantity %></span>
+                                                            <span class="total" id="total-<%= prod.productId %>"><%= prod.price * prod.quantity %></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -349,6 +356,32 @@
     </section>
     <!-- shop body section end -->
 
+    <!--- CODE FOR QUANTITY UPDATE  AND TOTAL -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function updateQuantity(productId, newQuantity) {
+            axios.post('/cart/update-quantity', {
+                productId: productId,
+                quantity: newQuantity
+            })
+            .then(function (response) {
+                let productPrice = null;
+                response.data.user.cart.products.forEach(element => {
+                    if (element.productId === productId) {
+                        productPrice = element.price;
+                    }
+                });
+                console.log(productPrice)
+                const newTotal = productPrice * response.data.quantity;
+                const totalElement = document.querySelector(`#total-${productId}`);
+                totalElement.textContent = newTotal;
+            })
+            .catch(function (error) {
+                console.error('Error updating quantity:', error);
+                // Optionally, show an error message to the user
+            });
+        }
+    </script>
 
 
 
