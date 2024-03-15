@@ -268,11 +268,9 @@ const loginRequestOTP = async (req, res) => {
     }
 
     if (user.blocked) {
-      return res
-        .status(403)
-        .render("user/loginOtpPhone", {
-          error: "Your are restricted by admin",
-        });
+      return res.status(403).render("user/loginOtpPhone", {
+        error: "Your are restricted by admin",
+      });
     }
 
     const otp = generateOTP();
@@ -490,7 +488,7 @@ let shopGetPage = async (req, res) => {
 let singleProductGetPage = async (req, res) => {
   try {
     const productId = req.query.productId;
-    
+
     const vendor = await Vendor.findOne({ "products._id": productId });
 
     if (!vendor) {
@@ -515,22 +513,35 @@ let singleProductGetPage = async (req, res) => {
 // ADD TO CART
 let addToCart = async (req, res) => {
   const { productId } = req.body;
-  const userId = req.user.id; // Assuming you have a way to get the user's ID
-
-  console.log("Product id cart : ", productId);
-  console.log("User id  : ", userId);
+  const userId = req.user.id;
 
   try {
+    // Find the vendor that contains the product
+    const vendor = await Vendor.findOne({ "products._id": productId });
+
+    if (!vendor) {
+      return res.status(404).json({ error: "Vendor not found" });
+    }
+
+    // Find the product within the vendor's products array
+    const product = vendor.products.find(
+      (prod) => prod._id.toString() === productId
+    );
+
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
     // Find the user by ID
-    const user = await User.findById(userId).populate("cart.products.productId");
-    console.log(user)
+    const user = await User.findById(userId);
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
     // Check if the product already exists in the cart
     const existingProductIndex = user.cart.products.findIndex(
-      (product) => product.productId.toString() === productId
+      (cartItem) => cartItem.productId.toString() === productId
     );
 
     if (existingProductIndex !== -1) {
@@ -538,16 +549,34 @@ let addToCart = async (req, res) => {
       user.cart.products[existingProductIndex].quantity += 1;
     } else {
       // If the product does not exist, add it to the cart
-      user.cart.products.push({ productId: productId, quantity: 1 });
+      user.cart.products.push({
+        productId: productId,
+        quantity: 1,
+        productName: product.productName,
+        price: product.productPrice,
+        images: product.productImages,
+      });
     }
-
-    // Save the updated user document
     await user.save();
 
     res.json({ message: "Product added to cart successfully", user });
   } catch (error) {
     console.error("Error adding product to cart:", error);
     res.status(500).json({ error: "Unable to add product to cart" });
+  }
+};
+
+// CART PAGE DISPLAY WITH PRODUCTS
+let getCart = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await User.findById(userId);
+    const cart = user.cart;
+
+    res.status(200).render("user/cart", { cart });
+  } catch (error) {
+    console.error("get Cart Errot : ", error);
   }
 };
 
@@ -579,4 +608,5 @@ module.exports = {
   shopGetPage,
   singleProductGetPage,
   addToCart,
+  getCart,
 };

@@ -520,7 +520,7 @@
                                                                     <a href="/products?productId=<%= product._id %>" class="product-title"><%= product.productName %></a>
                                                                     <div class="price-switcher">
                                                                         <span class="price switcher-item">₹ <%= product.productPrice %></span>
-                                                                        <a href="" class="add-cart text-capitalize switcher-item">+add to cart</a>
+                                                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -835,9 +835,12 @@
         </div>
     </div>
 
-
-
-
+    <!-------------ADDED TO CART-------------->
+    <div id="toastNotification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="500">
+        <div class="toast-body">
+            Product added to cart!
+        </div>
+    </div>
 
 
     <!-- footer section start -->

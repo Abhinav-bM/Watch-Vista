@@ -45,6 +45,27 @@
             transform: scale(var(--zoom, 1));
         }
 
+
+        /* CSS for the toast notification */
+        .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        max-width: 300px;
+        background-color: #292929;
+        color: white;
+        border-radius: 5px;
+        padding: 10px;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        }
+
+        .toast.show {
+        opacity: 1;
+        }
+
     </style>
 </head>
 
@@ -156,8 +177,8 @@
                                         </div>
                                     </li>
                                     <li><a href="wishlist.html" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
-                                    <li><a href="cart.html"><i class="fal fa-shopping-bag"><span>5</span></i></a>
-                                        <div class="minicart">
+                                    <li><a href=""><i class="fal fa-shopping-bag"><span>5</span></i></a>
+                                        <!-- <div class="minicart">
                                             <div class="minicart-body">
                                                 <div class="minicart-content">
                                                     
@@ -174,7 +195,7 @@
                                                     <a href="checkout.html" class="generic-btn black-hover-btn text-uppercase w-100 mb-20">Checkout</a>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </li>
                                     <li><a href=""><i class="fal fa-align-right"></i></a>
                                         <ul class="submenu bold-content text-right">
@@ -334,6 +355,13 @@
                                     <button type="button" id="buyNowBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 25px;padding-right: 25px;transition: all .5s;" data-product-id="<%= products._id %>">
                                         Buy Now
                                     </button>
+
+                                    <!-------------ADDED TO CART-------------->
+                                    <div id="toastNotification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="500">
+                                        <div class="toast-body">
+                                          Product added to cart!
+                                        </div>
+                                    </div>
                                     
 
                                     </div>
@@ -814,7 +842,15 @@
             })
             .then(function (response) {
                 console.log(response.data);
-                // Optionally, show a success message to the user
+
+                // Show the toast when product is added
+                const toast = document.getElementById('toastNotification');
+                toast.classList.add('show');
+
+                // Hide the toast after 0.5 seconds
+                setTimeout(function () {
+                    toast.classList.remove('show');
+                }, 2000);
             })
             .catch(function (error) {
                 console.error('Error adding product to cart:', error);
