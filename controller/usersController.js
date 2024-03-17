@@ -484,6 +484,27 @@ let shopGetPage = async (req, res) => {
   }
 };
 
+
+let productList = async (req, res)=>{
+  const category = req.query.category;
+    
+  try {
+      // Find all vendors with products matching the given category
+      const vendors = await Vendor.find({ 'products.productCategory': category });
+      
+      // Extract and combine all products from vendors into a single array
+      let products = [];
+      vendors.forEach(vendor => {
+          products = products.concat(vendor.products.filter(product => product.productCategory === category));
+      });
+
+      res.json(products);
+  } catch (error) {
+      console.error('Error fetching products:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+  }
+}
+
 // DISPLAY SINGLE PRODUCT PAGE
 let singleProductGetPage = async (req, res) => {
   try {
