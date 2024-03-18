@@ -8,8 +8,8 @@ const addressSchema = new mongoose.Schema(
     district: { type: String },
     state: { type: String },
     zip: { type: Number },
-    number: { type: Number },
-    mail: { type: String },
+    phone: { type: Number },
+    email: { type: String },
   },
   { _id: true }
 );

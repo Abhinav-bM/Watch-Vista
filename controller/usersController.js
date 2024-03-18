@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const smsService = require("../helpers/smsService");
 const { sendOtpEmail } = require("../helpers/emailService");
+const { name } = require("ejs");
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -672,22 +673,61 @@ let updateCartQuantity = async (req, res) => {
     } else {
       res.status(404).json({ error: "Product not found in cart" });
     }
-  } catch (error) {
-
-  }
+  } catch (error) {}
 };
 
 // PROCEED TO CHECKOUT PAGE DISPLAY
-let checkoutpage = async (req, res)=>{
-  let userId = req.user.id
-  console.log(userId)
+let checkoutpage = async (req, res) => {
+  let userId = req.user.id;
+  console.log(userId);
   try {
-    res.status(200).render("user/checkout")
+    const user = await User.findById({_id:userId})
+    const addresses = user.addresses
+
+    res.status(200).render("user/checkout",{addresses});
   } catch (error) {
-    console.error("Error on checkout page display :",error)
-    res.status(500).json({message: "An error occured"})
+    console.error("Error on checkout page display :", error);
+    res.status(500).json({ message: "An error occured" });
   }
-}
+};
+
+// ADD ADDRESS
+let addAddress = async (req, res) => {
+  const { name, address, district, state, zip, email, phone } = req.body;
+  console.log(req.body);
+
+  const userId = req.user.id;
+
+  try {
+    // new address
+    const newAddress = {
+      name,
+      address,
+      district,
+      state,
+      zip,
+      email,
+      phone,
+    };
+
+    const user = await User.findById({_id: userId });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    console.log(user);
+
+    user.addresses.push(newAddress);
+
+    await user.save();
+
+    res.status(200).json({ message: "Address added successfully", user });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
@@ -721,4 +761,5 @@ module.exports = {
   getCart,
   updateCartQuantity,
   checkoutpage,
+  addAddress,
 };
