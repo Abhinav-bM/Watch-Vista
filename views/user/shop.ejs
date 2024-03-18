@@ -27,6 +27,10 @@
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
+    
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
     <style>
            .product-img {
@@ -497,10 +501,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div id="productList" data-products="<%- JSON.stringify(products) %>">
+
                                 <div class="tab-pane fade  show active" id="shop-tab-3">
                                     <div class="product-wrapper mt-55">
                                         <div class="row">
 <!------------------------------------------------------------------------------------------------------------------------------------------>  
+                                            <!-- Initial product list div -->
                                             <% products.forEach(prod=>{ %>
                                                 <% prod.products.forEach(product=>{ %>
                                                     <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
@@ -527,9 +535,10 @@
                                                         </div>
                                                     </div>
                                                 <% }); %>
-                                            <% }); %>
+                                            <% }); %>  
+                                         
 <!------------------------------------------------------------------------------------------------------------------------------------------>  
-                                                    
+                                                          
                                                    
                                         </div>
                                         <div class="text-center mt-20">
@@ -841,6 +850,62 @@
             Product added to cart!
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const productList = document.getElementById("productList");
+            const products = JSON.parse(productList.getAttribute("data-products"));
+    
+            const categoryLinks = document.querySelectorAll(".category-link");
+    
+            categoryLinks.forEach(link => {
+                link.addEventListener("click", (e) => {
+                    e.preventDefault();
+    
+                    const selectedCategory = e.target.dataset.category;
+    
+                    const filteredProducts = products.filter(product => product.productCategory === selectedCategory);
+    
+                    updateProductListing(filteredProducts);
+                });
+            });
+    
+            function updateProductListing(products) {
+                const productListDiv = document.getElementById("productList");
+                productListDiv.innerHTML = "";
+    
+                products.forEach(product => {
+                    const productDiv = document.createElement("div");
+                    productDiv.classList.add("col-xl-3", "col-lg-3", "col-md-4", "col-sm-6", "col-12");
+                    productDiv.innerHTML = `
+                        <div class="product-box mb-40">
+                            <div class="product-box-wrapper">
+                                <div class="product-img">
+                                    <img src="${product.productImages[0]}" class="w-100" alt="${product.productName}">
+                                </div>
+                                <div class="product-desc pb-20">
+                                    <div class="product-desc-top">
+                                        <div class="categories">
+                                            <a href="#" class="product-category category-link" data-category="${product.productCategory}">
+                                                <span>${product.productCategory}</span>
+                                            </a>
+                                        </div>
+                                        <a href="#" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
+                                    </div>
+                                    <a href="#" class="product-title">${product.productName}</a>
+                                    <div class="price-switcher">
+                                        <span class="price switcher-item">₹ ${product.productPrice}</span>
+                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    productListDiv.appendChild(productDiv);
+                });
+            }
+        });
+    </script>
 
 
     <!-- footer section start -->

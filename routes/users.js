@@ -23,6 +23,7 @@ router.get("/loginOtp", userController.loginWithOtpGetPage);
 router.get("/shop", userController.shopGetPage);
 router.get("/products", userController.singleProductGetPage);
 router.get("/cart",verifyToken,userController.getCart)
+router.get("/checkout",verifyToken,userController.checkoutpage)
  
 router.post("/user/send-otp", userController.signupPostPage);
 router.post('/verify-otp', userController.signupVerify)
@@ -31,9 +32,10 @@ router.post("/forgotPassword", userController.forgotEmailPostPage);
 router.post("/resetPassword", userController.resetPassword);
 router.post("/loginOtp", userController.loginRequestOTP);
 router.post("/loginOtpDone", userController.loginVerifyOTP);
-
 router.post("/cart/add-to-cart",verifyToken,userController.addToCart)
 router.post("/cart/update-quantity",verifyToken,userController.updateCartQuantity)
+
+router.delete("/cart/:productId",verifyToken,userController.removeProductCart)
 
 
 

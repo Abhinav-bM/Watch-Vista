@@ -1,5 +1,19 @@
 const mongoose = require("mongoose");
 
+// ADDRESS SCHEMA
+const addressSchema = new mongoose.Schema(
+  {
+    name: { type: String },
+    address: { type: String },
+    district: { type: String },
+    state: { type: String },
+    zip: { type: Number },
+    number: { type: Number },
+    mail: { type: String },
+  },
+  { _id: true }
+);
+
 // CART SCHEMA
 const cartSchema = new mongoose.Schema({
   products: [
@@ -19,7 +33,8 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
   phoneNumber: { type: String, unique: true },
   password: { type: String },
-  cart: { type: cartSchema , default: { products: [] }},
+  cart: { type: cartSchema, default: { products: [] } },
+  addresses :[addressSchema],
   createdAt: { type: Date, default: new Date() },
   otp: { type: String },
   otpExpiration: { type: Date },

@@ -52,7 +52,7 @@
                             <div class="header-nav">
                                 <nav>
                                     <ul>
-                                        <li><a href="" class=""><span>Home<i class=""></i></span></a></li>
+                                        <li><a href="/" class=""><span>Home<i class=""></i></span></a></li>
 
                                         <li class="position-static"><a href=""><span>Shop<i class=""></i></span></a></li>
 
@@ -174,7 +174,7 @@
                                         </div>
                                     </li>
                                     <li><a href="wishlist.html" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
-                                    <li><a href="cart.html" class=""><i class="fal fa-shopping-bag"><span>5</span></i></a>       
+                                    <li><a href="cart.html" class=""><i class="fal fa-shopping-bag"><span >5</span></i></a>       
                                     </li>
 
                                     <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
@@ -233,6 +233,7 @@
                             <div class="product-content">
                                 <form action="#">
                                     <div class="table-responsive">
+    
                                         <table class="table table-2">
                                             <thead>
                                                 <tr>
@@ -244,12 +245,14 @@
                                                     <th class="total">Total</th>
                                                 </tr>
                                             </thead>
-                                            <% cart.products.forEach(prod => { %>
+                                                <% cart.products.forEach(prod => { %>
                                             <tbody>
-                                                <tr >
+                                                <tr id="productRow-<%= prod.productId %>">
                                                     <td class="">
                                                         <div class="table-data">
-                                                            <button class="close-btn"><i class="fal fa-times"></i></button>
+                                                            <button class="close-btn" onclick="removeProduct(event,'<%= prod.productId %>')">
+                                                                <i class="fal fa-times"></i>
+                                                            </button>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -288,14 +291,15 @@
                                             </tbody>
                                             <% }) %>
                                         </table>
+                                      
                                     </div>
-                                    <div class="cupon">
+                                    <!-- <div class="cupon">
                                             <form action="#" method="POST">
                                                 <input type="text" placeholder="Cupon code" class="text-left pl-3 mt-3" style="margin-right: 20px; width: 119px;">
                                                 <button class="generic-btn border-0 red-hover-btn text-uppercase mt-3">Apply Cupon</button>
                                                 <button class="generic-btn border-0 red-hover-btn text-uppercase float-right mt-3">Update Cart</button>
                                             </form>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                         </div>
@@ -306,46 +310,19 @@
                                     <tbody>
                                         <tr>
                                             <th>Subtotal</th>
-                                            <td>$134.00</td>
+                                            <td id="subtotal"><%= subtotal %></td>
                                         </tr>
                                         <tr>
-                                            <th>Shipping</th>
-                                            <td>
-                                                <h6>Flat rate</h6>
-                                                <p>Shipping options will be updated during checkout.</p>
-                                                <a href="javascript:void(0)" class="price-calculate">Calculate shipping</a>
-                                                <div class="calculate-shipping-box">
-                                                    <form action="#" method="POST">
-                                                        <div class="form-group">
-                                                            <div class="cart-select">
-                                                                <select name="country" id="country">
-                                                                    <option value="uk">United Kingdom</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" placeholder="Country">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="text" placeholder="Town / City">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="number" placeholder="Post Code">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <button class="generic-btn border-0 red-hover-btn text-uppercase ">Update</button>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </td>
+                                            <th>Delivery Charge :</th>
+                                            <td>0</td>
                                         </tr>
                                         <tr>
                                             <th>Total</th>
-                                            <td><strong>$134.00</strong></td>
+                                            <td id="total"><%= total %></td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <a href="" class="mt-40 generic-btn red-hover-btn w-100 d-block" style="height: 50px;">Procced to checkout</a>
+                                <a href="/checkout" class="mt-40 generic-btn red-hover-btn w-100 d-block" style="height: 50px;">Procced to checkout</a>
                             </div>
                             <!-- /. cart widget -->
                         </div>
@@ -356,9 +333,45 @@
     </section>
     <!-- shop body section end -->
 
-    <!--- CODE FOR QUANTITY UPDATE  AND TOTAL -->
+    <!--- LINKED AXIOS -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
+        // REMOVE PRODUCTS FROM CART
+        function removeProduct(event, productId) {
+        event.preventDefault();
+
+        axios.delete(`/cart/${productId}`)
+            .then(response => {
+                console.log("date :",response.data);
+                const productRow = document.getElementById(`productRow-${productId}`);
+                if (productRow) {
+                    productRow.remove();
+                }
+
+                let subtotal = 0
+                response.data.user.cart.products.forEach(element => {
+                subtotal += element.price * element.quantity;
+                });
+
+                console.log(subtotal)
+
+                const subtotalElement = document.getElementById("subtotal");
+                subtotalElement.textContent = subtotal;
+
+                const total1 = document.getElementById("total");
+                total1.textContent = subtotal
+
+
+            })
+            .catch(error => {
+                console.error('Error removing product:', error);
+            });
+        }
+
+    
+    
+        // UPDATE QUANTITY IN CART
         function updateQuantity(productId, newQuantity) {
             axios.post('/cart/update-quantity', {
                 productId: productId,
@@ -366,15 +379,28 @@
             })
             .then(function (response) {
                 let productPrice = null;
+                let subtotal = 0;
                 response.data.user.cart.products.forEach(element => {
                     if (element.productId === productId) {
                         productPrice = element.price;
                     }
+
+                    subtotal += element.price * element.quantity;
+
                 });
                 console.log(productPrice)
                 const newTotal = productPrice * response.data.quantity;
                 const totalElement = document.querySelector(`#total-${productId}`);
                 totalElement.textContent = newTotal;
+
+                // Update Subtotal
+                const subtotalElement = document.getElementById("subtotal");
+                subtotalElement.textContent = subtotal;
+                let total = subtotal
+                const total1 = document.getElementById("total");
+                total1.textContent = total
+
+
             })
             .catch(function (error) {
                 console.error('Error updating quantity:', error);
@@ -382,6 +408,8 @@
             });
         }
     </script>
+
+    
 
 
 
