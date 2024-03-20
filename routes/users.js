@@ -35,6 +35,7 @@ router.post("/loginOtpDone", userController.loginVerifyOTP);
 router.post("/cart/add-to-cart",verifyToken,userController.addToCart)
 router.post("/cart/update-quantity",verifyToken,userController.updateCartQuantity)
 router.post("/add-address",verifyToken,userController.addAddress)
+router.post("/place-order",verifyToken,userController.placeOrderPost)
 
 router.delete("/cart/:productId",verifyToken,userController.removeProductCart)
 

@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const smsService = require("../helpers/smsService");
 const { sendOtpEmail } = require("../helpers/emailService");
 const { name } = require("ejs");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -679,12 +680,16 @@ let updateCartQuantity = async (req, res) => {
 // PROCEED TO CHECKOUT PAGE DISPLAY
 let checkoutpage = async (req, res) => {
   let userId = req.user.id;
-  console.log(userId);
-  try {
-    const user = await User.findById({_id:userId})
-    const addresses = user.addresses
 
-    res.status(200).render("user/checkout",{addresses});
+  try {
+    const user = await User.findById({ _id: userId });
+    const addresses = user.addresses;
+    const cart = user.cart;
+    let totalPrice = 0;
+    user.cart.products.forEach(
+      (prod) => (totalPrice += prod.price * prod.quantity)
+    );
+    res.status(200).render("user/checkout", { addresses, cart, totalPrice });
   } catch (error) {
     console.error("Error on checkout page display :", error);
     res.status(500).json({ message: "An error occured" });
@@ -710,7 +715,7 @@ let addAddress = async (req, res) => {
       phone,
     };
 
-    const user = await User.findById({_id: userId });
+    const user = await User.findById({ _id: userId });
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -728,6 +733,84 @@ let addAddress = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// PLACE ORDER
+let placeOrderPost = async (req, res) => {
+  const { selectedAddressId, paymentMethod, totalPrice } = req.body;
+
+  try {
+    const userId = req.user.id;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // selected address from user's addresses
+    const selectedAddress = user.addresses.find(
+      (address) => address._id.toString() === selectedAddressId
+    );
+
+    if (!selectedAddress) {
+      return res.status(404).json({ message: "Selected address not found" });
+    }
+
+    const newOrder = {
+      orderId: new mongoose.Types.ObjectId(),
+      products: user.cart.products.map((product) => ({
+        productId: product.productId,
+        quantity: product.quantity,
+        productName: product.productName,
+        price: product.price,
+        images: product.images,
+      })),
+      totalAmount: user.cart.products.reduce(
+        (total, product) => total + product.price * product.quantity,
+        0
+      ),
+      orderDate: new Date(),
+      orderStatus: "Pending",
+      shippingAddress: selectedAddress,
+      paymentMethod: paymentMethod,
+    };
+
+    user.orders.push(newOrder);
+
+    // Clear the cart after placing the order
+    // user.cart.products = [];
+
+    await user.save();
+
+    const orderDate = new Date();
+    const expectedDeliveryDate = new Date(orderDate);
+    expectedDeliveryDate.setDate(expectedDeliveryDate.getDate() + 4);
+
+    // Send a response with the new order details
+    res.status(201).json({
+      message: "Order placed successfully!",
+      orderId: newOrder.orderId,
+      totalAmount: newOrder.totalAmount,
+      orderDate: newOrder.orderDate,
+      orderStatus: newOrder.orderStatus,
+      shippingAddress: newOrder.shippingAddress,
+      paymentMethod: newOrder.paymentMethod,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// ORDER LISTING
+let orderList = async (req, res)=>{
+  try {
+    
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({message:"An error occured"})
+  }
+}
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
@@ -762,4 +845,6 @@ module.exports = {
   updateCartQuantity,
   checkoutpage,
   addAddress,
+  placeOrderPost,
+  orderList,
 };

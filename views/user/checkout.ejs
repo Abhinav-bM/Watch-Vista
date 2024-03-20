@@ -53,17 +53,17 @@
                                 <nav>
                                     <ul>
                                         <li>
-                                            <a href="" class=""><span>Home  <i class=""></i></span></a>
+                                            <a href="/" class=""><span>Home  <i class=""></i></span></a>
                                         </li>
 
                                         <li class="position-static">
-                                            <a href=""><span>Shop  <i class=""></i></span></a>
+                                            <a href="/shop"><span>Shop  <i class=""></i></span></a>
                                         </li>
                                        
                                         <li>
-                                            <a href="javascript:void(0)"><span>About</span> <i class=""></i></a>
+                                            <a href=""><span>About</span> <i class=""></i></a>
                                         </li>
-                                        <li><a href="contact.html"><span>Contact</span></a></li>
+                                        <li><a href=""><span>Contact</span></a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -77,13 +77,13 @@
                         <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
                             <div class="header-right">
                                 <ul class="text-right">
-                                    <li><a href="login.html" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
+                                    <li><a href="" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
                                
                                     <li>
-                                        <a href="wishlist.html" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a>
+                                        <a href="" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a>
                                     </li>
                                     <li>
-                                        <a href="cart.html"><i class="fal fa-shopping-bag"><span>5</span></i></a>
+                                        <a href="/cart"><i class="fal fa-shopping-bag"><span>5</span></i></a>
   
                                     </li>
                                     <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
@@ -186,41 +186,36 @@
         </section>
         <!-- breadcrumb-area-end -->
 
-        <!-- coupon-area start -->
+        <!-- order Area Starts -->
         <section class="">
             <div class="d-flex justify-content-center">
             <div class="col-5 py-2">
                 
 
-                    <h4>Delivery Address</h4>
-                    <div class="pt-2">
-                        <!-- Checkbox for Delivery Address -->
-                        <% addresses.forEach(address => { %>
-                        <div class="mb-3 px-4 pt-3 form-check" style="border: 2px solid rgb(223, 223, 223); border-radius: 3px;">
+                <h4>Delivery Address</h4>
+                <div class="p-1" >
+                    <!-- Checkbox for Delivery Address -->
+                    <% addresses.forEach(address => { %>
+                    <div class="mb-3 px-4 pt-3 form-check" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
 
-                          <input type="checkbox" class="form-check-input" id="useDifferentAddress">
-                            <p><%= address.name %></p> <img src="" alt="">
-                            <p><%= address.address %></p>
-                            <p><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
-                            <p><%= address.phone %></p>
-                            <p><%= address.email %></p>
-                            
-                        </div>
-                        <% }) %>
-
-                        <!-- Button trigger modal -->
-                        <button type="button" class="" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: 150px; border-radius: 5px;" >
-                            Add new address
-                        </button>
+                        <input type="checkbox" class="form-check-input" id="useDifferentAddress" data-address-id="<%= address._id %>">
+                        <p class="m-0"><%= address.name %></p>
+                        <p class="m-0"><%= address.address %></p>
+                        <p class="m-0"><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
+                        <p class="m-0"><%= address.phone %> , <%= address.email %></p>
                         
                     </div>
+                    <% }) %>
 
-                
+                    <!-- Button trigger modal -->
+                    <button type="button" class="" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: 150px; border-radius: 5px;" >
+                        Add new address
+                    </button>
+                </div>
             </div>
 
             <div class="col-5">
-                <form action="#">
-                    <div class="row pt-5">
+                
                             <div class="your-order mb-30 ">
                                 <h3>Your order</h3>
                                 <div class="your-order-table table-responsive">
@@ -237,7 +232,7 @@
                                                     No of products
                                                 </td>
                                                 <td class="product-total">
-                                                    <span class="amount">$165.00</span>
+                                                    <span class="amount"><%= cart.products.length %></span>
                                                 </td>
                                             </tr>
                                             <tr class="cart_item">
@@ -245,7 +240,7 @@
                                                     Total product Price
                                                 </td>
                                                 <td class="product-total">
-                                                    <span class="amount">$50.00</span>
+                                                    <span class="amount"><%= totalPrice %></span>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -257,7 +252,7 @@
                                            
                                             <tr class="order-total">
                                                 <th>Order Total</th>
-                                                <td><strong><span class="text-secondary">$215.00</span></strong>
+                                                <td><strong><span class="text-secondary"><%= totalPrice %></span></strong>
                                                 </td>
                                             </tr>
                                         </tfoot>
@@ -265,43 +260,145 @@
                                 </div>
 
                                 <div class="payment-method">
+                                    <h4>PAYMENT METHOD</h4>
+
                                     <div class="accordion" id="accordionExample">
                                       
+                                        <!-- Cash On Delivery -->
                                         <div class="card">
                                             <div class="card-header" id="headingTwo">
                                                 <h5 class="mb-0">
-                                                    <button class="btn-link" type="button" data-toggle="collapse"
-                                                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        Cash On Delivery
-                                                    </button>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="cashOnDelivery" id="cashOnDeliveryCheckbox">
+                                                        <label class="form-check-label" for="cashOnDeliveryCheckbox">
+                                                            Cash On Delivery
+                                                        </label>
+                                                    </div>
                                                 </h5>
                                             </div>
-                                           
                                         </div>
-                                        <div class="card">
+
+                                        <!-- RazorPay -->
+                                        <!-- <div class="card">
                                             <div class="card-header" id="headingThree">
                                                 <h5 class="mb-0">
-                                                    <button class="btn-link" type="button" data-toggle="collapse"
-                                                        data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        RazorPay
-                                                    </button>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value="razorPay" id="razorPayCheckbox">
+                                                        <label class="form-check-label" for="razorPayCheckbox">
+                                                            RazorPay
+                                                        </label>
+                                                    </div>
                                                 </h5>
                                             </div>
+                                        </div> -->
 
-                                        </div>
                                     </div>
                                     <div class="order-button-payment mt-20">
-                                        <button type="submit" class="btn" style="background-color: #525151; color: white;">Place order</button>
+                                        <button type="submit" id='placeOrderBtn' class="btn" style="background-color: #525151; color: white;">Place order</button>
                                     </div>
                                 </div>
                             </div>
-                        
-                    </div>
-                </form>
             </div>
             </div>
         </section>
-        <!-- coupon-area end -->
+
+        <!-- ORDER SUCCESSFUL MODAL
+        <div class="modal fade" id="orderSuccessModal" tabindex="-1" role="dialog" aria-labelledby="orderSuccessModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="orderSuccessModalLabel">Order Placed Successfully!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <p>Your order with ID <strong><span id="orderId"></span></strong> has been placed.</p>
+                    <p>Expected delivery date: <strong><span id="expectedDeliveryDate"></span></strong></p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Bootstrap JS and jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- SweetAlert CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <!-- Include Axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function() {
+                var checkboxes = document.querySelectorAll('.payment-method input[type="checkbox"]');
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.addEventListener('change', function() {
+                        checkboxes.forEach(function(otherCheckbox) {
+                            if (otherCheckbox !== checkbox) {
+                                otherCheckbox.checked = false;
+                            }
+                        });
+                    });
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', () => {
+                const placeOrderBtn = document.getElementById('placeOrderBtn');
+                const cashOnDeliveryCheckbox = document.getElementById('cashOnDeliveryCheckbox');
+                const razorPayCheckbox = document.getElementById('razorPayCheckbox');
+                const totalPriceElement = document.querySelector('.text-secondary');
+                const totalPrice = totalPriceElement.innerText;
+
+
+                placeOrderBtn.addEventListener('click', async () => {
+                const selectedAddressId = document.querySelector('input[type="checkbox"]:checked').getAttribute('data-address-id');
+                let paymentMethod = '';
+
+                if (cashOnDeliveryCheckbox.checked) {
+                    paymentMethod = 'Cash On Delivery';
+                } else if (razorPayCheckbox.checked) {
+                    paymentMethod = 'RazorPay';
+                }
+
+                try {
+                    const response = await axios.post('/place-order', {
+                    selectedAddressId: selectedAddressId,
+                    paymentMethod: paymentMethod,
+                    totalPrice :totalPrice
+                    });
+
+                    console.log(response)
+                    
+                    // Use SweetAlert for the success message
+                    Swal.fire({
+                    icon: 'success',
+                    title: 'Order Placed Successfully!',
+                    html: `Your order with ID <strong>${response.data.orderId}</strong> has been placed.<br>
+                    Total Price: <strong>${totalPrice}</strong><br>
+                    Expected Delivery Date: <strong>${response.data.expectedDeliveryDate}</strong>`,
+                    confirmButtonText: "Ok"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to home
+                            window.location.href = '/userProfile#orders';
+                        }
+                    });    
+
+                } catch (error) {
+                    // Handle errors
+                    console.error('Error placing order:', error.response.data);
+                    alert('Error placing order. Please try again.');
+                }
+                });
+            });
+
+        </script>
 
         <!-- Modal for add address -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

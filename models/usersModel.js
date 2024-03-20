@@ -28,6 +28,27 @@ const cartSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+// ORDER SCHEMA
+const orderSchema = new mongoose.Schema({ 
+  orderId: { type: String, required: true, unique: true },
+  products: [
+    {
+      productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      quantity: { type: Number, default: 1 },
+      price: { type: Number },
+    },
+  ],
+  totalAmount: { type: Number },
+  orderDate: { type: Date, default: Date.now },
+  orderStatus: {
+    type: String,
+    enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"],
+    default: "Pending",
+  },
+  shippingAddress: { type: addressSchema },
+  paymentMethod :{type:String , require:true}
+}, { _id: false });
+
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, required: true },
@@ -35,6 +56,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String },
   cart: { type: cartSchema, default: { products: [] } },
   addresses :[addressSchema],
+  orders : [orderSchema],
   createdAt: { type: Date, default: new Date() },
   otp: { type: String },
   otpExpiration: { type: Date },
