@@ -581,6 +581,10 @@ let addToCart = async (req, res) => {
         productName: product.productName,
         price: product.productPrice,
         images: product.productImages,
+        category: product.productCategory,
+        subcategory: product.productSubCategory,
+        seller: vendor.vendorName,
+        brand: product.productBrand,
       });
     }
     await user.save();
@@ -618,7 +622,6 @@ let removeProductCart = async (req, res) => {
   const { productId } = req.params;
   const userId = req.user.id;
 
-  console.log(productId, userId);
   try {
     const user = await User.findById(userId);
 
@@ -646,7 +649,6 @@ let removeProductCart = async (req, res) => {
 let updateCartQuantity = async (req, res) => {
   const { productId, quantity } = req.body;
   const userId = req.user.id;
-  console.log(quantity);
 
   try {
     const user = await User.findById(userId);
@@ -689,6 +691,7 @@ let checkoutpage = async (req, res) => {
     user.cart.products.forEach(
       (prod) => (totalPrice += prod.price * prod.quantity)
     );
+    console.log("cart CheckOut :", cart);
     res.status(200).render("user/checkout", { addresses, cart, totalPrice });
   } catch (error) {
     console.error("Error on checkout page display :", error);
@@ -699,7 +702,6 @@ let checkoutpage = async (req, res) => {
 // ADD ADDRESS
 let addAddress = async (req, res) => {
   const { name, address, district, state, zip, email, phone } = req.body;
-  console.log(req.body);
 
   const userId = req.user.id;
 
@@ -756,20 +758,29 @@ let placeOrderPost = async (req, res) => {
       return res.status(404).json({ message: "Selected address not found" });
     }
 
+    const orderDate = new Date();
+    const expectedDeliveryDate = new Date(orderDate);
+    expectedDeliveryDate.setDate(expectedDeliveryDate.getDate() + 4);
+
+    const formattedDeliveryDate = expectedDeliveryDate.toLocaleDateString();
+
     const newOrder = {
       orderId: new mongoose.Types.ObjectId(),
       products: user.cart.products.map((product) => ({
         productId: product.productId,
+        productName :product.productName,
         quantity: product.quantity,
         productName: product.productName,
         price: product.price,
         images: product.images,
+        seller: product.seller,
       })),
       totalAmount: user.cart.products.reduce(
         (total, product) => total + product.price * product.quantity,
         0
       ),
       orderDate: new Date(),
+      expectedDeliveryDate : formattedDeliveryDate,
       orderStatus: "Pending",
       shippingAddress: selectedAddress,
       paymentMethod: paymentMethod,
@@ -782,9 +793,7 @@ let placeOrderPost = async (req, res) => {
 
     await user.save();
 
-    const orderDate = new Date();
-    const expectedDeliveryDate = new Date(orderDate);
-    expectedDeliveryDate.setDate(expectedDeliveryDate.getDate() + 4);
+
 
     // Send a response with the new order details
     res.status(201).json({
@@ -795,6 +804,7 @@ let placeOrderPost = async (req, res) => {
       orderStatus: newOrder.orderStatus,
       shippingAddress: newOrder.shippingAddress,
       paymentMethod: newOrder.paymentMethod,
+      expectedDeliveryDate: formattedDeliveryDate,
     });
   } catch (error) {
     console.error(error);
@@ -802,21 +812,13 @@ let placeOrderPost = async (req, res) => {
   }
 };
 
-// ORDER LISTING
-let orderList = async (req, res)=>{
-  try {
-    
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({message:"An error occured"})
-  }
-}
-
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
-  console.log(req.user);
-  const user = req.user;
-  res.render("user/account", { user });
+  const userId = req.user.id;
+  try {
+    const user = await User.findById({ _id: userId }).populate("orders");
+    res.status(200).render("user/account", { user });
+  } catch (error) {}
 };
 
 module.exports = {
@@ -846,5 +848,4 @@ module.exports = {
   checkoutpage,
   addAddress,
   placeOrderPost,
-  orderList,
 };

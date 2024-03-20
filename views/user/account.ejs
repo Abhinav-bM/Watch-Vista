@@ -368,7 +368,7 @@
               <div class="col-lg-3 col-md-4">
                 <nav>
                   <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="dashboad-tab" data-bs-toggle="tab" data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">Dashboard</button>
+                    <button class="nav-link active" id="dashboad-tab" data-bs-toggle="tab" data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true" style="background: #eeeeee;">Dashboard</button>
                     <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false"> Orders</button>
                     <button class="nav-link" id="download-tab" data-bs-toggle="tab" data-bs-target="#download" type="button" role="tab" aria-controls="download" aria-selected="false">Download</button>
                     <button class="nav-link" id="payment-method-tab" data-bs-toggle="tab" data-bs-target="#payment-method" type="button" role="tab" aria-controls="payment-method" aria-selected="false">Payment Method</button>
@@ -378,7 +378,7 @@
                   </div>
                 </nav>
               </div>
-              <div class="col-lg-9 col-md-8">
+              <div class="col-lg-7 col-md-8">
                 <div class="tab-content" id="nav-tabContent">
                   <div class="tab-pane fade show active" id="dashboad" role="tabpanel" aria-labelledby="dashboad-tab">
                     <div class="myaccount-content">
@@ -393,85 +393,44 @@
                     <div class="myaccount-content">
                       <h3>Orders</h3>
                       <div class="myaccount-table table-responsive text-center">
-                        <table class="table table-bordered">
-                          <thead class="thead-light">
-                            <tr>
-                              <th>Order</th>
-                              <th>Date</th>
-                              <th>Status</th>
-                              <th>Total</th>
-                              <th>Action</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>1</td>
-                              <td>Aug 22, 2018</td>
-                              <td>Pending</td>
-                              <td>$3000</td>
-                              <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
-                            </tr>
-                            <tr>
-                              <td>2</td>
-                              <td>July 22, 2018</td>
-                              <td>Approved</td>
-                              <td>$200</td>
-                              <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
-                            </tr>
-                            <tr>
-                              <td>3</td>
-                              <td>June 12, 2017</td>
-                              <td>On Hold</td>
-                              <td>$990</td>
-                              <td><a href="shop-cart.html" class="check-btn sqr-btn ">View</a></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="download" role="tabpanel" aria-labelledby="download-tab">
-                    <div class="myaccount-content">
-                      <h3>Downloads</h3>
-                      <div class="myaccount-table table-responsive text-center">
 
-                        <!-- ORDER HISTORY TABLE STARTS -->
-                        <table class="table table-bordered">
-                          <thead class="thead-light">
-                            <tr>
-                              <th>Product</th>
-                              <th>Date</th>
-                              <th>Expire</th>
-                              <th>Download</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>Haven - Free Real Estate PSD Template</td>
-                              <td>Aug 22, 2018</td>
-                              <td>Yes</td>
-                              <td><a href="#/" class="check-btn sqr-btn"><i class="fa fa-cloud-download"></i> Download File</a></td>
-                            </tr>
-                            <tr>
-                              <td>HasTech - Profolio Business Template</td>
-                              <td>Sep 12, 2018</td>
-                              <td>Never</td>
-                              <td><a href="#/" class="check-btn sqr-btn"><i class="fa fa-cloud-download"></i> Download File</a></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <!-- ORDER HISTORY TABLE ENDS -->
+                        <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
+
+                        <% if (user.orders.length > 0) { %>
+                          <% user.orders.forEach((order) => { %>
+                            <% order.products.forEach((product, index) => { %>
+                              <div class="d-flex py-4 my-3 " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
+
+                                <div class="product">
+                                  <img src="<%= product.images[0] %>" alt="" width="150px">
+                                </div>
+
+                                <div class="">
+                                  <h6><%= product.productName %></6>
+                                  <p>Quantity: <%= product.quantity %></p>
+                                  <p>Price: $<%= product.price %></p>
+                                  <p>Seller: <%= product.seller %></p>
+                                  <p>Expected Delivery: <%= order.expectedDeliveryDate %></p>
+                                  <p>Order Status: <%= order.orderStatus %></p>
+
+                                </div>
+
+                              </div>
+                            <% }) %>
+                          <% }) %>
+                        <% } else { %>
+                          <p>No orders found.</p>
+                        <% } %>
+                        </div>
+                        
+                      <!-- ORDER HISTORY TABLE ENDS ----------------------------------------------------------------------->
 
                       </div>
                     </div>
                   </div>
-                  <div class="tab-pane fade" id="payment-method" role="tabpanel" aria-labelledby="payment-method-tab">
-                    <div class="myaccount-content">
-                      <h3>Payment Method</h3>
-                      <p class="saved-message">You Can't Saved Your Payment Method yet.</p>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
+
+            
+                  <!-- <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
                     <div class="myaccount-content">
                       <h3>Billing Address</h3>
                       <address>
@@ -482,8 +441,8 @@
                       </address>
                       <a href="#/" class="check-btn sqr-btn"><i class="fa fa-edit"></i> Edit Address</a>
                     </div>
-                  </div>
-                  <div class="tab-pane fade" id="account-info" role="tabpanel" aria-labelledby="account-info-tab">
+                  </div> -->
+                  <!-- <div class="tab-pane fade" id="account-info" role="tabpanel" aria-labelledby="account-info-tab">
                     <div class="myaccount-content">
                       <h3>Account Details</h3>
                       <div class="account-details-form">
@@ -537,7 +496,7 @@
                         </form>
                       </div>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -622,7 +581,21 @@
   </footer>
   
 
+<script>
+// When the "UserProfile" page loads
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const showOrders = urlParams.get('showOrders');
 
+  if (showOrders === 'true') {
+    // Simulate a click on the "Orders" button
+    const ordersTab = document.getElementById('orders-tab');
+    if (ordersTab) {
+      ordersTab.click();
+    }
+  }
+});
+</script>
 
  
 

@@ -23,31 +23,42 @@ const cartSchema = new mongoose.Schema({
       productName: { type: String },
       price: { type: Number },
       images: { type: Array },
+      category: { type: String },
+      subcategory: { type: String },
+      seller: { type: String },
+      brand: { type: String },
     },
   ],
   createdAt: { type: Date, default: Date.now },
 });
 
 // ORDER SCHEMA
-const orderSchema = new mongoose.Schema({ 
-  orderId: { type: String, required: true, unique: true },
-  products: [
-    {
-      productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-      quantity: { type: Number, default: 1 },
-      price: { type: Number },
+const orderSchema = new mongoose.Schema(
+  {
+    orderId: { type: String, required: true, unique: true },
+    products: [
+      {
+        productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        productName :{type:String},
+        quantity: { type: Number, default: 1 },
+        price: { type: Number },
+        images: {type:Array},
+        seller : {type:String}
+      },
+    ],
+    totalAmount: { type: Number },
+    orderDate: { type: Date, default: Date.now },
+    expectedDeliveryDate:{type:String},
+    orderStatus: {
+      type: String,
+      enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"],
+      default: "Pending",
     },
-  ],
-  totalAmount: { type: Number },
-  orderDate: { type: Date, default: Date.now },
-  orderStatus: {
-    type: String,
-    enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"],
-    default: "Pending",
+    shippingAddress: { type: addressSchema },
+    paymentMethod: { type: String, require: true },
   },
-  shippingAddress: { type: addressSchema },
-  paymentMethod :{type:String , require:true}
-}, { _id: false });
+  { _id: false }
+);
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -55,8 +66,8 @@ const userSchema = new mongoose.Schema({
   phoneNumber: { type: String, unique: true },
   password: { type: String },
   cart: { type: cartSchema, default: { products: [] } },
-  addresses :[addressSchema],
-  orders : [orderSchema],
+  addresses: [addressSchema],
+  orders: [orderSchema],
   createdAt: { type: Date, default: new Date() },
   otp: { type: String },
   otpExpiration: { type: Date },
