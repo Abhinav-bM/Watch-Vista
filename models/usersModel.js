@@ -18,18 +18,8 @@ const addressSchema = new mongoose.Schema(
 const cartSchema = new mongoose.Schema({
   products: [
     {
-      productId: { type: mongoose.Schema.Types.ObjectId },
+      productId: { type: mongoose.Schema.Types.ObjectId, ref: 'vendor.products' },
       quantity: { type: Number, default: 1 },
-      productName: { type: String },
-      price: { type: Number },
-      color:{type:String},
-      size:{type:String},
-      images: { type: Array },
-      category: { type: String },
-      subcategory: { type: String },
-      seller: { type: String },
-      sellerId:{type:String},
-      brand: { type: String },
     },
   ],
   createdAt: { type: Date, default: Date.now },

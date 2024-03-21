@@ -6,6 +6,7 @@ const smsService = require("../helpers/smsService");
 const { sendOtpEmail } = require("../helpers/emailService");
 const { name } = require("ejs");
 const mongoose = require("mongoose");
+const { log } = require("firebase-functions/logger");
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -542,21 +543,6 @@ let addToCart = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const vendor = await Vendor.findOne({ "products._id": productId });
-
-    if (!vendor) {
-      return res.status(404).json({ error: "Vendor not found" });
-    }
-
-    //  product in the vendor's products array
-    const product = vendor.products.find(
-      (prod) => prod._id.toString() === productId
-    );
-
-    if (!product) {
-      return res.status(404).json({ error: "Product not found" });
-    }
-
     const user = await User.findById(userId);
 
     if (!user) {
@@ -565,34 +551,22 @@ let addToCart = async (req, res) => {
 
     // Check if the product already exists in the cart
     const existingProductIndex = user.cart.products.findIndex(
-      (cartItem) => cartItem.productId.toString() === productId
+      (item) => item.productId.toString() === productId
     );
 
     if (existingProductIndex !== -1) {
-      // If the product already exists, increase its quantity
+      // If the product exists, update the quantity
       user.cart.products[existingProductIndex].quantity += 1;
     } else {
-      // If the product does not exist, add it to the cart
-      user.cart.products.push({
-        productId: productId,
-        quantity: 1,
-        productName: product.productName,
-        price: product.productPrice,
-        images: product.productImages,
-        color:product.productColor,
-        size : product.productSize,
-        category: product.productCategory,
-        subcategory: product.productSubCategory,
-        seller: vendor.vendorName,
-        sellerId:vendor._id,
-        brand: product.productBrand,
-      });
+      // If the product is new, add it to the cart
+      user.cart.products.push({ productId, quantity: 1 });
     }
 
-    console.log("sfjdfs", vendor._id)
     await user.save();
 
-    res.json({ message: "Product added to cart successfully", user });
+    return res
+      .status(200)
+      .json({ message: "Product added to cart successfully" });
   } catch (error) {
     console.error("Error adding product to cart:", error);
     res.status(500).json({ error: "Unable to add product to cart" });
@@ -601,22 +575,64 @@ let addToCart = async (req, res) => {
 
 // CART PAGE DISPLAY WITH PRODUCTS
 let getCart = async (req, res) => {
+  const userId = req.user.id;
   try {
-    const userId = req.user.id;
-
     const user = await User.findById(userId);
-    const cart = user.cart;
 
-    let subtotal = 0;
-    cart.products.forEach((prod) => {
-      subtotal += prod.price * prod.quantity;
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Get all products from Vendor schema
+    const allProducts = await Vendor.find({}).populate("products");
+    let cart = [];
+
+    user.cart.products.forEach((cartProduct) => {
+      const productId = cartProduct.productId;
+
+      // Find the product in allProducts
+      allProducts.forEach((vendor) => {
+        vendor.products.forEach((product) => {
+          if (product._id.equals(productId)) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            const productDetails = {
+              _id: product._id,
+              name: product.productName,
+              category: product.productCategory,
+              subcategory: product.productSubCategory,
+              brand: product.productBrand,
+              color: product.productColor,
+              size: product.productSize,
+              quantity: cartProduct.quantity,
+              price: product.productPrice,
+              mrp: product.productMRP,
+              discount: product.productDiscount,
+              images: product.productImages,
+              description: product.productDescription,
+              vendor: vendorInfo,
+            };
+
+            cart.push(productDetails);
+          }
+        });
+      });
     });
 
-    let total = subtotal;
-
-    res.status(200).render("user/cart", { cart, subtotal, total });
+    let subtotal = 0;
+    let deliveryCharge = 0;
+    cart.forEach((prod) => {
+      subtotal += prod.quantity * prod.price;
+    });
+    return res
+      .status(200)
+      .render("user/cart", { cart, subtotal, deliveryCharge });
   } catch (error) {
-    console.error("get Cart Errot : ", error);
+    console.error("get Cart Error : ", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -639,9 +655,49 @@ let removeProductCart = async (req, res) => {
     user.cart.products = updatedCart;
     await user.save();
 
+    ///////////////////////////////////
+    const allProducts = await Vendor.find({}).populate("products");
+    let cart = [];
+
+    user.cart.products.forEach((cartProduct) => {
+      const productId = cartProduct.productId;
+
+      // Find the product in allProducts
+      allProducts.forEach((vendor) => {
+        vendor.products.forEach((product) => {
+          if (product._id.equals(productId)) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            const productDetails = {
+              _id: product._id,
+              name: product.productName,
+              category: product.productCategory,
+              subcategory: product.productSubCategory,
+              brand: product.productBrand,
+              color: product.productColor,
+              size: product.productSize,
+              quantity: cartProduct.quantity,
+              price: product.productPrice,
+              mrp: product.productMRP,
+              discount: product.productDiscount,
+              images: product.productImages,
+              description: product.productDescription,
+              vendor: vendorInfo,
+            };
+
+            cart.push(productDetails);
+          }
+        });
+      });
+    });
+    //////////////////////////////////////////////
+
     res
       .status(200)
-      .json({ message: "Product removed from cart successfully", user });
+      .json({ message: "Product removed from cart successfully", user, cart });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -672,10 +728,52 @@ let updateCartQuantity = async (req, res) => {
       // Save the updated user document
       await user.save();
 
-      console.log(user);
-      res
-        .status(200)
-        .json({ message: "Quantity updated successfully", quantity, user });
+      ///////////////////////////////////
+      const allProducts = await Vendor.find({}).populate("products");
+      let cart = [];
+
+      user.cart.products.forEach((cartProduct) => {
+        const productId = cartProduct.productId;
+
+        // Find the product in allProducts
+        allProducts.forEach((vendor) => {
+          vendor.products.forEach((product) => {
+            if (product._id.equals(productId)) {
+              const vendorInfo = {
+                vendorId: vendor._id,
+                vendorName: vendor.vendorName,
+              };
+
+              const productDetails = {
+                _id: product._id,
+                name: product.productName,
+                category: product.productCategory,
+                subcategory: product.productSubCategory,
+                brand: product.productBrand,
+                color: product.productColor,
+                size: product.productSize,
+                quantity: cartProduct.quantity,
+                price: product.productPrice,
+                mrp: product.productMRP,
+                discount: product.productDiscount,
+                images: product.productImages,
+                description: product.productDescription,
+                vendor: vendorInfo,
+              };
+
+              cart.push(productDetails);
+            }
+          });
+        });
+      });
+      //////////////////////////////////////////////
+
+      res.status(200).json({
+        message: "Quantity updated successfully",
+        quantity,
+        user,
+        cart,
+      });
     } else {
       res.status(404).json({ error: "Product not found in cart" });
     }
@@ -770,22 +868,22 @@ let placeOrderPost = async (req, res) => {
       orderId: new mongoose.Types.ObjectId(),
       products: user.cart.products.map((product) => ({
         productId: product.productId,
-        productName :product.productName,
+        productName: product.productName,
         quantity: product.quantity,
         productName: product.productName,
         price: product.price,
         images: product.images,
-        color:product.productColor,
-        size : product.productSize,
+        color: product.color,
+        size: product.size,
         seller: product.seller,
-        sellerId:product.sellerId
+        sellerId: product.sellerId,
       })),
       totalAmount: user.cart.products.reduce(
         (total, product) => total + product.price * product.quantity,
         0
       ),
       orderDate: new Date(),
-      expectedDeliveryDate : formattedDeliveryDate,
+      expectedDeliveryDate: formattedDeliveryDate,
       shippingAddress: selectedAddress,
       paymentMethod: paymentMethod,
     };
@@ -796,8 +894,6 @@ let placeOrderPost = async (req, res) => {
     // user.cart.products = [];
 
     await user.save();
-
-
 
     // Send a response with the new order details
     res.status(201).json({

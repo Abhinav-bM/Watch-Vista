@@ -245,12 +245,12 @@
                                                     <th class="total">Total</th>
                                                 </tr>
                                             </thead>
-                                                <% cart.products.forEach(prod => { %>
+                                                <% cart.forEach(prod => { %>
                                             <tbody>
-                                                <tr id="productRow-<%= prod.productId %>">
+                                                <tr id="productRow-<%= prod._id %>">
                                                     <td class="">
                                                         <div class="table-data">
-                                                            <button class="close-btn" onclick="removeProduct(event,'<%= prod.productId %>')">
+                                                            <button class="close-btn" onclick="removeProduct(event,'<%= prod._id %>')">
                                                                 <i class="fal fa-times"></i>
                                                             </button>
                                                         </div>
@@ -262,7 +262,7 @@
                                                     </td>
                                                     <td>
                                                         <div class="table-data">
-                                                            <h6><a href="" class="title"><%= prod.productName %></a></h6>
+                                                            <h6><a href="" class="title"><%= prod.name %></a></h6>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -278,13 +278,13 @@
                                                                 value="<%= prod.quantity %>" 
                                                                 style="margin-right: 20px; width: 119px;"    
                                                                 data-product-id="<%= prod.productId %>" 
-                                                                onchange="updateQuantity('<%= prod.productId %>', this.value)"
+                                                                onchange="updateQuantity('<%= prod._id %>', this.value,'<%= prod.price %>')"
                                                             >
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="table-data">
-                                                            <span class="total" id="total-<%= prod.productId %>"><%= prod.price * prod.quantity %></span>
+                                                            <span class="total" id="total-<%= prod._id %>"><%= prod.price * prod.quantity %></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -314,11 +314,11 @@
                                         </tr>
                                         <tr>
                                             <th>Delivery Charge :</th>
-                                            <td>0</td>
+                                            <td><%= deliveryCharge %></td>
                                         </tr>
                                         <tr>
                                             <th>Total</th>
-                                            <td id="total"><%= total %></td>
+                                            <td id="total"><%= subtotal %></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -348,20 +348,19 @@
                 if (productRow) {
                     productRow.remove();
                 }
-
-                let subtotal = 0
-                response.data.user.cart.products.forEach(element => {
-                subtotal += element.price * element.quantity;
+                const updatedCart = response.data.cart
+                // Update Subtotal
+                let subtotal = 0;
+                updatedCart.forEach((item) => {
+                    subtotal += item.quantity * item.price;
                 });
-
-                console.log(subtotal)
-
                 const subtotalElement = document.getElementById("subtotal");
                 subtotalElement.textContent = subtotal;
 
-                const total1 = document.getElementById("total");
-                total1.textContent = subtotal
-
+                // update total
+                let total = subtotal
+                const totalElemen = document.getElementById("total");
+                totalElemen.textContent = subtotal;
 
             })
             .catch(error => {
@@ -372,34 +371,33 @@
     
     
         // UPDATE QUANTITY IN CART
-        function updateQuantity(productId, newQuantity) {
+        function updateQuantity(productId, newQuantity,price,cart) {
+            console.log(productId, newQuantity,price)
             axios.post('/cart/update-quantity', {
                 productId: productId,
                 quantity: newQuantity
             })
             .then(function (response) {
-                let productPrice = null;
-                let subtotal = 0;
-                response.data.user.cart.products.forEach(element => {
-                    if (element.productId === productId) {
-                        productPrice = element.price;
-                    }
 
-                    subtotal += element.price * element.quantity;
-
-                });
-                console.log(productPrice)
-                const newTotal = productPrice * response.data.quantity;
+                const updatedCart = response.data.cart  
+                
+                // Update the total for the each product row
+                const newTotal = newQuantity * price;
                 const totalElement = document.querySelector(`#total-${productId}`);
                 totalElement.textContent = newTotal;
 
                 // Update Subtotal
+                let subtotal = 0;
+                updatedCart.forEach((item) => {
+                    subtotal += item.quantity * item.price;
+                });
                 const subtotalElement = document.getElementById("subtotal");
                 subtotalElement.textContent = subtotal;
-                let total = subtotal
-                const total1 = document.getElementById("total");
-                total1.textContent = total
 
+                // update total
+                let total = subtotal
+                const totalElemen = document.getElementById("total");
+                totalElemen.textContent = subtotal;
 
             })
             .catch(function (error) {
@@ -407,6 +405,8 @@
                 // Optionally, show an error message to the user
             });
         }
+
+
     </script>
 
     
