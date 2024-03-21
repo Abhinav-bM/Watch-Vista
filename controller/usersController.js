@@ -787,11 +787,49 @@ let checkoutpage = async (req, res) => {
   try {
     const user = await User.findById({ _id: userId });
     const addresses = user.addresses;
-    const cart = user.cart;
+
+    ///////////////////////////////////
+    const allProducts = await Vendor.find({}).populate("products");
+    let cart = [];
+
+    user.cart.products.forEach((cartProduct) => {
+      const productId = cartProduct.productId;
+
+      // Find the product in allProducts
+      allProducts.forEach((vendor) => {
+        vendor.products.forEach((product) => {
+          if (product._id.equals(productId)) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            const productDetails = {
+              _id: product._id,
+              name: product.productName,
+              category: product.productCategory,
+              subcategory: product.productSubCategory,
+              brand: product.productBrand,
+              color: product.productColor,
+              size: product.productSize,
+              quantity: cartProduct.quantity,
+              price: product.productPrice,
+              mrp: product.productMRP,
+              discount: product.productDiscount,
+              images: product.productImages,
+              description: product.productDescription,
+              vendor: vendorInfo,
+            };
+
+            cart.push(productDetails);
+          }
+        });
+      });
+    });
+    //////////////////////////////////////////////
+
     let totalPrice = 0;
-    user.cart.products.forEach(
-      (prod) => (totalPrice += prod.price * prod.quantity)
-    );
+    cart.forEach((prod) => (totalPrice += prod.price * prod.quantity));
     res.status(200).render("user/checkout", { addresses, cart, totalPrice });
   } catch (error) {
     console.error("Error on checkout page display :", error);
@@ -858,27 +896,60 @@ let placeOrderPost = async (req, res) => {
       return res.status(404).json({ message: "Selected address not found" });
     }
 
+    ///////////////////////////////////
+    const allProducts = await Vendor.find({}).populate("products");
+    let cart = [];
+
+    user.cart.products.forEach((cartProduct) => {
+      const productId = cartProduct.productId;
+
+      // Find the product in allProducts
+      allProducts.forEach((vendor) => {
+        vendor.products.forEach((product) => {
+          if (product._id.equals(productId)) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            const productDetails = {
+              _id: product._id,
+              name: product.productName,
+              category: product.productCategory,
+              subcategory: product.productSubCategory,
+              brand: product.productBrand,
+              color: product.productColor,
+              size: product.productSize,
+              quantity: cartProduct.quantity,
+              price: product.productPrice,
+              mrp: product.productMRP,
+              discount: product.productDiscount,
+              images: product.productImages,
+              description: product.productDescription,
+              vendor: vendorInfo,
+            };
+
+            cart.push(productDetails);
+          }
+        });
+      });
+    });
+    //////////////////////////////////////////////
+
     const orderDate = new Date();
     const expectedDeliveryDate = new Date(orderDate);
     expectedDeliveryDate.setDate(expectedDeliveryDate.getDate() + 4);
-
     const formattedDeliveryDate = expectedDeliveryDate.toLocaleDateString();
 
     const newOrder = {
       orderId: new mongoose.Types.ObjectId(),
-      products: user.cart.products.map((product) => ({
-        productId: product.productId,
-        productName: product.productName,
-        quantity: product.quantity,
-        productName: product.productName,
+      products: cart.map((product) => ({
+        productId: product._id,
+        qty: product.quantity,
         price: product.price,
-        images: product.images,
-        color: product.color,
         size: product.size,
-        seller: product.seller,
-        sellerId: product.sellerId,
       })),
-      totalAmount: user.cart.products.reduce(
+      totalAmount: cart.reduce(
         (total, product) => total + product.price * product.quantity,
         0
       ),
@@ -890,9 +961,6 @@ let placeOrderPost = async (req, res) => {
 
     user.orders.push(newOrder);
 
-    // Clear the cart after placing the order
-    // user.cart.products = [];
-
     await user.save();
 
     // Send a response with the new order details
@@ -900,8 +968,6 @@ let placeOrderPost = async (req, res) => {
       message: "Order placed successfully!",
       orderId: newOrder.orderId,
       totalAmount: newOrder.totalAmount,
-      orderDate: newOrder.orderDate,
-      orderStatus: newOrder.orderStatus,
       shippingAddress: newOrder.shippingAddress,
       paymentMethod: newOrder.paymentMethod,
       expectedDeliveryDate: formattedDeliveryDate,
@@ -915,10 +981,63 @@ let placeOrderPost = async (req, res) => {
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
   const userId = req.user.id;
+  
   try {
-    const user = await User.findById({ _id: userId }).populate("orders");
-    res.status(200).render("user/account", { user });
-  } catch (error) {}
+    const user = await User.findById(userId).populate("orders");
+
+    const allVendors = await Vendor.find({}).populate("products");
+    let cart = [];
+
+    user.orders.forEach((order) => {
+      order.products.forEach((product) => {
+        const productId = product.productId;
+
+        // Find the product and its vendor in allVendors
+        allVendors.forEach((vendor) => {
+          const foundProduct = vendor.products.find((p) => p._id.equals(productId));
+
+          if (foundProduct) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            const productDetails = {
+              _id: foundProduct._id,
+              name: foundProduct.productName,
+              category: foundProduct.productCategory,
+              subcategory: foundProduct.productSubCategory,
+              brand: foundProduct.productBrand,
+              color: foundProduct.productColor,
+              size: product.size,
+              quantity: product.qty,
+              price: foundProduct.productPrice,
+              mrp: foundProduct.productMRP,
+              discount: foundProduct.productDiscount,
+              images: foundProduct.productImages,
+              description: foundProduct.productDescription,
+              vendor: vendorInfo,
+              orderId: order.orderId,
+              shippingAddress: order.shippingAddress,
+              paymentMethod: order.paymentMethod,
+              totalAmount: order.totalAmount,
+              expectedDeliveryDate : order.expectedDeliveryDate,
+              orderStatus:product.orderStatus
+            };
+
+            cart.push(productDetails);
+          }
+        });
+      });
+    });
+
+    console.log("newCart for user profile:", cart);
+
+    res.status(200).render("user/account", { user, cart });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 module.exports = {

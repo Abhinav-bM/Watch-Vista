@@ -18,7 +18,10 @@ const addressSchema = new mongoose.Schema(
 const cartSchema = new mongoose.Schema({
   products: [
     {
-      productId: { type: mongoose.Schema.Types.ObjectId, ref: 'vendor.products' },
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "vendor.products",
+      },
       quantity: { type: Number, default: 1 },
     },
   ],
@@ -32,25 +35,18 @@ const orderSchema = new mongoose.Schema(
     products: [
       {
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-        productName :{type:String},
-        quantity: { type: Number, default: 1 },
-        price: { type: Number },
-        images: {type:Array},
-        color:{type:String},
-        size:{type:String},
-        seller : {type:String},
-        sellerId: {type:String},
+        size:{type:String,required:true},
+        qty:{type:Number,required:true},
+        price:{type:Number,required:true},    
         orderStatus: {
           type: String,
-          enum: ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"],
           default: "Pending",
         },
       },
     ],
     totalAmount: { type: Number },
     orderDate: { type: Date, default: Date.now },
-    expectedDeliveryDate:{type:String},
-
+    expectedDeliveryDate: { type: String },
     shippingAddress: { type: addressSchema },
     paymentMethod: { type: String, require: true },
   },

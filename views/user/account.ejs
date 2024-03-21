@@ -120,7 +120,7 @@
                         <div class="header-right">
                             <ul class="text-right">
                                 <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-                                <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a>
+                                <!-- <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a> -->
 
                                     <!-- search popup -->
                                     <div id="search-popup">
@@ -397,26 +397,30 @@
                         <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
 
                         <% if (user.orders.length > 0) { %>
-                          <% user.orders.forEach((order) => { %>
-                            <% order.products.forEach((product, index) => { %>
-                              <div class="d-flex py-4 my-3 align-items-center " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
+                          <% cart.forEach((prod) => { %>
+                              <div class="d-flex py-3 my-3 align-items-center " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
 
-                                <div class="product">
-                                  <img src="<%= product.images[0] %>" alt="" width="150px">
+                                <div class="product col-4">
+                                  <img src="<%= prod.images[0] %>" alt="" width="150px">
+
+                                  <div class=" mt-5">
+                                    <button class="rounded">Cancel Order</button>
+                                  </div>
                                 </div>
 
-                                <div class="">
-                                  <h6><%= product.productName %></6>
-                                  <p>Quantity: <%= product.quantity %></p>
-                                  <p>Price:  <%= product.price %></p>
-                                  <p>Seller: <%= product.seller %></p>
-                                  <p>Expected Delivery: <%= order.expectedDeliveryDate %></p>
-                                  <p>Order Status: <%= product.orderStatus %></p>
+                                <div class="d-grid text-start">
+                                  <h6><%= prod.name %></6>
+                                  <p class="m-0">Color: <%= prod.color %></p>
+                                  <p class="m-0">Size: <%= prod.size %> & Quantity: <%= prod.quantity %></p>
+                                  <p class="m-0">Price:  <%= prod.price %></p>
+                                  <p class="m-0">Seller: <%= prod.vendor.vendorName %></p>
+                                  <p class="m-0">Expected Delivery: <%= prod.expectedDeliveryDate %></p>
+                                  <p class="m-0">Order Status: <%= prod.orderStatus %></p>
+                                  <p class="m-0">Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<br><%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></p>
                                 </div>
 
                               </div>
                             <% }) %>
-                          <% }) %>
                         <% } else { %>
                           <p>No orders found.</p>
                         <% } %>

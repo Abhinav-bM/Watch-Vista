@@ -192,19 +192,21 @@
 
             <div class="col-5">
                 <div class="">
-                    <h4>Order Summary</h4>
-                    <% cart.products.forEach(prod => { %>
-                    <div class="d-flex justify-content-start align-items-center" style="border: 2px solid rgb(223, 223, 223);background-color: rgb(246, 246, 246);">
+                    <h4 class="m-2">Order Summary</h4>
+                    <% cart.forEach(prod => { %>
+                    <div class="d-flex justify-content-start align-items-center m-2" style="border: 2px solid rgb(223, 223, 223);background-color: rgb(246, 246, 246);">
                         <div class="pl-2">
                            <img src="<%= prod.images[0] %>" alt="" width="120px">
                         </div>
 
                         <div class="pl-3">
-                            <p>ProductName : <%= prod.productName %></p>
-                            <p>Price : <%= prod.price * prod.quantity %></p>
-                            <p>Quantity : <%= prod.quantity %></p>
-                            <p>Brand : <%= prod.brand %></p>
-                            <p>Seller : <%= prod.seller %></p>
+                            <p class="m-0">ProductName : <%= prod.name %></p>
+                            <p class="m-0">Price : <%= prod.price %></p>
+                            <p class="m-0">Quantity : <%= prod.quantity %></p>
+                            <p class="m-0">Color : <%= prod.color %></p>
+                            <p class="m-0">Size : <%= prod.size %></p>
+                            <p class="m-0">Brand : <%= prod.brand %></p>
+                            <p class="m-0"  >Seller : <%= prod.vendor.vendorName %></p>
                         </div>
                         
                     </div>
@@ -237,14 +239,14 @@
 
             <div class="col-5">
                 
-                            <div class="your-order mb-30 ">
+                            <div class="your-order mb-30" style="margin-top: 39px;">
                                 <h3>Your order</h3>
                                 <div class="your-order-table table-responsive">
                                     <table>
                                         <thead>
                                             <tr>
-                                                <th class="product-name">Product</th>
-                                                <th class="product-total">Total</th>
+                                                <th class="product-name"></th>
+                                                <th class="product-total"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -253,7 +255,7 @@
                                                     No of products
                                                 </td>
                                                 <td class="product-total">
-                                                    <span class="amount"><%= cart.products.length %></span>
+                                                    <span class="amount"><%= cart.length %></span>
                                                 </td>
                                             </tr>
                                             <tr class="cart_item">
