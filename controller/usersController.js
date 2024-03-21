@@ -542,14 +542,13 @@ let addToCart = async (req, res) => {
   const userId = req.user.id;
 
   try {
-    // Find the vendor that contains the product
     const vendor = await Vendor.findOne({ "products._id": productId });
 
     if (!vendor) {
       return res.status(404).json({ error: "Vendor not found" });
     }
 
-    // Find the product within the vendor's products array
+    //  product in the vendor's products array
     const product = vendor.products.find(
       (prod) => prod._id.toString() === productId
     );
@@ -558,7 +557,6 @@ let addToCart = async (req, res) => {
       return res.status(404).json({ error: "Product not found" });
     }
 
-    // Find the user by ID
     const user = await User.findById(userId);
 
     if (!user) {
@@ -581,12 +579,17 @@ let addToCart = async (req, res) => {
         productName: product.productName,
         price: product.productPrice,
         images: product.productImages,
+        color:product.productColor,
+        size : product.productSize,
         category: product.productCategory,
         subcategory: product.productSubCategory,
         seller: vendor.vendorName,
+        sellerId:vendor._id,
         brand: product.productBrand,
       });
     }
+
+    console.log("sfjdfs", vendor._id)
     await user.save();
 
     res.json({ message: "Product added to cart successfully", user });
@@ -691,7 +694,6 @@ let checkoutpage = async (req, res) => {
     user.cart.products.forEach(
       (prod) => (totalPrice += prod.price * prod.quantity)
     );
-    console.log("cart CheckOut :", cart);
     res.status(200).render("user/checkout", { addresses, cart, totalPrice });
   } catch (error) {
     console.error("Error on checkout page display :", error);
@@ -773,7 +775,10 @@ let placeOrderPost = async (req, res) => {
         productName: product.productName,
         price: product.price,
         images: product.images,
+        color:product.productColor,
+        size : product.productSize,
         seller: product.seller,
+        sellerId:product.sellerId
       })),
       totalAmount: user.cart.products.reduce(
         (total, product) => total + product.price * product.quantity,
@@ -781,7 +786,6 @@ let placeOrderPost = async (req, res) => {
       ),
       orderDate: new Date(),
       expectedDeliveryDate : formattedDeliveryDate,
-      orderStatus: "Pending",
       shippingAddress: selectedAddress,
       paymentMethod: paymentMethod,
     };

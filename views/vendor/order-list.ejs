@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>::eBazar::  Orders List </title>
+    <title> Orders List </title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
 
     <!-- plugin css file  -->
@@ -56,14 +56,9 @@
                             </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-order" href="#">
-                        <i class="icofont-notepad fs-5"></i> <span>Orders</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <li><a class="m-link " href="/vendor/orders"><i class="icofont-notepad"></i> <span>Orders</span></a></li>
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse show" id="menu-order">
-                            <li><a class="ms-link active" href="order-list.html">Orders List</a></li>
-                            <li><a class="ms-link" href="order-details.html">Order Details</a></li>
-                            <li><a class="ms-link" href="order-invoices.html">Order Invoices</a></li>
-                        </ul>
+                       
                     </li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
@@ -327,7 +322,8 @@
                         <div class="col-md-12">
                             <div class="card"> 
                                 <div class="card-body"> 
-                                    <table id="myDataTable" class="table table-hover align-middle mb-0" style="width: 100%;">  
+                                    <!--ORDER LIST TABLE STARTS-->
+                                    <!-- <table id="myDataTable" class="table table-hover align-middle mb-0" style="width: 100%;">  
                                         <thead>
                                             <tr>
                                                 <th>Id</th>
@@ -339,78 +335,90 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+
                                             <tr>
-                                                <td><a href="order-details.html"><strong>#Order-78414</strong></a></td>
-                                                <td><img src="/vendor/assets/images/product/product-1.jpg" class="avatar lg rounded me-2" alt="profile-image"><span> Oculus VR </span></td>
+                                                <td><a href=""><strong>#Order-78414</strong></a></td>
                                                 <td>Molly</td>
+                                                <td>Abhinav</td>
                                                 <td>Credit Card</td>
                                                 <td>
                                                     $420
                                                 </td>
                                                 <td><span class="badge bg-warning">Progress</span></td>
                                             </tr>
-                                            <tr>
-                                                <td><a href="order-details.html"><strong>#Order-58414</strong></a></td>
-                                                <td><img src="/vendor/assets/images/product/product-2.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Wall Clock</span></td>
-                                                <td>Brian</td>
-                                                <td>Debit Card</td>
-                                                <td>
-                                                    $220
-                                                </td>
-                                                <td><span class="badge bg-success">Complited</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="order-details.html"><strong>#Order-48414</strong></a></td>
-                                                <td><img src="/vendor/assets/images/product/product-3.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Note Diaries</span></td>
-                                                <td>Julia</td>
-                                                <td>Debit Card</td>
-                                                <td>
-                                                    $250
-                                                </td>
-                                                <td><span class="badge bg-success">Complited</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="order-details.html"><strong>#Order-38414</strong></a></td>
-                                                <td><img src="/vendor/assets/images/product/product-4.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Flower Port</span></td>
-                                                <td>Sonia</td>
-                                                <td>Credit Card</td>
-                                                <td>
-                                                    $320
-                                                </td>
-                                                <td><span class="badge bg-warning">Progress</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="order-details.html"><strong>#Order-28414</strong></a></td>
-                                                <td><img src="/vendor/assets/images/product/product-1.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Oculus VR</span></td>
-                                                <td>Adam H</td>
-                                                <td>Debit Card</td>
-                                                <td>
-                                                    $20
-                                                </td>
-                                                <td><span class="badge bg-warning">Progress</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="order-details.html"><strong>#Order-18414</strong></a></td>
-                                                <td><img src="/vendor/assets/images/product/product-2.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Wall Clock</span></td>
-                                                <td>Alexander</td>
-                                                <td>Debit Card</td>
-                                                <td>
-                                                    $820
-                                                </td>
-                                                <td><span class="badge bg-success">Complited</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="order-details.html"><strong>#Order-11414</strong></a></td>
-                                                <td><img src="/vendor/assets/images/product/product-3.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Note Diaries</span></td>
-                                                <td>Gabrielle</td>
-                                                <td>Bank Emi</td>
-                                                <td>
-                                                    $620
-                                                </td>
-                                                <td><span class="badge bg-success">Complited</span></td>
-                                            </tr>
+                                          
                                         </tbody>
-                                    </table>
+                                    </table> -->
+                                    <table id="myDataTable" class="table table-hover align-middle mb-0" style="width: 100%;">  
+                                        <thead>
+                                          <tr>
+                                            <th>Order ID</th>
+                                            <th>Item</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <!-- <th>color</th> -->
+                                            <th>Status</th>
+                                            <th>View Details</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <% ordersByVendor.forEach((order) => { %>
+                                            <tr>
+                                              <td><%= order.orderId %></td>
+                                              <td><%= order.productName %></td>
+                                              <td><%= order.quantity %></td>
+                                              <td><%= order.price %></td>
+                                              <!-- <td><%= order.color %></td> -->
+                                              <td>
+                                                
+                                                <!-- <span class="badge bg-warning"><%= order.status %></span> -->
+                                                <form action="/vendor/updateOrderStatus/<%= order.orderId %>" method="POST">
+                                                    <select name="status" class="form-select" onchange="this.form.submit()">
+                                                      <option value="Pending" <%= order.orderStatus === "Pending" ? "selected" : "" %>>Pending</option>
+                                                      <option value="Processing" <%= order.orderStatus === "Processing" ? "selected" : "" %>>Processing</option>
+                                                      <option value="Shipped" <%= order.orderStatus === "Shipped" ? "selected" : "" %>>Shipped</option>
+                                                      <option value="Delivered" <%= order.orderStatus === "Delivered" ? "selected" : "" %>>Delivered</option>
+                                                      <option value="Cancelled" <%= order.orderStatus === "Cancelled" ? "selected" : "" %>>Cancelled</option>
+                                                    </select>
+                                                  </form>
+                                              </td>
+                                              <td>
+                                                <!-- Eye icon button to view details -->
+                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal<%= order.orderId %>">
+                                                  <i class="fas fa-eye"></i> View
+                                                </button>
+                                              </td>
+                                            </tr>
+                                            <!-- Modal for order details -->
+                                            <div class="modal fade" id="orderModal<%= order.orderId %>" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="orderModalLabel">Order Details - <%= order.orderId %></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <!-- Order details here -->
+                                                    <p><strong>Order ID:</strong> <%= order.orderId %></p>
+                                                    <p><strong>Item:</strong> <%= order.productName %></p>
+                                                    <p><strong>Quantity:</strong> <%= order.quantity %></p>
+                                                    <p><strong>Price:</strong> <%= order.price %></p>
+                                                    <p><strong>Status:</strong> <%= order.status %></p>
+                                                    <p><strong>Shipping Address:</strong> <%= order.address %></p>
+                                                    <!-- Add more order details as needed -->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          <% }) %>
+                                        </tbody>
+                                      </table>
+                                      
+                                      
+                                      
+                                      
+                                      
+                                    <!-- ORDER LIST TABLE ENDS -->
                                 </div>
                             </div>
                         </div>

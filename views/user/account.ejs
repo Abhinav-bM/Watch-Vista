@@ -368,7 +368,7 @@
               <div class="col-lg-3 col-md-4">
                 <nav>
                   <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="dashboad-tab" data-bs-toggle="tab" data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true" style="background: #eeeeee;">Dashboard</button>
+                    <button class="nav-link active" id="dashboad-tab" data-bs-toggle="tab" data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">Dashboard</button>
                     <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false"> Orders</button>
                     <button class="nav-link" id="download-tab" data-bs-toggle="tab" data-bs-target="#download" type="button" role="tab" aria-controls="download" aria-selected="false">Download</button>
                     <button class="nav-link" id="payment-method-tab" data-bs-toggle="tab" data-bs-target="#payment-method" type="button" role="tab" aria-controls="payment-method" aria-selected="false">Payment Method</button>
@@ -399,7 +399,7 @@
                         <% if (user.orders.length > 0) { %>
                           <% user.orders.forEach((order) => { %>
                             <% order.products.forEach((product, index) => { %>
-                              <div class="d-flex py-4 my-3 " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
+                              <div class="d-flex py-4 my-3 align-items-center " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
 
                                 <div class="product">
                                   <img src="<%= product.images[0] %>" alt="" width="150px">
@@ -408,11 +408,10 @@
                                 <div class="">
                                   <h6><%= product.productName %></6>
                                   <p>Quantity: <%= product.quantity %></p>
-                                  <p>Price: $<%= product.price %></p>
+                                  <p>Price:  <%= product.price %></p>
                                   <p>Seller: <%= product.seller %></p>
                                   <p>Expected Delivery: <%= order.expectedDeliveryDate %></p>
-                                  <p>Order Status: <%= order.orderStatus %></p>
-
+                                  <p>Order Status: <%= product.orderStatus %></p>
                                 </div>
 
                               </div>

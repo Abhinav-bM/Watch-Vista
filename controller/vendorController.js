@@ -1,6 +1,8 @@
 const Vendor = require("../models/vendorsModel");
 const Admin = require("../models/adminModel");
+const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
+const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const { sendOtpEmail } = require("../helpers/emailService");
 const cloudinary = require("../config/cloudinary");
@@ -366,6 +368,84 @@ let vendorLogout = (req, res) => {
   }
 };
 
+// VENDOR ORDER DISPLAY
+let getOrdersForVendor = async (req, res) => {
+  try {
+    // Find the user based on the vendorId (req.user.id)
+    const user = await User.findOne({
+      "orders.products.sellerId": req.user.id,
+    });
+    if (!user) {
+      return res.status(404).json({ message: "Vendor not found" });
+    }
+
+    // Group orders by sellerId for this vendor
+    const ordersByVendor = {};
+    user.orders.forEach((order) => {
+      order.products.forEach((product) => {
+
+        const sellerId = product.sellerId;
+        if (sellerId === req.user.id) {
+          if (!ordersByVendor[sellerId]) {
+            ordersByVendor[sellerId] = [];
+          }
+          ordersByVendor[sellerId].push({
+            orderId: order.orderId,
+            productName: product.productName,
+            quantity: product.quantity,
+            price: product.price,
+            color: product.color,
+            status: order.orderStatus,  
+            address: `${order.shippingAddress.name}, ${order.shippingAddress.address}, ${order.shippingAddress.district}, ${order.shippingAddress.state} ${order.shippingAddress.zip},`,
+          });
+        }
+      });
+    });
+
+    // Fetch vendor details for this vendor
+    const vendorDetails = await Vendor.findOne({ _id: req.user.id });
+    const vendorName = vendorDetails
+      ? vendorDetails.vendorName
+      : "Unknown Vendor";
+
+    // Pass data to the EJS view
+    res.render("vendor/order-list", {
+      title: "Vendor Orders",
+      vendorName: vendorName,
+      ordersByVendor: ordersByVendor[req.user.id] || [],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// ORDER STATUS UPDATE
+let updateOrderStatus = async (req, res) => {
+  const { orderId } = req.params;
+  const { status } = req.body;
+
+  console.log("sfhkdf: ",orderId , status)
+
+  try {
+    // Find the order by orderId and update the status
+    const user = await User.findOneAndUpdate(
+      { "orders.orderId": orderId },
+      { $set: { "orders.$.orderStatus": status } },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    res.status(200).json({ message: "Order status updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   loginGetPage,
   registerGetPage,
@@ -382,4 +462,6 @@ module.exports = {
   editProduct,
   editProductPost,
   deleteProduct,
+  getOrdersForVendor,
+  updateOrderStatus,
 };
