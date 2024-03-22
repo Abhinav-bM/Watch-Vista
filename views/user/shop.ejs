@@ -32,7 +32,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
-    <style>
+        <style>
            .product-img {
             position: relative;
             overflow: hidden;
@@ -57,7 +57,40 @@
                 transform: scale(1);
             }
             }
-    </style>
+
+
+            /* Add this CSS to your stylesheet */
+            .filter {
+            /* position: static; */
+            }
+
+            .filter-popup {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: #393939;
+            padding: 20px;
+            z-index: 999;
+            border-radius: 4px;
+            display: none;
+            max-width: 250px; /* Set maximum width */
+            width: 100%;
+            }
+
+            .filter-popup.active {
+            display: block;
+            }
+
+            @media (min-width: 768px) {
+            .filter-popup {
+                max-width: 250px;
+                right: 0;
+                left: auto;
+            }
+            }
+
+
+        </style>
 <body>
 
     <!-- preloader -->
@@ -262,7 +295,7 @@
 
 
 
-    <div class="shop-body mb-90">
+    <div class="shop-body">
         <div class="container-fluid">
             <nav aria-label="breadcrumb" class="mb-40">
                 <ol class="breadcrumb p-0 m-0">
@@ -275,44 +308,8 @@
                     
                     <div class="col-12">
                         <div class="filter-heading">
-                            <div class="row">
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-                                    <div class="filter-shown-item">
-                                        <p class="mb-0">Showing <span>1</span>–<span>24</span> of <span
-                                                class="total_count">56</span> results</p>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-12">
-                                    <div class="shop-filter-tab">
-                                        <ul class="nav nav-pills">
-                                            <!-- <li><span>Views</span></li> -->
-                                            <li class="nav-item">
-                                                <a  data-toggle="pill" href=""
-                                                    data-toggle="tooltip" data-placement="top" title="2 grid">
-                                                    <!-- <i class="fal fa-line-columns"></i> -->
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a data-toggle="pill" href="" data-placement="top"
-                                                    title="3 grid">
-                                                    <!-- <i class="fal fa-border-none"></i> -->
-                                                </a>
-                                            </li>
-                                            <li class="nav-item" >
-                                                <a data-toggle="pill" href="" data-placement="top"
-                                                    title="4 grid" class="active">
-                                                    <!-- <i class="fal fa-border-center-v"></i> -->
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a data-toggle="pill" href="#shop-tab-4" data-placement="top" title="list view">
-                                                    <!-- <i class="fal fa-list"></i> -->
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-12 d-flex justify-content-end position-static">
+                            <div class="row justify-content-end">
+                         
                                     <!-- <div class="sorting d-inline-block">
                                         <select name="sort" id="shop-sort">
                                             <option value="default">Default sorting</option>
@@ -325,81 +322,26 @@
                                     </div> -->
                                     <div class="filter">
                                         <h6 class="d-inline-block filter-widget-toggle">Filter</h6>
-                                        <div class="filter-popup ">
-                                            <div class="row justify-content-end ">
-                                                <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-                                                    <div class="filter-popup-item">
-                                                        <div class="widget">
-                                                            <h4 class="mb-30">Filter By Color</h4>
-                                                            <ul class="color-list">
-                                                                <li style="background-color: #000;"></li>
-                                                                <li style="background-color: #1E73BE;"></li>
-                                                                <li style="background-color: #FFD700;"></li>
-                                                                <li style="background-color: #C9C9C9;"></li>
-                                                                <li style="background-color: #008000;"></li>
-                                                                <li style="background-color: #FFFF00;"></li>
-                                                                <li style="background-color: #FFFFFF;"></li>
-                                                                <li style="background-color: #DD3333;"></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                                <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
+                                        <div class="filter-popup" style="display: none;">
+                                            <div class="row justify-content-center">
+                                                <div class="">
                                                     <div class="widget">
-                                                        <h4 class="mb-30">Filter By Size</h4>
-                                                        <div class="size-link">
-                                                            <a href="shop2.html">3xl</a>
-                                                            <a href="shop2.html">l</a>
-                                                            <a href="shop2.html">m</a>
-                                                            <a href="shop2.html">s</a>
-                                                            <a href="shop2.html">xl</a>
-                                                            <a href="shop2.html">xxl</a>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12">
-                                                    <div class="widget">
-                                                        <h4 class="mb-30">Filter By Price</h4>
-                                                        <form action="#">
-                                                            <div class="price-filter">
-                                                                <div id="slider-range-2"
-                                                                    class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-                                                                    <div class="ui-slider-range ui-corner-all ui-widget-header"
-                                                                        style="left: 15%; width: 46.4%;"></div><span
-                                                                        tabindex="0"
-                                                                        class="ui-slider-handle ui-corner-all ui-state-default"
-                                                                        style="left: 15%;"></span><span tabindex="0"
-                                                                        class="ui-slider-handle ui-corner-all ui-state-default"
-                                                                        style="left: 60%;"></span>
-                                                                    <div class="ui-slider-range ui-corner-all ui-widget-header"
-                                                                        style="left: 15%; width: 45%;"></div>
-                                                                </div>
-                                                                <div class="filter-form-submit mt-35">
-                                                                    <button type="submit">Filter</button>
-                                                                    <div class="filter-price d-inline-block pl-20">
-                                                                        Price: <input type="button" id="amount-2" value="$75 - $300">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 position-static">
-                                                    <div class="widget">
-                                                        <h4 class="mb-30">Popular Tags</h4>
+                                                        <h4 class="mb-30 text-light">Category</h4>
                                                         <div class="category-list">
-                                                            <% allCategories.forEach(category => { %>
-                                                                <ul>
-                                                                    <li><a href="" onclick="getProductsByCategory('<%= category %>',event)"><%= category %></a></li>
-                                                                </ul>
-                                                            <% }) %>
+                                                        <% allCategories.forEach(category => { %>
+                                                            <ul>
+                                                            <li><a href="#" onclick="getProductsByCategory('<%= category %>',event)"><%= category %></a></li>
+                                                            </ul>
+                                                        <% }) %>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- Add more filter options here if needed -->
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                      
+                                
                             </div>
                         </div>
                         <!-- /. filter heading -->
@@ -562,7 +504,7 @@
                                         </div>
                                         <!-- /. product box -->
                                         <div class="text-center mt-20">
-                                            <a href="shop.html" class="load-more">LOAD MORE...</a>
+                                            <a href="" class="load-more">LOAD MORE...</a>
                                         </div>
                                     </div>
                                 </div>
@@ -630,7 +572,7 @@
 
 
     <!-- footer section start -->
-    <section class="footer">
+    <section class="footer mb-0">
         <!-- footer top -->
 
         <div class="footer-bottom pt-77" style="background-color: #292929;">
@@ -707,133 +649,21 @@
     <!-- footer section end -->
 
 
+<script>
+    $(document).ready(function() {
+  $(".filter-widget-toggle").click(function() {
+    $(".filter-popup").toggleClass("active");
+  });
 
+  // Clicking outside the filter popup closes it
+  $(document).click(function(event) {
+    if (!$(event.target).closest('.filter').length) {
+      $(".filter-popup").removeClass("active");
+    }
+  });
+});
 
-
-
-
-    <!-- product popup start -->
-    <section id="product-popup">
-        <div class="product-popup-overlay"></div>
-        <div class="product-popup-container">
-            <div class="product-inner w-100">
-                <div class="product-inner-content">
-                    <div class="quick-close-action"><i class="fal fa-times"></i></div>
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6">
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="product-popup-1">
-                                    <div class="product-popup-img">
-                                        <img src="/img/product/10.jpg" class="w-100" alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="product-popup-2">
-                                    <div class="product-popup-img">
-                                        <img src="/img/product/11.jpg" class="w-100" alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="product-popup-3">
-                                    <div class="product-popup-img">
-                                        <img src="/img/product/12.jpg" class="w-100" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <ul class="nav nav-pills justify-content-center mt-10">
-                                <li class="nav-item">
-                                    <a class="active" data-toggle="pill" href="#product-popup-1">
-                                        <img src="/img/product/10.jpg" class="w-100" alt="">
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="" data-toggle="pill" href="#product-popup-2">
-                                        <img src="/img/product/11.jpg" class="w-100" alt="">
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="" data-toggle="pill" href="#product-popup-3">
-                                        <img src="/img/product/12.jpg" class="w-100" alt="">
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6">
-                            <div class="product-content">
-                                <div class="product-title">
-                                    <h2>Nari Narwhal Usb...</h2>
-                                </div>
-                                <div class="price">$<span>44.00</span>–<span>$250.00</span></div>
-                                <a href="/singleProduct" class="all-feature">See all feature</a>
-                                <div class="quick-quantity mt-30">
-                                    <form action="#" method="POST">
-                                        <input type="number" value="1">
-                                        <button type="submit" class="generic-btn red-hover-btn text-capitalize">add to
-                                            cart</button>
-                                    </form>
-                                </div>
-
-                                <div class="product-desc pb-20 mt-25 gray-border-top">
-                                    <p class="mb-0">Typi non habent claritatem insitam, est usus legentis in iis qui
-                                        facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius
-                                        quod ii legunt saepius. Claritas est etiam processus A Capitalize on low hanging
-                                        fruit to identify a ballpark value added activity to beta test. Override the
-                                        digital...ditional clickthroughs from DevOps. Nanotechnology immersion along the
-                                        information highway will close the […]</p>
-                                </div>
-                                <div class="product-list mt-25">
-                                    <ul>
-                                        <li>– Light green crewnec...t.</li>
-                                        <li>– Hand pockets.</li>
-                                        <li>– Relaxed fit.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- product popup end -->
-
-    <!-- startup popup start -->
-    <section id="startup-popup">
-        <div class="product-popup-overlay has-startup" style="opacity: 1;visibility: visible"></div>
-        <div class="startup-popup-body">
-            <div class="startup-body-content h-100">
-                <div class="row justify-content-end h-100">
-                    <div class="col-6 h-100">
-                        <div class="startup-popup-inner h-100">
-                            <div class="close-search-popup">
-                                <i class="fal fa-times"></i>
-                            </div>
-                            <div class="startup-popup-main-content">
-                                <h2>Get Our Email Letter</h2>
-                                <p class="mb-0">Subscribe to the Mazia store mailing list to receive updates on new
-                                    arrivals, special offers
-                                    and other discount information.</p>
-                                <div class="startup-subscribe-form">
-                                    <form action="#" method="POST">
-                                        <input type="text" placeholder="Subscribe to our newsletter" class="mb-30">
-                                        <button class="generic-btn red-hover-btn text-uppercase">Subscribe now</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="startup-popup-sub-content">
-                                <div class="popup-warning">
-                                    <input type="checkbox" id="startup-popup-hidden">
-                                    <label for="startup-popup-hidden">Do not show the popup again</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- startup popup end -->
-
-
-
+</script>
 
 
 
