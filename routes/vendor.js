@@ -27,8 +27,6 @@ router.post("/vendor/forgotOtpPost",vendorController.forgotOrpVerify)
 router.post("/vendor/addProduct",vendorAuthMiddleware,upload.array('productImages',4),vendorController.addProductpost)
 router.post("/vendor/editProduct/:id",vendorAuthMiddleware,upload.array('productImages',4),vendorController.editProductPost)
 router.post("/vendor/deleteProduct/:id",vendorAuthMiddleware,vendorController.deleteProduct)
-router.post("/vendor/updateOrderStatus/:orderId",vendorAuthMiddleware,vendorController.updateOrderStatus)
-
-
+router.post("/vendor/updateOrderStatus/:orderId/:productId",vendorAuthMiddleware,vendorController.updateOrderStatus)
 
 module.exports = router;    

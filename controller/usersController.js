@@ -1,5 +1,6 @@
 const User = require("../models/usersModel");
 const Vendor = require("../models/vendorsModel");
+const Admin = require("../models/adminModel")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const smsService = require("../helpers/smsService");
@@ -480,36 +481,40 @@ let userLogout = async (req, res) => {
 let shopGetPage = async (req, res) => {
   try {
     let products = await Vendor.find().select("products");
-    res.status(200).render("user/shop", { products: products });
+
+    const admin = await Admin.findOne({}); // Assuming there's only one admin for simplicity
+    const allCategories = [];
+
+    admin.categories.forEach(category => {
+        allCategories.push(category.categoryName);
+    });
+    res.status(200).render("user/shop", { products, allCategories });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
   }
 };
 
-let productList = async (req, res) => {
-  const category = req.query.category;
-
+// PRDUCTS BASED ON CATEGORY
+let getProductsByCategory = async (req,res)=>{
+  const { category } = req.params;
+  console.log(category)
   try {
-    // Find all vendors with products matching the given category
-    const vendors = await Vendor.find({ "products.productCategory": category });
+    let vendorProducts = await Vendor.find().select("products");
 
-    // Extract and combine all products from vendors into a single array
-    let products = [];
-    vendors.forEach((vendor) => {
-      products = products.concat(
-        vendor.products.filter(
-          (product) => product.productCategory === category
-        )
-      );
-    });
+    let allProducts = vendorProducts.map(vendor => vendor.products).flat();
 
-    res.json(products);
+    let filteredProducts = allProducts.filter(product => product.productCategory === category);
+
+    console.log(filteredProducts);
+
+    res.status(200).json({message:"product filtered",filteredProducts});
   } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.error(error);
+    res.status(500).json({ message: 'Internal server error' });
   }
-};
+}
+
 
 // DISPLAY SINGLE PRODUCT PAGE
 let singleProductGetPage = async (req, res) => {
@@ -1031,7 +1036,7 @@ let userProfile = async (req, res) => {
       });
     });
 
-    console.log("newCart for user profile:", cart);
+    console.log(cart)
 
     res.status(200).render("user/account", { user, cart });
   } catch (error) {
@@ -1039,6 +1044,48 @@ let userProfile = async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+// ORDER CANCELLATION REQUEST POST 
+let orderCancelRequestPost = async (req, res)=>{
+  const { orderId, productId } = req.params;
+  const { cancelReason } = req.body;
+  const userId = req.user.id;
+  console.log("cancelOrderId :",orderId)
+  console.log("cancelProductId :",productId)
+  console.log("cancelUserId :",userId)
+
+  try {
+    // Find the user
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Find the order in the user's orders
+    const order = user.orders.find(order => order.orderId === orderId);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // Find the product in the order
+    const product = order.products.find(prod => prod.productId.toString() === productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found in the order" });
+    }
+
+    // Update the order status and set the cancellation reason
+    product.orderStatus = "Requested for Cancellation";
+    product.cancelReason = cancelReason;
+
+    // Save the user with the updated order
+    await user.save();
+
+    res.status(200).json({ message: "Order status updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+}
 
 module.exports = {
   homePage,
@@ -1059,6 +1106,7 @@ module.exports = {
   forgotEmailPostPage,
   resetPassword,
   shopGetPage,
+  getProductsByCategory,
   singleProductGetPage,
   addToCart,
   removeProductCart,
@@ -1067,4 +1115,5 @@ module.exports = {
   checkoutpage,
   addAddress,
   placeOrderPost,
+  orderCancelRequestPost,
 };

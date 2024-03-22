@@ -403,8 +403,12 @@
                                 <div class="product col-4">
                                   <img src="<%= prod.images[0] %>" alt="" width="150px">
 
-                                  <div class=" mt-5">
-                                    <button class="rounded">Cancel Order</button>
+                                  <div class="mt-5">
+                                    <% if (prod.orderStatus !== 'Requested for Cancellation') { %>
+                                      <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')">Cancel Order</button>
+                                    <% } else { %>
+                                      <button class="rounded" disabled>Cancel Order</button>
+                                    <% } %>
                                   </div>
                                 </div>
 
@@ -418,8 +422,31 @@
                                   <p class="m-0">Order Status: <%= prod.orderStatus %></p>
                                   <p class="m-0">Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<br><%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></p>
                                 </div>
-
                               </div>
+                                    
+                               <!-- Modal for order cancellation -->
+                              <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
+                                        <div class="mb-3">
+                                          <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
+                                          <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
+                                        </div>
+                                        <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                      </form>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+
                             <% }) %>
                         <% } else { %>
                           <p>No orders found.</p>
@@ -584,20 +611,55 @@
   </footer>
   
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
-// When the "UserProfile" page loads
+// WHEN THE USER PRODFILE PAGE LOADS AFTER ORDER PLACED
 window.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const showOrders = urlParams.get('showOrders');
 
   if (showOrders === 'true') {
-    // Simulate a click on the "Orders" button
+    // SIMULATE A CLICK ON THE ORDERS BUTTON
     const ordersTab = document.getElementById('orders-tab');
     if (ordersTab) {
       ordersTab.click();
     }
   }
 });
+</script>
+
+<script>
+  // FUCTION FOR OPEN MODAL
+  function openCancelModal(orderId, productId) {
+    console.log("Opening modal for Order ID:", orderId, "Product ID:", productId);
+    $('#orderIdInput_' + productId).val(orderId);
+    $('#cancelModal_' + productId).modal('show');
+  }
+
+  // FUNCTION FOR POST CANCELLATION REASON
+  function submitCancellation(event, orderId, productId) {
+    event.preventDefault();
+    console.log("cancellation function invoked")
+    console.log("orderId:", orderId);
+    console.log("productId:", productId);
+
+    const cancelReason = $('#cancelReason_' + productId).val();
+
+    axios.post(`/cancelOrder/${orderId}/${productId}`, { cancelReason })
+      .then(response => {
+        console.log("Cancellation successful:", response.data);
+        const statusElement = $('#orderStatus_' + productId);
+        statusElement.text("Requested for Cancellation");
+
+        $('#cancelModal_' + productId).modal('hide');
+      })
+      .catch(error => {
+        console.error(error);
+        // Handle error response
+      });
+  }
+
 </script>
 
  

@@ -24,6 +24,7 @@ router.get("/shop", userController.shopGetPage);
 router.get("/products", userController.singleProductGetPage);
 router.get("/cart",verifyToken,userController.getCart)
 router.get("/checkout",verifyToken,userController.checkoutpage)
+router.get("/products/:category",userController.getProductsByCategory)
  
 router.post("/user/send-otp", userController.signupPostPage);
 router.post('/verify-otp', userController.signupVerify)
@@ -36,6 +37,7 @@ router.post("/cart/add-to-cart",verifyToken,userController.addToCart)
 router.post("/cart/update-quantity",verifyToken,userController.updateCartQuantity)
 router.post("/add-address",verifyToken,userController.addAddress)
 router.post("/place-order",verifyToken,userController.placeOrderPost)
+router.post("/cancelOrder/:orderId/:productId",verifyToken,userController.orderCancelRequestPost)
 
 router.delete("/cart/:productId",verifyToken,userController.removeProductCart)
 

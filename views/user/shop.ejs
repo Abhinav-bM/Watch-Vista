@@ -266,8 +266,8 @@
         <div class="container-fluid">
             <nav aria-label="breadcrumb" class="mb-40">
                 <ol class="breadcrumb p-0 m-0">
-                    <li class="breadcrumb-item"><a href="i">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Shop</li>
+                    <!-- <li class="breadcrumb-item"><a href="i">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Shop</li> -->
                 </ol>
             </nav>
             <div class="shop-wrapper">
@@ -313,7 +313,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-12 d-flex justify-content-end position-static">
-                                    <div class="sorting d-inline-block">
+                                    <!-- <div class="sorting d-inline-block">
                                         <select name="sort" id="shop-sort">
                                             <option value="default">Default sorting</option>
                                             <option value="default">Short by popularity</option>
@@ -322,7 +322,7 @@
                                             <option value="default">Sort by price: low to high</option>
                                             <option value="default">Sort by price: high to low</option>
                                         </select>
-                                    </div>
+                                    </div> -->
                                     <div class="filter">
                                         <h6 class="d-inline-block filter-widget-toggle">Filter</h6>
                                         <div class="filter-popup ">
@@ -388,17 +388,11 @@
                                                     <div class="widget">
                                                         <h4 class="mb-30">Popular Tags</h4>
                                                         <div class="category-list">
-                                                            <ul>
-                                                                <li><a href="">Men</a></li>
-                                                                <li><a href="">Women</a></li>
-                                                                <li><a href="">Kids</a></li>
-                                                                <li><a href="">Analog-Watch</a></li>
-                                                                <li><a href="">Smart-Watch</a></li>
-                                                                <li><a href="">Digital-Watch</a></li>
-                                                                <li><a href=""></a></li>
-                                                                <li><a href=""></a></li>
-                                                                <li><a href=""></a></li>
-                                                            </ul>
+                                                            <% allCategories.forEach(category => { %>
+                                                                <ul>
+                                                                    <li><a href="" onclick="getProductsByCategory('<%= category %>',event)"><%= category %></a></li>
+                                                                </ul>
+                                                            <% }) %>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -506,8 +500,9 @@
 
                                 <div class="tab-pane fade  show active" id="shop-tab-3">
                                     <div class="product-wrapper mt-55">
-                                        <div class="row">
+                                        <div class="row" id="productDisplay">
 <!------------------------------------------------------------------------------------------------------------------------------------------>  
+                                             
                                             <!-- Initial product list div -->
                                             <% products.forEach(prod=>{ %>
                                                 <% prod.products.forEach(product=>{ %>
@@ -536,10 +531,7 @@
                                                     </div>
                                                 <% }); %>
                                             <% }); %>  
-                                         
 <!------------------------------------------------------------------------------------------------------------------------------------------>  
-                                                          
-                                                   
                                         </div>
                                         <div class="text-center mt-20">
                                             <a href="shop.html" class="load-more">LOAD MORE...</a>
@@ -550,282 +542,22 @@
                                     <div class="product-wrapper mt-55">
                                         <div class="product-box mb-40">
                                             <div class="product-box-wrapper">
-                                                <div class="list-product mb-50">
-                                                    <div class="list-product-wrapper">
-                                                        <div class="row">
-                                                            <div class="col-xl-4 col-lg-4 col-md-4">
-                                                                <div class="list-product-img">
-                                                                    <div class="product-img">
-                                                                        <img src="/img/product/8.jpg" class="w-100"
-                                                                            alt="">
-                                                                        <a href="/singleProduct" class="d-block">
-                                                                            <div class="second-img">
-                                                                                <img src="/img/product/8-hover.jpg"
-                                                                                    alt="" class="w-100">
-                                                                            </div>
-                                                                        </a>
-                                                                        <a href="javascript:void(0)"
-                                                                            class="product-img-link quick-view-1 text-capitalize">Quick
-                                                                            view</a>
-                                                                        <span
-                                                                            class="sale bg-red text-white">sale!</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-8 col-lg-8 col-md-8">
-                                                                <div class="list-product-desc">
-                                                                    <h3><a href="/singleProduct" class="title mb-15">Blandit vel eros condimentum ulla</a></h3>
-                                                                    <div class="rating">
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star"></i>
-                                                                    </div>
-                                                                    <div class="price"><span>$90.00</span></div>
-                                                                    <div class="desc">
-                                                                        <p>Typi non habent claritatem insitam, est usus
-                                                                            legentis in iis qui facit eorum claritatem.
-                                                                            Investigationes demonstraverunt lectores legere
-                                                                            me lius quod ii legunt saepius. Claritas est
-                                                                            etiam processus A Capitalize on low hanging
-                                                                            fruit to identify a ballpark value added
-                                                                            activity to beta test. Override the digital
-                                                                            divide with additional clickthroughs from DevOps
-                                                                            […]</p>
-                                                                        <ul>
-                                                                            <li>– Light green crewneck sweatshirt.</li>
-                                                                            <li>– Hand pockets.</li>
-                                                                            <li>– Relaxed fit.</li>
-                                                                        </ul>
-                                                                        <a href="cart.html"
-                                                                            class="list-add-cart-btn text-capitalize mt-40">+add
-                                                                            to cart</a>
-                                                                        <a href="wishlist.html" data-toggle="tooltip"
-                                                                            data-placement="top"
-                                                                            title="wishlist"><span><i
-                                                                                    class="fal fa-heart"></i></span></a>
-                                                                        <a href="javascript:void(0)" data-toggle="tooltip"
-                                                                            data-placement="top"
-                                                                            title="compare"><span><i
-                                                                                    class="fal fa-abacus"></i></span></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /. list product -->
+                                              
                                             </div>
                                         </div>
                                         <div class="product-box mb-40">
                                             <div class="product-box-wrapper">
-                                                <div class="list-product mb-50">
-                                                    <div class="list-product-wrapper">
-                                                        <div class="row">
-                                                            <div class="col-xl-4 col-lg-4 col-md-4">
-                                                                <div class="list-product-img">
-                                                                    <div class="product-img">
-                                                                        <img src="/img/product/9.jpg" class="w-100"
-                                                                            alt="">
-                                                                        <a href="/singleProduct" class="d-block">
-                                                                            <div class="second-img">
-                                                                                <img src="/img/product/9-hover.jpg"
-                                                                                    alt="" class="w-100">
-                                                                            </div>
-                                                                        </a>
-                                                                        <a href="javascript:void(0)"
-                                                                            class="product-img-link quick-view-1 text-capitalize">Quick
-                                                                            view</a>
-                                                                        <span
-                                                                            class="sale bg-red text-white">sale!</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-8 col-lg-8 col-md-8">
-                                                                <div class="list-product-desc">
-                                                                    <h3><a href="/singleProduct" class="title mb-15">Blossom Porcelain Side Plates</a></h3>
-                                                                    <div class="rating">
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star"></i>
-                                                                    </div>
-                                                                    <div class="price"><span class="red-color">$399</span><del>$499</del></div>
-                                                                    <div class="desc">
-                                                                        <p>Typi non habent claritatem insitam, est usus
-                                                                            legentis in iis qui facit eorum claritatem.
-                                                                            Investigationes demonstraverunt lectores legere
-                                                                            me lius quod ii legunt saepius. Claritas est
-                                                                            etiam processus A Capitalize on low hanging
-                                                                            fruit to identify a ballpark value added
-                                                                            activity to beta test. Override the digital
-                                                                            divide with additional clickthroughs from DevOps
-                                                                            […]</p>
-                                                                        <ul>
-                                                                            <li>– Light green crewneck sweatshirt.</li>
-                                                                            <li>– Hand pockets.</li>
-                                                                            <li>– Relaxed fit.</li>
-                                                                        </ul>
-                                                                        <a href="cart.html"
-                                                                            class="list-add-cart-btn text-capitalize mt-40">+add
-                                                                            to cart</a>
-                                                                        <a href="wishlist.html" data-toggle="tooltip"
-                                                                            data-placement="top"
-                                                                            title="wishlist"><span><i
-                                                                                    class="fal fa-heart"></i></span></a>
-                                                                        <a href="javascript:void(0)" data-toggle="tooltip"
-                                                                            data-placement="top"
-                                                                            title="compare"><span><i
-                                                                                    class="fal fa-abacus"></i></span></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /. list product -->
+                                               
                                             </div>
                                         </div>
                                         <div class="product-box mb-40">
                                             <div class="product-box-wrapper">
-                                                <div class="list-product mb-50">
-                                                    <div class="list-product-wrapper">
-                                                        <div class="row">
-                                                            <div class="col-xl-4 col-lg-4 col-md-4">
-                                                                <div class="list-product-img">
-                                                                    <div class="product-img">
-                                                                        <img src="/img/product/farniture-1.jpg" class="w-100"
-                                                                            alt="">
-                                                                        <a href="/singleProduct" class="d-block">
-                                                                            <div class="second-img">
-                                                                                <img src="/img/product/farniture-1-hover.jpg"
-                                                                                    alt="" class="w-100">
-                                                                            </div>
-                                                                        </a>
-                                                                        <a href="javascript:void(0)"
-                                                                            class="product-img-link quick-view-1 text-capitalize">Quick
-                                                                            view</a>
-                                                                        <span
-                                                                            class="sale bg-red text-white">sale!</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-8 col-lg-8 col-md-8">
-                                                                <div class="list-product-desc">
-                                                                    <h3><a href="/singleProduct" class="title mb-15">Blossom Porcelain Side Platess</a></h3>
-                                                                    <div class="rating">
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star"></i>
-                                                                    </div>
-                                                                    <div class="price"><span class="red-color">$399</span><del>$499</del></div>
-                                                                    <div class="desc">
-                                                                        <p>Typi non habent claritatem insitam, est usus
-                                                                            legentis in iis qui facit eorum claritatem.
-                                                                            Investigationes demonstraverunt lectores legere
-                                                                            me lius quod ii legunt saepius. Claritas est
-                                                                            etiam processus A Capitalize on low hanging
-                                                                            fruit to identify a ballpark value added
-                                                                            activity to beta test. Override the digital
-                                                                            divide with additional clickthroughs from DevOps
-                                                                            […]</p>
-                                                                        <ul>
-                                                                            <li>– Light green crewneck sweatshirt.</li>
-                                                                            <li>– Hand pockets.</li>
-                                                                            <li>– Relaxed fit.</li>
-                                                                        </ul>
-                                                                        <a href="cart.html"
-                                                                            class="list-add-cart-btn text-capitalize mt-40">+add
-                                                                            to cart</a>
-                                                                        <a href="wishlist.html" data-toggle="tooltip"
-                                                                            data-placement="top"
-                                                                            title="wishlist"><span><i
-                                                                                    class="fal fa-heart"></i></span></a>
-                                                                        <a href="javascript:void(0)" data-toggle="tooltip"
-                                                                            data-placement="top"
-                                                                            title="compare"><span><i
-                                                                                    class="fal fa-abacus"></i></span></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /. list product -->
+                                                
                                             </div>
                                         </div>
                                         <div class="product-box mb-40">
                                             <div class="product-box-wrapper">
-                                                <div class="list-product mb-50">
-                                                    <div class="list-product-wrapper">
-                                                        <div class="row">
-                                                            <div class="col-xl-4 col-lg-4 col-md-4">
-                                                                <div class="list-product-img">
-                                                                    <div class="product-img">
-                                                                        <img src="/img/product/farniture-2.jpg" class="w-100"
-                                                                            alt="">
-                                                                        <a href="/singleProduct" class="d-block">
-                                                                            <div class="second-img">
-                                                                                <img src="/img/product/farniture-2-hover.jpg"
-                                                                                    alt="" class="w-100">
-                                                                            </div>
-                                                                        </a>
-                                                                        <a href="javascript:void(0)"
-                                                                            class="product-img-link quick-view-1 text-capitalize">Quick
-                                                                            view</a>
-                                                                        <span
-                                                                            class="sale bg-red text-white">sale!</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-xl-8 col-lg-8 col-md-8">
-                                                                <div class="list-product-desc">
-                                                                    <h3><a href="/singleProduct" class="title mb-15">Blandit vel eros condimentum ulla</a></h3>
-                                                                    <div class="rating">
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star active"></i>
-                                                                        <i class="fal fa-star"></i>
-                                                                    </div>
-                                                                    <div class="price"><span>$90.00</span></div>
-                                                                    <div class="desc">
-                                                                        <p>Typi non habent claritatem insitam, est usus
-                                                                            legentis in iis qui facit eorum claritatem.
-                                                                            Investigationes demonstraverunt lectores legere
-                                                                            me lius quod ii legunt saepius. Claritas est
-                                                                            etiam processus A Capitalize on low hanging
-                                                                            fruit to identify a ballpark value added
-                                                                            activity to beta test. Override the digital
-                                                                            divide with additional clickthroughs from DevOps
-                                                                            […]</p>
-                                                                        <ul>
-                                                                            <li>– Light green crewneck sweatshirt.</li>
-                                                                            <li>– Hand pockets.</li>
-                                                                            <li>– Relaxed fit.</li>
-                                                                        </ul>
-                                                                        <a href="cart.html"
-                                                                            class="list-add-cart-btn text-capitalize mt-40">+add
-                                                                            to cart</a>
-                                                                        <a href="wishlist.html" data-toggle="tooltip"
-                                                                            data-placement="top"
-                                                                            title="wishlist"><span><i
-                                                                                    class="fal fa-heart"></i></span></a>
-                                                                        <a href="javascript:void(0)" data-toggle="tooltip"
-                                                                            data-placement="top"
-                                                                            title="compare"><span><i
-                                                                                    class="fal fa-abacus"></i></span></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /. list product -->
+
                                             </div>
                                         </div>
                                         <!-- /. product box -->
@@ -844,68 +576,57 @@
         </div>
     </div>
 
-    <!-------------ADDED TO CART-------------->
-    <div id="toastNotification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="500">
-        <div class="toast-body">
-            Product added to cart!
-        </div>
-    </div>
+
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const productList = document.getElementById("productList");
-            const products = JSON.parse(productList.getAttribute("data-products"));
-    
-            const categoryLinks = document.querySelectorAll(".category-link");
-    
-            categoryLinks.forEach(link => {
-                link.addEventListener("click", (e) => {
-                    e.preventDefault();
-    
-                    const selectedCategory = e.target.dataset.category;
-    
-                    const filteredProducts = products.filter(product => product.productCategory === selectedCategory);
-    
-                    updateProductListing(filteredProducts);
-                });
+        // Function to fetch products by category
+        function getProductsByCategory(category, event) {
+            event.preventDefault(); // Prevent default behavior of anchor tag
+            console.log("function called")
+          axios.get(`/products/${category}`)
+            .then(response => {
+                console.log(response)
+              displayProducts(response.data.filteredProducts);
+            })
+            .catch(error => {
+              console.error(error);
             });
-    
-            function updateProductListing(products) {
-                const productListDiv = document.getElementById("productList");
-                productListDiv.innerHTML = "";
-    
-                products.forEach(product => {
-                    const productDiv = document.createElement("div");
-                    productDiv.classList.add("col-xl-3", "col-lg-3", "col-md-4", "col-sm-6", "col-12");
-                    productDiv.innerHTML = `
-                        <div class="product-box mb-40">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="${product.productImages[0]}" class="w-100" alt="${product.productName}">
-                                </div>
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="#" class="product-category category-link" data-category="${product.productCategory}">
-                                                <span>${product.productCategory}</span>
-                                            </a>
-                                        </div>
-                                        <a href="#" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="#" class="product-title">${product.productName}</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">₹ ${product.productPrice}</span>
-                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
+        }
+      
+        // Function to display products on the page
+        function displayProducts(products) {
+          const productDisplay = document.getElementById('productDisplay');
+          productDisplay.innerHTML = ''; // Clear existing products
+      
+          products.forEach(product => {
+            const productHTML = `
+              <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="product-box mb-40">
+                  <div class="product-box-wrapper">
+                    <div class="product-img">
+                      <img src="${product.productImages[0]}" class="w-100" alt="${product.productName}">
+                    </div>
+                    <div class="product-desc pb-20">
+                      <div class="product-desc-top">
+                        <div class="categories">
+                          <a href="/products?productId=${product._id}" class="product-category"><span>${product.productCategory}</span></a>
                         </div>
-                    `;
-                    productListDiv.appendChild(productDiv);
-                });
-            }
-        });
-    </script>
+                        <a href="" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
+                      </div>
+                      <a href="/products?productId=${product._id}" class="product-title">${product.productName}</a>
+                      <div class="price-switcher">
+                        <span class="price switcher-item">₹ ${product.productPrice}</span>
+                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+            productDisplay.innerHTML += productHTML;
+          });
+        }
+      </script>
 
 
     <!-- footer section start -->

@@ -370,50 +370,50 @@ let vendorLogout = (req, res) => {
 
 // VENDOR ORDER DISPLAY
 let getOrdersForVendor = async (req, res) => {
+  const vendorId = req.user.id;
   try {
-    // Find the user based on the vendorId (req.user.id)
-    const user = await User.findOne({
-      "orders.products.sellerId": req.user.id,
-    });
-    if (!user) {
-      return res.status(404).json({ message: "Vendor not found" });
-    }
+    const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
+      "products"
+    );
+    const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
 
-    // Group orders by sellerId for this vendor
-    const ordersByVendor = {};
-    user.orders.forEach((order) => {
-      order.products.forEach((product) => {
+    const vendorOrders = [];
 
-        const sellerId = product.sellerId;
-        if (sellerId === req.user.id) {
-          if (!ordersByVendor[sellerId]) {
-            ordersByVendor[sellerId] = [];
+    usersWithOrders.forEach((user) => {
+      user.orders.forEach((order) => {
+        order.products.forEach((product) => {
+          if (product.productId) {
+            const matchingProduct = vendorProducts.products.find(
+              (vendorProduct) => vendorProduct._id.equals(product.productId)
+            );
+
+            if (matchingProduct) {
+              const vendorOrder = {
+                userId: user._id,
+                orderId: order.orderId,
+                productName: matchingProduct.productName,
+                color: matchingProduct.productColor,
+                size: matchingProduct.productSize,
+                productId : product.productId,
+                quantity: product.qty,
+                price: product.price,
+                orderStatus: product.orderStatus,
+                totalAmount: order.totalAmount,
+                orderDate: order.orderDate,
+                expectedDeliveryDate: order.expectedDeliveryDate,
+                shippingAddress: order.shippingAddress,
+                paymentMethod: order.paymentMethod,
+                cancelReason :product.cancelReason,
+              };
+              vendorOrders.push(vendorOrder);
+            }
           }
-          ordersByVendor[sellerId].push({
-            orderId: order.orderId,
-            productName: product.productName,
-            quantity: product.quantity,
-            price: product.price,
-            color: product.color,
-            status: order.orderStatus,  
-            address: `${order.shippingAddress.name}, ${order.shippingAddress.address}, ${order.shippingAddress.district}, ${order.shippingAddress.state} ${order.shippingAddress.zip},`,
-          });
-        }
+        });
       });
     });
 
-    // Fetch vendor details for this vendor
-    const vendorDetails = await Vendor.findOne({ _id: req.user.id });
-    const vendorName = vendorDetails
-      ? vendorDetails.vendorName
-      : "Unknown Vendor";
-
-    // Pass data to the EJS view
-    res.render("vendor/order-list", {
-      title: "Vendor Orders",
-      vendorName: vendorName,
-      ordersByVendor: ordersByVendor[req.user.id] || [],
-    });
+    console.log( "cancelreasonv",vendorOrders);
+    res.render("vendor/order-list", { vendorOrders });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -422,22 +422,35 @@ let getOrdersForVendor = async (req, res) => {
 
 // ORDER STATUS UPDATE
 let updateOrderStatus = async (req, res) => {
-  const { orderId } = req.params;
+  const { orderId, productId } = req.params;
   const { status } = req.body;
 
-  console.log("sfhkdf: ",orderId , status)
+  console.log(orderId, productId, status);
 
   try {
-    // Find the order by orderId and update the status
-    const user = await User.findOneAndUpdate(
-      { "orders.orderId": orderId },
-      { $set: { "orders.$.orderStatus": status } },
-      { new: true }
-    );
+    const user = await User.findOne({
+      orders: { $elemMatch: { orderId: orderId } },
+    });
 
     if (!user) {
-      return res.status(404).json({ message: "Order not found" });
+      return res.status(404).json({ message: "User or order not found" });
     }
+
+    const order = user.orders.find((order) => order.orderId === orderId);
+
+    const product = order.products.find(
+      (prod) => prod.productId.toString() === productId
+    );
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ message: "Product not found in the order" });
+    }
+
+    product.orderStatus = status;
+
+    await user.save();
 
     res.status(200).json({ message: "Order status updated successfully" });
   } catch (error) {

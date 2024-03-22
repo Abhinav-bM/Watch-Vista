@@ -42,6 +42,7 @@ const orderSchema = new mongoose.Schema(
           type: String,
           default: "Pending",
         },
+        cancelReason: { type: String }, // New field for cancellation reason
       },
     ],
     totalAmount: { type: Number },

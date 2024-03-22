@@ -356,45 +356,46 @@
                                             <th>Item</th>
                                             <th>Quantity</th>
                                             <th>Price</th>
-                                            <!-- <th>color</th> -->
+                                            <th>color</th>
                                             <th>Status</th>
                                             <th>View Details</th>
                                           </tr>
                                         </thead>
                                         <tbody>
-                                          <% ordersByVendor.forEach((order) => { %>
+                                          <% vendorOrders.forEach((order, index) => { %>
                                             <tr>
                                               <td><%= order.orderId %></td>
                                               <td><%= order.productName %></td>
                                               <td><%= order.quantity %></td>
                                               <td><%= order.price %></td>
-                                              <!-- <td><%= order.color %></td> -->
+                                              <td><%= order.color %></td>
+
                                               <td>
-                                                
-                                                <!-- <span class="badge bg-warning"><%= order.status %></span> -->
-                                                <form action="/vendor/updateOrderStatus/<%= order.orderId %>" method="POST">
-                                                    <select name="status" class="form-select" onchange="this.form.submit()">
+                                                <form id="updateOrderForm-<%= order.orderId %>-<%= index %>" method="POST">
+                                                    <select name="status" class="form-select" onchange="updateOrderStatus(event, '<%= order.orderId %>', '<%= order.productId %>', '<%= index %>')">
                                                       <option value="Pending" <%= order.orderStatus === "Pending" ? "selected" : "" %>>Pending</option>
                                                       <option value="Processing" <%= order.orderStatus === "Processing" ? "selected" : "" %>>Processing</option>
                                                       <option value="Shipped" <%= order.orderStatus === "Shipped" ? "selected" : "" %>>Shipped</option>
                                                       <option value="Delivered" <%= order.orderStatus === "Delivered" ? "selected" : "" %>>Delivered</option>
+                                                      <option value="Requested for Cancel" <%= order.orderStatus === "Requested for Cancellation" ? "selected" : "" %>>Requested for Cancellation</option>
                                                       <option value="Cancelled" <%= order.orderStatus === "Cancelled" ? "selected" : "" %>>Cancelled</option>
                                                     </select>
-                                                  </form>
-                                              </td>
+                                                </form>
+                                            </td>
+
                                               <td>
                                                 <!-- Eye icon button to view details -->
-                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal<%= order.orderId %>">
+                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal<%= order.orderId %>-<%= order.productId %>">
                                                   <i class="fas fa-eye"></i> View
                                                 </button>
                                               </td>
                                             </tr>
                                             <!-- Modal for order details -->
-                                            <div class="modal fade" id="orderModal<%= order.orderId %>" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="orderModal<%= order.orderId %>-<%= order.productId %>" tabindex="-1" aria-labelledby="orderModalLabel<%= order.orderId %>-<%= order.productId %>" aria-hidden="true">
                                               <div class="modal-dialog modal-dialog-centered">
                                                 <div class="modal-content">
                                                   <div class="modal-header">
-                                                    <h5 class="modal-title" id="orderModalLabel">Order Details - <%= order.orderId %></h5>
+                                                    <h5 class="modal-title" id="orderModalLabel<%= order.orderId %>-<%= order.productId %>">Order Details</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                   </div>
                                                   <div class="modal-body">
@@ -403,9 +404,13 @@
                                                     <p><strong>Item:</strong> <%= order.productName %></p>
                                                     <p><strong>Quantity:</strong> <%= order.quantity %></p>
                                                     <p><strong>Price:</strong> <%= order.price %></p>
-                                                    <p><strong>Status:</strong> <%= order.status %></p>
-                                                    <p><strong>Shipping Address:</strong> <%= order.address %></p>
+                                                    <p><strong>Total:</strong> <%= order.quantity * order.price %></p>
+                                                    <p><strong>Status:</strong> <%= order.orderStatus %></p>
+                                                    <p><strong>Shipping Address:</strong> <%= order.shippingAddress.name %>, <%= order.shippingAddress.address %> <%= order.shippingAddress.district %>, <%= order.shippingAddress.state %>, <%= order.shippingAddress.zip %>, <%= order.shippingAddress.phone %>, </p>
                                                     <!-- Add more order details as needed -->
+                                                    <% if (order.orderStatus === "Requested for Cancellation") { %>
+                                                        <p><strong>Cancellation Reason:</strong> <%= order.cancelReason %></p>
+                                                    <% } %>
                                                   </div>
                                                 </div>
                                               </div>
@@ -575,6 +580,29 @@
 
     <!-- Plugin Js -->
     <script src="/vendor/assets/bundles/dataTables.bundle.js"></script>  
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        function updateOrderStatus(event, orderId, productId, index) {
+            event.preventDefault(); // Prevent default form submission
+            console.log(orderId, productId);
+
+            const form = document.querySelector(`#updateOrderForm-${orderId}-${index}`);
+            const status = form.querySelector('select[name="status"]').value;
+
+            axios.post(`/vendor/updateOrderStatus/${orderId}/${productId}`, { status })
+                .then(response => {
+                    // Handle success response, if needed
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    // Handle error response, if needed
+                    console.error(error);
+                });
+        }
+      
+    </script>
 
     <!-- Jquery Page Js -->
     <script src="../js/template.js"></script>
