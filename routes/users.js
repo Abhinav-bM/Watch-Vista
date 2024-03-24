@@ -25,6 +25,7 @@ router.get("/products", userController.singleProductGetPage);
 router.get("/cart",verifyToken,userController.getCart)
 router.get("/checkout",verifyToken,userController.checkoutpage)
 router.get("/products/:category",userController.getProductsByCategory)
+router.get("/buyNow/checkout/:productId",verifyToken,userController.buyNowCheckOut)
  
 router.post("/user/send-otp", userController.signupPostPage);
 router.post('/verify-otp', userController.signupVerify)

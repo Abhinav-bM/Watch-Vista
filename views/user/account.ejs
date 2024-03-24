@@ -404,7 +404,7 @@
                                   <img src="<%= prod.images[0] %>" alt="" width="150px">
 
                                   <div class="mt-5">
-                                    <% if (prod.orderStatus !== 'Requested for Cancellation') { %>
+                                    <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled') { %>
                                       <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')">Cancel Order</button>
                                     <% } else { %>
                                       <button class="rounded" disabled>Cancel Order</button>

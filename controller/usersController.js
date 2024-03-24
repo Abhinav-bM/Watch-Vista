@@ -1,6 +1,6 @@
 const User = require("../models/usersModel");
 const Vendor = require("../models/vendorsModel");
-const Admin = require("../models/adminModel")
+const Admin = require("../models/adminModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const smsService = require("../helpers/smsService");
@@ -485,8 +485,8 @@ let shopGetPage = async (req, res) => {
     const admin = await Admin.findOne({}); // Assuming there's only one admin for simplicity
     const allCategories = [];
 
-    admin.categories.forEach(category => {
-        allCategories.push(category.categoryName);
+    admin.categories.forEach((category) => {
+      allCategories.push(category.categoryName);
     });
     res.status(200).render("user/shop", { products, allCategories });
   } catch (error) {
@@ -496,25 +496,26 @@ let shopGetPage = async (req, res) => {
 };
 
 // PRDUCTS BASED ON CATEGORY
-let getProductsByCategory = async (req,res)=>{
+let getProductsByCategory = async (req, res) => {
   const { category } = req.params;
-  console.log(category)
+  console.log(category);
   try {
     let vendorProducts = await Vendor.find().select("products");
 
-    let allProducts = vendorProducts.map(vendor => vendor.products).flat();
+    let allProducts = vendorProducts.map((vendor) => vendor.products).flat();
 
-    let filteredProducts = allProducts.filter(product => product.productCategory === category);
+    let filteredProducts = allProducts.filter(
+      (product) => product.productCategory === category
+    );
 
     console.log(filteredProducts);
 
-    res.status(200).json({message:"product filtered",filteredProducts});
+    res.status(200).json({ message: "product filtered", filteredProducts });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: "Internal server error" });
   }
-}
-
+};
 
 // DISPLAY SINGLE PRODUCT PAGE
 let singleProductGetPage = async (req, res) => {
@@ -588,7 +589,6 @@ let getCart = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Get all products from Vendor schema
     const allProducts = await Vendor.find({}).populate("products");
     let cart = [];
 
@@ -842,6 +842,64 @@ let checkoutpage = async (req, res) => {
   }
 };
 
+// BUY NOW TO CHECKOUTPAGE
+let buyNowCheckOut = async (req, res) => {
+  const userId = req.user.id;
+  const { productId } = req.params;
+
+  try {
+    const user = await User.findById({ _id: userId });
+    const addresses = user.addresses;
+
+    ///////////////////////////////////
+    const allProducts = await Vendor.find({}).populate("products");
+    let cart = [];
+
+
+      // Find the product in allProducts
+      allProducts.forEach((vendor) => {
+        vendor.products.forEach((product) => {
+          if (product._id.equals(productId)) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            console.log(product.productSubCategory);
+
+            const productDetails = {
+              _id: product._id,
+              name: product.productName,
+              category: product.productCategory,
+              subcategory: product.productSubCategory,
+              brand: product.productBrand,
+              color: product.productColor,
+              size: product.productSize,
+              quantity: 1,
+              price: product.productPrice,
+              mrp: product.productMRP,
+              discount: product.productDiscount,
+              images: product.productImages,
+              description: product.productDescription,
+              vendor: vendorInfo,
+            };
+
+            cart.push(productDetails);
+          }
+        });
+      });
+  
+    //////////////////////////////////////////////
+    let totalPrice = 0;
+    cart.forEach((prod) => (totalPrice += prod.price * prod.quantity));
+
+    res.status(200).render("user/checkout", { addresses, cart, totalPrice });
+  } catch (error) {
+    console.error("Error on checkout page display :", error);
+    res.status(500).json({ message: "An error occured" });
+  }
+};
+
 // ADD ADDRESS
 let addAddress = async (req, res) => {
   const { name, address, district, state, zip, email, phone } = req.body;
@@ -986,7 +1044,7 @@ let placeOrderPost = async (req, res) => {
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
   const userId = req.user.id;
-  
+
   try {
     const user = await User.findById(userId).populate("orders");
 
@@ -999,7 +1057,9 @@ let userProfile = async (req, res) => {
 
         // Find the product and its vendor in allVendors
         allVendors.forEach((vendor) => {
-          const foundProduct = vendor.products.find((p) => p._id.equals(productId));
+          const foundProduct = vendor.products.find((p) =>
+            p._id.equals(productId)
+          );
 
           if (foundProduct) {
             const vendorInfo = {
@@ -1026,8 +1086,8 @@ let userProfile = async (req, res) => {
               shippingAddress: order.shippingAddress,
               paymentMethod: order.paymentMethod,
               totalAmount: order.totalAmount,
-              expectedDeliveryDate : order.expectedDeliveryDate,
-              orderStatus:product.orderStatus
+              expectedDeliveryDate: order.expectedDeliveryDate,
+              orderStatus: product.orderStatus,
             };
 
             cart.push(productDetails);
@@ -1036,7 +1096,7 @@ let userProfile = async (req, res) => {
       });
     });
 
-    console.log(cart)
+    console.log(cart);
 
     res.status(200).render("user/account", { user, cart });
   } catch (error) {
@@ -1045,14 +1105,14 @@ let userProfile = async (req, res) => {
   }
 };
 
-// ORDER CANCELLATION REQUEST POST 
-let orderCancelRequestPost = async (req, res)=>{
+// ORDER CANCELLATION REQUEST POST
+let orderCancelRequestPost = async (req, res) => {
   const { orderId, productId } = req.params;
   const { cancelReason } = req.body;
   const userId = req.user.id;
-  console.log("cancelOrderId :",orderId)
-  console.log("cancelProductId :",productId)
-  console.log("cancelUserId :",userId)
+  console.log("cancelOrderId :", orderId);
+  console.log("cancelProductId :", productId);
+  console.log("cancelUserId :", userId);
 
   try {
     // Find the user
@@ -1062,15 +1122,19 @@ let orderCancelRequestPost = async (req, res)=>{
     }
 
     // Find the order in the user's orders
-    const order = user.orders.find(order => order.orderId === orderId);
+    const order = user.orders.find((order) => order.orderId === orderId);
     if (!order) {
       return res.status(404).json({ message: "Order not found" });
     }
 
     // Find the product in the order
-    const product = order.products.find(prod => prod.productId.toString() === productId);
+    const product = order.products.find(
+      (prod) => prod.productId.toString() === productId
+    );
     if (!product) {
-      return res.status(404).json({ message: "Product not found in the order" });
+      return res
+        .status(404)
+        .json({ message: "Product not found in the order" });
     }
 
     // Update the order status and set the cancellation reason
@@ -1085,7 +1149,7 @@ let orderCancelRequestPost = async (req, res)=>{
     console.error(error);
     res.status(500).json({ message: "Server Error" });
   }
-}
+};
 
 module.exports = {
   homePage,
@@ -1115,5 +1179,6 @@ module.exports = {
   checkoutpage,
   addAddress,
   placeOrderPost,
+  buyNowCheckOut,
   orderCancelRequestPost,
 };
