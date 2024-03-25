@@ -207,29 +207,30 @@
                                             <div class="myaccount-content">
                                                 <h3>Addresses</h3>
                                                 <div class="p-1" >
-                                                    <!-- Checkbox for Delivery Address -->
-                                                    <% addresses.forEach(address => { %>
-                                                    <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
-                                                        <div>
-                                                            <p class="m-0"><strong><%= address.name %></strong></p>
-                                                            <p class="m-0"><strong><%= address.address %></strong></p>
-                                                            <p class="m-0"><strong><%= address.district %>, <%= address.state %>, <%= address.zip %></strong></p>
-                                                            <p class="m-0"><strong><%= address.email %></strong></p>
-                                                            <p class="m-0"><strong><%= address.phone %> </strong></p>
-                                                        </div>
+                                                    <div id="addressList">
+                                                        <!-- Checkbox for Delivery Address -->
+                                                        <% addresses.forEach(address => { %>
+                                                        <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
+                                                            <div>
+                                                                <p class="m-0"><strong><%= address.name %></strong></p>
+                                                                <p class="m-0"><strong><%= address.address %></strong></p>
+                                                                <p class="m-0"><strong><%= address.district %>, <%= address.state %>, <%= address.zip %></strong></p>
+                                                                <p class="m-0"><strong><%= address.email %></strong></p>
+                                                                <p class="m-0"><strong><%= address.phone %> </strong></p>
+                                                            </div>
 
-                                                        <!-- Edit and Delete Buttons -->
-                                                        <div class="mt-3 ">
-                                                            <button type="button" class="btn btn-sm border" data-toggle="modal" data-target="#editAddressModal_<%= address._id %>">
-                                                                <i class="fas fa-edit"></i>
-                                                            </button>
-                                                            <button type="button" class="btn btn-sm border ml-2" data-toggle="modal" data-target="#deleteAddressModal_<%= address._id %>">
-                                                                <i class="fas fa-trash"></i> 
-                                                            </button>
+                                                            <!-- Edit and Delete Buttons -->
+                                                            <div class="mt-3 ">
+                                                                <button type="button" class="btn btn-sm border" data-toggle="modal" data-target="#editAddressModal_<%= address._id %>">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-sm border ml-2" data-toggle="modal" data-target="#deleteAddressModal_<%= address._id %>">
+                                                                    <i class="fas fa-trash"></i> 
+                                                                </button>
+                                                            </div>
                                                         </div>
+                                                        <% }) %>
                                                     </div>
-                                                    <% }) %>
-                                
                                                     <!-- Button trigger modal -->
                                                     <button type="button" class="" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: 150px; border-radius: 5px;" >
                                                         Add new address
@@ -247,7 +248,7 @@
                                                             </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form id="addressForm" class="row g-3 needs-validation" novalidate>
+                                                                <form id="addressForm" class="row g-3" novalidate>
                                                                     <div class="col-md-6">
                                                                         <label for="name" class="form-label">Name</label>
                                                                         <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -297,7 +298,7 @@
                                                                             Please provide a valid phone number.
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-12">
+                                                                    <div class="col-12 pt-2">
                                                                         <button type="button" id="submitAddressBtn" class="btn btn-primary">Submit</button>
                                                                     </div>
                                                                 </form>
@@ -307,7 +308,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+                                                <!-- address modal ends here -->
                                             </div>
                                         </div>
 
@@ -317,13 +318,13 @@
 
                                                 <form action="" class="form-control">
                                                     <label for="" class="">Name</label><br>
-                                                    <input type="text" class="col-8"><br>
+                                                    <input type="text" class="col-8" value="<%= user.name %>"><br>
 
                                                     <label for="" class="">Email</label><br>
-                                                    <input type="text" class="col-8"><br>
+                                                    <input type="text" class="col-8" value="<%= user.email %>"><br>
 
                                                     <label for="" class="">Phone</label><br>
-                                                    <input type="text" class="col-8"><br>
+                                                    <input type="text" class="col-8" value="<%= user.phoneNumber %>"><br>
 
                                                 </form>
                                                 
@@ -527,65 +528,16 @@
         });
     }
 
-    // // Example starter JavaScript for disabling form submissions if there are invalid fields
-    // (function () {
-    //     'use strict'
-
-    //     // Fetch the form element
-    //     var form = document.getElementById('addressForm');
-
-    //     // Submit button
-    //     var submitBtn = document.getElementById('submitAddressBtn');
-
-    //     // Button click event listener
-    //     submitBtn.addEventListener('click', function (event) {
-    //         // Check if form is valid
-    //         if (form.checkValidity() === false) {
-    //             event.preventDefault();
-    //             event.stopPropagation();
-    //         }
-
-    //         // Add Bootstrap's was-validated class to show validation styles
-    //         form.classList.add('was-validated');
-    //     }, false);
-    // })();
-
-    // // FORM SUBMISSION FOR NEW ADDRESS
-    // document.getElementById("submitAddressBtn").addEventListener("click", function() {
-    //     // Get form data
-    //     const formData = {
-    //         name: document.getElementById("name").value,
-    //         address: document.getElementById("address").value,
-    //         district: document.getElementById("district").value,
-    //         state: document.getElementById("state").value,
-    //         zip: document.getElementById("zip").value,
-    //         email: document.getElementById("email").value,
-    //         phone: document.getElementById("phone").value
-    //     };
-
-    // // POST REQUESR USING AXIOS
-    // axios.post('/add-address', formData)
-    //     .then(function (response) {
-    //         console.log(response.data);
-    //         $('#exampleModal').modal('hide');
-    //     })
-    //     .catch(function (error) {
-    //         console.error('Error adding address:', error);
-    //     });
-    // });
-
-        // Submit button click event listener
-        document.getElementById("submitAddressBtn").addEventListener("click", function() {
-        // Fetch the form element
+    // ADDRESS SUBMISSION WITH VALIDATION
+    document.getElementById("submitAddressBtn").addEventListener("click", function() {
+    
         var form = document.getElementById('addressForm');
 
-        // Check if form is valid
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
             form.classList.add('was-validated');
         } else {
-            // Get form data
             const formData = {
                 name: document.getElementById("name").value,
                 address: document.getElementById("address").value,
@@ -596,16 +548,44 @@
                 phone: document.getElementById("phone").value
             };
 
-            // POST REQUEST USING AXIOS
             axios.post('/add-address', formData)
                 .then(function (response) {
                     console.log(response.data);
                     $('#exampleModal').modal('hide');
+                    // Clear the form fields and remove validation classes
+                    form.reset();
+                    form.classList.remove('was-validated');
+                    var newAddress = response.data;
+                    console.log(newAddress)
+                    var addressHtml = `
+                        <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);" >
+                            <!-- Address details -->
+                            <div>
+                                <p class="m-0"><strong>${newAddress.addedAddress.name}</strong></p>
+                                <p class="m-0"><strong>${newAddress.addedAddress.address}</strong></p>
+                                <p class="m-0"><strong>${newAddress.addedAddress.district}, ${newAddress.addedAddress.state}, ${newAddress.addedAddress.zip}</strong></p>
+                                <p class="m-0"><strong>${newAddress.addedAddress.email}</strong></p>
+                                <p class="m-0"><strong>${newAddress.addedAddress.phone}</strong></p>
+                            </div>
+                            <!-- Edit and Delete Buttons -->
+                            <div class="mt-3">
+                                <button type="button" class="btn btn-sm border" data-toggle="modal" data-target="#editAddressModal_${newAddress.addedAddress._id}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm border ml-2" data-toggle="modal" data-target="#deleteAddressModal_${newAddress.addedAddress._id}">
+                                    <i class="fas fa-trash"></i> 
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    // APPEND NEW ADDRESS TO THE ADDRESS LIST
+                    document.getElementById('addressList').insertAdjacentHTML('beforeend', addressHtml);
                 })
                 .catch(function (error) {
                     console.error('Error adding address:', error);
                 });
         }
+        
     });
 
 </script>
@@ -613,7 +593,7 @@
  
 
  
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>

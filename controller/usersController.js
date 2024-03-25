@@ -930,7 +930,9 @@ let addAddress = async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: "Address added successfully", user });
+    const addedAddress = user.addresses[user.addresses.length - 1];
+
+    res.status(200).json({ message: "Address added successfully", user,addedAddress });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
