@@ -20,6 +20,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600&amp;display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+
 
 
 <!-- ----------------------------------- -->
@@ -55,6 +57,27 @@
 
     <!--== Main Style CSS ==-->
     <link href="assets/css/style.css" rel="stylesheet" />
+
+    <style>
+      .logout-link {
+    color: inherit; /* Inherit text color from parent (button) by default */
+    text-decoration: none; /* Remove underline from anchor tag */
+    transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+/* Hover effect for the anchor tag inside the button */
+.logout-link:hover {
+    color: white; /* Change text color to white on hover */
+}
+
+/* Remove button styles to only show the anchor tag */
+.nav-link {
+    border: none; /* Remove button border */
+    background: none; /* Remove button background */
+    padding: 0; /* Remove button padding */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+    </style>
 </head>
 
 <body>
@@ -70,45 +93,43 @@
   <header class="header header-2 pt-30 pb-20  header-sticky header-static">
     <div class="container-fluid">
         <div class="header-nav header-nav-2 position-relative">
-                <div class="row align-items-center">
-
-
-                    <div class="col-xl-5 col-lg-6 hidden-md position-static">
-                        <div class="header-nav">
-                            <nav>
-                                <ul>
-                                    <li>
-                                      <a href="/">
+            <div class="row align-items-center">
+                <div class="col-xl-5 col-lg-6 hidden-md position-static">
+                    <div class="header-nav">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="/">
                                         <span>Home </span>
-                                      </a>
-                                    </li>
+                                    </a>
+                                </li>
 
-                                    <li class="position-static">
-                                      <a href="/shop">
+                                <li class="position-static">
+                                    <a href="/shop">
                                         <span>Shop</span>
-                                      </a>
-                                    </li>
+                                    </a>
+                                </li>
 
-                                    <li>
-                                      <a href="">
+                                <li>
+                                    <a href="">
                                         <span>Blog</span> 
-                                      </a>
-                                    </li>
+                                    </a>
+                                </li>
                           
-                                    <li>
-                                      <a href="">
+                                <li>
+                                    <a href="">
                                         <span>About</span>
-                                      </a>
+                                    </a>
                                      
-                                    </li>
-                                    <li>
-                                      <a href="">
+                                </li>
+                                <li>
+                                    <a href="">
                                         <span>Contact</span>
-                                      </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
                         <div class="logo">
@@ -120,168 +141,12 @@
                         <div class="header-right">
                             <ul class="text-right">
                                 <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-                                <!-- <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a> -->
-
-                                    <!-- search popup -->
-                                    <div id="search-popup">
-                                        <div class="close-search-popup">
-                                            <i class="fal fa-times"></i>
-                                        </div>
-                                        <div class="search-popup-inner mt-135">
-                                            <div class="search-title text-center">
-                                                <h2>Search</h2>
-                                            </div>
-
-                                            <div class="search-content pt-55">
-                                                <ul class="text-center">
-                                                    <li><a href="javascript:void(0)" class="active">All categories</a></li>
-                                                    <li><a href="javascript:void(0)">Clothing</a></li>
-                                                    <li><a href="javascript:void(0)">Gift Cards</a></li>
-                                                    <li><a href="javascript:void(0)">Handbag</a></li>
-                                                    <li><a href="javascript:void(0)">Kids</a></li>
-                                                    <li><a href="javascript:void(0)">Shoes</a></li>
-                                                    <li><a href="javascript:void(0)">Sneaker</a></li>
-                                                    <li><a  href="javascript:void(0)">Women</a></li>
-                                                </ul>
-
-                                                <div class="search-form mt-35">
-                                                    <form action="#" method="post">
-                                                        <input type="text" placeholder="Search Products...">
-                                                        <button type="submit"><i class="fal fa-search"></i></button>
-                                                    </form>
-                                                </div>
-
-                                                <div class="search-result-list">
-                                                    <ul class="text-left">
-                                                        <li class="d-block d-flex align-items-center">
-                                                            <div class="search-result-img">
-                                                                <img src="img/product/1.jpg" class="w-100" alt="">
-                                                            </div>
-                                                            <div class="search-result-desc pl-10">
-                                                                <a href="single-product-4.html" class="title px-0">ELLE  - Recliner syntheti chair</a>
-                                                                <div class="price">$<span>399</span></div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-block d-flex align-items-center">
-                                                            <div class="search-result-img">
-                                                                <img src="img/product/2.jpg" class="w-100" alt="">
-                                                            </div>
-                                                            <div class="search-result-desc pl-10">
-                                                                <a href="single-product-4.html" class="title px-0">RIMINI  - Folding leather deck chair</a>
-                                                                <div class="price">$<span>399</span></div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-block d-flex align-items-center">
-                                                            <div class="search-result-img">
-                                                                <img src="img/product/3.jpg" class="w-100" alt="">
-                                                            </div>
-                                                            <div class="search-result-desc pl-10">
-                                                                <a href="single-product-4.html" class="title px-0">LANDSCAPE  - Folding fabric deck chair</a>
-                                                                <div class="price">$<span>399</span></div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-block d-flex align-items-center">
-                                                            <div class="search-result-img">
-                                                                <img src="img/product/1.jpg" class="w-100" alt="">
-                                                            </div>
-                                                            <div class="search-result-desc pl-10">
-                                                                <a href="single-product-4.html" class="title px-0">ELLE  - Recliner syntheti chair</a>
-                                                                <div class="price">$<span>399</span></div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-block d-flex align-items-center">
-                                                            <div class="search-result-img">
-                                                                <img src="img/product/2.jpg" class="w-100" alt="">
-                                                            </div>
-                                                            <div class="search-result-desc pl-10">
-                                                                <a href="single-product-4.html" class="title px-0">RIMINI  - Folding leather deck chair</a>
-                                                                <div class="price">$<span>399</span></div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-block d-flex align-items-center">
-                                                            <div class="search-result-img">
-                                                                <img src="img/product/3.jpg" class="w-100" alt="">
-                                                            </div>
-                                                            <div class="search-result-desc pl-10">
-                                                                <a href="single-product-4.html" class="title px-0">LANDSCAPE  - Folding fabric deck chair</a>
-                                                                <div class="price">$<span>399</span></div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </li>
                                 <li><a href="wishlist.html" data-toggle="tooltip" data-placement="bottom" title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
-                                <li><a href="javascript:void(0)"><i class="fal fa-shopping-bag"><span>5</span></i></a>
-                                    <!-- <div class="minicart">
-                                        <div class="minicart-body">
-                                            <div class="minicart-content">
-                                                <ul class="text-left">
-                                                    <li>
-                                                        <div class="minicart-img">
-                                                            <a href="single-product-4.html" class="p-0"><img src="img/product/1.jpg" class="w-100" alt=""></a>
-                                                        </div>
-                                                        <div class="minicart-desc">
-                                                            <a href="single-product-4.html" class="p-0">Capitalize on low hanging fruit t</a>
-                                                            <strong>1 × $250.00</strong>
-                                                        </div>
-                                                        <div class="remove">
-                                                            <i class="fal fa-times"></i>
-                                                        </div>
-                                                    </li>
-
-                                                    <li>
-                                                        <div class="minicart-img">
-                                                            <a href="single-product-4.html" class="p-0"><img src="img/product/2.jpg" class="w-100" alt=""></a>
-                                                        </div>
-                                                        <div class="minicart-desc">
-                                                            <a href="single-product-4.html" class="p-0">Leather Courriere duffle ba</a>
-                                                            <strong>1 × $150.00</strong>
-                                                        </div>
-                                                        <div class="remove">
-                                                            <i class="fal fa-times"></i>
-                                                        </div>
-                                                    </li>
-
-
-                                                    <li>
-                                                        <div class="minicart-img">
-                                                            <a href="single-product-4.html" class="p-0"><img src="img/product/3.jpg" class="w-100" alt=""></a>
-                                                        </div>
-                                                        <div class="minicart-desc">
-                                                            <a href="single-product-4.html" class="p-0">Party Supplies Around Cupcake</a>
-                                                            <strong>1 × $150.00</strong>
-                                                        </div>
-                                                        <div class="remove">
-                                                            <i class="fal fa-times"></i>
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="minicart-checkout">
-                                            <div class="minicart-checkout-heading mt-8 mb-25 overflow-hidden">
-                                                <strong class="float-left">Subtotal:</strong>
-                                                <span class="price float-right">503.00</span>
-                                            </div>
-                                            <div class="minicart-checkout-links">
-                                                <a href="cart.html" class="generic-btn black-hover-btn text-uppercase w-100 mb-20">View cart</a>
-                                                <a href="checkout.html" class="generic-btn black-hover-btn text-uppercase w-100 mb-20">Checkout</a>
-                                            </div>
-                                        </div>
-                                    </div> -->
-                                </li>
+                                <li><a href="/cart"><i class="fal fa-shopping-bag"><span><%= user.cart.products.length %></span></i></a>             </li>
                                 <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
                                     <ul class="submenu bold-content text-right">
                                         <li><a href="/userProfile">My Account</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="shop.html">Shop</a></li>
                                         <li><a href="wishlist.html">Wishlist</a></li>
-                                        <li><a href="question.html">Frequently</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -292,60 +157,11 @@
         <div class="mobile-menu visible-sm">
             <div id="mobile-menu">
                 <ul>
-                    <li><a  class="pl-3" href="javascript:void(0)">Home</a>
-                        <ul class="pl-4">
-                            <li><a href="index.html">Home Fashion 1</a></li>
-                            <li><a href="index2.html">Home Fashion 2</a></li>
-                            <li><a href="index3.html">Home Fashion 3</a></li>
-                            <li><a href="index4.html">Home Fashion 4</a></li>
-                            <li><a href="index5.html">Home Fashion 5</a></li>
-                            <li><a href="index6.html">Home Fashion 6</a></li>
-                            <li><a href="index7.html">Home Fashion 7</a></li>
-
-                        </ul>
-                    </li>
-                    <li><a  class="pl-3" href="javascript:void(0)">Shop</a>
-                        <ul>
-                            <li><a href="shop.html">Shop Layout</a></li>
-                            <li><a href="shop4.html">Masonry – Grid</a></li>
-                            <li><a href="shop3.html">Pagination</a></li>
-                            <li><a href="shop2.html">Ajax Load More</a></li>
-                            <li><a href="shop2.html">Infinite Scroll</a></li>
-                            <li><a href="shop2.html">Sidebar Right</a></li>
-                            <li><a href="shop.html">Sidebar Left</a></li>
-                            <li><a href="shop.html">Shop Pages</a></li>
-                            <li><a href="shop2.html">List View</a></li>
-                            <li><a href="shop3.html">Small Products</a></li>
-                            <li><a href="shop2.html">Large Products</a></li>
-                            <li><a href="shop3.html">Shop — 3 Items</a></li>
-                            <li><a href="shop3.html">Shop — 4 Items</a></li>
-                            <li><a href="shop4.html">Shop — 5 Items</a></li>
-                            <li><a href="single-product-2.html">Product Layout</a></li>
-                            <li><a href="single-product.html">Description Sticky</a></li>
-                            <li><a href="single-product-2.html">Product Carousels</a></li>
-                            <li><a href="single-product-3.html">Gallery Modern</a></li>
-                            <li><a href="single-product-4.html">Thumbnail Left</a></li>
-                            <li><a href="single-product-5.html">Thumbnail Right</a></li>
-                            <li><a href="single-product-6.html">Thumbnail Botttom</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="javascript:void(0)">Blog</a>
-                        <ul>
-                            <li><a href="blog.html">Grid layout</a></li>
-                            <li><a href="blog2.html">Large image</a></li>
-                            <li><a href="blog3.html">Left Sidebar</a></li>
-                            <li><a href="blog4.html">Right Sidebar</a></li>
-                            <li><a href="blog5.html">No sidebar</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="javascript:void(0)">Portfolio</a>
-                        <ul>
-                            <li><a href="portfolio.html">Single project</a></li>
-                            <li><a href="portfolio2.html">Two Columns</a></li>
-                            <li><a href="portfolio3.html">Three Columns</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a  class="pl-3" href="">Home</a></li>
+                    <li><a  class="pl-3" href="">Shop</a></li>
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Portfolio</a></li>
+                    <li><a href="">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -355,318 +171,460 @@
 <!-- header section end -->
 
   
-  <main class="main-content">
-    
-
-    <!--== Start My Account Wrapper ==-->
-    <section class="my-account-area">
-      <div class="container pt--0 pb--0">
-        <div class="row">
-        <div class="col-lg-12">
-          <div class="myaccount-page-wrapper">
-            <div class="row">
-              <div class="col-lg-3 col-md-4">
-                <nav>
-                  <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
-                    <button class="nav-link active" id="dashboad-tab" data-bs-toggle="tab" data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">Dashboard</button>
-                    <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false"> Orders</button>
-                    <button class="nav-link" id="download-tab" data-bs-toggle="tab" data-bs-target="#download" type="button" role="tab" aria-controls="download" aria-selected="false">Download</button>
-                    <button class="nav-link" id="payment-method-tab" data-bs-toggle="tab" data-bs-target="#payment-method" type="button" role="tab" aria-controls="payment-method" aria-selected="false">Payment Method</button>
-                    <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">address</button>
-                    <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">Account Details</button>
-                    <button class="nav-link"  type="button"><a href="/user/logout">Logout</a></button>
-                  </div>
-                </nav>
-              </div>
-              <div class="col-lg-7 col-md-8">
-                <div class="tab-content" id="nav-tabContent">
-                  <div class="tab-pane fade show active" id="dashboad" role="tabpanel" aria-labelledby="dashboad-tab">
-                    <div class="myaccount-content">
-                      <h3>Dashboard</h3>
-                      <div class="welcome">
-                        <h3>Hello, <%= user.name %></h3>
-                      </div>
-                      <p>From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                    <div class="myaccount-content">
-                      <h3>Orders</h3>
-                      <div class="myaccount-table table-responsive text-center">
-
-                        <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
-
-                        <% if (user.orders.length > 0) { %>
-                          <% cart.forEach((prod) => { %>
-                              <div class="d-flex py-3 my-3 align-items-center " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
-
-                                <div class="product col-4">
-                                  <img src="<%= prod.images[0] %>" alt="" width="150px">
-
-                                  <div class="mt-5">
-                                    <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled') { %>
-                                      <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')">Cancel Order</button>
-                                    <% } else { %>
-                                      <button class="rounded" disabled>Cancel Order</button>
-                                    <% } %>
-                                  </div>
-                                </div>
-
-                                <div class="d-grid text-start">
-                                  <h6><%= prod.name %></6>
-                                  <p class="m-0">Color: <%= prod.color %></p>
-                                  <p class="m-0">Size: <%= prod.size %> & Quantity: <%= prod.quantity %></p>
-                                  <p class="m-0">Price:  <%= prod.price %></p>
-                                  <p class="m-0">Seller: <%= prod.vendor.vendorName %></p>
-                                  <p class="m-0">Expected Delivery: <%= prod.expectedDeliveryDate %></p>
-                                  <p class="m-0">Order Status: <%= prod.orderStatus %></p>
-                                  <p class="m-0">Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<br><%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></p>
-                                </div>
-                              </div>
-                                    
-                               <!-- Modal for order cancellation -->
-                              <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
-                                        <div class="mb-3">
-                                          <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
-                                          <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
-                                        </div>
-                                        <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                      </form>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              
-
-                            <% }) %>
-                        <% } else { %>
-                          <p>No orders found.</p>
-                        <% } %>
-                        </div>
-                        
-                      <!-- ORDER HISTORY TABLE ENDS ----------------------------------------------------------------------->
-
-                      </div>
-                    </div>
-                  </div>
-
-            
-                  <!-- <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
-                    <div class="myaccount-content">
-                      <h3>Billing Address</h3>
-                      <address>
-                        <p><strong>Alex Tuntuni</strong></p>
-                        <p>1355 Market St, Suite 900 <br>
-                          San Francisco, CA 94103</p>
-                        <p>Mobile: (123) 456-7890</p>
-                      </address>
-                      <a href="#/" class="check-btn sqr-btn"><i class="fa fa-edit"></i> Edit Address</a>
-                    </div>
-                  </div> -->
-                  <!-- <div class="tab-pane fade" id="account-info" role="tabpanel" aria-labelledby="account-info-tab">
-                    <div class="myaccount-content">
-                      <h3>Account Details</h3>
-                      <div class="account-details-form">
-                        <form action="#">
-                          <div class="row">
-                            <div class="col-lg-6">
-                              <div class="single-input-item">
-                                <label for="first-name" class="required">First Name</label>
-                                <input type="text" id="first-name" />
-                              </div>
-                            </div>
-                            <div class="col-lg-6">
-                              <div class="single-input-item">
-                                <label for="last-name" class="required">Last Name</label>
-                                <input type="text" id="last-name" />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="single-input-item">
-                            <label for="display-name" class="required">Display Name</label>
-                            <input type="text" id="display-name" />
-                          </div>
-                          <div class="single-input-item">
-                            <label for="email" class="required">Email Addres</label>
-                            <input type="email" id="email" />
-                          </div>
-                          <fieldset>
-                            <legend>Password change</legend>
-                            <div class="single-input-item">
-                              <label for="current-pwd" class="required">Current Password</label>
-                              <input type="password" id="current-pwd" />
-                            </div>
+    <main class="main-content" >
+        <!--== Start My Account Wrapper ==-->
+        <section class="my-account-area">
+        <div class="container pt--0 pb--0">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="myaccount-page-wrapper">
                             <div class="row">
-                              <div class="col-lg-6">
-                                <div class="single-input-item">
-                                  <label for="new-pwd" class="required">New Password</label>
-                                  <input type="password" id="new-pwd" />
+                                <div class="col-lg-3 col-md-4">
+                                    <nav>
+                                        <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
+                                            <button class="nav-link active" id="dashboad-tab" data-bs-toggle="tab" data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">Dashboard</button>
+                                            <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false">Orders</button>
+                                            <!-- <button class="nav-link" id="payment-method-tab" data-bs-toggle="tab" data-bs-target="#payment-method" type="button" role="tab" aria-controls="payment-method" aria-selected="false">Payment Method</button> -->
+                                            <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">address</button>
+                                            <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">Account Details</button>
+                                            <button class=" logout-link nav-link"  type="button"><a class="text-decoration-none text-dark" href="/user/logout">Logout</a></button>
+                                        </div>
+                                    </nav>
+                                </div>  
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="dashboad" role="tabpanel" aria-labelledby="dashboad-tab">
+                                            <div class="myaccount-content">
+                                                <h3>Dashboard</h3>
+                                                <div class="welcome">
+                                                    <h3>Hello, <%= user.name %></h3>
+                                                </div>
+                                                <p>From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
+                                            <div class="myaccount-content">
+                                                <h3>Addresses</h3>
+                                                <div class="p-1" >
+                                                    <!-- Checkbox for Delivery Address -->
+                                                    <% addresses.forEach(address => { %>
+                                                    <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
+                                                        <div>
+                                                            <p class="m-0"><strong><%= address.name %></strong></p>
+                                                            <p class="m-0"><strong><%= address.address %></strong></p>
+                                                            <p class="m-0"><strong><%= address.district %>, <%= address.state %>, <%= address.zip %></strong></p>
+                                                            <p class="m-0"><strong><%= address.email %></strong></p>
+                                                            <p class="m-0"><strong><%= address.phone %> </strong></p>
+                                                        </div>
+
+                                                        <!-- Edit and Delete Buttons -->
+                                                        <div class="mt-3 ">
+                                                            <button type="button" class="btn btn-sm border" data-toggle="modal" data-target="#editAddressModal_<%= address._id %>">
+                                                                <i class="fas fa-edit"></i>
+                                                            </button>
+                                                            <button type="button" class="btn btn-sm border ml-2" data-toggle="modal" data-target="#deleteAddressModal_<%= address._id %>">
+                                                                <i class="fas fa-trash"></i> 
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <% }) %>
+                                
+                                                    <!-- Button trigger modal -->
+                                                    <button type="button" class="" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: 150px; border-radius: 5px;" >
+                                                        Add new address
+                                                    </button>
+                                                </div>
+
+                                                <!-- Modal for add address -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">New Address</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="addressForm" class="row g-3 needs-validation" novalidate>
+                                                                    <div class="col-md-6">
+                                                                        <label for="name" class="form-label">Name</label>
+                                                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                                                        <div class="invalid-feedback">
+                                                                            Please enter your name.
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="address" class="form-label">Address</label>
+                                                                        <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
+                                                                        <div class="invalid-feedback">
+                                                                            Please enter your address.
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="district" class="form-label">District</label>
+                                                                        <input type="text" name="district" class="form-control" id="district" placeholder="Town or city" required>
+                                                                        <div class="invalid-feedback">
+                                                                            Please enter your district.
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="state" class="form-label">State</label>
+                                                                        <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required>
+                                                                        <div class="invalid-feedback">
+                                                                            Please enter your state.
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="zip" class="form-label">Zip</label>
+                                                                        <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip/Postal" required>
+                                                                        <div class="invalid-feedback">
+                                                                            Please enter a valid zip code.
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="email" class="form-label">Email Address</label>
+                                                                        <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
+                                                                        <div class="invalid-feedback">
+                                                                            Please provide a valid email.
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <label for="phone" class="form-label">Phone Number</label>
+                                                                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Your Phone" required>
+                                                                        <div class="invalid-feedback">
+                                                                            Please provide a valid phone number.
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <button type="button" id="submitAddressBtn" class="btn btn-primary">Submit</button>
+                                                                    </div>
+                                                                </form>
+                                                                   
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="account-info" role="tabpanel" aria-labelledby="account-info-tab">
+                                            <div class="myaccount-content">
+                                                <h3>Account Details</h3>
+
+                                                <form action="" class="form-control">
+                                                    <label for="" class="">Name</label><br>
+                                                    <input type="text" class="col-8"><br>
+
+                                                    <label for="" class="">Email</label><br>
+                                                    <input type="text" class="col-8"><br>
+
+                                                    <label for="" class="">Phone</label><br>
+                                                    <input type="text" class="col-8"><br>
+
+                                                </form>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                            <div class="myaccount-content">
+                                                <h3>Orders</h3>
+                                                
+                                                <% if (user.orders.length > 0) { %>
+                                                <% cart.forEach((prod) => { %>
+                                                <div class="myaccount-table table-responsive text-center">
+                                                    <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
+                                                    <div class="d-flex py-3 my-3 align-items-center " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
+
+                                                        <div class="product col-4">
+                                                        <img src="<%= prod.images[0] %>" alt="" width="150px">
+
+                                                        <div class="mt-5">
+                                                            <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled') { %>
+                                                            <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')">Cancel Order</button>
+                                                            <% } else { %>
+                                                            <button class="rounded" disabled>Cancel Order</button>
+                                                            <% } %>
+                                                        </div>
+                                                        </div>
+
+                                                        <div class="d-grid text-start">
+                                                        <h6><%= prod.name %></6>
+                                                        <p class="m-0">Color: <%= prod.color %></p>
+                                                        <p class="m-0">Size: <%= prod.size %> & Quantity: <%= prod.quantity %></p>
+                                                        <p class="m-0">Price:  <%= prod.price %></p>
+                                                        <p class="m-0">Seller: <%= prod.vendor.vendorName %></p>
+                                                        <p class="m-0">Expected Delivery: <%= prod.expectedDeliveryDate %></p>
+                                                        <p class="m-0">Order Status: <%= prod.orderStatus %></p>
+                                                        <p class="m-0">Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<br><%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></p>
+                                                        </div>
+                                                    </div>
+                                                        
+                                                    <!-- MODAL FOR ORDER CANCELLATION -->
+                                                    <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
+                                                                        <div class="mb-3">
+                                                                            <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
+                                                                            <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
+                                                                        </div>
+                                                                        <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
+                                                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <% }) %>
+                                                <% } else { %>
+                                                <p>No orders found.</p>
+                                                <% } %>
+                                            </div>    
+                                        </div>
+
+                                        
+                                        <!-- ORDER HISTORY TABLE ENDS ----------------------------------------------------------------------->
+                                        
+                                    </div>   
                                 </div>
-                              </div>
-                              <div class="col-lg-6">
-                                <div class="single-input-item">
-                                  <label for="confirm-pwd" class="required">Confirm Password</label>
-                                  <input type="password" id="confirm-pwd" />
-                                </div>
-                              </div>
                             </div>
-                          </fieldset>
-                          <div class="single-input-item">
-                            <button class="check-btn sqr-btn">Save Changes</button>
-                          </div>
-                        </form>
-                      </div>
+                        </div>
+                    
                     </div>
-                  </div> -->
                 </div>
-              </div>
+            </div>    
+        </section>
+        <!--== End My Account Wrapper ==-->
+    </main>
+
+    <!-- footer section start -->
+    <section class="footer">
+        <div class="footer-bottom " style="background-color: #292929;padding-top: 77px; padding-bottom: 40px;">
+            <div class="container-1180">
+                <div class="footer-bottom-wrapper">
+                    <div class="footer-bottom-primary pb-60">
+                        <div class="row">
+                            <div class="col-xl-5 col-lg-5 col-md-9">
+                                <div class="footer-item has-desc">
+                                    <div class="footer-logo mb-25">
+                                        <img src="img/logo/logo2.png" width="120" height="31" alt="">
+                                    </div>
+                                    <div class="footer-desc">
+                                        <p class="mb-10">WatchVista store is destination for exquisite timepieces that blend style, precision, and craftsmanship. We pride ourselves on curating a collection that caters to watch enthusiasts, fashion aficionados, and those seeking the perfect blend of elegance and functionality.</p>
+                                    </div>
+                                    <div class="footer-img mt-65">
+                                        <img src="img/logo/paypal.png" alt="">
+                                    </div>
+                                </div>
+                             </div>
+                             <div class="col-xl-7 col-lg-7 col-md-12">
+                                <div class="row">
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                                        <div class="footer-menu">
+                                            <ul>
+                                                <li><a href="javascript:void(0)" class="title">MY ACCOUNT</a></li>
+                                                <li><a href="/login">My account</a></li>
+                                                <li><a href="checkout.html">Checkout</a></li>
+                                                <li><a href="shop2.html">Shop</a></li>
+                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                <li><a href="question.html">Frequently</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                                        <div class="footer-menu">
+                                            <ul>
+                                                <li><a href="javascript:void(0)" class="title">Quick Links</a></li>
+                                                <li><a href="shop2.html">Special Offers</a></li>
+                                                <li><a href="shop2.html">Gift Cards</a></li>
+                                                <li><a href="shop2.html">F21 Red</a></li>
+                                                <li><a href="about.html">Privacy Policy</a></li>
+                                                <li><a href="about.html">Teams of Use</a></li>
+                                                <li><a href="portfolio.html">Portfolio</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm">
+                                        <div class="footer-menu">
+                                            <ul>
+                                                 <li><a href="javascript:void(0)" class="title">Company Info</a></li>
+                                                 <li><a href="about.html">About us</a></li>
+                                                 <li><a href="blog.html">Careers</a></li>
+                                                 <li><a href="portfolio2.html">Business With Us</a></li>
+                                                 <li><a href="shop2.html">Find a Store</a></li>
+                                                 <li><a href="question.html">Teams of Use</a></li>
+                                                 <li><a href="portfolio3.html">Press &amp; Talent</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      </div>
+
     </section>
-    <!--== End My Account Wrapper ==-->
-
-
-  <!--== Start Footer Area Wrapper ==-->
-  <footer>
-    <div class="footer-bottom pt-77" style="background-color: #292929;">
-      <div class="container-1180">
-          <div class="footer-bottom-wrapper">
-              <div class="footer-bottom-primary pb-60">
-                  <div class="row">
-                      <div class="col-xl-5 col-lg-5 col-md-9">
-                          <div class="footer-item has-desc">
-                              <div class="footer-logo mb-25">
-                                  <img src="img/logo/logo2.png" width="120" height="31" alt="">
-                              </div>
-                              <div class="footer-desc">
-                                  <p class="mb-10">Mazia store is a premium theme with advanced admin module. It’s extremely customizable, easy to use and fully responsive and retina ready.</p>
-                              </div>
-                              <div class="footer-img mt-65">
-                                  <img src="img/logo/paypal.png" alt="">
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-xl-7 col-lg-7 col-md-12">
-                          <div class="row">
-                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
-                                  <div class="footer-menu">
-                                      <ul>
-                                          <li><a href="javascript:void(0)" class="title">MY ACCOUNT</a></li>
-                                          <li><a href="login.html">My account</a></li>
-                                          <li><a href="checkout.html">Checkout</a></li>
-                                          <li><a href="shop2.html">Shop</a></li>
-                                          <li><a href="wishlist.html">Wishlist</a></li>
-                                          <li><a href="question.html">Frequently</a></li>
-                                      </ul>
-                                  </div>
-                              </div>
-
-                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
-                                  <div class="footer-menu">
-                                      <ul>
-                                          <li><a href="javascript:void(0)" class="title">Quick Links</a></li>
-                                          <li><a href="shop2.html">Special Offers</a></li>
-                                          <li><a href="shop2.html">Gift Cards</a></li>
-                                          <li><a href="shop2.html">F21 Red</a></li>
-                                          <li><a href="about.html">Privacy Policy</a></li>
-                                          <li><a href="about.html">Teams of Use</a></li>
-                                          <li><a href="portfolio.html">Portfolio</a></li>
-                                      </ul>
-                                  </div>
-                              </div>
-
-                              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm">
-                                  <div class="footer-menu">
-                                      <ul>
-                                          <li><a href="javascript:void(0)" class="title">Company Info</a></li>
-                                          <li><a href="about.html">About us</a></li>
-                                          <li><a href="blog.html">Careers</a></li>
-                                          <li><a href="portfolio2.html">Business With Us</a></li>
-                                          <li><a href="shop2.html">Find a Store</a></li>
-                                          <li><a href="question.html">Teams of Use</a></li>
-                                          <li><a href="portfolio3.html">Press &amp; Talent</a></li>
-                                      </ul>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- footer section end -->
-  </footer>
-  
+    <!-- footer section end -->
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-// WHEN THE USER PRODFILE PAGE LOADS AFTER ORDER PLACED
-window.addEventListener('DOMContentLoaded', () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const showOrders = urlParams.get('showOrders');
+    // WHEN THE USER PRODFILE PAGE LOADS AFTER ORDER PLACED
+    window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const showOrders = urlParams.get('showOrders');
 
-  if (showOrders === 'true') {
-    // SIMULATE A CLICK ON THE ORDERS BUTTON
-    const ordersTab = document.getElementById('orders-tab');
-    if (ordersTab) {
-      ordersTab.click();
+    if (showOrders === 'true') {
+        // SIMULATE A CLICK ON THE ORDERS BUTTON
+        const ordersTab = document.getElementById('orders-tab');
+        if (ordersTab) {
+        ordersTab.click();
+        }
     }
-  }
-});
+    });
+
+    // FUCTION FOR OPEN MODAL
+    function openCancelModal(orderId, productId) {
+        console.log("Opening modal for Order ID:", orderId, "Product ID:", productId);
+        $('#orderIdInput_' + productId).val(orderId);
+        $('#cancelModal_' + productId).modal('show');
+    }
+
+    // FUNCTION FOR POST CANCELLATION REASON
+    function submitCancellation(event, orderId, productId) {
+        event.preventDefault();
+        console.log("cancellation function invoked")
+        console.log("orderId:", orderId);
+        console.log("productId:", productId);
+
+        const cancelReason = $('#cancelReason_' + productId).val();
+
+        axios.post(`/cancelOrder/${orderId}/${productId}`, { cancelReason })
+        .then(response => {
+            console.log("Cancellation successful:", response.data);
+            const statusElement = $('#orderStatus_' + productId);
+            statusElement.text("Requested for Cancellation");
+
+            $('#cancelModal_' + productId).modal('hide');
+        })
+        .catch(error => {
+            console.error(error);
+            // Handle error response
+        });
+    }
+
+    // // Example starter JavaScript for disabling form submissions if there are invalid fields
+    // (function () {
+    //     'use strict'
+
+    //     // Fetch the form element
+    //     var form = document.getElementById('addressForm');
+
+    //     // Submit button
+    //     var submitBtn = document.getElementById('submitAddressBtn');
+
+    //     // Button click event listener
+    //     submitBtn.addEventListener('click', function (event) {
+    //         // Check if form is valid
+    //         if (form.checkValidity() === false) {
+    //             event.preventDefault();
+    //             event.stopPropagation();
+    //         }
+
+    //         // Add Bootstrap's was-validated class to show validation styles
+    //         form.classList.add('was-validated');
+    //     }, false);
+    // })();
+
+    // // FORM SUBMISSION FOR NEW ADDRESS
+    // document.getElementById("submitAddressBtn").addEventListener("click", function() {
+    //     // Get form data
+    //     const formData = {
+    //         name: document.getElementById("name").value,
+    //         address: document.getElementById("address").value,
+    //         district: document.getElementById("district").value,
+    //         state: document.getElementById("state").value,
+    //         zip: document.getElementById("zip").value,
+    //         email: document.getElementById("email").value,
+    //         phone: document.getElementById("phone").value
+    //     };
+
+    // // POST REQUESR USING AXIOS
+    // axios.post('/add-address', formData)
+    //     .then(function (response) {
+    //         console.log(response.data);
+    //         $('#exampleModal').modal('hide');
+    //     })
+    //     .catch(function (error) {
+    //         console.error('Error adding address:', error);
+    //     });
+    // });
+
+        // Submit button click event listener
+        document.getElementById("submitAddressBtn").addEventListener("click", function() {
+        // Fetch the form element
+        var form = document.getElementById('addressForm');
+
+        // Check if form is valid
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            form.classList.add('was-validated');
+        } else {
+            // Get form data
+            const formData = {
+                name: document.getElementById("name").value,
+                address: document.getElementById("address").value,
+                district: document.getElementById("district").value,
+                state: document.getElementById("state").value,
+                zip: document.getElementById("zip").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value
+            };
+
+            // POST REQUEST USING AXIOS
+            axios.post('/add-address', formData)
+                .then(function (response) {
+                    console.log(response.data);
+                    $('#exampleModal').modal('hide');
+                })
+                .catch(function (error) {
+                    console.error('Error adding address:', error);
+                });
+        }
+    });
+
 </script>
 
+ 
+
+ 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script>
-  // FUCTION FOR OPEN MODAL
-  function openCancelModal(orderId, productId) {
-    console.log("Opening modal for Order ID:", orderId, "Product ID:", productId);
-    $('#orderIdInput_' + productId).val(orderId);
-    $('#cancelModal_' + productId).modal('show');
-  }
-
-  // FUNCTION FOR POST CANCELLATION REASON
-  function submitCancellation(event, orderId, productId) {
-    event.preventDefault();
-    console.log("cancellation function invoked")
-    console.log("orderId:", orderId);
-    console.log("productId:", productId);
-
-    const cancelReason = $('#cancelReason_' + productId).val();
-
-    axios.post(`/cancelOrder/${orderId}/${productId}`, { cancelReason })
-      .then(response => {
-        console.log("Cancellation successful:", response.data);
-        const statusElement = $('#orderStatus_' + productId);
-        statusElement.text("Requested for Cancellation");
-
-        $('#cancelModal_' + productId).modal('hide');
-      })
-      .catch(error => {
-        console.error(error);
-        // Handle error response
-      });
-  }
-
+    $(document).ready(function() {
+        // Initialize Bootstrap tabs
+        $('#nav-tab a').on('click', function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
 </script>
-
- 
-
- 
-
- 
 
   
 

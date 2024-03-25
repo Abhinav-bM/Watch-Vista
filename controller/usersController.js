@@ -1047,6 +1047,7 @@ let userProfile = async (req, res) => {
 
   try {
     const user = await User.findById(userId).populate("orders");
+    const addresses = user.addresses;
 
     const allVendors = await Vendor.find({}).populate("products");
     let cart = [];
@@ -1098,7 +1099,7 @@ let userProfile = async (req, res) => {
 
     console.log(cart);
 
-    res.status(200).render("user/account", { user, cart });
+    res.status(200).render("user/account", { user, cart,addresses });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
