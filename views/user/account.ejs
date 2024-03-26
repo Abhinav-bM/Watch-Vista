@@ -205,12 +205,21 @@
 
                                         <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
                                             <div class="myaccount-content">
-                                                <h3>Addresses</h3>
+                                                
+                                                <!-- Button trigger modal -->
+                                                <div class="d-flex justify-content-between">
+                                                    <h3>Addresses</h3>
+                                                    <button type="button" class="text-center" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: auto; height: 30px; border-radius: 5px; border: 2px;" >
+                                                        Add new address
+                                                    </button>
+                                                </div>
+                                            
+                                               
                                                 <div class="p-1" >
                                                     <div id="addressList">
                                                         <!-- Checkbox for Delivery Address -->
                                                         <% addresses.forEach(address => { %>
-                                                        <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
+                                                        <div class="my-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
                                                             <div>
                                                                 <p class="m-0"><strong><%= address.name %></strong></p>
                                                                 <p class="m-0"><strong><%= address.address %></strong></p>
@@ -222,19 +231,16 @@
                                                             <!-- Edit and Delete Buttons -->
                                                             <div class="mt-3 ">
                                                                 <button type="button" class="btn btn-sm border" data-toggle="modal" data-target="#editAddressModal_<%= address._id %>">
-                                                                    <i class="fas fa-edit"></i>
+                                                                    <i class="fas fa-edit text-success"></i>
                                                                 </button>
                                                                 <button type="button" class="btn btn-sm border ml-2" data-toggle="modal" data-target="#deleteAddressModal_<%= address._id %>">
-                                                                    <i class="fas fa-trash"></i> 
+                                                                    <i class="fas fa-trash text-danger"></i> 
                                                                 </button>
                                                             </div>
                                                         </div>
                                                         <% }) %>
                                                     </div>
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: 150px; border-radius: 5px;" >
-                                                        Add new address
-                                                    </button>
+                                                 
                                                 </div>
 
                                                 <!-- Modal for add address -->
@@ -249,57 +255,57 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <form id="addressForm" class="row g-3" novalidate>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-6 p-2">
                                                                         <label for="name" class="form-label">Name</label>
                                                                         <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                                                                        <div class="invalid-feedback">
+                                                                        <!-- <div class="invalid-feedback">
                                                                             Please enter your name.
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-6 p-2">
                                                                         <label for="address" class="form-label">Address</label>
                                                                         <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
-                                                                        <div class="invalid-feedback">
+                                                                        <!-- <div class="invalid-feedback">
                                                                             Please enter your address.
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-6 p-2">
                                                                         <label for="district" class="form-label">District</label>
                                                                         <input type="text" name="district" class="form-control" id="district" placeholder="Town or city" required>
-                                                                        <div class="invalid-feedback">
+                                                                        <!-- <div class="invalid-feedback">
                                                                             Please enter your district.
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-6 p-2">
                                                                         <label for="state" class="form-label">State</label>
                                                                         <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required>
-                                                                        <div class="invalid-feedback">
+                                                                        <!-- <div class="invalid-feedback">
                                                                             Please enter your state.
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-6 p-2">
                                                                         <label for="zip" class="form-label">Zip</label>
                                                                         <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip/Postal" required>
-                                                                        <div class="invalid-feedback">
+                                                                        <!-- <div class="invalid-feedback">
                                                                             Please enter a valid zip code.
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-6 p-2">
                                                                         <label for="email" class="form-label">Email Address</label>
                                                                         <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
-                                                                        <div class="invalid-feedback">
+                                                                        <!-- <div class="invalid-feedback">
                                                                             Please provide a valid email.
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
-                                                                    <div class="col-md-6">
+                                                                    <div class="col-md-6 p-2">
                                                                         <label for="phone" class="form-label">Phone Number</label>
                                                                         <input type="tel" name="phone" class="form-control" id="phone" placeholder="Your Phone" required>
-                                                                        <div class="invalid-feedback">
+                                                                        <!-- <div class="invalid-feedback">
                                                                             Please provide a valid phone number.
-                                                                        </div>
+                                                                        </div> -->
                                                                     </div>
-                                                                    <div class="col-12 pt-2">
-                                                                        <button type="button" id="submitAddressBtn" class="btn btn-primary">Submit</button>
+                                                                    <div class="col-12 pt-3">
+                                                                        <button type="button" id="submitAddressBtn" class="btn btn-primary" data-dismiss="modal">Submit</button>
                                                                     </div>
                                                                 </form>
                                                                    
@@ -498,6 +504,7 @@
     }
     });
 
+
     // FUCTION FOR OPEN MODAL
     function openCancelModal(orderId, productId) {
         console.log("Opening modal for Order ID:", orderId, "Product ID:", productId);
@@ -529,7 +536,7 @@
     }
 
     // ADDRESS SUBMISSION WITH VALIDATION
-    document.getElementById("submitAddressBtn").addEventListener("click", function() {
+    document.getElementById("submitAddressBtn").addEventListener("click", function(event) {
     
         var form = document.getElementById('addressForm');
 
@@ -538,6 +545,7 @@
             event.stopPropagation();
             form.classList.add('was-validated');
         } else {
+
             const formData = {
                 name: document.getElementById("name").value,
                 address: document.getElementById("address").value,
@@ -548,15 +556,15 @@
                 phone: document.getElementById("phone").value
             };
 
-            axios.post('/add-address', formData)
+             axios.post('/add-address', formData)
                 .then(function (response) {
-                    console.log(response.data);
+
                     $('#exampleModal').modal('hide');
-                    // Clear the form fields and remove validation classes
+
                     form.reset();
                     form.classList.remove('was-validated');
+
                     var newAddress = response.data;
-                    console.log(newAddress)
                     var addressHtml = `
                         <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);" >
                             <!-- Address details -->
@@ -582,7 +590,25 @@
                     document.getElementById('addressList').insertAdjacentHTML('beforeend', addressHtml);
                 })
                 .catch(function (error) {
-                    console.error('Error adding address:', error);
+                    console.error('Error adding address:', error.response.data.error);
+                    // Handle the error message using Toastify
+                    if (error.response.status === 400) {
+                        Toastify({
+                            text: error.response.data.error,
+                            duration: 7000,
+                            gravity: "top", // top, bottom
+                            position: "right", // left, center, right
+                            backgroundColor: "grey",
+                        }).showToast();
+                    } else {
+                        Toastify({
+                            text: "An error occurred. Try again",
+                            duration: 5000,
+                            gravity: "top", // top, bottom
+                            position: "left", // left, center, right
+                            backgroundColor: "red",
+                        }).showToast();
+                    }
                 });
         }
         
@@ -605,6 +631,16 @@
         });
     });
 </script>
+
+<!-- Toastify CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Toastify JS -->
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 
   
 

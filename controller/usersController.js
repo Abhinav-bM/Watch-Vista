@@ -855,40 +855,39 @@ let buyNowCheckOut = async (req, res) => {
     const allProducts = await Vendor.find({}).populate("products");
     let cart = [];
 
+    // Find the product in allProducts
+    allProducts.forEach((vendor) => {
+      vendor.products.forEach((product) => {
+        if (product._id.equals(productId)) {
+          const vendorInfo = {
+            vendorId: vendor._id,
+            vendorName: vendor.vendorName,
+          };
 
-      // Find the product in allProducts
-      allProducts.forEach((vendor) => {
-        vendor.products.forEach((product) => {
-          if (product._id.equals(productId)) {
-            const vendorInfo = {
-              vendorId: vendor._id,
-              vendorName: vendor.vendorName,
-            };
+          console.log(product.productSubCategory);
 
-            console.log(product.productSubCategory);
+          const productDetails = {
+            _id: product._id,
+            name: product.productName,
+            category: product.productCategory,
+            subcategory: product.productSubCategory,
+            brand: product.productBrand,
+            color: product.productColor,
+            size: product.productSize,
+            quantity: 1,
+            price: product.productPrice,
+            mrp: product.productMRP,
+            discount: product.productDiscount,
+            images: product.productImages,
+            description: product.productDescription,
+            vendor: vendorInfo,
+          };
 
-            const productDetails = {
-              _id: product._id,
-              name: product.productName,
-              category: product.productCategory,
-              subcategory: product.productSubCategory,
-              brand: product.productBrand,
-              color: product.productColor,
-              size: product.productSize,
-              quantity: 1,
-              price: product.productPrice,
-              mrp: product.productMRP,
-              discount: product.productDiscount,
-              images: product.productImages,
-              description: product.productDescription,
-              vendor: vendorInfo,
-            };
-
-            cart.push(productDetails);
-          }
-        });
+          cart.push(productDetails);
+        }
       });
-  
+    });
+
     //////////////////////////////////////////////
     let totalPrice = 0;
     cart.forEach((prod) => (totalPrice += prod.price * prod.quantity));
@@ -924,6 +923,16 @@ let addAddress = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Check if user already has 3 addresses
+    if (user.addresses.length >= 3) {
+      return res
+        .status(400)
+        .json({
+          error:
+            "You already have 3 addresses. Please delete one to add a new address.",
+        });
+    }
+
     console.log(user);
 
     user.addresses.push(newAddress);
@@ -932,7 +941,9 @@ let addAddress = async (req, res) => {
 
     const addedAddress = user.addresses[user.addresses.length - 1];
 
-    res.status(200).json({ message: "Address added successfully", user,addedAddress });
+    res
+      .status(200)
+      .json({ message: "Address added successfully", user, addedAddress });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -1101,7 +1112,7 @@ let userProfile = async (req, res) => {
 
     console.log(cart);
 
-    res.status(200).render("user/account", { user, cart,addresses });
+    res.status(200).render("user/account", { user, cart, addresses });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
