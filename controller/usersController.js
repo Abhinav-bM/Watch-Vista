@@ -345,7 +345,7 @@ let forgotGetPage = async (req, res) => {
 // FORGOT EMAIL POST + OTP GENERATION AND MAIL SEND
 let forgotEmailPostPage = async (req, res) => {
   const { emailOrPhone } = req.body;
-  console.log(emailOrPhone);
+
   try {
     let user;
     let message;
@@ -498,7 +498,7 @@ let shopGetPage = async (req, res) => {
 // PRDUCTS BASED ON CATEGORY
 let getProductsByCategory = async (req, res) => {
   const { category } = req.params;
-  console.log(category);
+
   try {
     let vendorProducts = await Vendor.find().select("products");
 
@@ -925,12 +925,10 @@ let addAddress = async (req, res) => {
 
     // Check if user already has 3 addresses
     if (user.addresses.length >= 3) {
-      return res
-        .status(400)
-        .json({
-          error:
-            "You already have 3 addresses. Please delete one to add a new address.",
-        });
+      return res.status(400).json({
+        error:
+          "You already have 3 addresses. Please delete one to add a new address.",
+      });
     }
 
     console.log(user);
@@ -944,6 +942,38 @@ let addAddress = async (req, res) => {
     res
       .status(200)
       .json({ message: "Address added successfully", user, addedAddress });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// DELETE ADDRESS
+let deleteAddress = async (req, res) => {
+
+  const addressId = req.params.addressId;
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const addressIndex = user.addresses.findIndex(
+      (address) => address._id.toString() === addressId
+    );
+
+    if (addressIndex === -1) {
+      return res.status(404).json({ error: "Address not found" });
+    }
+    
+    user.addresses.splice(addressIndex, 1);
+
+    await user.save();
+
+    res.status(200).json({ message: "Address deleted successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -1110,8 +1140,6 @@ let userProfile = async (req, res) => {
       });
     });
 
-    console.log(cart);
-
     res.status(200).render("user/account", { user, cart, addresses });
   } catch (error) {
     console.error(error);
@@ -1124,9 +1152,6 @@ let orderCancelRequestPost = async (req, res) => {
   const { orderId, productId } = req.params;
   const { cancelReason } = req.body;
   const userId = req.user.id;
-  console.log("cancelOrderId :", orderId);
-  console.log("cancelProductId :", productId);
-  console.log("cancelUserId :", userId);
 
   try {
     // Find the user
@@ -1192,6 +1217,7 @@ module.exports = {
   updateCartQuantity,
   checkoutpage,
   addAddress,
+  deleteAddress,
   placeOrderPost,
   buyNowCheckOut,
   orderCancelRequestPost,

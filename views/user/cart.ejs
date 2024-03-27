@@ -337,11 +337,12 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
+
         // REMOVE PRODUCTS FROM CART
         function removeProduct(event, productId) {
         event.preventDefault();
 
-        axios.delete(`/cart/${productId}`)
+            axios.delete(`/cart/${productId}`)
             .then(response => {
                 console.log("date :",response.data);
                 const productRow = document.getElementById(`productRow-${productId}`);
@@ -349,7 +350,8 @@
                     productRow.remove();
                 }
                 const updatedCart = response.data.cart
-                // Update Subtotal
+
+                // UPDATE SUBTOTAL
                 let subtotal = 0;
                 updatedCart.forEach((item) => {
                     subtotal += item.quantity * item.price;
@@ -357,7 +359,7 @@
                 const subtotalElement = document.getElementById("subtotal");
                 subtotalElement.textContent = subtotal;
 
-                // update total
+                // UPDATE TOTAL
                 let total = subtotal
                 const totalElemen = document.getElementById("total");
                 totalElemen.textContent = subtotal;
@@ -368,8 +370,6 @@
             });
         }
 
-    
-    
         // UPDATE QUANTITY IN CART
         function updateQuantity(productId, newQuantity,price,cart) {
             console.log(productId, newQuantity,price)
@@ -381,12 +381,12 @@
 
                 const updatedCart = response.data.cart  
                 
-                // Update the total for the each product row
+                // UPDATL THE TOTAL FOR EACH PRODUCT ROW
                 const newTotal = newQuantity * price;
                 const totalElement = document.querySelector(`#total-${productId}`);
                 totalElement.textContent = newTotal;
 
-                // Update Subtotal
+                // UPDATE SUBTOTAL
                 let subtotal = 0;
                 updatedCart.forEach((item) => {
                     subtotal += item.quantity * item.price;
@@ -394,7 +394,7 @@
                 const subtotalElement = document.getElementById("subtotal");
                 subtotalElement.textContent = subtotal;
 
-                // update total
+                // UPDATE TOTAL
                 let total = subtotal
                 const totalElemen = document.getElementById("total");
                 totalElemen.textContent = subtotal;
@@ -402,7 +402,6 @@
             })
             .catch(function (error) {
                 console.error('Error updating quantity:', error);
-                // Optionally, show an error message to the user
             });
         }
 

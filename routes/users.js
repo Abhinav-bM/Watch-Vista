@@ -41,16 +41,15 @@ router.post("/place-order",verifyToken,userController.placeOrderPost)
 router.post("/cancelOrder/:orderId/:productId",verifyToken,userController.orderCancelRequestPost)
 
 router.delete("/cart/:productId",verifyToken,userController.removeProductCart)
+router.delete("/delete-address/:addressId",verifyToken,userController.deleteAddress)
 
 
-
-// LOGIN WITH GOOGLE
+// LOGIN WITH GOOGLE STARTS HERE
 //Auth
 router.get(
   "/auth/google",
   passport.authenticate("google", { scope: ["email", "profile"] })
 );
-
 //Auth callback
 router.get(
   "/auth/google/callback",
@@ -59,8 +58,8 @@ router.get(
     failureRedirect: "/failure",
   })
 );
-
 router.get("/success", userController.successGoogleLogin);
 router.get("/failure", userController.failureGooglelogin);
+// LOGIN WITH GOOGLE ENDS HERE
 
 module.exports = router;

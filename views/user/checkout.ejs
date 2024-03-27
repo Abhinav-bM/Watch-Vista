@@ -377,7 +377,7 @@
 
                     console.log(response)
                     
-                    // Use SweetAlert for the success message
+                    // SWEET ALERT FOR ORDERS SUCCESS MESSAGE
                     Swal.fire({
                     icon: 'success',
                     title: 'Order Placed Successfully!',
@@ -387,12 +387,10 @@
                     confirmButtonText: "Ok"
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            // Redirect to the "UserProfile" page with a URL parameter
                             window.location.href = '/userProfile?showOrders=true';
                         }
                     });
                 } catch (error) {
-                    // Handle errors
                     console.error('Error placing order:', error.response.data);
                     alert('Error placing order. Please try again.');
                 }

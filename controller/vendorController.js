@@ -126,7 +126,6 @@ let addProduct = async (req, res) => {
       ),
     }));
 
-    console.log(categories);
     res.status(200).render("vendor/product-add", { categories });
   } catch (error) {
     console.error(error);
@@ -412,7 +411,6 @@ let getOrdersForVendor = async (req, res) => {
       });
     });
 
-    console.log( "cancelreasonv",vendorOrders);
     res.render("vendor/order-list", { vendorOrders });
   } catch (error) {
     console.error(error);
@@ -424,8 +422,6 @@ let getOrdersForVendor = async (req, res) => {
 let updateOrderStatus = async (req, res) => {
   const { orderId, productId } = req.params;
   const { status } = req.body;
-
-  console.log(orderId, productId, status);
 
   try {
     const user = await User.findOne({
