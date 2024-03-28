@@ -186,8 +186,9 @@
                                             <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false">Orders</button>
                                             <!-- <button class="nav-link" id="payment-method-tab" data-bs-toggle="tab" data-bs-target="#payment-method" type="button" role="tab" aria-controls="payment-method" aria-selected="false">Payment Method</button> -->
                                             <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">address</button>
-                                            <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">Account Details</button>
-                                            <button class=" logout-link nav-link"  type="button"><a class="text-decoration-none text-dark" href="/user/logout">Logout</a></button>
+                                            <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">Change Password</button>
+                                            <button class="nav-link" onclick="window.location.href = '/user/logout'" type="button">Logout</button>
+
                                         </div>
                                     </nav>
                                 </div>  
@@ -394,18 +395,21 @@
 
                                         <div class="tab-pane fade" id="account-info" role="tabpanel" aria-labelledby="account-info-tab">
                                             <div class="myaccount-content">
-                                                <h3>Account Details</h3>
+                                                <h3>Change Password</h3>
 
-                                                <form action="" class="form-control">
-                                                    <label for="" class="">Name</label><br>
-                                                    <input type="text" class="col-8" value="<%= user.name %>"><br>
+                                                <form action="/change-password" onsubmit="changePassword(event)" class="form-group" >
+                                                    <label for="" class="">Current Password</label><br>
+                                                    <p id="currentPasswordError" style="color: red;"></p>
+                                                    <input id="currentPassword"  type="text" class="form-control" ><br>
 
-                                                    <label for="" class="">Email</label><br>
-                                                    <input type="text" class="col-8" value="<%= user.email %>"><br>
+                                                    <label  for="" class="">New Password</label><br>
+                                                    <p id="newPasswordError" style="color: red;"></p>
+                                                    <input id="newPassword" type="text" class="form-control" ><br>
 
-                                                    <label for="" class="">Phone</label><br>
-                                                    <input type="text" class="col-8" value="<%= user.phoneNumber %>"><br>
-
+                                                    <label for="" class="">Confirm Password</label><br>
+                                                    <p id="confirmPasswordError" style="color: red;"></p>
+                                                    <input id="confirmPassword" type="text" class="form-control" ><br>
+                                                    <button type="submit" class="btn btn-dark">Submit</button>
                                                 </form>
                                                 
                                             </div>
@@ -792,6 +796,84 @@
 
     // Event listener for edit buttons
     document.addEventListener("click", handleEditAddress);
+
+
+    // CODE FOR CHANGE PASSWORD
+    function changePassword(event) {
+        event.preventDefault();
+
+        const currentPassword = document.getElementById("currentPassword").value;
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword = document.getElementById("confirmPassword").value;
+
+        // Clear any previous error messages
+        document.getElementById("currentPasswordError").textContent = "";
+        document.getElementById("newPasswordError").textContent = "";
+        document.getElementById("confirmPasswordError").textContent = "";
+
+        let isValid = true;
+
+        if (currentPassword.length < 6) {
+            document.getElementById("currentPasswordError").textContent = "Current password must be at least 6 characters long";
+            isValid = false;
+        }
+
+        if (newPassword.length < 6) {
+            document.getElementById("newPasswordError").textContent = "New password must be at least 6 characters long";
+            isValid = false;
+        }
+
+        if (newPassword !== confirmPassword) {
+            document.getElementById("confirmPasswordError").textContent = "Passwords do not match";
+            isValid = false;
+        }
+
+        if (!isValid) {
+            return;
+        }
+
+        // Create an object with the form data
+        const formData = {
+            currentPassword: currentPassword,
+            newPassword: newPassword,
+            confirmPassword: confirmPassword
+        };
+
+        // Make an Axios POST request to submit the form data
+        axios.post("/change-password", formData)
+            .then(function (response) {
+
+                document.getElementById("currentPassword").value = ""
+                document.getElementById("newPassword").value = " "
+                document.getElementById("confirmPassword").value = " "
+
+                document.getElementById("currentPasswordError").textContent = "";
+                document.getElementById("newPasswordError").textContent = "";
+                document.getElementById("confirmPasswordError").textContent = "";
+                Toastify({
+                    text: "Password Updated",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "green",
+                }).showToast();
+
+            })
+            .catch(function (response) {
+                if(response.response.status === 400){
+                    document.getElementById("currentPasswordError").textContent = "Invalid Password";
+                }
+                else{
+                    Toastify({
+                        text: "An error occurred. Try again",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
+                }
+            });
+    }
 
 
 </script>

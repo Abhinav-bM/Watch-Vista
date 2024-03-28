@@ -405,6 +405,7 @@
                                                     <p><strong>Quantity:</strong> <%= order.quantity %></p>
                                                     <p><strong>Price:</strong> <%= order.price %></p>
                                                     <p><strong>Total:</strong> <%= order.quantity * order.price %></p>
+                                                    <p><strong>Order Date:</strong> <%= order.orderDate %></p>
                                                     <p><strong>Status:</strong> <%= order.orderStatus %></p>
                                                     <p><strong>Shipping Address:</strong> <%= order.shippingAddress.name %>, <%= order.shippingAddress.address %> <%= order.shippingAddress.district %>, <%= order.shippingAddress.state %>, <%= order.shippingAddress.zip %>, <%= order.shippingAddress.phone %>, </p>
                                                     <!-- Add more order details as needed -->

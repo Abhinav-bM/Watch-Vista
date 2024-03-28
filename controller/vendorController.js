@@ -3,9 +3,11 @@ const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
+const {calculateTotalSales,calculateTopCategoriesSales} = require("../helpers/calculateTotalSales")
 const jwt = require("jsonwebtoken");
 const { sendOtpEmail } = require("../helpers/emailService");
 const cloudinary = require("../config/cloudinary");
+const { log } = require("firebase-functions/logger");
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
@@ -17,8 +19,59 @@ let dashboard = async (req, res) => {
   try {
     let email = req.user.email;
     let vendor = await Vendor.findOne({ email });
-    res.status(200).render("vendor/dashboard", { vendor });
+    let vendorId = vendor._id
+
+    const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
+      "products"
+    );
+    const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
+
+    const vendorOrders = [];
+
+    usersWithOrders.forEach((user) => {
+      user.orders.forEach((order) => {
+        order.products.forEach((product) => {
+          if (product.productId) {
+            const matchingProduct = vendorProducts.products.find(
+              (vendorProduct) => vendorProduct._id.equals(product.productId)
+            );
+
+            if (matchingProduct) {
+              const vendorOrder = {
+                userId: user._id,
+                orderId: order.orderId,
+                productName: matchingProduct.productName,
+                color: matchingProduct.productColor,
+                size: matchingProduct.productSize,
+                productId : product.productId,
+                category :matchingProduct.productCategory,
+                image : matchingProduct.productImages[0],
+                quantity: product.qty,
+                price: product.price,
+                orderStatus: product.orderStatus,
+                totalAmount: order.totalAmount,
+                orderDate: order.orderDate,
+                expectedDeliveryDate: order.expectedDeliveryDate,
+                shippingAddress: order.shippingAddress,
+                paymentMethod: order.paymentMethod,
+                cancelReason :product.cancelReason,
+              };
+              vendorOrders.push(vendorOrder);
+            }
+          }
+        });
+      });
+    });
+
+    const salesData = calculateTotalSales(vendorOrders);
+    const topCategories = calculateTopCategoriesSales(vendorOrders)
+    const latestTenOrders = vendorOrders.slice(-10)
+
+    console.log("salesData for dashboard vendor:",vendorOrders)
+
+    res.status(200).render("vendor/dashboard", { vendor , salesData,vendorOrders, topCategories,latestTenOrders});
   } catch (error) {
+    console.error(error)
     res.status(404).send("page not found");
   }
 };

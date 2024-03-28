@@ -948,9 +948,60 @@ let addAddress = async (req, res) => {
   }
 };
 
+// EDIT USER ADDRESS
+let editAddress = async (req, res) => {
+  const addressId = req.params.id;
+  console.log("address id :", addressId);
+  console.log("body :", req.body);
+  const { name, address, district, state, zip, email, phone } = req.body;
+  try {
+    const user = await User.findOne({ _id: req.user.id });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const addressIndex = user.addresses.findIndex(
+      (addr) => addr._id.toString() === addressId
+    );
+
+    if (addressIndex === -1) {
+      return res.status(404).json({ error: "Address not found" });
+    }
+
+    // Update the address with new values
+    user.addresses[addressIndex].name = name;
+    user.addresses[addressIndex].address = address;
+    user.addresses[addressIndex].district = district;
+    user.addresses[addressIndex].state = state;
+    user.addresses[addressIndex].zip = zip;
+    user.addresses[addressIndex].email = email;
+    user.addresses[addressIndex].phone = phone;
+
+    let addressEdited = {
+      name,
+      address,
+      district,
+      state,
+      zip,
+      email,
+      phone,
+    };
+
+    await user.save();
+
+    console.log("address updated : ", addressEdited);
+    res
+      .status(200)
+      .json({ message: "Address updated successfully", addressEdited });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "An error occured" });
+  }
+};
+
 // DELETE ADDRESS
 let deleteAddress = async (req, res) => {
-
   const addressId = req.params.addressId;
   const userId = req.user.id;
 
@@ -968,7 +1019,7 @@ let deleteAddress = async (req, res) => {
     if (addressIndex === -1) {
       return res.status(404).json({ error: "Address not found" });
     }
-    
+
     user.addresses.splice(addressIndex, 1);
 
     await user.save();
@@ -1190,6 +1241,39 @@ let orderCancelRequestPost = async (req, res) => {
   }
 };
 
+// CHANGE PASSWORD POST PAGE
+let changePasswordPost = async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const userId = req.user.id;
+  console.log(currentPassword, newPassword);
+  try {
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const validatedPassword = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+
+    if (!validatedPassword) {
+      return res.status(400).json({ error: "Current password in incorrect" });
+    }
+
+    const newHashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = newHashedPassword;
+
+    await user.save();
+    console.log("password changed successfully");
+    res.status(200).json({ message: "Password changed successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
 module.exports = {
   homePage,
   signupGetPage,
@@ -1217,8 +1301,10 @@ module.exports = {
   updateCartQuantity,
   checkoutpage,
   addAddress,
+  editAddress,
   deleteAddress,
   placeOrderPost,
   buyNowCheckOut,
   orderCancelRequestPost,
+  changePasswordPost,
 };

@@ -39,6 +39,9 @@ router.post("/cart/update-quantity",verifyToken,userController.updateCartQuantit
 router.post("/add-address",verifyToken,userController.addAddress)
 router.post("/place-order",verifyToken,userController.placeOrderPost)
 router.post("/cancelOrder/:orderId/:productId",verifyToken,userController.orderCancelRequestPost)
+router.post("/change-password",verifyToken,userController.changePasswordPost)
+
+router.put("/update-address/:id",verifyToken,userController.editAddress)
 
 router.delete("/cart/:productId",verifyToken,userController.removeProductCart)
 router.delete("/delete-address/:addressId",verifyToken,userController.deleteAddress)
