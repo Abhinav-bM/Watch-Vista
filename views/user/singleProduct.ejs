@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
 
     <style>
         /* CSS for Image Zoom */
@@ -839,20 +841,38 @@
                 productId: productId
             })
             .then(function (response) {
-                console.log(response.data);
+                console.log("rrspnse :", response);
 
-                // Show the toast when product is added
-                const toast = document.getElementById('toastNotification');
-                toast.classList.add('show');
+                if(response.status === 200){
+                       // Show the toast when product is added
+                    const toast = document.getElementById('toastNotification');
+                    toast.classList.add('show');
 
-                // Hide the toast after 0.5 seconds
-                setTimeout(function () {
-                    toast.classList.remove('show');
-                }, 2000);
+                    // Hide the toast after 0.5 seconds
+                    setTimeout(function () {
+                        toast.classList.remove('show');
+                    }, 2000);
+                }
             })
             .catch(function (error) {
-                console.error('Error adding product to cart:', error);
-                // Optionally, show an error message to the user
+                if(error.response.status === 404){
+                    Toastify({
+                        text: "Try, After login",
+                        duration: 4000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
+                }else{
+                    Toastify({
+                        text: "An error occurred. Try again",
+                        duration: 4000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "red",
+                    }).showToast();
+                }
+              
             });
         }
     

@@ -34,12 +34,13 @@ router.post("/forgotPassword", userController.forgotEmailPostPage);
 router.post("/resetPassword", userController.resetPassword);
 router.post("/loginOtp", userController.loginRequestOTP);
 router.post("/loginOtpDone", userController.loginVerifyOTP);
-router.post("/cart/add-to-cart",verifyToken,userController.addToCart)
+router.post("/cart/add-to-cart",userController.addToCart)
 router.post("/cart/update-quantity",verifyToken,userController.updateCartQuantity)
 router.post("/add-address",verifyToken,userController.addAddress)
 router.post("/place-order",verifyToken,userController.placeOrderPost)
 router.post("/cancelOrder/:orderId/:productId",verifyToken,userController.orderCancelRequestPost)
 router.post("/change-password",verifyToken,userController.changePasswordPost)
+router.post("/place-order/razorPay",verifyToken,userController.placeOrderPostRazorpay)
 
 router.put("/update-address/:id",verifyToken,userController.editAddress)
 

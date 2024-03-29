@@ -34,6 +34,7 @@
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0",
+    "razorpay": "^2.9.2",
     "speakeasy": "^2.0.0",
     "springedge": "^1.0.6",
     "twilio": "^4.22.0"

@@ -286,8 +286,6 @@
                                     <h4>PAYMENT METHOD</h4>
 
                                     <div class="accordion" id="accordionExample">
-                                      
-                                        <!-- Cash On Delivery -->
                                         <div class="card">
                                             <div class="card-header" id="headingTwo">
                                                 <h5 class="mb-0">
@@ -300,9 +298,7 @@
                                                 </h5>
                                             </div>
                                         </div>
-
-                                        <!-- RazorPay -->
-                                        <!-- <div class="card">
+                                        <div class="card">
                                             <div class="card-header" id="headingThree">
                                                 <h5 class="mb-0">
                                                     <div class="form-check">
@@ -313,8 +309,7 @@
                                                     </div>
                                                 </h5>
                                             </div>
-                                        </div> -->
-
+                                        </div>
                                     </div>
                                     <div class="order-button-payment mt-20">
                                         <button type="submit" id='placeOrderBtn' class="btn" style="background-color: #525151; color: white;">Place order</button>
@@ -369,33 +364,100 @@
                 }
 
                 try {
-                    const response = await axios.post('/place-order', {
-                    selectedAddressId: selectedAddressId,
-                    paymentMethod: paymentMethod,
-                    totalPrice :totalPrice
-                    });
-
-                    console.log(response)
                     
-                    // SWEET ALERT FOR ORDERS SUCCESS MESSAGE
-                    Swal.fire({
-                    icon: 'success',
-                    title: 'Order Placed Successfully!',
-                    html: `Your order with ID <strong>${response.data.orderId}</strong> has been placed.<br>
-                    Total Price: <strong>${totalPrice}</strong><br>
-                    Expected Delivery Date: <strong>${response.data.expectedDeliveryDate}</strong>`,
-                    confirmButtonText: "Ok"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = '/userProfile?showOrders=true';
-                        }
-                    });
+                    // const response = await axios.post('/place-order', {
+                    // selectedAddressId: selectedAddressId,
+                    // paymentMethod: paymentMethod,
+                    // totalPrice :totalPrice
+                    // });
+
+                    
+                    // // SWEET ALERT FOR ORDERS SUCCESS MESSAGE
+                    // Swal.fire({
+                    // icon: 'success',
+                    // title: 'Order Placed Successfully!',
+                    // html: `Your order with ID <strong>${response.data.orderId}</strong> has been placed.<br>
+                    // Total Price: <strong>${totalPrice}</strong><br>
+                    // Expected Delivery Date: <strong>${response.data.expectedDeliveryDate}</strong>`,
+                    // confirmButtonText: "Ok"
+                    // }).then((result) => {
+                    //     if (result.isConfirmed) {
+                    //         window.location.href = '/userProfile?showOrders=true';
+                    //     }
+                    // });
+                    if (paymentMethod === 'Cash On Delivery') {
+                        // Handle Cash On Delivery
+                        const response = await axios.post('/place-order', {
+                            selectedAddressId: selectedAddressId,
+                            paymentMethod: paymentMethod,
+                            totalPrice: totalPrice
+                        });
+                        showOrderSuccessMessage(response.data);
+                    } else if (paymentMethod === 'RazorPay') {
+                        handleRazorpayPayment(selectedAddressId,paymentMethod,totalPrice)
+                    }
                 } catch (error) {
                     console.error('Error placing order:', error.response.data);
                     alert('Error placing order. Please try again.');
                 }
                 });
+
+                function showOrderSuccessMessage(data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Placed Successfully!',
+                        html: `Your order with ID <strong>${data.orderId}</strong> has been placed.<br>
+                        Total Price: <strong>${totalPrice}</strong><br>
+                        Expected Delivery Date: <strong>${data.expectedDeliveryDate}</strong>`,
+                        confirmButtonText: "Ok"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/userProfile?showOrders=true';
+                        }
+                    });
+                }
             });
+
+
+            async function handleRazorpayPayment(selectedAddressId,paymentMethod,totalPrice) {
+                try {
+                    const response = await axios.post('/place-order/razorPay', {
+                        selectedAddressId: selectedAddressId,
+                        paymentMethod: paymentMethod,
+                        totalPrice: totalPrice
+                    });
+
+                    const { orderId, amount, keyId } = response.data;
+
+                    const options = {
+                        key: keyId,
+                        amount: amount, // Amount in the smallest currency unit
+                        currency: 'INR',
+                        name: 'Your Company Name',
+                        description: 'Test Transaction',
+                        image: 'https://example.com/your_logo.png',
+                        order_id: orderId,
+                        handler: function (response) {
+                            
+                            console.log('Payment successful: ', response.razorpay_payment_id);
+                            
+                        },
+                        prefill: {
+                            name: 'John Doe',
+                            email: 'john@example.com',
+                            contact: '9999999999',
+                        },
+                        theme: {
+                            color: '#F37254',
+                        },
+                    };
+
+                    const rzp = new Razorpay(options);
+                    rzp.open();
+                } catch (error) {
+                    console.error('Error creating Razorpay order:', error);
+                }
+            }
 
 
         </script>

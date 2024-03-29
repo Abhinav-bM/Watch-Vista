@@ -8,6 +8,7 @@ const { sendOtpEmail } = require("../helpers/emailService");
 const { name } = require("ejs");
 const mongoose = require("mongoose");
 const { log } = require("firebase-functions/logger");
+const Razorpay = require('razorpay');
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -546,25 +547,29 @@ let singleProductGetPage = async (req, res) => {
 // ADD TO CART
 let addToCart = async (req, res) => {
   const { productId } = req.body;
-  const userId = req.user.id;
+  const token = req.cookies.jwt
+  let userId;
+ 
 
   try {
+    if(token){
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+       userId = decoded.id
+    }
     const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+    console.log(user);
 
-    // Check if the product already exists in the cart
     const existingProductIndex = user.cart.products.findIndex(
       (item) => item.productId.toString() === productId
     );
 
     if (existingProductIndex !== -1) {
-      // If the product exists, update the quantity
       user.cart.products[existingProductIndex].quantity += 1;
     } else {
-      // If the product is new, add it to the cart
       user.cart.products.push({ productId, quantity: 1 });
     }
 
@@ -1135,6 +1140,18 @@ let placeOrderPost = async (req, res) => {
   }
 };
 
+// PLACE ORDER RAZORPAY
+const razorpayInstance = {
+  key_id : process.env.RAZORPAY_ID_KEY,
+  key_secret : process.env.RAZORPAY_SECRET_KEY,
+}
+let placeOrderPostRazorpay = async (req,res)=>{
+  const { selectedAddressId, paymentMethod, totalPrice } = req.body;
+  console.log("its coming here : razorPay");
+
+  
+}
+
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
   const userId = req.user.id;
@@ -1304,6 +1321,7 @@ module.exports = {
   editAddress,
   deleteAddress,
   placeOrderPost,
+  placeOrderPostRazorpay,
   buyNowCheckOut,
   orderCancelRequestPost,
   changePasswordPost,

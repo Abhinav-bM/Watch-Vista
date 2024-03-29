@@ -50,6 +50,8 @@ const orderSchema = new mongoose.Schema(
     expectedDeliveryDate: { type: String },
     shippingAddress: { type: addressSchema },
     paymentMethod: { type: String, require: true },
+    razorPaymentId:{type:String},
+    razorpayOrderId:{type:String},
   },
   { _id: false }
 );
@@ -69,6 +71,7 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+
 });
 
 module.exports = mongoose.model("User", userSchema);
