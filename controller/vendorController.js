@@ -3,7 +3,7 @@ const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const {calculateTotalSales,calculateTopCategoriesSales} = require("../helpers/calculateTotalSales")
+const {calculateTotalSales,calculateTopCategoriesSales,getLatest10DaysOrders,calculateTotalRevenue,getUniqueCustomers} = require("../helpers/vendorDashboard")
 const jwt = require("jsonwebtoken");
 const { sendOtpEmail } = require("../helpers/emailService");
 const cloudinary = require("../config/cloudinary");
@@ -11,7 +11,6 @@ const { log } = require("firebase-functions/logger");
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
-
 require("dotenv").config();
 
 // VENDOR DASHBOARD PAGE DISPLAY
@@ -65,11 +64,14 @@ let dashboard = async (req, res) => {
 
     const salesData = calculateTotalSales(vendorOrders);
     const topCategories = calculateTopCategoriesSales(vendorOrders)
-    const latestTenOrders = vendorOrders.slice(-10)
+    const latestTenOrders = getLatest10DaysOrders(vendorOrders)
+    const totalRevenue = calculateTotalRevenue(vendorOrders)
+    const customers   = getUniqueCustomers(vendorOrders)
+  
 
-    console.log("salesData for dashboard vendor:",vendorOrders)
+    console.log("salesData for dashboard vendor:",customers)
 
-    res.status(200).render("vendor/dashboard", { vendor , salesData,vendorOrders, topCategories,latestTenOrders});
+    res.status(200).render("vendor/dashboard", { vendor , salesData,vendorOrders, topCategories,latestTenOrders,totalRevenue,customers});
   } catch (error) {
     console.error(error)
     res.status(404).send("page not found");

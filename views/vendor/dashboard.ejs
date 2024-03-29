@@ -27,7 +27,7 @@
                     <span class="logo-icon">
                         <i class="bi bi-bag-check-fill fs-4"></i>
                     </span>
-                    <span class="logo-text">Vendor</span>
+                    <span class="logo-text"><%= vendor.vendorName %></span>
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
@@ -166,8 +166,8 @@
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-success text-light"><i class="icofont-chart-growth"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Revenue</div>
-                                        <span class="small">$18,925</span>
+                                        <div class="h6 mb-0">Sales</div>
+                                        <span class="small">₹ <%= totalRevenue %></span>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                                     <div class="avatar rounded no-thumbnail bg-danger text-light"><i class="icofont-student-alt fs-3"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
                                         <div class="h6 mb-0">Customers</div>
-                                        <span class="small">$11,024</span>
+                                        <span class="small"><%= customers.length %></span>
                                     </div>
                                 </div>
                             </div>
@@ -484,7 +484,7 @@
         data: {
             labels: chartLabelsCategory,
             datasets: [{
-            label: 'Total Orders',
+            label: '',
             data: chartValuesCategory,
             backgroundColor: [
                 'rgba(255, 99, 132, 0.5)',
