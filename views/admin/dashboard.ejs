@@ -176,8 +176,8 @@
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-success text-light"><i class="fa fa-dollar fa-lg"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Sales</div>
-                                        <span class="small">$18,925</span>
+                                        <div class="h6 mb-0">Total Sales</div>
+                                        <span class="small"><%= totalSales %></span>
                                     </div>
                                 </div>
                             </div>
@@ -187,8 +187,8 @@
                                 <div class="d-flex align-items-center">
                                     <div class="avatar rounded no-thumbnail bg-danger text-light"><i class="fa fa-credit-card fa-lg"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Expense</div>
-                                        <span class="small">$11,024</span>
+                                        <div class="h6 mb-0">Users</div>
+                                        <span class="small"><%= users.length %></span>
                                     </div>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@
                                     <div class="avatar rounded no-thumbnail bg-warning text-light"><i class="fa fa-smile-o fa-lg"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
                                         <div class="h6 mb-0">Visitors</div>
-                                        <span class="small">8,925</span>
+                                        <span class="small"></span>
                                     </div>
                                 </div>
                             </div>
@@ -210,7 +210,7 @@
                                     <div class="avatar rounded no-thumbnail bg-info text-light"><i class="fa fa-shopping-bag" aria-hidden="true"></i></div>
                                     <div class="flex-fill ms-3 text-truncate">
                                         <div class="h6 mb-0">Vendors</div>
-                                        <span class="small">8,925</span>
+                                        <span class="small"><%= vendors.length %></span>
                                     </div>
                                 </div>
                             </div>
@@ -225,7 +225,7 @@
                                     <h6 class="m-0 fw-bold">Shopping Status</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="ac-line-transparent" id="apex-shoppingstatus"></div>
+                                    <canvas id="myChart"></canvas>
                                 </div>
                             </div>
                             <div class="card">
@@ -525,9 +525,57 @@
     <script src="/admin/assets/bundles/dataTables.bundle.js"></script>  
 
     <!-- Jquery Page Js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script src="../js/template.js"></script>
     <script src="../js/page/index.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU&amp;callback=myMap"></script>  
+    <script>
+        // SALES DATA CHART
+        const ctx = document.getElementById('myChart');
+        // function getSalesData() {
+        //     const salesDataInput = document.getElementById('salesData');
+        //     if (salesDataInput) {
+        //         const salesData = JSON.parse(salesDataInput.value);
+        //         return salesData;
+        //     }
+        //     return [];
+        // }
+        
+        // const salesData = getSalesData();
+
+        // const chartLabels = salesData.map(item => item.date);
+        // const chartValues = salesData.map(item => item.totalSales);
+
+        new Chart(ctx, {
+        type: 'polarArea',
+        data: {
+            labels: ['Red',
+                    'Green',
+                    'Yellow',
+                    'Grey',
+                    'Blue'],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [11, 16, 7, 3, 14],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(75, 192, 192)',
+                'rgb(255, 205, 86)',
+                'rgb(201, 203, 207)',
+                'rgb(54, 162, 235)'
+                ]
+            }]
+        },
+        options: {
+            scales: {
+            y: {
+                beginAtZero: true
+            }
+            }
+        }
+        });
+    </script>
     <script>
         $('#myDataTable')
         .addClass( 'nowrap')

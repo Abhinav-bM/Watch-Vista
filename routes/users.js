@@ -40,6 +40,7 @@ router.post("/add-address",verifyToken,userController.addAddress)
 router.post("/place-order",verifyToken,userController.placeOrderPost)
 router.post("/cancelOrder/:orderId/:productId",verifyToken,userController.orderCancelRequestPost)
 router.post("/change-password",verifyToken,userController.changePasswordPost)
+router.post("/update-user-details",verifyToken,userController.updateUserDetails)
 router.post("/place-order/razorPay",verifyToken,userController.placeOrderPostRazorpay)
 
 router.put("/update-address/:id",verifyToken,userController.editAddress)

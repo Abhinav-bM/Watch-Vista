@@ -15,7 +15,8 @@ const adminSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
-  categories :[categorySchema]
+  categories :[categorySchema],
+  visitorCount: { type: Number, default: 0 },
 });
 
 module.exports = mongoose.model("Admin", adminSchema);

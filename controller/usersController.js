@@ -1291,6 +1291,29 @@ let changePasswordPost = async (req, res) => {
   }
 };
 
+let updateUserDetails = async (req, res)=>{ 
+  const {newName, newEmail, newPhone } = req.body
+  console.log(newName, newEmail, newPhone);
+  const userId = req.user.id
+  try {
+    const user = await User.findOne({_id:userId})
+
+    if(!user){
+      res.status(404).json({error :"User Not found"})
+    }
+    
+    user.name = newName
+    user.email = newEmail
+    user.phoneNumber = newPhone
+
+    await user.save()
+    res.status(200).json({message:"User details updated successfully"})
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error:"Server side error"})
+  }
+}
+
 module.exports = {
   homePage,
   signupGetPage,
@@ -1325,4 +1348,5 @@ module.exports = {
   buyNowCheckOut,
   orderCancelRequestPost,
   changePasswordPost,
+  updateUserDetails,
 };

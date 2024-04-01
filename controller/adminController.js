@@ -56,11 +56,23 @@ let loginPostPage = async (req, res) => {
 };
 
 // ADMIN DASHBOARD DISPLAY
-let dashboardPage = (req, res) => {
+let dashboardPage =async (req, res) => {
   try {
     const user = req.user;
-    res.render("admin/dashboard", { user });
+    const vendors = await Vendor.find()
+    const users = await User.find({} ,'orders');
+    const allOrders = users.flatMap(user => user.orders);
+    let productsArr = []
+    allOrders.forEach((prod) => {
+      prod.products.forEach(product=> productsArr.push(product))
+    })
+    const filtered = productsArr.filter(prod => prod.orderStatus ==="Delivered")
+    let totalSales = 0;
+    filtered.forEach(prod=> totalSales += (prod.qty * prod.price))
+    
+    res.render("admin/dashboard", { user ,vendors,totalSales, users});
   } catch (error) {
+    console.error(error)
     res.status(500).json({ msg: "server side error" });
   }
 };
