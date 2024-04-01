@@ -330,6 +330,9 @@
         <!-- Include Axios -->
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
         <script>
 
             document.addEventListener("DOMContentLoaded", function() {
@@ -360,6 +363,7 @@
                 if (cashOnDeliveryCheckbox.checked) {
                     paymentMethod = 'Cash On Delivery';
                 } else if (razorPayCheckbox.checked) {
+                    console.log(razorPayCheckbox.checked);
                     paymentMethod = 'RazorPay';
                 }
 
@@ -394,6 +398,7 @@
                         });
                         showOrderSuccessMessage(response.data);
                     } else if (paymentMethod === 'RazorPay') {
+
                         handleRazorpayPayment(selectedAddressId,paymentMethod,totalPrice)
                     }
                 } catch (error) {
@@ -421,9 +426,7 @@
 
             async function handleRazorpayPayment(selectedAddressId,paymentMethod,totalPrice) {
                 try {
-                    const response = await axios.post('/place-order/razorPay', {
-                        selectedAddressId: selectedAddressId,
-                        paymentMethod: paymentMethod,
+                    const response = await axios.post('/place-order/razorPay', {    
                         totalPrice: totalPrice
                     });
 
@@ -433,7 +436,7 @@
                         key: keyId,
                         amount: amount, // Amount in the smallest currency unit
                         currency: 'INR',
-                        name: 'Your Company Name',
+                        name: 'WatchVista',
                         description: 'Test Transaction',
                         image: 'https://example.com/your_logo.png',
                         order_id: orderId,

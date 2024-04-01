@@ -8,7 +8,7 @@ const { sendOtpEmail } = require("../helpers/emailService");
 const { name } = require("ejs");
 const mongoose = require("mongoose");
 const { log } = require("firebase-functions/logger");
-const Razorpay = require('razorpay');
+const Razorpay = require("razorpay");
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -547,14 +547,13 @@ let singleProductGetPage = async (req, res) => {
 // ADD TO CART
 let addToCart = async (req, res) => {
   const { productId } = req.body;
-  const token = req.cookies.jwt
+  const token = req.cookies.jwt;
   let userId;
- 
 
   try {
-    if(token){
+    if (token) {
       const decoded = jwt.verify(token, process.env.JWT_KEY);
-       userId = decoded.id
+      userId = decoded.id;
     }
     const user = await User.findById(userId);
 
@@ -1141,16 +1140,29 @@ let placeOrderPost = async (req, res) => {
 };
 
 // PLACE ORDER RAZORPAY
-const razorpayInstance = {
-  key_id : process.env.RAZORPAY_ID_KEY,
-  key_secret : process.env.RAZORPAY_SECRET_KEY,
-}
-let placeOrderPostRazorpay = async (req,res)=>{
-  const { selectedAddressId, paymentMethod, totalPrice } = req.body;
-  console.log("its coming here : razorPay");
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_ID_KEY,
+  key_secret: process.env.RAZORPAY_SECRET_KEY,
+});
 
-  
-}
+let placeOrderPostRazorpay = async (req, res) => {
+  const { totalPrice } = req.body;
+  console.log("its coming here : razorPay");
+  const keyId = process.env.RAZORPAY_ID_KEY;
+
+  const options = {
+    amount: totalPrice * 100,
+    currency: "INR",
+  };
+
+  try {
+    const order = await razorpay.orders.create(options);
+    res.json({ orderId: order.id, amount: order.amount, keyId });
+  } catch (error) {
+    console.error("Error creating order :", error);
+    res.status(500).json({ error: "Failed to create order" });
+  }
+};
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
@@ -1291,28 +1303,28 @@ let changePasswordPost = async (req, res) => {
   }
 };
 
-let updateUserDetails = async (req, res)=>{ 
-  const {newName, newEmail, newPhone } = req.body
+let updateUserDetails = async (req, res) => {
+  const { newName, newEmail, newPhone } = req.body;
   console.log(newName, newEmail, newPhone);
-  const userId = req.user.id
+  const userId = req.user.id;
   try {
-    const user = await User.findOne({_id:userId})
+    const user = await User.findOne({ _id: userId });
 
-    if(!user){
-      res.status(404).json({error :"User Not found"})
+    if (!user) {
+      res.status(404).json({ error: "User Not found" });
     }
-    
-    user.name = newName
-    user.email = newEmail
-    user.phoneNumber = newPhone
 
-    await user.save()
-    res.status(200).json({message:"User details updated successfully"})
+    user.name = newName;
+    user.email = newEmail;
+    user.phoneNumber = newPhone;
+
+    await user.save();
+    res.status(200).json({ message: "User details updated successfully" });
   } catch (error) {
-    console.error(error)
-    res.status(500).json({error:"Server side error"})
+    console.error(error);
+    res.status(500).json({ error: "Server side error" });
   }
-}
+};
 
 module.exports = {
   homePage,
