@@ -407,6 +407,53 @@
                 }
                 });
 
+
+                
+                async function handleRazorpayPayment(selectedAddressId,paymentMethod,totalPrice) {
+                    try {
+                        const response = await axios.post('/place-order/razorPay', {    
+                            totalPrice: totalPrice
+                        });
+
+                        const { orderId, amount, keyId } = response.data;
+
+                        const options = {
+                            key: keyId,
+                            amount: amount, // Amount in the smallest currency unit
+                            currency: 'INR',
+                            name: 'WatchVista',
+                            description: 'Test Transaction',
+                            image: 'https://example.com/your_logo.png',
+                            order_id: orderId,
+                            handler: function (response) {
+                                
+                                axios.post("/razorpay-order",{response,paymentMethod,selectedAddressId})
+                                .then((respons)=>{
+                                    console.log(respons);
+                                    showOrderSuccessMessage(respons.data)
+                                })
+                                .catch((error)=>{
+                                    console.log(error);
+                                })
+                            
+                            },
+                            prefill: {
+                                name: 'ABHINAV B MANOJ',
+                                email: 'abhinavbmanoj@gmail.com',
+                                contact: '9567267515',
+                            },
+                            theme: {
+                                color: '#F37254',
+                            },
+                        };
+
+                        const rzp = new Razorpay(options);
+                        rzp.open();
+                    } catch (error) {
+                        console.error('Error creating Razorpay order:', error);
+                    }
+                }
+
                 function showOrderSuccessMessage(data) {
                     Swal.fire({
                         icon: 'success',
@@ -424,43 +471,6 @@
             });
 
 
-            async function handleRazorpayPayment(selectedAddressId,paymentMethod,totalPrice) {
-                try {
-                    const response = await axios.post('/place-order/razorPay', {    
-                        totalPrice: totalPrice
-                    });
-
-                    const { orderId, amount, keyId } = response.data;
-
-                    const options = {
-                        key: keyId,
-                        amount: amount, // Amount in the smallest currency unit
-                        currency: 'INR',
-                        name: 'WatchVista',
-                        description: 'Test Transaction',
-                        image: 'https://example.com/your_logo.png',
-                        order_id: orderId,
-                        handler: function (response) {
-                            
-                            console.log('Payment successful: ', response.razorpay_payment_id);
-                            
-                        },
-                        prefill: {
-                            name: 'John Doe',
-                            email: 'john@example.com',
-                            contact: '9999999999',
-                        },
-                        theme: {
-                            color: '#F37254',
-                        },
-                    };
-
-                    const rzp = new Razorpay(options);
-                    rzp.open();
-                } catch (error) {
-                    console.error('Error creating Razorpay order:', error);
-                }
-            }
 
 
         </script>

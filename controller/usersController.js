@@ -1139,19 +1139,17 @@ let placeOrderPost = async (req, res) => {
   }
 };
 
-// PLACE ORDER RAZORPAY
+// PLACE ORDER RAZORPAY - STARTS HERE
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_ID_KEY,
   key_secret: process.env.RAZORPAY_SECRET_KEY,
 });
-
 let placeOrderPostRazorpay = async (req, res) => {
   const { totalPrice } = req.body;
-  console.log("its coming here : razorPay");
   const keyId = process.env.RAZORPAY_ID_KEY;
 
   const options = {
-    amount: totalPrice * 100,
+    amount: 100 * 100,
     currency: "INR",
   };
 
@@ -1163,6 +1161,113 @@ let placeOrderPostRazorpay = async (req, res) => {
     res.status(500).json({ error: "Failed to create order" });
   }
 };
+let successfulRazorpayOrder = async (req, res) => {
+  console.log(req.body);
+  const { razorpay_payment_id, razorpay_order_id} = req.body.response;
+  const { selectedAddressId, paymentMethod } = req.body
+  console.log(razorpay_payment_id, razorpay_order_id, selectedAddressId, paymentMethod );
+  try {
+    console.log("user :",req);
+    const userId = req.user.id;
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // selected address from user's addresses
+    const selectedAddress = user.addresses.find(
+      (address) => address._id.toString() === selectedAddressId
+    );
+
+    if (!selectedAddress) {
+      return res.status(404).json({ message: "Selected address not found" });
+    }
+
+    // ALL PRODUCTS
+    const allProducts = await Vendor.find({}).populate("products");
+    let cart = [];
+    console.log("pushed order");
+
+    user.cart.products.forEach((cartProduct) => {
+      const productId = cartProduct.productId;
+
+      // FIND PRODUCTS FROM ALL PRODUCTS
+      allProducts.forEach((vendor) => {
+        vendor.products.forEach((product) => {
+          if (product._id.equals(productId)) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            const productDetails = {
+              _id: product._id,
+              name: product.productName,
+              category: product.productCategory,
+              subcategory: product.productSubCategory,
+              brand: product.productBrand,
+              color: product.productColor,
+              size: product.productSize,
+              quantity: cartProduct.quantity,
+              price: product.productPrice,
+              mrp: product.productMRP,
+              discount: product.productDiscount,
+              images: product.productImages,
+              description: product.productDescription,
+              vendor: vendorInfo,
+            };
+
+            cart.push(productDetails);
+          }
+        });
+      });
+    });
+
+    const orderDate = new Date();
+    const expectedDeliveryDate = new Date(orderDate);
+    expectedDeliveryDate.setDate(expectedDeliveryDate.getDate() + 4);
+    const formattedDeliveryDate = expectedDeliveryDate.toLocaleDateString();
+    const newOrder = {
+      orderId: new mongoose.Types.ObjectId(),
+      products: cart.map((product) => ({
+        productId: product._id,
+        qty: product.quantity,
+        price: product.price,
+        size: product.size,
+      })),
+      totalAmount: cart.reduce(
+        (total, product) => total + product.price * product.quantity,
+        0
+      ),
+      orderDate: new Date(),
+      expectedDeliveryDate: formattedDeliveryDate,
+      shippingAddress: selectedAddress,
+      paymentMethod: paymentMethod,
+      razorPaymentId: razorpay_payment_id,
+      razorpayOrderId: razorpay_order_id,
+    };
+
+    user.orders.push(newOrder);
+
+    await user.save();
+
+    // Send a response with the new order details
+    res.status(201).json({
+      message: "Order placed successfully!",
+      orderId: newOrder.orderId,
+      totalAmount: newOrder.totalAmount,
+      shippingAddress: newOrder.shippingAddress,
+      paymentMethod: newOrder.paymentMethod,
+      expectedDeliveryDate: formattedDeliveryDate,
+    });
+  } catch (error) {
+    console.error("Error placing order throught razorpat payment :", error)
+    res.status(500).json({error: "An error occured"})
+  }
+};
+// PLACE ORDER RAZORPAY - ENDS HERE
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
@@ -1357,6 +1462,7 @@ module.exports = {
   deleteAddress,
   placeOrderPost,
   placeOrderPostRazorpay,
+  successfulRazorpayOrder,
   buyNowCheckOut,
   orderCancelRequestPost,
   changePasswordPost,

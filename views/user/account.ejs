@@ -77,6 +77,23 @@
     padding: 0; /* Remove button padding */
     cursor: pointer; /* Show pointer cursor on hover */
 }
+
+/* scroballe code */
+.scrollable{
+  overflow-y: scroll;
+  height: 400px;
+  background: #ffffff;
+  padding: 20px;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.disable-scroll{
+  overflow-y: hidden;
+}
+iframe[sandbox] .read-article{
+  display: none;
+}
     </style>
 </head>
 
@@ -447,69 +464,70 @@
                                                 
                                             </div>
                                         </div>
+                                        
 
-                                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                                            <div class="myaccount-content">
-                                                <h3>Orders</h3>
-                                                
-                                                <% if (user.orders.length > 0) { %>
-                                                <% cart.forEach((prod) => { %>
-                                                <div class="myaccount-table table-responsive text-center">
-                                                    <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
-                                                    <div class="d-flex py-3 my-3 align-items-center " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
+                                            <div class="tab-pane fade scrollable" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                                <div class="myaccount-content">
+                                                    <h3>Orders</h3>
+                                                    
+                                                    <% if (user.orders.length > 0) { %>
+                                                    <% cart.forEach((prod) => { %>
+                                                    <div class="myaccount-table table-responsive text-center">
+                                                        <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
+                                                        <div class="d-flex py-2 mb-2 align-items-center rounded " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
 
-                                                        <div class="product col-4">
-                                                        <img src="<%= prod.images[0] %>" alt="" width="150px">
+                                                            <div class="product col-4">
+                                                            <img src="<%= prod.images[0] %>" alt="" width="150px">
 
-                                                        <div class="mt-5">
-                                                            <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled') { %>
-                                                            <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')">Cancel Order</button>
-                                                            <% } else { %>
-                                                            <button class="rounded" disabled>Cancel Order</button>
-                                                            <% } %>
+                                                            <div class="mt-2">
+                                                                <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled') { %>
+                                                                <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')">Cancel Order</button>
+                                                                <% } else { %>
+                                                                <button class="rounded" disabled>Cancel Order</button>
+                                                                <% } %>
+                                                            </div>
+                                                            </div>
+
+                                                            <div class="d-grid text-start">
+                                                                <h6><%= prod.name %></6>
+                                                                <p class="m-0"><small>Color: <%= prod.color %> & Price:  <%= prod.price %></small></p>
+                                                                <p class="m-0"><small>Size: <%= prod.size %> & Quantity: <%= prod.quantity %></small></p>
+                                                                <p class="m-0"><small>Seller: <%= prod.vendor.vendorName %></small></p>
+                                                                <p class="m-0"><small>Expected Delivery: <%= prod.expectedDeliveryDate %></small></p>
+                                                                <p class="m-0"><small>Order Status: <%= prod.orderStatus %></small></p>
+                                                                <p class="m-0"><small>Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></small></p>
+                                                            </div>
                                                         </div>
-                                                        </div>
-
-                                                        <div class="d-grid text-start">
-                                                        <h6><%= prod.name %></6>
-                                                        <p class="m-0">Color: <%= prod.color %></p>
-                                                        <p class="m-0">Size: <%= prod.size %> & Quantity: <%= prod.quantity %></p>
-                                                        <p class="m-0">Price:  <%= prod.price %></p>
-                                                        <p class="m-0">Seller: <%= prod.vendor.vendorName %></p>
-                                                        <p class="m-0">Expected Delivery: <%= prod.expectedDeliveryDate %></p>
-                                                        <p class="m-0">Order Status: <%= prod.orderStatus %></p>
-                                                        <p class="m-0">Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<br><%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></p>
-                                                        </div>
-                                                    </div>
-                                                        
-                                                    <!-- MODAL FOR ORDER CANCELLATION -->
-                                                    <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
-                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
-                                                                        <div class="mb-3">
-                                                                            <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
-                                                                            <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
-                                                                        </div>
-                                                                        <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
-                                                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                                                    </form>
+                                                            
+                                                        <!-- MODAL FOR ORDER CANCELLATION -->
+                                                        <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
+                                                                            <div class="mb-3">
+                                                                                <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
+                                                                                <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
+                                                                            </div>
+                                                                            <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
+                                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                                        </form>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                <% }) %>
-                                                <% } else { %>
-                                                <p>No orders found.</p>
-                                                <% } %>
-                                            </div>    
-                                        </div>
+                                                    <% }) %>
+                                                    <% } else { %>
+                                                    <p>No orders found.</p>
+                                                    <% } %>
+                                                </div>    
+                                            </div>
 
+                                        
                                         
                                         <!-- ORDER HISTORY TABLE ENDS ----------------------------------------------------------------------->
                                         
@@ -601,6 +619,28 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
+    // ORDERS LISTING SCROLL
+    function preventScroll(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        return false;
+    }
+
+    function disable(){
+        document.querySelector('.scrollable').classList.add('disable-scroll');
+    }
+
+    function enable(){
+        document.querySelector('.scrollable').classList.remove('disable-scroll');
+    }
+
+    document.querySelector('#prevent').addEventListener('click', disable);
+    document.querySelector('#allow').addEventListener('click', enable);
+    // SCROLL ENDS HERE
+
+
+
     // WHEN THE USER PRODFILE PAGE LOADS AFTER ORDER PLACED
     window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
