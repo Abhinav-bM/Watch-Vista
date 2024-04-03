@@ -18,6 +18,7 @@ router.get("/vendor/addProduct",vendorAuthMiddleware,vendorController.addProduct
 router.get("/vendor/productList",vendorAuthMiddleware,vendorController.producList)
 router.get("/vendor/editProduct/:id",vendorAuthMiddleware,vendorController.editProduct)
 router.get("/vendor/orders",vendorAuthMiddleware,vendorController.getOrdersForVendor)
+router.get("/vendorProfile",vendorAuthMiddleware,vendorController.vendorProfile)
 
 
 router.post("/vendor/register",vendorController.vendorRegisterPostPage)

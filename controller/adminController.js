@@ -2,6 +2,7 @@ const { defaultWorkerPolicies } = require("twilio/lib/jwt/taskrouter/util");
 const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
 const Vendor = require("../models/vendorsModel");
+const {calculateTotalSales,getOrdersCountForLast10Days,getLatest10Orders,} = require("../helpers/adminDashboard");
 const jwt = require("jsonwebtoken");
 
 // ADMIN LOGIN PAGE DISPLAY
@@ -56,23 +57,73 @@ let loginPostPage = async (req, res) => {
 };
 
 // ADMIN DASHBOARD DISPLAY
-let dashboardPage =async (req, res) => {
+let dashboardPage = async (req, res) => {
   try {
     const user = req.user;
-    const vendors = await Vendor.find()
-    const users = await User.find({} ,'orders');
-    const allOrders = users.flatMap(user => user.orders);
-    let productsArr = []
+    const vendors = await Vendor.find();
+    const users = await User.find({}, "orders");
+
+    const allOrders = users.flatMap((user) => user.orders);
+
+    let productsArr = [];
     allOrders.forEach((prod) => {
-      prod.products.forEach(product=> productsArr.push(product))
-    })
-    const filtered = productsArr.filter(prod => prod.orderStatus ==="Delivered")
+      prod.products.forEach((product) => productsArr.push(product));
+    });
+    const filtered = productsArr.filter(
+      (prod) => prod.orderStatus === "Delivered"
+    );
     let totalSales = 0;
-    filtered.forEach(prod=> totalSales += (prod.qty * prod.price))
+    filtered.forEach((prod) => (totalSales += prod.qty * prod.price));
+
+    ///////////////////////////////
+    const vendorProducts = await Vendor.find().populate("products");
+
+    const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
+
+    const vendorOrders = [];
+
+    usersWithOrders.forEach((user) => {
+      user.orders.forEach((order) => {
+        order.products.forEach((product) => {
+          if (product.productId) {
+            // Find the matching product from vendor products
+            const matchingProduct = vendorProducts.reduce((acc, vendor) => {
+              const foundProduct = vendor.products.find((vendorProduct) =>
+                vendorProduct._id.equals(product.productId)
+              );
+              return foundProduct ? foundProduct : acc;
+            }, null);
+
+            if (matchingProduct) {
+              const vendorOrder = {
+                quantity: product.qty,
+                price: product.price,
+                orderStatus: product.orderStatus,
+                orderDate: order.orderDate,
+              };
+              vendorOrders.push(vendorOrder);
+            }
+          }
+        });
+      });
+    });
+    ///////////////////////////////
+
+    const salesData = calculateTotalSales(vendorOrders);
+    const ordersCountForLast10Days = getOrdersCountForLast10Days(vendorOrders);
+    const latest10orders = await getLatest10Orders()
     
-    res.render("admin/dashboard", { user ,vendors,totalSales, users});
+    res.render("admin/dashboard", {
+      user,
+      vendors,
+      totalSales,
+      users,
+      salesData,
+      ordersCountForLast10Days,
+      latest10orders,
+    });
   } catch (error) {
-    console.error(error)
+    console.error(error);
     res.status(500).json({ msg: "server side error" });
   }
 };
@@ -241,8 +292,8 @@ let updateSubcategory = async (req, res) => {
   let subcategoryId = req.body.editSubcategoryId;
   let subcategoryName = req.body.editSubcategoryName;
 
-  console.log("subcategoryID : ",subcategoryId)
-  console.log("subcategoryName :", subcategoryName)
+  console.log("subcategoryID : ", subcategoryId);
+  console.log("subcategoryName :", subcategoryName);
 
   try {
     let admin = await Admin.findOne();
@@ -253,8 +304,10 @@ let updateSubcategory = async (req, res) => {
     let foundCategory = null;
 
     // Search through categories and subcategories to find the subcategory with the given ID
-    admin.categories.forEach(category => {
-      const subcategory = category.subcategories.find(sub => sub._id.toString() === subcategoryId);
+    admin.categories.forEach((category) => {
+      const subcategory = category.subcategories.find(
+        (sub) => sub._id.toString() === subcategoryId
+      );
       if (subcategory) {
         foundSubcategory = subcategory;
         foundCategory = category;
@@ -265,7 +318,7 @@ let updateSubcategory = async (req, res) => {
     foundSubcategory.subcategoryName = subcategoryName;
 
     await admin.save();
-    console.log("subcategory updated successfully")
+    console.log("subcategory updated successfully");
 
     res.redirect("/admin/subcategoryList");
   } catch (error) {

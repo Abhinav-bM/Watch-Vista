@@ -24,7 +24,7 @@ let dashboard = async (req, res) => {
       "products"
     );
     const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
-
+    
     const vendorOrders = [];
 
     usersWithOrders.forEach((user) => {
@@ -67,9 +67,6 @@ let dashboard = async (req, res) => {
     const latestTenOrders = getLatest10DaysOrders(vendorOrders)
     const totalRevenue = calculateTotalRevenue(vendorOrders)
     const customers   = getUniqueCustomers(vendorOrders)
-  
-
-    console.log("salesData for dashboard vendor:",customers)
 
     res.status(200).render("vendor/dashboard", { vendor , salesData,vendorOrders, topCategories,latestTenOrders,totalRevenue,customers});
   } catch (error) {
@@ -510,6 +507,19 @@ let updateOrderStatus = async (req, res) => {
   }
 };
 
+// GET VENDOR PROFILE
+let vendorProfile = async (req, res)=>{
+  const vendorId  =  req.user.id
+  try {
+    const vendor =  await Vendor.findOne({_id:vendorId})
+
+    res.status(200).render("vendor/vendor-profile",{vendor})
+  } catch (error) {
+    
+  }
+}
+
+
 module.exports = {
   loginGetPage,
   registerGetPage,
@@ -528,4 +538,5 @@ module.exports = {
   deleteProduct,
   getOrdersForVendor,
   updateOrderStatus,
+  vendorProfile,
 };

@@ -1257,6 +1257,7 @@ let successfulRazorpayOrder = async (req, res) => {
     res.status(201).json({
       message: "Order placed successfully!",
       orderId: newOrder.orderId,
+
       totalAmount: newOrder.totalAmount,
       shippingAddress: newOrder.shippingAddress,
       paymentMethod: newOrder.paymentMethod,

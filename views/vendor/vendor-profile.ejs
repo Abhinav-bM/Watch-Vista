@@ -1,21 +1,16 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:55:54 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/vendor-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:38 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Vendor</title>
-    <link rel="icon" href="" type="image/x-icon"> <!-- Favicon-->
-
-    <!-- plugin css file  -->
-    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/dataTables.bootstrap5.min.css">
+    <title>::eBazar::  Admin Profile </title>   
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
 
     <!-- project css file  -->
     <link rel="stylesheet" href="/vendor/assets/css/ebazar.style.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div id="ebazar-layout" class="theme-blue">
@@ -31,19 +26,19 @@
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link active" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li><a class="m-link" href="index.html"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
                             <ul class="sub-menu collapse" id="menu-product">
-                                <li><a class="ms-link" href="/vendor/productList">Products List</a></li>
-                                <li><a class="ms-link" href="/vendor/addProduct">Add Products</a></li>
+                                <li><a class="ms-link" href="product-list.html">Product List</a></li>
+                                <li><a class="ms-link" href="product-add.html">Add Products </a></li>
                             </ul>
                     </li>
-
                     <li class="collapsed">
                         <li><a class="m-link " href="/vendor/orders"><i class="icofont-notepad"></i> <span>Orders</span></a></li>
+                      
                     </li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
@@ -87,11 +82,11 @@
                             <li><a class="ms-link" href="create-invoice.html">Create Invoice </a></li>
                         </ul>
                     </li>
-             
+                    
                 </ul>
-      
+               
             </div>
-        </div>
+        </div>  
 
         <!-- main body area -->
         <div class="main px-lg-4 px-md-4">
@@ -100,14 +95,13 @@
             <div class="header">
                 <nav class="navbar py-4">
                     <div class="container-xxl">
-
+        
                         <!-- header rightbar icon -->
-                        <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
-                            
+                        <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">         
                             <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
                                 <div class="u-info me-2">
                                     <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold"><%= vendor.vendorName %></span></p>
-                                    <!-- <small>Admin Profile</small> -->
+                                    <small><%= vendor.email %></small>
                                 </div>
                                 <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
                                     <img class="avatar lg rounded-circle img-thumbnail" src="/vendor/assets/images/profile_av.svg" alt="profile">
@@ -129,6 +123,7 @@
                                             <a href="/vendorProfile" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user fs-5 me-3"></i>Profile Page</a>
                                             <a href="" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a>
                                             <a href="/vendor/logout" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-5 me-3"></i>Signout</a>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -145,6 +140,7 @@
                             <div class="input-group flex-nowrap input-group-lg">
                                 <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
                                 <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
+                                
                             </div>
                         </div>
         
@@ -155,125 +151,109 @@
             <!-- Body: Body -->
             <div class="body d-flex py-3">
                 <div class="container-xxl">
-
-                    <div>
-
+                    <div class="row g-3">
+                        <div class="col-xl-4 col-lg-5 col-md-12">
+                            <div class="card profile-card flex-column mb-3">
+                                <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
+                                    <h6 class="mb-0 fw-bold ">Profile</h6>
+                                </div>
+                                <div class="card-body d-flex profile-fulldeatil flex-column">
+                                    <div class="profile-block text-center w220 mx-auto">
+                                        <a href="#">
+                                            <img src="/vendor/assets/images/lg/avatar4.svg" alt="" class="avatar xl rounded img-thumbnail shadow-sm">
+                                        </a>
+                                        <button class="btn btn-primary" style="position: absolute;top:15px;right: 15px;" data-bs-toggle="modal" data-bs-target="#editprofile"><i class="icofont-edit"></i></button>
+                                       
+                                    </div>
+                                    <div class="profile-info w-100">
+                                        <h6  class="mb-0 mt-2  fw-bold d-block fs-6 text-center"><%= vendor.vendorName %></h6>
+                                        <span class="py-1 fw-bold small-11 mb-0 mt-1 text-muted text-center mx-auto d-block">24 years, California</span>
+                                        <p class="mt-2">Duis felis ligula, pharetra at nisl sit amet, ullamcorper fringilla mi. Cras luctus metus non enim porttitor sagittis. Sed tristique scelerisque arcu id dignissim.</p>
+                                        <div class="row g-2 pt-2">
+                                            <div class="col-xl-12">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="icofont-ui-touch-phone"></i>
+                                                    <span class="ms-2"><%= vendor.phoneNumber %></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="icofont-email"></i>
+                                                    <span class="ms-2"><%= vendor.email %></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-8 col-lg-7 col-md-12">
+                            <div class="card mb-3">
+                                <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
+                                    <h6 class="mb-0 fw-bold ">Profile Settings</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form class="row g-4">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">User Name</label>
+                                                <input class="form-control"  type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Password</label>
+                                                <input class="form-control" type="Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Company Name <span class="text-danger">*</span></label>
+                                                <input class="form-control" type="text" value="">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+                                                <input class="form-control"  type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Address</label>
+                                                <textarea class="form-control"  aria-label="With textarea"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <label class="form-label">Email <span class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <span class="input-group-text">@</span>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-6 col-md-6 col-lg-3">
+                                            <div class="form-group">
+                                                <label class="form-label">City</label>
+                                                <input class="form-control"  type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6 col-md-6 col-lg-3">
+                                            <div class="form-group">
+                                                <label class="form-label">Postal Code</label>
+                                                <input class="form-control"  type="text">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12 mt-4">
+                                            <button type="button" class="btn btn-primary text-uppercase px-5">SAVE</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                        </div>
                     </div>
-
-                    <div class="row g-3 mb-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-4">
-                        <div class="col">
-                            <div class="alert-success alert mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar rounded no-thumbnail bg-success text-light"><i class="icofont-chart-growth"></i></div>
-                                    <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Sales</div>
-                                        <span class="small">₹ <%= totalRevenue %></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="alert-danger alert mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar rounded no-thumbnail bg-danger text-light"><i class="icofont-student-alt fs-3"></i></div>
-                                    <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Customers</div>
-                                        <span class="small"><%= customers.length %></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="alert-warning alert mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar rounded no-thumbnail bg-warning text-light"><i class="icofont-bag fs-3"></i></div>
-                                    <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Products</div>
-                                        <span class="small"><%= vendor.products.length %></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="alert-info alert mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar rounded no-thumbnail bg-info text-light"><i class="icofont-shopping-cart fs-3" aria-hidden="true"></i></div>
-                                    <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Orders</div>
-                                        <span class="small"><%= vendorOrders.length %></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Row end  -->
-
-                    <div class="row g-3 mb-3 mt-5">
-                        <div class="col-xxl-8 col-xl-8">
-                            <div class="card">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Sales</h6>
-                                </div>
-                                <div>
-                                    <canvas id="myChart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xxl-4 col-xl-4">
-                            <div class="card">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Top Categories Based on Sales</h6>
-                                </div>
-                                <div>
-                                    <canvas id="myChartCategory"></canvas>
-                                </div>
-                                <div class="card-body">
-                                    <div id="googleMap" style="width:100%;height:0px;"></div>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Row end  -->
-
-
-
-                    <div class="row g-3 mb-3"> 
-                        <div class="col-md-12">
-                            <div class="card"> 
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Recent Orders</h6>
-                                </div>
-
-                                <div class="card-body">
-                                    <table id="myDataTable" class="table table-hover align-middle mb-0" style="width: 100%;"> 
-                                        <thead>
-                                            <tr>
-                                                <th>Order Id</th>
-                                                <th>Item</th>
-                                                <th>Payment Info</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <% latestTenOrders.forEach(order =>  {%>
-                                        <tbody>
-                                            <tr>
-                                                <td><strong><%= order.orderId %></strong></td>
-                                                <td><img src="<%= order.image %>" class="avatar lg rounded me-2" alt="profile-image"><span> <%= order.productName %> </span></td>
-                                                <td><%= order.paymentMethod %></td>
-                                                <td><%= order.quantity %></td>
-                                                <td><%= order.price %></td>
-                                                <td><span class="badge bg-dark"><%= order.orderStatus %></span></td>
-                                            </tr>
-                                        </tbody>
-                                        <% }) %>
-                                    </table>                                    
-                                </div>
-
-                            </div>
-                        </div>
-                    </div><!-- Row end  -->
-                    
                 </div>
             </div>
         
@@ -416,131 +396,119 @@
                     </div>
                 </div>
             </div> 
-            
-        </div>
-    
-        <input type="hidden" name="" id="salesData" value="<%= JSON.stringify(salesData) %>">
-        <input type="hidden" name="" id="categoryData" value="<%= JSON.stringify(topCategories) %>">
 
+            <!-- Edit Password-->
+            <div class="modal fade" id="authchange" tabindex="-1"  aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title  fw-bold" id="expeditLabel"> Edit Authentication</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="deadline-form">
+                            <form>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <label for="item1" class="form-label">User Name</label>
+                                        <input type="text" class="form-control" id="item1" value="Adrian007"> 
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="taxtno111" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="taxtno111" value="abcxyzabc">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="taxtno11" class="form-label">Conform Password</label>
+                                        <input type="text" class="form-control" id="taxtno11">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Edit profile-->
+            <div class="modal fade" id="editprofile" tabindex="-1"  aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title  fw-bold" id="expeditLabel1111"> Edit Profile</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="deadline-form">
+                            <form>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label for="item100" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="item100" value="Adrian Allan"> 
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="taxtno200" class="form-label">Profile</label>
+                                        <input type="file" class="form-control" id="taxtno200">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Details</label>
+                                        <textarea class="form-control" rows="3">Duis felis ligula, pharetra at nisl sit amet, ullamcorper fringilla mi. Cras luctus metus non enim porttitor sagittis. Sed tristique scelerisque arcu id dignissim. Aenean sed erat ut est commodo tristique ac a metus. Praesent efficitur congue orci. Fusce in mi condimentum mauris maximus sodales. Quisque dictum est augue, vitae cursus quam finibus in. Nulla at tempus enim. Fusce sed mi et nibh laoreet consectetur nec vitae lacus.</textarea>
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" value="California">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="abc1" class="form-label">Birthday date</label>
+                                    <input type="date" class="form-control w-100" id="abc1" value="1980-03-19">
+                                </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                    <label for="mailid" class="form-label">Mail</label>
+                                    <input type="text" class="form-control" id="mailid" value="adrianallan@gmail.com">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="phoneid" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="phoneid" value="202-555-0174">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Address</label>
+                                        <textarea class="form-control" rows="3">2734 West Fork Street,EASTON 02334.</textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>  
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- CHART  -->
-    <script>
-
-        // CHART FOR SALES DATA
-        const ctx = document.getElementById('myChart');
-        function getSalesData() {
-            const salesDataInput = document.getElementById('salesData');
-            if (salesDataInput) {
-                const salesData = JSON.parse(salesDataInput.value);
-                return salesData;
-            }
-            return [];
-        }
-
-        const salesData = getSalesData();
-
-        const chartLabels = salesData.map(item => item.date);
-        const chartValues = salesData.map(item => item.totalSales);
-
-        new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: chartLabels,
-            datasets: [{
-            label: 'Sales',
-            data: chartValues,
-            borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-            y: {
-                beginAtZero: true
-            }
-            }
-        }
-        });
-
-        // CHART FOR TOP CATEGORY ON SALES
-        const ctx2 = document.getElementById('myChartCategory');
-        function getSalesCategory() {
-            const categoryDataInput = document.getElementById('categoryData');
-            if (categoryDataInput) {
-                const categoryData = JSON.parse(categoryDataInput.value);
-                return categoryData;
-            }
-            return [];
-        }
-
-        const salesCategory = getSalesCategory();
-
-        const chartLabelsCategory = salesCategory.map(item => item.category);
-        const chartValuesCategory = salesCategory.map(item => item.totalOrders);
-
-        new Chart(ctx2, {
-        type: 'doughnut',
-        data: {
-            labels: chartLabelsCategory,
-            datasets: [{
-            label: '',
-            data: chartValuesCategory,
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.5)',
-                'rgba(54, 162, 235, 0.5)',
-                'rgba(255, 206, 86, 0.5)',
-                // Add more colors as needed
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                // Add more colors as needed
-            ],
-            borderWidth: 1,
-            }],
-        },
-        options: {
-            responsive: true,
-            plugins: {
-            legend: {
-                position: 'top',
-            },
-            title: {
-                display: true,
-                text: '',
-            },
-            },
-        },
-        });
-
-        
-    </script>
 
     <!-- Jquery Core Js -->
     <script src="/vendor/assets/bundles/libscripts.bundle.js"></script>
 
-    <!-- Plugin Js -->
-    <script src="/vendor/assets/bundles/apexcharts.bundle.js"></script>
-    <script src="/vendor/assets/bundles/dataTables.bundle.js"></script>  
-
     <!-- Jquery Page Js -->
     <script src="../js/template.js"></script>
-    <script src="../js/page/index.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU&amp;callback=myMap"></script>  
-    <script>
-        $('#myDataTable')
-        .addClass( 'nowrap')
-        .dataTable( {
-            responsive: true,
-            columnDefs: [
-                { targets: [-1, -3], className: 'dt-body-right' }
-            ]
-        });
-    </script>
-</body>
+ </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:09 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/vendor-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:38 GMT -->
 </html> 

@@ -4,7 +4,7 @@ const moment = require("moment");
 function calculateTotalSales(vendorOrders) {
   const salesData = {};
   const validOrders = vendorOrders.filter(
-    (order) => order.orderStatus !== "Cancelled"
+    (order) => order.orderStatus === "Delivered"
   );
   validOrders.forEach((order) => {
     const orderDate = moment(order.orderDate).format("YYYY-MM-DD");
@@ -40,7 +40,7 @@ function calculateTopCategoriesSales(vendorOrders) {
   vendorOrders.forEach((order) => {
     const category = order.category;
 
-    if (order.orderStatus !== "Cancelled") {
+    if (order.orderStatus == "Delivered") {
       if (categoryOrders[category]) {
         categoryOrders[category] += 1;
       } else {
@@ -73,12 +73,16 @@ function getLatest10DaysOrders(orders) {
 }
 
 function calculateTotalRevenue(orders) {
+  console.log("total revenue orders :",orders);
     let totalRevenue = 0;
   
     // Iterate through each order and calculate revenue
     orders.forEach((order) => {
-      const revenue = order.quantity * order.price;
-      totalRevenue += revenue;
+      if(order.orderStatus === "Delivered"){
+        const revenue = order.quantity * order.price;
+        totalRevenue += revenue;
+      }
+     
     });
   
     return totalRevenue;
