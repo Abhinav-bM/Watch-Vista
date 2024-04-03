@@ -37,9 +37,9 @@
         <![endif]-->
 
     <!-- preloader -->
-    <div id="loader-wrapper">
+    <!-- <div id="loader-wrapper">
         <div id="loader"></div>
-    </div>
+    </div> -->
 
     <!-- header section start -->
     <header class="header pt-30 pb-30  header-sticky header-static" style="padding-top: 30px; padding-bottom: 15px; top: 0px;">
@@ -194,7 +194,7 @@
                 <div class="">
                     <h4 class="m-2">Order Summary</h4>
                     <% cart.forEach(prod => { %>
-                    <div class="d-flex justify-content-start align-items-center m-2" style="border: 2px solid rgb(223, 223, 223);background-color: rgb(246, 246, 246);">
+                    <div class="d-flex justify-content-start align-items-center m-2 rounded" style="border: 2px solid rgb(223, 223, 223);background-color: rgb(246, 246, 246);">
                         <div class="pl-2">
                            <img src="<%= prod.images[0] %>" alt="" width="120px">
                         </div>
@@ -218,10 +218,11 @@
                 <h4 class="pt-5">Delivery Address</h4>
                 <div class="p-1" >
                     <!-- Checkbox for Delivery Address -->
-                    <% addresses.forEach(address => { %>
-                    <div class="mb-3 px-4 pt-3 form-check" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
+                    <% addresses.forEach((address,index) => { %>
+                    <div class="mb-3 px-4 pt-3 form-check rounded" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
 
-                        <input type="checkbox" class="form-check-input" id="useDifferentAddress" data-address-id="<%= address._id %>">
+                        <input type="checkbox" class="form-check-input delivery-address" id="address_<%= address._id %>" data-address-id="<%= address._id %>" <% if (index === 0) { %> checked <% } %>>
+                        <label for="address_<%= address._id %>" class="form-check-label">
                         <p class="m-0"><%= address.name %></p>
                         <p class="m-0"><%= address.address %></p>
                         <p class="m-0"><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
@@ -237,9 +238,9 @@
                 </div>
             </div>
 
-            <div class="col-5">
+            <div class="col-5 ">
                 
-                            <div class="your-order mb-30" style="margin-top: 39px;">
+                            <div class="your-order mb-30 rounded" style="margin-top: 39px;">
                                 <h3>Your order</h3>
                                 <div class="your-order-table table-responsive">
                                     <table>
@@ -302,8 +303,8 @@
                                             <div class="card-header" id="headingThree">
                                                 <h5 class="mb-0">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value="razorPay" id="razorPayCheckbox">
-                                                        <label class="form-check-label" for="razorPayCheckbox">
+                                                        <input class="form-check-input" type="checkbox" value="razorPay" id="razorPayCheckbox" checked>
+                                                        <label class="form-check-label" for="razorPayCheckbox ">
                                                             RazorPay
                                                         </label>
                                                     </div>
@@ -347,6 +348,21 @@
                     });
                 });
             });
+            const checkboxes = document.querySelectorAll('.delivery-address');
+
+            // Add event listener to each checkbox
+            checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function() {
+                // If this checkbox is checked, uncheck all others
+                if (this.checked) {
+                checkboxes.forEach((otherCheckbox) => {
+                    if (otherCheckbox !== this) {
+                    otherCheckbox.checked = false;
+                    }
+                });
+                }
+            });
+            });
 
             document.addEventListener('DOMContentLoaded', () => {
                 const placeOrderBtn = document.getElementById('placeOrderBtn');
@@ -369,26 +385,6 @@
 
                 try {
                     
-                    // const response = await axios.post('/place-order', {
-                    // selectedAddressId: selectedAddressId,
-                    // paymentMethod: paymentMethod,
-                    // totalPrice :totalPrice
-                    // });
-
-                    
-                    // // SWEET ALERT FOR ORDERS SUCCESS MESSAGE
-                    // Swal.fire({
-                    // icon: 'success',
-                    // title: 'Order Placed Successfully!',
-                    // html: `Your order with ID <strong>${response.data.orderId}</strong> has been placed.<br>
-                    // Total Price: <strong>${totalPrice}</strong><br>
-                    // Expected Delivery Date: <strong>${response.data.expectedDeliveryDate}</strong>`,
-                    // confirmButtonText: "Ok"
-                    // }).then((result) => {
-                    //     if (result.isConfirmed) {
-                    //         window.location.href = '/userProfile?showOrders=true';
-                    //     }
-                    // });
                     if (paymentMethod === 'Cash On Delivery') {
                         // Handle Cash On Delivery
                         const response = await axios.post('/place-order', {
@@ -469,9 +465,6 @@
                     });
                 }
             });
-
-
-
 
         </script>
 
@@ -775,13 +768,11 @@
             axios.post('/add-address', formData)
                 .then(function (response) {
                     console.log(response.data);
-                    // Optionally, show a success message or update UI
-                    // Close the modal if needed
                     $('#exampleModal').modal('hide');
+                    window.location.href = "/checkout"
                 })
                 .catch(function (error) {
                     console.error('Error adding address:', error);
-                    // Optionally, show an error message to the user
                 });
         });
     </script>

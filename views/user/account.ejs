@@ -58,51 +58,53 @@
     <!--== Main Style CSS ==-->
     <link href="assets/css/style.css" rel="stylesheet" />
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
     <style>
-      .logout-link {
-    color: inherit; /* Inherit text color from parent (button) by default */
-    text-decoration: none; /* Remove underline from anchor tag */
-    transition: color 0.3s ease; /* Smooth transition for color change */
-}
+        .logout-link {
+            color: inherit; 
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-/* Hover effect for the anchor tag inside the button */
-.logout-link:hover {
-    color: white; /* Change text color to white on hover */
-}
+        .logout-link:hover {
+            color: white; 
+        }
 
-/* Remove button styles to only show the anchor tag */
-.nav-link {
-    border: none; /* Remove button border */
-    background: none; /* Remove button background */
-    padding: 0; /* Remove button padding */
-    cursor: pointer; /* Show pointer cursor on hover */
-}
+        .nav-link {
+            border: none;
+            background: none; 
+            padding: 0; 
+            cursor: pointer; 
+        }
 
-/* scroballe code */
-.scrollable{
-  overflow-y: scroll;
-  height: 400px;
-  background: #ffffff;
-  padding: 20px;
-}
-::-webkit-scrollbar {
-    display: none;
-}
-.disable-scroll{
-  overflow-y: hidden;
-}
-iframe[sandbox] .read-article{
-  display: none;
-}
+        /* scroballe code */
+        .scrollable{    
+            overflow-y: scroll;
+            height: 400px;
+            background: #ffffff;
+            padding: 20px;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+        .disable-scroll{
+            overflow-y: hidden;
+        }
+        iframe[sandbox] .read-article{
+            display: none;
+        }
     </style>
 </head>
 
 <body>
 
 <!-- preloader -->
-<div id="loader-wrapper">
+<!-- <div id="loader-wrapper">
   <div id="loader"></div>
-</div>
+</div> -->
 
  
 
@@ -216,7 +218,7 @@ iframe[sandbox] .read-article{
                                                 <h3>Dashboard</h3>
                                                 <div class="welcome d-flex justify-content-between">
                                                     <h3>Hello, <span id="userName"><%= user.name %></span> </h3>
-                                                    <i class="fas fa-edit" id="editName"></i>
+                                                    <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
                                                 </div>
                                                 <p><strong>phone : <%= user.phoneNumber %></strong></p>
                                                 <p><strong>Email : <%= user.email %></strong></p><br>
@@ -247,7 +249,7 @@ iframe[sandbox] .read-article{
                                                                 <label for="newPhone">Phone:</label>
                                                                 <input type="text" class="form-control" id="newPhone" value="<%= user.phoneNumber %>" required>
                                                             </div>
-                                                            <button type="button" onclick="submitUserEditForm(event)" class="btn btn-primary">Save Changes</button>
+                                                            <button type="button" onclick="submitUserEditForm(event)" class="btn btn-dark">Save Changes</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -299,13 +301,13 @@ iframe[sandbox] .read-article{
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">New Address</h5>
+                                                            <h5 class="modal-title">New Address</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                 <span aria-hidden="true">&times;</span>
                                                             </button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form id="addressForm" class="row g-3" novalidate>
+                                                                <form id="addressForm" class="row g-3 needs-validation" onsubmit="return addressSubmission(event)" novalidate>
                                                                     <div class="col-12 p-2">
                                                                         <label for="name" class="form-label">Name</label>
                                                                         <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
@@ -357,7 +359,7 @@ iframe[sandbox] .read-article{
                                                                     </div>
 
                                                                     <div class="col-12 pt-3">
-                                                                        <button type="button" id="submitAddressBtn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                                                                        <button id="submitAddressBtn" type="submit"  class="btn btn-primary">Submit</button>
                                                                     </div>
                                                                 </form>
                                                                    
@@ -373,7 +375,7 @@ iframe[sandbox] .read-article{
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="editAddressModalLabel">New Address</h5>
+                                                                <h5 class="modal-title" id="editAddressModalLabel">Edit` Address</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -431,7 +433,7 @@ iframe[sandbox] .read-article{
                                                                     </div>
 
                                                                     <div class="col-12 pt-3">
-                                                                        <button type="button" id="submitAddressBtn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+                                                                        <button type="button" id="submitAddressBtn" class="btn btn-primary">Submit</button>
                                                                     </div>
                                                                 </form>
                                                                    
@@ -459,6 +461,7 @@ iframe[sandbox] .read-article{
                                                     <label for="" class="">Confirm Password</label><br>
                                                     <p id="confirmPasswordError" style="color: red;"></p>
                                                     <input id="confirmPassword" type="text" class="form-control" ><br>
+
                                                     <button type="submit" class="btn btn-dark">Submit</button>
                                                 </form>
                                                 
@@ -527,10 +530,7 @@ iframe[sandbox] .read-article{
                                                 </div>    
                                             </div>
 
-                                        
-                                        
-                                        <!-- ORDER HISTORY TABLE ENDS ----------------------------------------------------------------------->
-                                        
+                                        <!-- ORDER HISTORY TABLE ENDS -----------------------------------------------------------------------> 
                                     </div>   
                                 </div>
                             </div>
@@ -616,36 +616,30 @@ iframe[sandbox] .read-article{
     </section>
     <!-- footer section end -->
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
 
 <script>
     // ORDERS LISTING SCROLL
     function preventScroll(e){
         e.preventDefault();
         e.stopPropagation();
-
         return false;
     }
-
     function disable(){
         document.querySelector('.scrollable').classList.add('disable-scroll');
     }
-
     function enable(){
         document.querySelector('.scrollable').classList.remove('disable-scroll');
     }
-
     document.querySelector('#prevent').addEventListener('click', disable);
     document.querySelector('#allow').addEventListener('click', enable);
     // SCROLL ENDS HERE
 
-
-
-    // WHEN THE USER PRODFILE PAGE LOADS AFTER ORDER PLACED
+    // WHEN THE USER PROFILE PAGE LOADS AFTER ORDER PLACED
     window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const showOrders = urlParams.get('showOrders');
-
     if (showOrders === 'true') {
         // SIMULATE A CLICK ON THE ORDERS BUTTON
         const ordersTab = document.getElementById('orders-tab');
@@ -682,82 +676,93 @@ iframe[sandbox] .read-article{
         });
     }
 
+
     // ADDRESS SUBMISSION WITH VALIDATION
-    document.getElementById("submitAddressBtn").addEventListener("click", function(event) {
-    
-        var form = document.getElementById('addressForm');
-
-        if (form.checkValidity() === false) {
+        function addressSubmission (event){
             event.preventDefault();
-            event.stopPropagation();
-            form.classList.add('was-validated');
-        } else {
+            console.log('Button clicked!');
 
-            const formData = {
-                name: document.getElementById("name").value,
-                address: document.getElementById("address").value,
-                district: document.getElementById("district").value,
-                state: document.getElementById("state").value,
-                zip: document.getElementById("zip").value,
-                email: document.getElementById("email").value,
-                phone: document.getElementById("phone").value
-            };
+            var form = document.getElementById('addressForm');
 
-            axios.post('/add-address', formData)
-            .then(function (response) {
+            if (form.checkValidity() === false) {
+                form.classList.add('was-validated');
+                return
+            } else {
 
-                $('#exampleModal').modal('hide');
+                const formData = {
+                    name: document.getElementById("name").value,
+                    address: document.getElementById("address").value,
+                    district: document.getElementById("district").value,
+                    state: document.getElementById("state").value,
+                    zip: document.getElementById("zip").value,
+                    email: document.getElementById("email").value,
+                    phone: document.getElementById("phone").value
+                };
 
-                form.reset();
-                form.classList.remove('was-validated');
+                axios.post('/add-address', formData)
+                .then(function (response) {
 
-                var newAddress = response.data;
-                var addressHtml = `
-                    <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);" >
-                        <div>
-                            <p class="m-0"><strong>${newAddress.addedAddress.name}</strong></p>
-                            <p class="m-0"><strong>${newAddress.addedAddress.address}</strong></p>
-                            <p class="m-0"><strong>${newAddress.addedAddress.district}, ${newAddress.addedAddress.state}, ${newAddress.addedAddress.zip}</strong></p>
-                            <p class="m-0"><strong>${newAddress.addedAddress.email}</strong></p>
-                            <p class="m-0"><strong>${newAddress.addedAddress.phone}</strong></p>
+                    // $('#exampleModal').modal('hide');
+
+                    form.reset();
+                    form.classList.remove('was-validated');
+
+                    var newAddress = response.data;
+                    var addressHtml = `
+                        <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);" >
+                            <div>
+                                <p class="m-0"><strong>${newAddress.addedAddress.name}</strong></p>
+                                <p class="m-0"><strong>${newAddress.addedAddress.address}</strong></p>
+                                <p class="m-0"><strong>${newAddress.addedAddress.district}, ${newAddress.addedAddress.state}, ${newAddress.addedAddress.zip}</strong></p>
+                                <p class="m-0"><strong>${newAddress.addedAddress.email}</strong></p>
+                                <p class="m-0"><strong>${newAddress.addedAddress.phone}</strong></p>
+                            </div>
+                                
+                            <div class="mt-3">
+                                <button type="button" class="btn btn-sm border" data-toggle="modal" data-address-id="${newAddress.addedAddress._id}">
+                                    <i class="fas fa-edit text-success"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm border delete-address-btn" data-address-id="${newAddress.addedAddress._id}">
+                                    <i class="fas fa-trash text-danger"></i> 
+                                </button>
+                            </div>
                         </div>
-                            
-                        <div class="mt-3">
-                            <button type="button" class="btn btn-sm border" data-toggle="modal" data-address-id="${newAddress.addedAddress._id}">
-                                <i class="fas fa-edit text-success"></i>
-                            </button>
-                            <button type="button" class="btn btn-sm border delete-address-btn" data-address-id="${newAddress.addedAddress._id}">
-                                <i class="fas fa-trash text-danger"></i> 
-                            </button>
-                        </div>
-                    </div>
-                    `;
-                    // APPEND NEW ADDRESS TO THE ADDRESS LIST
-                    document.getElementById('addressList').insertAdjacentHTML('beforeend', addressHtml);
-                })
-                .catch(function (error) {
-                    console.error('Error adding address:', error.response.data.error);
-                    if (error.response.status === 400) {
-                        Toastify({
-                            text: error.response.data.error,
-                            duration: 6000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "grey",
-                        }).showToast();
-                    } else {
-                        Toastify({
-                            text: "An error occurred. Try again",
-                            duration: 4000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "red",
-                        }).showToast();
-                    }
-                });
+                        `;
+                        // APPEND NEW ADDRESS TO THE ADDRESS LIST
+                        document.getElementById('addressList').insertAdjacentHTML('beforeend', addressHtml);
+                        
+                        // HIDE MODAL
+                        var modal = document.getElementById('exampleModal');
+                        modal.style.display = 'none';
+                        modal.setAttribute('aria-hidden', 'true');
+                        document.body.classList.remove('modal-open');
+                        var modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
+                        modalBackdrop.parentNode.removeChild(modalBackdrop);
+                    })
+                    .catch(function (error) {
+                        console.error('Error adding address:', error.response.data.error);
+                        if (error.response.status === 400) {
+                            Toastify({
+                                text: error.response.data.error,
+                                duration: 6000,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "grey",
+                            }).showToast();
+                        } else {
+                            Toastify({
+                                text: "An error occurred. Try again",
+                                duration: 4000,
+                                gravity: "top",
+                                position: "right",
+                                backgroundColor: "red",
+                            }).showToast();
+                        }
+                    });
+            }
+            
         }
-        
-    });
+
     
     /// FUNCTION FOR DELETE ADDRESS
     function handleDeleteAddress(event) {
@@ -948,34 +953,31 @@ iframe[sandbox] .read-article{
             });
     }
 
-    // USER DETAILS EDIT AREA 
-    document.getElementById('editName').addEventListener('click', function() {
-        $('#editModal').modal('show');
-    });
 
-    function submitUserEditForm(event) {
     
+    function submitUserEditForm(event) {
         event.preventDefault();
-        const newName = document.getElementById('newName').value
-        const newEmail = document.getElementById('newEmail').value
-        const newPhone = document.getElementById('newPhone').value
+        const newName = $('#newName').val();
+        const newEmail = $('#newEmail').val();
+        const newPhone = $('#newPhone').val();
 
         axios.post('/update-user-details', {
             newName: newName,
-            newEmail:newEmail,
-            newPhone,newPhone,
+            newEmail: newEmail,
+            newPhone: newPhone,
         })
-        .then(function (response) {
-            window.location.href = "/userProfile"
+        .then(function(response) {
+            window.location.href = "/userProfile";
         })
-        .catch(function (error) {
+        .catch(function(error) {
             console.error(error);
         })
-        .finally(function () {
-            // Close the modal
+        .finally(function() {
             $('#editModal').modal('hide');
         });
     }
+    
+
 
 
 </script>

@@ -906,7 +906,7 @@ let buyNowCheckOut = async (req, res) => {
 // ADD ADDRESS
 let addAddress = async (req, res) => {
   const { name, address, district, state, zip, email, phone } = req.body;
-
+  console.log("here it is");
   const userId = req.user.id;
 
   try {
@@ -1149,7 +1149,7 @@ let placeOrderPostRazorpay = async (req, res) => {
   const keyId = process.env.RAZORPAY_ID_KEY;
 
   const options = {
-    amount: 100 * 100,
+    amount: totalPrice * 100,
     currency: "INR",
   };
 
@@ -1165,7 +1165,6 @@ let successfulRazorpayOrder = async (req, res) => {
   console.log(req.body);
   const { razorpay_payment_id, razorpay_order_id} = req.body.response;
   const { selectedAddressId, paymentMethod } = req.body
-  console.log(razorpay_payment_id, razorpay_order_id, selectedAddressId, paymentMethod );
   try {
     console.log("user :",req);
     const userId = req.user.id;
@@ -1188,7 +1187,6 @@ let successfulRazorpayOrder = async (req, res) => {
     // ALL PRODUCTS
     const allProducts = await Vendor.find({}).populate("products");
     let cart = [];
-    console.log("pushed order");
 
     user.cart.products.forEach((cartProduct) => {
       const productId = cartProduct.productId;
@@ -1269,6 +1267,7 @@ let successfulRazorpayOrder = async (req, res) => {
   }
 };
 // PLACE ORDER RAZORPAY - ENDS HERE
+
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
@@ -1411,6 +1410,7 @@ let changePasswordPost = async (req, res) => {
 
 let updateUserDetails = async (req, res) => {
   const { newName, newEmail, newPhone } = req.body;
+  console.log("user details check",req.body);
   console.log(newName, newEmail, newPhone);
   const userId = req.user.id;
   try {
