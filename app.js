@@ -13,6 +13,7 @@ const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
+
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static('uploads'));
 
@@ -48,6 +49,10 @@ mongoose.connect("mongodb://localhost:27017/watch-store", {
 app.use("/", userRouter);
 app.use("/", adminRouter);
 app.use("/", vendorRouter);
+app.use((req,res,next)=>
+{
+  res.status(404).render("user/notFound")
+})
 
 // Start the server
 app.listen(3000, () => {

@@ -906,7 +906,6 @@ let buyNowCheckOut = async (req, res) => {
 // ADD ADDRESS
 let addAddress = async (req, res) => {
   const { name, address, district, state, zip, email, phone } = req.body;
-  console.log("here it is");
   const userId = req.user.id;
 
   try {
