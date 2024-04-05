@@ -267,7 +267,7 @@
                                                 </div>
                                             
                                                
-                                                <div class="" >
+                                                <div class="" style="height: 300px; overflow-y: auto;">
                                                     <div id="addressList">
                                                         <!-- Checkbox for Delivery Address -->
                                                         <% addresses.forEach(address => { %>
@@ -282,10 +282,10 @@
 
                                                             <!-- Edit and Delete Buttons -->
                                                             <div class="mt-3 ">
-                                                                <button type="button" class="btn btn-sm border edit-address-btn" data-toggle="modal" data-target="" data-address-id="<%= address._id %>" >
+                                                                <button type="button" class="btn btn-sm border edit-address-btn"  data-address-id="<%= address._id %>" >
                                                                     <i class="fas fa-edit text-success"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-sm border ml-2 delete-address-btn" data-address-id="<%= address._id %>" onclick="handleDeleteAddress(event)">
+                                                                <button type="button" class="btn btn-sm border ml-2 delete-address-btn" data-address-id="<%= address._id %>">
                                                                     <i class="fas fa-trash text-danger"></i> 
                                                                 </button>
                                                             </div>
@@ -374,7 +374,7 @@
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="editAddressModalLabel">Edit` Address</h5>
+                                                                <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
@@ -383,56 +383,56 @@
                                                                 <form id="editAddressForm" class="row g-3" novalidate>
                                                                     <div class="col-12 p-2">
                                                                         <label for="editName" class="form-label">Name</label>
-                                                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                                                        <input type="text" name="name" class="form-control" id="nameEdit" placeholder="Your Name" required>
                                                                         <!-- <div class="invalid-feedback">
                                                                             Please enter your name.
                                                                         </div> -->
                                                                     </div>
                                                                     <div class="col-12 p-2">
                                                                         <label for="editAddress" class="form-label">Address</label>
-                                                                        <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
+                                                                        <input type="text" name="address" class="form-control" id="addressEdit" placeholder="Enter your address" required>
                                                                         <!-- <div class="invalid-feedback">
                                                                             Please enter your address.
                                                                         </div> -->
                                                                     </div>
                                                                     <div class="col-md-6 p-2">
                                                                         <label for="editDistrict" class="form-label">District</label>
-                                                                        <input type="text" name="district" class="form-control" id="district" placeholder="Town or city" required>
+                                                                        <input type="text" name="district" class="form-control" id="districtEdit" placeholder="Town or city" required>
                                                                         <!-- <div class="invalid-feedback">
                                                                             Please enter your district.
                                                                         </div> -->
                                                                     </div>
                                                                     <div class="col-md-6 p-2">
                                                                         <label for="editState" class="form-label">State</label>
-                                                                        <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required>
+                                                                        <input type="text" name="state" class="form-control" id="stateEdit" placeholder="Enter your state" required>
                                                                         <!-- <div class="invalid-feedback">
                                                                             Please enter your state.
                                                                         </div> -->
                                                                     </div>
                                                                     <div class="col-md-6 p-2">
                                                                         <label for="editZip" class="form-label">Zip</label>
-                                                                        <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip/Postal" required>
+                                                                        <input type="text" name="zip" class="form-control" id="zipEdit" placeholder="Zip/Postal" required>
                                                                         <!-- <div class="invalid-feedback">
                                                                             Please enter a valid zip code.
                                                                         </div> -->
                                                                     </div>
                                                                     <div class="col-md-6 p-2">
                                                                         <label for="editPhone" class="form-label">Phone Number</label>
-                                                                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Your Phone" required>
+                                                                        <input type="tel" name="phone" class="form-control" id="phoneEdit" placeholder="Your Phone" required>
                                                                         <!-- <div class="invalid-feedback">
                                                                             Please provide a valid phone number.
                                                                         </div> -->
                                                                     </div>
                                                                     <div class="col-12 p-2">
                                                                         <label for="editEmail" class="form-label">Email Address</label>
-                                                                        <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
+                                                                        <input type="email" name="email" class="form-control" id="emailEdit" placeholder="Your Email" required>
                                                                         <!-- <div class="invalid-feedback">
                                                                             Please provide a valid email.
                                                                         </div> -->
                                                                     </div>
 
                                                                     <div class="col-12 pt-3">
-                                                                        <button type="button" id="submitAddressBtn" class="btn btn-primary">Submit</button>
+                                                                        <button type="button" id="updateAddressBtn" class="btn btn-primary">Submit</button>
                                                                     </div>
                                                                 </form>
                                                                    
@@ -497,7 +497,7 @@
                                                                 <p class="m-0"><small>Seller: <%= prod.vendor.vendorName %></small></p>
                                                                 <p class="m-0"><small>Expected Delivery: <%= prod.expectedDeliveryDate %></small></p>
                                                                 <p class="m-0"><small>Order Status: <%= prod.orderStatus %></small></p>
-                                                                <p class="m-0"><small>Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></small></p>
+                                                                <p class="m-0"><small>Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<br><%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></small></p>
                                                             </div>
                                                         </div>
                                                             
@@ -632,22 +632,22 @@
     function enable(){
         document.querySelector('.scrollable').classList.remove('disable-scroll');
     }
-    document.querySelector('#prevent').addEventListener('click', disable);
-    document.querySelector('#allow').addEventListener('click', enable);
+    // document.querySelector('#prevent').addEventListener('click', disable);
+    // document.querySelector('#allow').addEventListener('click', enable);
     // SCROLL ENDS HERE
 
     // WHEN THE USER PROFILE PAGE LOADS AFTER ORDER PLACED
-    window.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const showOrders = urlParams.get('showOrders');
-    if (showOrders === 'true') {
-        // SIMULATE A CLICK ON THE ORDERS BUTTON
-        const ordersTab = document.getElementById('orders-tab');
-        if (ordersTab) {
-        ordersTab.click();
-        }
-    }
-    });
+    // window.addEventListener('DOMContentLoaded', () => {
+    // const urlParams = new URLSearchParams(window.location.search);
+    // const showOrders = urlParams.get('showOrders');
+    // if (showOrders === 'true') {
+    //     // SIMULATE A CLICK ON THE ORDERS BUTTON
+    //     const ordersTab = document.getElementById('orders-tab');
+    //     if (ordersTab) {
+    //     ordersTab.click();
+    //     }
+    // }
+    // });
 
 
     // FUCTION FOR OPEN MODAL
@@ -678,95 +678,93 @@
 
 
     // ADDRESS SUBMISSION WITH VALIDATION
-        function addressSubmission (event){
-            event.preventDefault();
-            console.log('Button clicked!');
+    function addressSubmission (event){
+        event.preventDefault();
+        console.log('Button clicked!');
 
-            var form = document.getElementById('addressForm');
+        var form = document.getElementById('addressForm');
 
-            if (form.checkValidity() === false) {
-                form.classList.add('was-validated');
-                return
-            } else {
+        if (form.checkValidity() === false) {
 
-                const formData = {
-                    name: document.getElementById("name").value,
-                    address: document.getElementById("address").value,
-                    district: document.getElementById("district").value,
-                    state: document.getElementById("state").value,
-                    zip: document.getElementById("zip").value,
-                    email: document.getElementById("email").value,
-                    phone: document.getElementById("phone").value
-                };
+            form.classList.add('was-validated');
+            return
 
-                axios.post('/add-address', formData)
-                .then(function (response) {
+        } else {
 
-                    $('#exampleModal').modal('hide');
+            const formData = {
+                name: document.getElementById("name").value,
+                address: document.getElementById("address").value,
+                district: document.getElementById("district").value,
+                state: document.getElementById("state").value,
+                zip: document.getElementById("zip").value,
+                email: document.getElementById("email").value,
+                phone: document.getElementById("phone").value
+            };
 
-                    form.reset();
-                    form.classList.remove('was-validated');
+            axios.post('/add-address', formData)
+            .then(function (response) {
 
-                    var newAddress = response.data;
-                    var addressHtml = `
-                        <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);" >
-                            <div>
-                                <p class="m-0"><strong>${newAddress.addedAddress.name}</strong></p>
-                                <p class="m-0"><strong>${newAddress.addedAddress.address}</strong></p>
-                                <p class="m-0"><strong>${newAddress.addedAddress.district}, ${newAddress.addedAddress.state}, ${newAddress.addedAddress.zip}</strong></p>
-                                <p class="m-0"><strong>${newAddress.addedAddress.email}</strong></p>
-                                <p class="m-0"><strong>${newAddress.addedAddress.phone}</strong></p>
-                            </div>
-                                
-                            <div class="mt-3">
-                                <button type="button" class="btn btn-sm border" data-toggle="modal" data-address-id="${newAddress.addedAddress._id}">
-                                    <i class="fas fa-edit text-success"></i>
-                                </button>
-                                <button type="button" class="btn btn-sm border delete-address-btn" data-address-id="${newAddress.addedAddress._id}" onclick="handleDeleteAddress(event)">
-                                    <i class="fas fa-trash text-danger"></i> 
-                                </button>
-                            </div>
+                $('#exampleModal').modal('hide');
+
+                form.reset();
+                form.classList.remove('was-validated');
+
+                var newAddress = response.data;
+                var addressHtml = `
+                    <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);" >
+                        <div>
+                            <p class="m-0"><strong>${newAddress.addedAddress.name}</strong></p>
+                            <p class="m-0"><strong>${newAddress.addedAddress.address}</strong></p>
+                            <p class="m-0"><strong>${newAddress.addedAddress.district}, ${newAddress.addedAddress.state}, ${newAddress.addedAddress.zip}</strong></p>
+                            <p class="m-0"><strong>${newAddress.addedAddress.email}</strong></p>
+                            <p class="m-0"><strong>${newAddress.addedAddress.phone}</strong></p>
                         </div>
-                        `;
-                        // APPEND NEW ADDRESS TO THE ADDRESS LIST
-                        document.getElementById('addressList').insertAdjacentHTML('beforeend', addressHtml);
+                                
+                        <div class="mt-3">
+                            <button type="button" class="btn btn-sm border edit-address-btn" data-address-id="${newAddress.addedAddress._id}">
+                                <i class="fas fa-edit text-success"></i>
+                            </button>
+                            <button type="button" class="btn btn-sm border delete-address-btn" data-address-id="${newAddress.addedAddress._id}">
+                                <i class="fas fa-trash text-danger"></i> 
+                            </button>
+                        </div>
+                    </div>
+                `;
+                // APPEND NEW ADDRESS TO THE ADDRESS LIST
+                document.getElementById('addressList').insertAdjacentHTML('beforeend', addressHtml);
                         
-                        // HIDE MODAL
-                        var modal = document.getElementById('exampleModal');
-                        modal.style.display = 'none';
-                        modal.setAttribute('aria-hidden', 'true');
-                        document.body.classList.remove('modal-open');
-                        var modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
-                        modalBackdrop.parentNode.removeChild(modalBackdrop);
-                    })
-                    .catch(function (error) {
-                        console.error('Error adding address:', error.response.data.error);
-                        if (error.response.status === 400) {
-                            Toastify({
-                                text: error.response.data.error,
-                                duration: 6000,
-                                gravity: "top",
-                                position: "right",
-                                backgroundColor: "grey",
-                            }).showToast();
-                        } else {
-                            Toastify({
-                                text: "An error occurred. Try again",
-                                duration: 4000,
-                                gravity: "top",
-                                position: "right",
-                                backgroundColor: "red",
-                            }).showToast();
-                        }
-                    });
-            }
-            
+                // HIDE MODAL
+                var modal = document.getElementById('exampleModal');
+                modal.style.display = 'none';
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
+                var modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
+                modalBackdrop.parentNode.removeChild(modalBackdrop);
+            })
+            .catch(function (error) {
+                // HIDE MODAL
+                var modal = document.getElementById('exampleModal');
+                modal.style.display = 'none';
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
+                var modalBackdrop = document.getElementsByClassName('modal-backdrop')[0];
+                modalBackdrop.parentNode.removeChild(modalBackdrop);
+                Toastify({
+                    text: "An error occurred. Try again",
+                    duration: 2000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "red",
+                }).showToast();
+                
+            });
         }
+            
+    }
 
     
     /// FUNCTION FOR DELETE ADDRESS
     function handleDeleteAddress(event) {
-        if (event.target.classList.contains("delete-address-btn")) {
             const addressId = event.target.getAttribute("data-address-id");
             console.log("delete clicked", addressId);
 
@@ -777,6 +775,13 @@
                     if (deletedAddressElement) {
                         deletedAddressElement.remove();
                     }
+                    Toastify({
+                        text: "Address Deleted ✓",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "green",
+                    }).showToast();
                 }
             })
             .catch(function (error) {
@@ -788,75 +793,82 @@
                     backgroundColor: "red",
                 }).showToast();
             });
-        }
     }
-    // EVENT LISTENER FOR DELETE BUTTON USING CLOSER PARENT ELEMENT
+    // EVENT LISTENER FOR DELETE ADDRESS BUTTON USING CLOSER PARENT ELEMENT
     document.getElementById("addressList").addEventListener("click", function(event) {
-        handleDeleteAddress(event);
+        console.log("Checking delete button :", event.target.classList.contains("delete-address-btn"));
+        if (event.target.classList.contains("delete-address-btn")) {
+            handleDeleteAddress(event);
+        }
     });
 
 
     // FUNCTION TO HANDLE EDIT ADDRESS
     function editAddress(event) {
-        console.log("clicked");
-        if (event.target.classList.contains("edit-address-btn")) {
-            const addressId = event.target.getAttribute("data-address-id");
-            const addressElement = document.querySelector(`[data-address-id="${addressId}"]`);
+        console.log("clicked edit button");
+        const addressId = event.target.getAttribute("data-address-id");
+        console.log("address for edit :",addressId);
 
-            if (addressElement) {
-                const name = addressElement.querySelector(".name").textContent;
-                const address = addressElement.querySelector(".address").textContent;
-                const districtStateZip = addressElement.querySelector(".district-state-zip").textContent;
-                const [district, state, zip] = districtStateZip.split(',').map(item => item.trim());
-                const email = addressElement.querySelector(".email").textContent;
-                const phone = addressElement.querySelector(".phone").textContent;
+        if (addressId) {
 
-                document.getElementById("editName").value = name;
-                document.getElementById("editAddress").value = address;
-                document.getElementById("editDistrict").value = district;
-                document.getElementById("editState").value = state;
-                document.getElementById("editZip").value = zip;
-                document.getElementById("editEmail").value = email;
-                document.getElementById("editPhone").value = phone;
-
-                $('#editAddressModal').modal('show');
-
-                document.getElementById("updateAddressBtn").addEventListener("click", function() {
-                    const updatedName = document.getElementById("editName").value;
-                    const updatedAddress = document.getElementById("editAddress").value;
-                    const updatedDistrict = document.getElementById("editDistrict").value;
-                    const updatedState = document.getElementById("editState").value;
-                    const updatedZip = document.getElementById("editZip").value;
-                    const updatedEmail = document.getElementById("editEmail").value;
-                    const updatedPhone = document.getElementById("editPhone").value;
-
-                    const updatedData = {
-                        name: updatedName,
-                        address: updatedAddress,
-                        district: updatedDistrict,
-                        state: updatedState,
-                        zip: updatedZip,
-                        email: updatedEmail,
-                        phone: updatedPhone
-                    };
-
-                    axios.put(`/update-address/${addressId}`, updatedData)
-                        .then(function (response) {
-                            // TAKE NEW UPDATED ADDRESS
-
-                            $('#editAddressModal').modal('hide');
-                        })
-                        .catch(function (error) {
-                            console.error("Error updating address:", error);
-                        });
+            axios.get(`/getAddressEdit/:${addressId}`)
+            .then((response)=>{
+                console.log("addresses : ",response);
+                let addressForEdit;
+                response.data.addresses.forEach(element => {
+                    if(element._id.toString()===addressId){
+                        addressForEdit = element
+                    }
                 });
-            }
+                document.getElementById("nameEdit").value = addressForEdit.name
+                document.getElementById("addressEdit").value = addressForEdit.address
+                document.getElementById("districtEdit").value = addressForEdit.district
+                document.getElementById("stateEdit").value = addressForEdit.state
+                document.getElementById("zipEdit").value = addressForEdit.zip
+                document.getElementById("phoneEdit").value = addressForEdit.phone
+                document.getElementById("emailEdit").value = addressForEdit.email
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+
+            $('#editAddressModal').modal('show');
+
+            document.getElementById("updateAddressBtn").addEventListener("click", function() {
+                const updatedName = document.getElementById("nameEdit").value;
+                const updatedAddress = document.getElementById("addressEdit").value;
+                const updatedDistrict = document.getElementById("districtEdit").value;
+                const updatedState = document.getElementById("stateEdit").value;
+                const updatedZip = document.getElementById("zipEdit").value;
+                const updatedEmail = document.getElementById("phoneEdit").value;
+                const updatedPhone = document.getElementById("emailEdit").value;
+
+                console.log("updated name :", updatedName);
+
+                const updatedData = {
+                    name: updatedName,
+                    address: updatedAddress,
+                    district: updatedDistrict,
+                    state: updatedState,
+                    zip: updatedZip,
+                    email: updatedEmail,
+                    phone: updatedPhone
+                };
+
+                axios.put(`/update-address/${addressId}`, updatedData)
+                .then(function (response) {
+                    console.log("response after edited address :", response);
+                    updateAddressDetails()
+                    // TAKE NEW UPDATED ADDRESS
+                    $('#editAddressModal').modal('hide');
+                })
+                .catch(function (error) {
+                    console.error("Error updating address:", error);
+                });
+            });
         }
+          
     }
-
-
-
-
     // TO UPDATE DETAILS ON THE PAGE
     function updateAddressDetails(addressId, updatedAddress) {
         const addressElement = document.querySelector(`[data-address-id="${addressId}"]`);
@@ -868,7 +880,13 @@
             addressElement.querySelector(".phone").textContent = updatedAddress.phone;
         }
     }
-    document.getElementById("addressList").addEventListener("click", editAddress);
+    // EVENT LISTENER FOR EDIT ADDRESS BUTTON USING CLOSER PARENT ELEMENT
+    document.getElementById("addressList").addEventListener("click", function(event) {
+        console.log("Checking edit button :", event.target.classList.contains("edit-address-btn"));
+        if (event.target.classList.contains("edit-address-btn")) {
+            editAddress(event);
+        }
+    });
 
 
 

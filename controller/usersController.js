@@ -926,16 +926,6 @@ let addAddress = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Check if user already has 3 addresses
-    if (user.addresses.length >= 3) {
-      return res.status(400).json({
-        error:
-          "You already have 3 addresses. Please delete one to add a new address.",
-      });
-    }
-
-    console.log(user);
-
     user.addresses.push(newAddress);
 
     await user.save();
@@ -948,6 +938,26 @@ let addAddress = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// GET ADDRSS FOR EDIT
+let getAddressForEdiit = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const addressId  = req.params.addressId
+
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const addresses = user.addresses
+
+    return res.status(200).json({addresses})
+  } catch (error) {
+    console.error(error);
+    res.staus(500).json({ error: "an error occured" });
   }
 };
 
@@ -1162,10 +1172,10 @@ let placeOrderPostRazorpay = async (req, res) => {
 };
 let successfulRazorpayOrder = async (req, res) => {
   console.log(req.body);
-  const { razorpay_payment_id, razorpay_order_id} = req.body.response;
-  const { selectedAddressId, paymentMethod } = req.body
+  const { razorpay_payment_id, razorpay_order_id } = req.body.response;
+  const { selectedAddressId, paymentMethod } = req.body;
   try {
-    console.log("user :",req);
+    console.log("user :", req);
     const userId = req.user.id;
 
     const user = await User.findById(userId);
@@ -1261,12 +1271,11 @@ let successfulRazorpayOrder = async (req, res) => {
       expectedDeliveryDate: formattedDeliveryDate,
     });
   } catch (error) {
-    console.error("Error placing order throught razorpat payment :", error)
-    res.status(500).json({error: "An error occured"})
+    console.error("Error placing order throught razorpat payment :", error);
+    res.status(500).json({ error: "An error occured" });
   }
 };
 // PLACE ORDER RAZORPAY - ENDS HERE
-
 
 // USER PROFILE PAGE DISPLAY
 let userProfile = async (req, res) => {
@@ -1323,6 +1332,8 @@ let userProfile = async (req, res) => {
         });
       });
     });
+
+    cart.reverse();
 
     res.status(200).render("user/account", { user, cart, addresses });
   } catch (error) {
@@ -1409,7 +1420,7 @@ let changePasswordPost = async (req, res) => {
 
 let updateUserDetails = async (req, res) => {
   const { newName, newEmail, newPhone } = req.body;
-  console.log("user details check",req.body);
+  console.log("user details check", req.body);
   console.log(newName, newEmail, newPhone);
   const userId = req.user.id;
   try {
@@ -1458,6 +1469,7 @@ module.exports = {
   updateCartQuantity,
   checkoutpage,
   addAddress,
+  getAddressForEdiit,
   editAddress,
   deleteAddress,
   placeOrderPost,
