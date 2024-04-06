@@ -397,6 +397,56 @@ let verifyVendor = async (req, res) => {
   }
 };
 
+// COUPON LIST GET PAGE
+let couponList = async (req, res)=>{
+  try {
+    res.render("admin/coupons-list")
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({message:"Internal server error"})
+  }
+}
+
+// ADD COUPON GET PAGE
+let couponAddGet = async (req, res)=>{
+  try {
+    res.status(200).render("admin/coupon-add")
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error: "Internal Server error"})
+  }
+}
+
+// ADD COUPON POST
+let couponAddPost = async (req, res) =>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
+
+// EDIT COUPON PAGE
+let editCoupon = async (req, res)=>{
+  try {
+    res.status(200).render("admin/coupon-edit")
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error:"Internal Server error"})
+  }
+}
+
+// COUPON DELETE
+let deleteCoupon = async (req, res)=>{
+  try {
+    
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error:"Internal server error"})
+  }
+}
+
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
   try {
@@ -430,4 +480,9 @@ module.exports = {
   vendorsList,
   productList,
   verifyVendor,
+  couponList,
+  couponAddGet,
+  couponAddPost,
+  editCoupon,
+  deleteCoupon,
 };

@@ -1,13 +1,17 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/coupon-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/coupons-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>::eBazar:: Coupons Add </title>
+    <title>::eBazar:: Coupons List </title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+
+    <!-- plugin css file  -->
+    <link rel="stylesheet" href="assets/plugin/datatables/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="assets/plugin/datatables/dataTables.bootstrap5.min.css">
     
     <!-- project css file  -->
     <link rel="stylesheet" href="assets/css/ebazar.style.min.css">
@@ -75,8 +79,8 @@
                         <i class="icofont-sale-discount fs-5"></i> <span>Sales Promotion</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu collapse show" id="menu-sale">
-                            <li><a class="ms-link" href="coupons-list.html">Coupons List</a></li>
-                            <li><a class="ms-link active" href="coupon-add.html">Coupons Add</a></li>
+                            <li><a class="ms-link active" href="coupons-list.html">Coupons List</a></li>
+                            <li><a class="ms-link" href="coupon-add.html">Coupons Add</a></li>
                             <li><a class="ms-link" href="coupon-edit.html">Coupons Edit</a></li>
                         </ul>
                     </li>
@@ -315,125 +319,133 @@
                     <div class="row align-items-center">
                         <div class="border-0 mb-4">
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold mb-0">Coupons Add</h3>
+                                <h3 class="fw-bold mb-0">Coupons</h3>
+                                <div class="col-auto d-flex w-sm-100">
+                                    <a href="/admin/couponAddGet" class="btn btn-primary btn-set-task w-sm-100"><i class="icofont-plus-circle me-2 fs-6"></i>Add Coupons</a>
+                                </div>
                             </div>
                         </div>
                     </div> <!-- Row end  -->
                     <div class="row clearfix g-3">
-                        <div class="col-lg-4">
+                    <div class="col-sm-12">
                             <div class="card mb-3">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Coupon Status</h6>
-                                </div>
                                 <div class="card-body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="couponsstatus" checked>
-                                        <label class="form-check-label">
-                                            Active
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="couponsstatus">
-                                        <label class="form-check-label">
-                                            In Active
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="couponsstatus">
-                                        <label class="form-check-label">
-                                            Future Plan
-                                        </label>
-                                    </div>
+                                    <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
+                                        <thead>
+                                            <tr>
+                                                <th>Coupons Code</th>
+                                                <th>Type</th> 
+                                                <th>Discount</th>
+                                                <th>Start Date</th>
+                                                <th>End Date</th> 
+                                                <th>Status</th> 
+                                                <th>Discount Country</th>
+                                                <th>Discount Product</th>
+                                                <th>Actions</th>  
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <td><span class="fw-bold ms-1">DTZQT-8547</span></td>
+                                            <td>Fixed Amount</td>
+                                            <td>$12.6</td>
+                                            <td>18/08/2021</td>
+                                            <td>06/09/2021</td>
+                                            <td><span class="badge bg-success">Active</span></td>
+                                            <td>South Africa</td>
+                                            <td>Clothes</td>
+                                            <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <a href="coupon-edit.html" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
+                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-bold ms-1">AXXQT-2547</span></td>
+                                                <td>Percentage</td>
+                                                <td>20%</td>
+                                                <td>08/03/2021</td>
+                                                <td>30/03/2021</td>
+                                                <td><span class="badge bg-danger">In Active</span></td>
+                                                <td>India</td>
+                                                <td>Watches</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <a href="coupon-edit.html" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
+                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-bold ms-1">FiFty-50%</span></td>
+                                                <td>Percentage</td>
+                                                <td>50%</td>
+                                                <td>08/03/2021</td>
+                                                <td>30/03/2021</td>
+                                                <td><span class="badge bg-warning">Future Plann</span></td>
+                                                <td>India</td>
+                                                <td>Toy</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <a href="coupon-edit.html" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
+                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-bold ms-1">BATTT-XA47</span></td>
+                                                <td>Fixed Amount</td>
+                                                <td>$18.00</td>
+                                                <td>06/05/2021</td>
+                                                <td>06/09/2021</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                                <td>Oman</td>
+                                                <td>Shoes</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <a href="coupon-edit.html" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
+                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-bold ms-1">FALT-40</span></td>
+                                                <td>Percentage</td>
+                                                <td>18%</td>
+                                                <td>16/04/2021</td>
+                                                <td>06/09/2021</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                                <td>Oman</td>
+                                                <td>Shoes</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <a href="coupon-edit.html" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
+                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="fw-bold ms-1">SHIP-ZERO</span></td>
+                                                <td>Free shipping</td>
+                                                <td>$0.0</td>
+                                                <td>12/05/2021</td>
+                                                <td>06/10/2021</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                                <td>Denmark</td>
+                                                <td>Cream Tube</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <a href="coupon-edit.html" class="btn btn-outline-secondary"><i class="icofont-edit text-success"></i></a>
+                                                        <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <div class="card">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Date Schedule</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row g-3 align-items-center">
-                                        <div class="col-md-12">
-                                            <label class="form-label">Start Date</label>
-                                            <input type="date" class="form-control w-100" required="">
-                                        </div>
-                                        <div class="col-md-12">
-                                            <label class="form-label">End Date</label>
-                                            <input type="date" class="form-control w-100" required="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="card mb-3">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Coupon Information</h6>
-                                </div>
-                                <div class="card-body">
-                                    <form>
-                                        <div class="row g-3 align-items-center">
-                                            <div class="col-md-6">
-                                                <label class="form-label">Coupons Code</label>
-                                                <input type="text" class="form-control" required="">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label">Discount Products</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected="">Open this select category</option>
-                                                    <option value="1">Watch</option>
-                                                    <option value="2">Mobile</option>
-                                                    <option value="3">Laptop</option>
-                                                    <option value="4">Clothes</option>
-                                                    <option value="5">Shoes</option>
-                                                    <option value="6">Top</option>
-                                                    <option value="7">Watches</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label">Discount Country</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected="">Open this select Country</option>
-                                                    <option value="1">India</option>
-                                                    <option value="2">Denmark</option>
-                                                    <option value="3">Oman</option>
-                                                    <option value="4">South Africa</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label">Coupons Limits</label>
-                                                <input type="text" class="form-control" required="">
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label class="form-label">Coupons Types</label>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="couponstype">
-                                                    <label class="form-check-label">
-                                                        Free Shipping
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="couponstype" checked>
-                                                    <label class="form-check-label">
-                                                        Percentage
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="couponstype">
-                                                    <label class="form-check-label">
-                                                        Fixed Amount
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label class="form-label">Discount value</label>
-                                                <input type="text" class="form-control" required="">
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mt-4 text-uppercase px-5">Submit</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                     </div><!-- Row End -->
                 </div>
             </div>
@@ -579,15 +591,39 @@
             </div> 
 
         </div>     
-        
     </div>
     
     <!-- Jquery Core Js -->
     <script src="assets/bundles/libscripts.bundle.js"></script>
 
+    <!-- Plugin Js-->
+    <script src="assets/bundles/dataTables.bundle.js"></script>
+
     <!-- Jquery Page Js -->
     <script src="../js/template.js"></script>
+    <script>
+        // project data table
+        $(document).ready(function() {
+            $('#myProjectTable')
+            .addClass( 'nowrap' )
+            .dataTable( {
+                responsive: true,
+                columnDefs: [
+                    { targets: [-1, -3], className: 'dt-body-right' }
+                ]
+            });
+            $('.deleterow').on('click',function(){
+            var tablename = $(this).closest('table').DataTable();  
+            tablename
+                    .row( $(this)
+                    .parents('tr') )
+                    .remove()
+                    .draw();
+
+            } );
+        });
+    </script>
 </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/coupon-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/coupons-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
 </html>

@@ -1,23 +1,20 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/calendar.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:30 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/coupon-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>::eBazar:: Calendar </title>
+    <title>::eBazar:: Coupons Add </title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
-    
-    <!-- plugin css file  -->
-    <link rel="stylesheet" href="assets/plugin/fullcalendar/main.min.css">
     
     <!-- project css file  -->
     <link rel="stylesheet" href="assets/css/ebazar.style.min.css">
 </head>
 <body>
     <div id="ebazar-layout" class="theme-blue">
-        
+
         <!-- sidebar -->
         <div class="sidebar px-4 py-4 py-md-4 me-0">
             <div class="d-flex flex-column h-100">
@@ -74,18 +71,18 @@
                         </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-sale" href="#">
+                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-sale" href="#">
                         <i class="icofont-sale-discount fs-5"></i> <span>Sales Promotion</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-sale">
+                        <ul class="sub-menu collapse show" id="menu-sale">
                             <li><a class="ms-link" href="coupons-list.html">Coupons List</a></li>
-                            <li><a class="ms-link" href="coupon-add.html">Coupons Add</a></li>
+                            <li><a class="ms-link active" href="coupon-add.html">Coupons Add</a></li>
                             <li><a class="ms-link" href="coupon-edit.html">Coupons Edit</a></li>
                         </ul>
                     </li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
-                        <i class="icofont-funky-man fs-5"></i> <span>Inventory</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <i class="icofont-chart-histogram fs-5"></i> <span>Inventory</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                         <!-- Menu: Sub menu ul -->
                         <ul class="sub-menu collapse" id="menu-inventory">
                             <li><a class="ms-link" href="inventory-info.html">Stock List</a></li>
@@ -107,11 +104,11 @@
                         </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#app" href="#">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#app" href="#">
                         <i class="icofont-code-alt fs-5"></i> <span>App</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse show" id="app">
-                            <li><a class="ms-link active" href="calendar.html">Calandar</a></li>
+                        <ul class="sub-menu collapse" id="app">
+                            <li><a class="ms-link" href="calendar.html">Calandar</a></li>
                             <li><a class="ms-link" href="chat.html"> Chat App</a></li>
                         </ul>
                     </li>
@@ -141,7 +138,7 @@
         </div>
 
         <!-- main body area -->
-        <div class="main px-lg-4 px-md-4">
+        <div class="main px-lg-4 px-md-4"> 
 
             <!-- Body: Header -->
             <div class="header">
@@ -312,45 +309,135 @@
                 </nav>
             </div>
 
-            <!-- Body: Body -->
+            <!-- Body: Body -->       
             <div class="body d-flex py-lg-3 py-md-2">
                 <div class="container-xxl">
                     <div class="row align-items-center">
                         <div class="border-0 mb-4">
-                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom">
-                                <h3 class="fw-bold mb-0">Calendar</h3>
-                                <div class="col-auto d-flex">
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addevent"><i class="icofont-plus-circle me-2 fs-6"></i>Add Event</button>
-                                </div>
+                            <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
+                                <h3 class="fw-bold mb-0">Coupons Add</h3>
                             </div>
                         </div>
                     </div> <!-- Row end  -->
                     <div class="row clearfix g-3">
-                        <div class="col-lg-12 col-md-12 ">
-                        <!-- card: Calendar -->
+                        <div class="col-lg-4">
+                            <div class="card mb-3">
+                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                                    <h6 class="m-0 fw-bold">Coupon Status</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="couponsstatus" checked>
+                                        <label class="form-check-label">
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="couponsstatus">
+                                        <label class="form-check-label">
+                                            In Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="couponsstatus">
+                                        <label class="form-check-label">
+                                            Future Plan
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="card">
-                                <div class="card-body" id='my_calendar'></div>
-                                <script>
-                                    document.addEventListener('DOMContentLoaded', function() {
-                                    var calendarEl = document.getElementById('my_calendar');
-                                
-                                    var calendar = new FullCalendar.Calendar(calendarEl, {
-                                        timeZone: 'UTC',
-                                        initialView: 'dayGridMonth',
-                                        events: 'https://fullcalendar.io/demo-events.json',
-                                        editable: true,
-                                        selectable: true
-                                    });
-                                
-                                    calendar.render();
-                                    });
-                                </script>
+                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                                    <h6 class="m-0 fw-bold">Date Schedule</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row g-3 align-items-center">
+                                        <div class="col-md-12">
+                                            <label class="form-label">Start Date</label>
+                                            <input type="date" class="form-control w-100" required="">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label class="form-label">End Date</label>
+                                            <input type="date" class="form-control w-100" required="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="card mb-3">
+                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                                    <h6 class="m-0 fw-bold">Coupon Information</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/admin/couponAddPost" method="post">
+                                        <div class="row g-3 align-items-center">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Coupons Code</label>
+                                                <input type="text" class="form-control" required="">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Discount Products</label>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected="">Open this select category</option>
+                                                    <option value="1">Watch</option>
+                                                    <option value="2">Mobile</option>
+                                                    <option value="3">Laptop</option>
+                                                    <option value="4">Clothes</option>
+                                                    <option value="5">Shoes</option>
+                                                    <option value="6">Top</option>
+                                                    <option value="7">Watches</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Discount Country</label>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option selected="">Open this select Country</option>
+                                                    <option value="1">India</option>
+                                                    <option value="2">Denmark</option>
+                                                    <option value="3">Oman</option>
+                                                    <option value="4">South Africa</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Coupons Limits</label>
+                                                <input type="text" class="form-control" required="">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label">Coupons Types</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="couponstype">
+                                                    <label class="form-check-label">
+                                                        Free Shipping
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="couponstype" checked>
+                                                    <label class="form-check-label">
+                                                        Percentage
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="couponstype">
+                                                    <label class="form-check-label">
+                                                        Fixed Amount
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label class="form-label">Discount value</label>
+                                                <input type="text" class="form-control" required="">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary mt-4 text-uppercase px-5">Submit</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div><!-- Row End -->
                 </div>
             </div>
-
+            
             <!-- Modal Custom Settings-->
             <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">
                 <div class="modal-dialog  modal-sm">
@@ -489,65 +576,18 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
 
-            <!-- Add Event-->
-            <div class="modal fade" id="addevent" tabindex="-1"  aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title  fw-bold" id="eventaddLabel">Add Event</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="exampleFormControlInput99" class="form-label">Event Name</label>
-                            <input type="text" class="form-control" id="exampleFormControlInput99">
-                        </div>
-                        <div class="mb-3">
-                            <label for="formFileMultipleone" class="form-label">Event Images</label>
-                            <input class="form-control" type="file" id="formFileMultipleone">
-                        </div>
-                        <div class="deadline-form">
-                            <form>
-                                <div class="row g-3 mb-3">
-                                <div class="col">
-                                    <label for="datepickerded" class="form-label">Event Start Date</label>
-                                    <input type="date" class="form-control w-100" id="datepickerded">
-                                </div>
-                                <div class="col">
-                                    <label for="datepickerdedone" class="form-label">Event End Date</label>
-                                    <input type="date" class="form-control w-100" id="datepickerdedone">
-                                </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleFormControlTextarea78" class="form-label">Event Description (optional)</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea78" rows="3" placeholder="Add any extra details about the request"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
-                        <button type="button" class="btn btn-primary">Create</button>
-                    </div>
-                </div>
-                </div>
-            </div>
-                
-        </div>
+        </div>     
         
     </div>
-
+    
     <!-- Jquery Core Js -->
     <script src="assets/bundles/libscripts.bundle.js"></script>
-
-    <!-- Plugin Js-->
-    <script src="assets/plugin/fullcalendar/main.min.js"></script>
 
     <!-- Jquery Page Js -->
     <script src="../js/template.js"></script>
 </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/calendar.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:31 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/coupon-add.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
 </html>
