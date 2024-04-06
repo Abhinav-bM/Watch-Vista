@@ -9,6 +9,7 @@ const { name } = require("ejs");
 const mongoose = require("mongoose");
 const { log } = require("firebase-functions/logger");
 const Razorpay = require("razorpay");
+const {findUserOrders} = require("../helpers/userHelper")
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -964,17 +965,15 @@ let getAddressForEdiit = async (req, res) => {
 // EDIT USER ADDRESS
 let editAddress = async (req, res) => {
   const addressId = req.params.id;
-  console.log("address id :", addressId);
-  console.log("body :", req.body);
-  const { name, address, district, state, zip, email, phone } = req.body;
+  const { name, address, district, state, zip, email, phone } = req.body;7
   try {
-    const user = await User.findOne({ _id: req.user.id });
+    const userForEditAddress = await User.findOne({ _id: req.user.id });
 
-    if (!user) {
+    if (!userForEditAddress) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const addressIndex = user.addresses.findIndex(
+    const addressIndex = userForEditAddress.addresses.findIndex(
       (addr) => addr._id.toString() === addressId
     );
 
@@ -983,13 +982,13 @@ let editAddress = async (req, res) => {
     }
 
     // Update the address with new values
-    user.addresses[addressIndex].name = name;
-    user.addresses[addressIndex].address = address;
-    user.addresses[addressIndex].district = district;
-    user.addresses[addressIndex].state = state;
-    user.addresses[addressIndex].zip = zip;
-    user.addresses[addressIndex].email = email;
-    user.addresses[addressIndex].phone = phone;
+    userForEditAddress.addresses[addressIndex].name = name;
+    userForEditAddress.addresses[addressIndex].address = address;
+    userForEditAddress.addresses[addressIndex].district = district;
+    userForEditAddress.addresses[addressIndex].state = state;
+    userForEditAddress.addresses[addressIndex].zip = zip;
+    userForEditAddress.addresses[addressIndex].email = email;
+    userForEditAddress.addresses[addressIndex].phone = phone;
 
     let addressEdited = {
       name,
@@ -1001,12 +1000,10 @@ let editAddress = async (req, res) => {
       phone,
     };
 
-    await user.save();
+    await userForEditAddress.save();
 
-    console.log("address updated : ", addressEdited);
-    res
-      .status(200)
-      .json({ message: "Address updated successfully", addressEdited });
+    res.status(200).json({message:"address updated successfully"})
+    
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "An error occured" });
@@ -1283,59 +1280,14 @@ let userProfile = async (req, res) => {
 
   try {
     const user = await User.findById(userId).populate("orders");
+    console.log("d :",user);
     const addresses = user.addresses;
-
     const allVendors = await Vendor.find({}).populate("products");
-    let cart = [];
-
-    user.orders.forEach((order) => {
-      order.products.forEach((product) => {
-        const productId = product.productId;
-
-        // Find the product and its vendor in allVendors
-        allVendors.forEach((vendor) => {
-          const foundProduct = vendor.products.find((p) =>
-            p._id.equals(productId)
-          );
-
-          if (foundProduct) {
-            const vendorInfo = {
-              vendorId: vendor._id,
-              vendorName: vendor.vendorName,
-            };
-
-            const productDetails = {
-              _id: foundProduct._id,
-              name: foundProduct.productName,
-              category: foundProduct.productCategory,
-              subcategory: foundProduct.productSubCategory,
-              brand: foundProduct.productBrand,
-              color: foundProduct.productColor,
-              size: product.size,
-              quantity: product.qty,
-              price: foundProduct.productPrice,
-              mrp: foundProduct.productMRP,
-              discount: foundProduct.productDiscount,
-              images: foundProduct.productImages,
-              description: foundProduct.productDescription,
-              vendor: vendorInfo,
-              orderId: order.orderId,
-              shippingAddress: order.shippingAddress,
-              paymentMethod: order.paymentMethod,
-              totalAmount: order.totalAmount,
-              expectedDeliveryDate: order.expectedDeliveryDate,
-              orderStatus: product.orderStatus,
-            };
-
-            cart.push(productDetails);
-          }
-        });
-      });
-    });
-
+    
+    let cart = findUserOrders(user,allVendors)
     cart.reverse();
 
-    res.status(200).render("user/account", { user, cart, addresses });
+    res.status(200).render("user/account", { user, cart, addresses});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

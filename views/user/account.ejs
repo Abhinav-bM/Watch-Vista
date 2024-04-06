@@ -201,12 +201,21 @@
                                 <div class="col-lg-3 col-md-4">
                                     <nav>
                                         <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
-                                            <button class="nav-link active" id="dashboad-tab" data-bs-toggle="tab" data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">Personal Information</button>
-                                            <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false">Orders</button>
-                                            <!-- <button class="nav-link" id="payment-method-tab" data-bs-toggle="tab" data-bs-target="#payment-method" type="button" role="tab" aria-controls="payment-method" aria-selected="false">Payment Method</button> -->
-                                            <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">address</button>
-                                            <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">Change Password</button>
-                                            <button class="nav-link" onclick="window.location.href = '/user/logout'" type="button">Logout</button>
+                                            <button class="nav-link active"id="dashboad-tab" data-bs-toggle="tab"  data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">
+                                                Personal Information
+                                            </button>
+                                            <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false">
+                                                Orders
+                                            </button>
+                                            <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">
+                                                address
+                                            </button>
+                                            <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">
+                                                Change Password
+                                            </button>
+                                            <button class="nav-link" onclick="window.location.href = '/user/logout'" type="button">
+                                                Logout
+                                            </button>
 
                                         </div>
                                     </nav>
@@ -276,8 +285,7 @@
                                                                 <p class="m-0"><strong><%= address.name %></strong></p>
                                                                 <p class="m-0"><%= address.address %></p>
                                                                 <p class="m-0"><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
-                                                                <p class="m-0"><%= address.email %></p>
-                                                                <p class="m-0"><%= address.phone %></p>
+                                                                <p class="m-0"><%= address.email %> , <%= address.phone %></p>
                                                             </div>
 
                                                             <!-- Edit and Delete Buttons -->
@@ -418,7 +426,7 @@
                                                                     </div>
                                                                     <div class="col-md-6 p-2">
                                                                         <label for="editPhone" class="form-label">Phone Number</label>
-                                                                        <input type="tel" name="phone" class="form-control" id="phoneEdit" placeholder="Your Phone" required>
+                                                                        <input type="number" name="phone" class="form-control" id="phoneEdit" placeholder="Your Phone" required>
                                                                         <!-- <div class="invalid-feedback">
                                                                             Please provide a valid phone number.
                                                                         </div> -->
@@ -714,10 +722,9 @@
                     <div class="mb-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);" >
                         <div>
                             <p class="m-0"><strong>${newAddress.addedAddress.name}</strong></p>
-                            <p class="m-0"><strong>${newAddress.addedAddress.address}</strong></p>
-                            <p class="m-0"><strong>${newAddress.addedAddress.district}, ${newAddress.addedAddress.state}, ${newAddress.addedAddress.zip}</strong></p>
-                            <p class="m-0"><strong>${newAddress.addedAddress.email}</strong></p>
-                            <p class="m-0"><strong>${newAddress.addedAddress.phone}</strong></p>
+                            <p class="m-0">${newAddress.addedAddress.address}</p>
+                            <p class="m-0">${newAddress.addedAddress.district}, ${newAddress.addedAddress.state}, ${newAddress.addedAddress.zip}</p>
+                            <p class="m-0">${newAddress.addedAddress.email} , ${newAddress.addedAddress.phone} </p>
                         </div>
                                 
                         <div class="mt-3">
@@ -840,8 +847,8 @@
                 const updatedDistrict = document.getElementById("districtEdit").value;
                 const updatedState = document.getElementById("stateEdit").value;
                 const updatedZip = document.getElementById("zipEdit").value;
-                const updatedEmail = document.getElementById("phoneEdit").value;
-                const updatedPhone = document.getElementById("emailEdit").value;
+                const updatedEmail = document.getElementById("emailEdit").value;
+                const updatedPhone = document.getElementById("phoneEdit").value;
 
                 console.log("updated name :", updatedName);
 
@@ -857,10 +864,9 @@
 
                 axios.put(`/update-address/${addressId}`, updatedData)
                 .then(function (response) {
-                    console.log("response after edited address :", response);
-                    updateAddressDetails()
-                    // TAKE NEW UPDATED ADDRESS
+                    window.location.href = `/userProfile?scrollTo=address-edit`
                     $('#editAddressModal').modal('hide');
+                    
                 })
                 .catch(function (error) {
                     console.error("Error updating address:", error);
@@ -869,17 +875,6 @@
         }
           
     }
-    // TO UPDATE DETAILS ON THE PAGE
-    function updateAddressDetails(addressId, updatedAddress) {
-        const addressElement = document.querySelector(`[data-address-id="${addressId}"]`);
-        if (addressElement) {
-            addressElement.querySelector(".name").textContent = updatedAddress.name;
-            addressElement.querySelector(".address").textContent = updatedAddress.address;
-            addressElement.querySelector(".district-state-zip").textContent = `${updatedAddress.district}, ${updatedAddress.state}, ${updatedAddress.zip}`;
-            addressElement.querySelector(".email").textContent = updatedAddress.email;
-            addressElement.querySelector(".phone").textContent = updatedAddress.phone;
-        }
-    }
     // EVENT LISTENER FOR EDIT ADDRESS BUTTON USING CLOSER PARENT ELEMENT
     document.getElementById("addressList").addEventListener("click", function(event) {
         console.log("Checking edit button :", event.target.classList.contains("edit-address-btn"));
@@ -887,9 +882,6 @@
             editAddress(event);
         }
     });
-
-
-
 
     // CODE FOR CHANGE PASSWORD
     function changePassword(event) {
@@ -991,6 +983,24 @@
             $('#editModal').modal('hide');
         });
     }
+
+
+    // Function to trigger a click event on the "Addresses" button
+function triggerAddressesButtonClick() {
+  const addressesButton = document.getElementById('address-edit-tab');
+  if (addressesButton) {
+    addressesButton.click();
+  }
+}
+
+// Check for query parameter on page load
+window.addEventListener('load', (event) => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const scrollTo = urlParams.get('scrollTo');
+  if (scrollTo === 'address-edit') {
+    triggerAddressesButtonClick();
+  }
+});
     
 
 
