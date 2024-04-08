@@ -2,7 +2,11 @@ const { defaultWorkerPolicies } = require("twilio/lib/jwt/taskrouter/util");
 const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
 const Vendor = require("../models/vendorsModel");
-const {calculateTotalSales,getOrdersCountForLast10Days,getLatest10Orders,} = require("../helpers/adminDashboard");
+const {
+  calculateTotalSales,
+  getOrdersCountForLast10Days,
+  getLatest10Orders,
+} = require("../helpers/adminDashboard");
 const jwt = require("jsonwebtoken");
 
 // ADMIN LOGIN PAGE DISPLAY
@@ -111,8 +115,8 @@ let dashboardPage = async (req, res) => {
 
     const salesData = calculateTotalSales(vendorOrders);
     const ordersCountForLast10Days = getOrdersCountForLast10Days(vendorOrders);
-    const latest10orders = await getLatest10Orders()
-    
+    const latest10orders = await getLatest10Orders();
+
     res.render("admin/dashboard", {
       user,
       vendors,
@@ -398,54 +402,120 @@ let verifyVendor = async (req, res) => {
 };
 
 // COUPON LIST GET PAGE
-let couponList = async (req, res)=>{
+let couponList = async (req, res) => {
   try {
-    res.render("admin/coupons-list")
+    const admin = await Admin.findOne();
+    const coupons = admin.coupons;
+    res.render("admin/coupons-list", { coupons });
   } catch (error) {
-    console.error(error)
-    res.status(500).json({message:"Internal server error"})
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
-}
+};
 
 // ADD COUPON GET PAGE
-let couponAddGet = async (req, res)=>{
+let couponAddGet = async (req, res) => {
   try {
-    res.status(200).render("admin/coupon-add")
+    const categories = await Admin.aggregate([
+      { $unwind: "$categories" },
+      { $project: { _id: 0, categoryName: "$categories.categoryName" } },
+    ]);
+    res.status(200).render("admin/coupon-add", { categories });
   } catch (error) {
-    console.error(error)
-    res.status(500).json({error: "Internal Server error"})
+    console.error(error);
+    res.status(500).json({ error: "Internal Server error" });
   }
-}
+};
 
 // ADD COUPON POST
-let couponAddPost = async (req, res) =>{
+let couponAddPost = async (req, res) => {
+  console.log("added coupon: ", req.body);
+  const {
+    couponCode,
+    couponStatus,
+    discountProducts,
+    couponType,
+    discountValue,
+    startDate,
+    endDate,
+  } = req.body;
   try {
-    
+    const admin = await Admin.findOne();
+    const coupon = {
+      couponCode,
+      couponStatus,
+      discountProducts,
+      couponType,
+      discountValue,
+      startDate,
+      endDate,
+    };
+    admin.coupons.push(coupon);
+    admin.save();
+    res.status(200).redirect("/admin/couponList");
   } catch (error) {
-    
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
-}
-
+};
 
 // EDIT COUPON PAGE
-let editCoupon = async (req, res)=>{
+let editCouponGet = async (req, res) => {
+  const couponId = req.params.id;
   try {
-    res.status(200).render("admin/coupon-edit")
+    const admin = await Admin.findOne();
+    const coupon = admin.coupons;
+
+    const couponForEdit = coupon.find(
+      (coupon) => coupon._id.toString() === couponId
+    );
+
+    const categories = await Admin.aggregate([
+      { $unwind: "$categories" },
+      { $project: { _id: 0, categoryName: "$categories.categoryName" } },
+    ]);
+
+    res.status(200).render("admin/coupon-edit", { couponForEdit, categories });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server error" });
+  }
+};
+
+// EDIT COUPON POST PAGE
+let editCouponPost = async (req,res)=>{
+  const couponId = req.body.id
+  const data = req.body.data
+  try {
+    const admin = await Admin.findOne()
+    const index = admin?.coupons.findIndex(coupon => coupon._id.toString() == couponId)
+    admin.coupons[index] = data
+    console.log(data)
+    await admin.save()
+    res.status(200).json({message:"Coupon updated successfully"})
   } catch (error) {
     console.error(error)
-    res.status(500).json({error:"Internal Server error"})
+    res.status(200).json({error: "Internal server error"})
   }
 }
 
 // COUPON DELETE
-let deleteCoupon = async (req, res)=>{
+let deleteCoupon = async (req, res) => {
+  const couponId = req.params.id;
+  console.log("id for delete coupn :", couponId);
   try {
-    
+    const admin = await Admin.findOne({});
+    const index = admin?.coupons.findIndex(
+      (coupon) => coupon._id.toString() == couponId
+    );
+    admin?.coupons.splice(index, 1);
+    admin.save();
+    res.status(200).json({ message: "Coupon deleted successfully" });
   } catch (error) {
-    console.error(error)
-    res.status(500).json({error:"Internal server error"})
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
-}
+};
 
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
@@ -483,6 +553,7 @@ module.exports = {
   couponList,
   couponAddGet,
   couponAddPost,
-  editCoupon,
+  editCouponGet,
+  editCouponPost,
   deleteCoupon,
 };

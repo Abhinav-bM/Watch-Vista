@@ -21,6 +21,7 @@ router.get("/admin/productList",adminAuthMiddleware,adminController.productList)
 router.get("/admin/vendorsList",adminAuthMiddleware,adminController.vendorsList)
 router.get("/admin/couponList",adminAuthMiddleware,adminController.couponList)
 router.get("/admin/couponAddGet",adminAuthMiddleware,adminController.couponAddGet)
+router.get("/admin/editCouponGet/:id",adminAuthMiddleware,adminController.editCouponGet)
 
 
 router.post("/admin/login", adminController.loginPostPage);
@@ -34,8 +35,9 @@ router.post('/blockUser',adminController.blockUser);
 router.post("/admin/vendorVerify",adminController.verifyVendor)
 router.post("/admin/couponAddPost",adminAuthMiddleware,adminController.couponAddPost)
 
-router.put("/admin/editCoupon",adminAuthMiddleware,adminController.editCoupon)
+router.put("/admin/editCouponPost",adminAuthMiddleware, adminController.editCouponPost)
 
-router.delete("/admin/deleteCoupon",adminAuthMiddleware,adminController.deleteCoupon)
+router.delete("/admin/deleteCoupon/:id",adminAuthMiddleware,adminController.deleteCoupon)
+
 
 module.exports = router;

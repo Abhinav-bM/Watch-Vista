@@ -177,6 +177,8 @@ let addProduct = async (req, res) => {
         (subcategory) => subcategory.subcategoryName
       ),
     }));
+  
+    console.log("fsfdf", categories);
 
     res.status(200).render("vendor/product-add", { categories });
   } catch (error) {

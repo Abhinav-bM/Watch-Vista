@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>::eBazar:: Coupons Add </title>
+    <title>Add coupon </title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
     
     <!-- project css file  -->
@@ -319,122 +319,94 @@
                             </div>
                         </div>
                     </div> <!-- Row end  -->
-                    <div class="row clearfix g-3">
-                        <div class="col-lg-4">
-                            <div class="card mb-3">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Coupon Status</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="couponsstatus" checked>
-                                        <label class="form-check-label">
-                                            Active
-                                        </label>
+                    <form action="/admin/couponAddPost" method="post">
+                        <div class="row clearfix g-3">
+                            <div class="col-lg-4">
+                                <div class="card mb-3">
+                                    <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                                        <h6 class="m-0 fw-bold">Coupon Status</h6>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="couponsstatus">
-                                        <label class="form-check-label">
-                                            In Active
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="couponsstatus">
-                                        <label class="form-check-label">
-                                            Future Plan
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Date Schedule</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row g-3 align-items-center">
-                                        <div class="col-md-12">
-                                            <label class="form-label">Start Date</label>
-                                            <input type="date" class="form-control w-100" required="">
+
+                                    <div class="card-body">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="couponStatus" value="Active" checked>
+                                            <label class="form-check-label">
+                                                Active
+                                            </label>
                                         </div>
-                                        <div class="col-md-12">
-                                            <label class="form-label">End Date</label>
-                                            <input type="date" class="form-control w-100" required="">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="InActive" name="couponStatus">
+                                            <label class="form-check-label">
+                                                In Active
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-8">
-                            <div class="card mb-3">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Coupon Information</h6>
-                                </div>
-                                <div class="card-body">
-                                    <form action="/admin/couponAddPost" method="post">
+                                <div class="card">
+                                    <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                                        <h6 class="m-0 fw-bold">Date Schedule</h6>
+                                    </div>
+                                    <div class="card-body">
                                         <div class="row g-3 align-items-center">
-                                            <div class="col-md-6">
-                                                <label class="form-label">Coupons Code</label>
-                                                <input type="text" class="form-control" required="">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label">Discount Products</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected="">Open this select category</option>
-                                                    <option value="1">Watch</option>
-                                                    <option value="2">Mobile</option>
-                                                    <option value="3">Laptop</option>
-                                                    <option value="4">Clothes</option>
-                                                    <option value="5">Shoes</option>
-                                                    <option value="6">Top</option>
-                                                    <option value="7">Watches</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label">Discount Country</label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option selected="">Open this select Country</option>
-                                                    <option value="1">India</option>
-                                                    <option value="2">Denmark</option>
-                                                    <option value="3">Oman</option>
-                                                    <option value="4">South Africa</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label">Coupons Limits</label>
-                                                <input type="text" class="form-control" required="">
+                                            <div class="col-md-12">
+                                                <label class="form-label">Start Date</label>
+                                                <input type="date" name="startDate" class="form-control w-100" required="">
                                             </div>
                                             <div class="col-md-12">
-                                                <label class="form-label">Coupons Types</label>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="couponstype">
-                                                    <label class="form-check-label">
-                                                        Free Shipping
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="couponstype" checked>
-                                                    <label class="form-check-label">
-                                                        Percentage
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="couponstype">
-                                                    <label class="form-check-label">
-                                                        Fixed Amount
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <label class="form-label">Discount value</label>
-                                                <input type="text" class="form-control" required="">
+                                                <label class="form-label">End Date</label>
+                                                <input type="date" name="endDate" class="form-control w-100" required="">
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary mt-4 text-uppercase px-5">Submit</button>
-                                    </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div><!-- Row End -->
+                            <div class="col-lg-8">
+                                <div class="card mb-3">
+                                    <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
+                                        <h6 class="m-0 fw-bold">Coupon Information</h6>
+                                    </div>
+                                    <div class="card-body">
+                                            <div class="row g-3 align-items-center">
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Coupons Code</label>
+                                                    <input type="text" name="couponCode" class="form-control">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label class="form-label">Discount Products</label>
+                                                    <select class="form-select" name="discountProducts" aria-label="Default select example">
+                                                        <option selected="">All products</option>
+                                                        <% categories.forEach(cate => { %>
+                                                        <option value="<%= cate.categoryName %>"><%= cate.categoryName %></option>
+                                                        <% }) %>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Coupons Types</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="couponType" value="Percentage" checked>
+                                                        <label class="form-check-label">
+                                                            Percentage
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" value="Fixed Amount" name="couponType">
+                                                        <label class="form-check-label">
+                                                            Fixed Amount
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label class="form-label">Discount value</label>
+                                                    <input type="text" name="discountValue" class="form-control" required="">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mt-4 text-uppercase px-5">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- Row End -->
+                    </form>
+
                 </div>
             </div>
             
