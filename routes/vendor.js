@@ -5,7 +5,6 @@ const { vendorAuthMiddleware } = require("../middleware/jwtMiddleware");
 const upload = require("../config/multer")
 const bodyParser = require("body-parser");
 
-
 router.use(bodyParser.json());
 router.use(bodyParser.urlencoded({ extended: true }));
 
@@ -19,7 +18,6 @@ router.get("/vendor/productList",vendorAuthMiddleware,vendorController.producLis
 router.get("/vendor/editProduct/:id",vendorAuthMiddleware,vendorController.editProduct)
 router.get("/vendor/orders",vendorAuthMiddleware,vendorController.getOrdersForVendor)
 router.get("/vendorProfile",vendorAuthMiddleware,vendorController.vendorProfile)
-
 
 router.post("/vendor/register",vendorController.vendorRegisterPostPage)
 router.post("/vendor/login",vendorController.vendorLoginPostPage)
