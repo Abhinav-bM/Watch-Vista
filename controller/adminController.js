@@ -433,7 +433,6 @@ let couponAddPost = async (req, res) => {
   const {
     couponCode,
     couponStatus,
-    discountProducts,
     couponType,
     discountValue,
     startDate,
@@ -444,7 +443,6 @@ let couponAddPost = async (req, res) => {
     const coupon = {
       couponCode,
       couponStatus,
-      discountProducts,
       couponType,
       discountValue,
       startDate,

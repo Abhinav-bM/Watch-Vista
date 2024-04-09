@@ -298,7 +298,6 @@
                                                 <th>Type</th> 
                                                 <th>Discount value</th>
                                                 <th>End Date</th> 
-                                                <th>Discount Product</th>
                                                 <th>Status</th>     
                                                 <th>Actions</th>  
                                             </tr>
@@ -310,7 +309,6 @@
                                                 <td><%= coupon.couponType %></td>
                                                 <td><%= coupon.discountValue %></td>
                                                 <td><%= new Date(coupon.endDate).toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric', hour:'numeric' , minute:'numeric'}) %></td>
-                                                <td><span class="badge bg-dark"><%= coupon.discountProducts %></span></td>
                                                 <td><span class="badge bg-dark"><%= coupon.couponStatus %></span></td>
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Basic outlined example">

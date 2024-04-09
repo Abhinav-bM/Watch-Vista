@@ -3640,8 +3640,8 @@ a.price-calculate:hover{
 
 /* -------------------------- 17. Checkout ------------------------- */
 .coupon-accordion h3 {
-	background-color: #fff1f0;
-	border-top: 3px solid #FE4536;
+	background-color: #ebeaea;
+	border-top: 3px solid #dbdbdb;
 	font-size: 14px;
 	font-weight: 400;
 	margin: 0 0 25px;

@@ -19,7 +19,7 @@ router.get("/vendor/editProduct/:id",vendorAuthMiddleware,vendorController.editP
 router.get("/vendor/orders",vendorAuthMiddleware,vendorController.getOrdersForVendor)
 router.get("/vendorProfile",vendorAuthMiddleware,vendorController.vendorProfile)
 
-router.post("/vendor/register",vendorController.vendorRegisterPostPage)
+router.post("/vendor/register",vendorController.vendorRegisterPostPage) 
 router.post("/vendor/login",vendorController.vendorLoginPostPage)
 router.post("/vendor/forgotEmail",vendorController.forgotPassEmailPost)
 router.post("/vendor/forgotOtpPost",vendorController.forgotOrpVerify)

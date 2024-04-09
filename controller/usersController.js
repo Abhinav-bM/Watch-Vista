@@ -1300,7 +1300,7 @@ let orderCancelRequestPost = async (req, res) => {
   const { cancelReason } = req.body;
   const userId = req.user.id;
 
-  try {
+    try {
     // Find the user
     const user = await User.findById(userId);
     if (!user) {
@@ -1394,6 +1394,39 @@ let updateUserDetails = async (req, res) => {
   }
 };
 
+
+// APPLY COUPON
+let applyCoupon = async (req, res)=>{
+  const {couponCode, totalPrice} = req.body
+
+
+  try {
+    const admin = await Admin.findOne()
+    const coupon = admin.coupons.find(coupon => coupon.couponCode == couponCode )
+    let discountAmount = 0;
+
+    console.log(coupon);
+
+    
+    if(!coupon || coupon.couponStatus === "InActive"){
+      return res.status(400).json({message: "Invalid Coupon"})
+    }
+
+    if(coupon.couponType === "Fixed Amount"){
+      discountAmount = coupon.discountValue
+      return res.status(200).json({message :"coupon applied successfully ", discountAmount})
+    }
+    else if (coupon.couponType === "Percentage"){
+      discountAmount = (coupon.discountValue / 100) * totalPrice;
+      return res.status(200).json({message :"coupon applied successfully ", discountAmount})
+    }
+    
+  } catch (error) {
+    console.error(error)
+    res.staus(500).json({error :"Internal server error"})
+  }
+}
+
 module.exports = {
   homePage,
   signupGetPage,
@@ -1431,4 +1464,5 @@ module.exports = {
   orderCancelRequestPost,
   changePasswordPost,
   updateUserDetails,
+  applyCoupon,
 };
