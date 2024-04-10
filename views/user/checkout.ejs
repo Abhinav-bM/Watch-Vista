@@ -528,7 +528,6 @@
                 document.getElementById('couponSuccess').textContent = ''
                 document.getElementById('coupon-code').value = ''
                 document.getElementById('orderTotal').textContent = totalPrice
-
             })
         </script>
 
@@ -946,8 +945,9 @@
     </section>
     <!-- startup popup end -->
 
-    <!-- form sumbmission for newaddress -->
     <script>
+
+        // ADD NEW ADDRESS - CHECKOUT AREA
         document.getElementById("submitAddressBtn").addEventListener("click", function() {
             // Get form data
             const formData = {
@@ -960,16 +960,14 @@
                 phone: document.getElementById("phone").value
             };
 
-            // Send POST request using Axios
             axios.post('/add-address', formData)
-                .then(function (response) {
-                    console.log(response.data);
-                    $('#exampleModal').modal('hide');
-                    window.location.href = "/checkout"
-                })
-                .catch(function (error) {
-                    console.error('Error adding address:', error);
-                });
+            .then(function (response) {
+                $('#exampleModal').modal('hide');
+                window.location.href = "/checkout"
+            })
+            .catch(function (error) {
+                console.error('Error adding address:', error);
+            });
         });
     </script>
     <!-- axios -->

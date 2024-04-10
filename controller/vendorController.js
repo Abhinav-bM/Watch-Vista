@@ -178,7 +178,6 @@ let addProduct = async (req, res) => {
       ),
     }));
   
-    console.log("fsfdf", categories);
 
     res.status(200).render("vendor/product-add", { categories });
   } catch (error) {
