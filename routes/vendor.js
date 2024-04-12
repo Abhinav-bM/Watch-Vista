@@ -27,5 +27,8 @@ router.post("/vendor/addProduct",vendorAuthMiddleware,upload.array('productImage
 router.post("/vendor/editProduct/:id",vendorAuthMiddleware,upload.array('productImages',4),vendorController.editProductPost)
 router.post("/vendor/deleteProduct/:id",vendorAuthMiddleware,vendorController.deleteProduct)
 router.post("/vendor/updateOrderStatus/:orderId/:productId",vendorAuthMiddleware,vendorController.updateOrderStatus)
+router.post("/vendor/sales-report/pdf",vendorAuthMiddleware,vendorController.salesPdf)
+router.post("/vendor/sales-report/excel",vendorAuthMiddleware,vendorController.salesExcel)
+
 
 module.exports = router;    

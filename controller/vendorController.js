@@ -3,7 +3,14 @@ const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
-const {calculateTotalSales,calculateTopCategoriesSales,getLatest10DaysOrders,calculateTotalRevenue,getUniqueCustomers} = require("../helpers/vendorDashboard")
+const {
+  calculateTotalSales,
+  calculateTopCategoriesSales,
+  getLatest10DaysOrders,
+  calculateTotalRevenue,
+  getUniqueCustomers,
+} = require("../helpers/vendorDashboard");
+const {vendorOrders} = require('../helpers/vendorOrders')
 const jwt = require("jsonwebtoken");
 const { sendOtpEmail } = require("../helpers/emailService");
 const cloudinary = require("../config/cloudinary");
@@ -12,19 +19,22 @@ const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 require("dotenv").config();
+const PDFDocument = require("pdfkit");
+const fs = require("fs");
+const Excel = require("exceljs");
 
 // VENDOR DASHBOARD PAGE DISPLAY
 let dashboard = async (req, res) => {
   try {
     let email = req.user.email;
     let vendor = await Vendor.findOne({ email });
-    let vendorId = vendor._id
+    let vendorId = vendor._id;
 
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
       "products"
     );
     const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
-    
+
     const vendorOrders = [];
 
     usersWithOrders.forEach((user) => {
@@ -42,9 +52,9 @@ let dashboard = async (req, res) => {
                 productName: matchingProduct.productName,
                 color: matchingProduct.productColor,
                 size: matchingProduct.productSize,
-                productId : product.productId,
-                category :matchingProduct.productCategory,
-                image : matchingProduct.productImages[0],
+                productId: product.productId,
+                category: matchingProduct.productCategory,
+                image: matchingProduct.productImages[0],
                 quantity: product.qty,
                 price: product.price,
                 orderStatus: product.orderStatus,
@@ -53,7 +63,7 @@ let dashboard = async (req, res) => {
                 expectedDeliveryDate: order.expectedDeliveryDate,
                 shippingAddress: order.shippingAddress,
                 paymentMethod: order.paymentMethod,
-                cancelReason :product.cancelReason,
+                cancelReason: product.cancelReason,
               };
               vendorOrders.push(vendorOrder);
             }
@@ -63,14 +73,24 @@ let dashboard = async (req, res) => {
     });
 
     const salesData = calculateTotalSales(vendorOrders);
-    const topCategories = calculateTopCategoriesSales(vendorOrders)
-    const latestTenOrders = getLatest10DaysOrders(vendorOrders)
-    const totalRevenue = calculateTotalRevenue(vendorOrders)
-    const customers   = getUniqueCustomers(vendorOrders)
+    const topCategories = calculateTopCategoriesSales(vendorOrders);
+    const latestTenOrders = getLatest10DaysOrders(vendorOrders);
+    const totalRevenue = calculateTotalRevenue(vendorOrders);
+    const customers = getUniqueCustomers(vendorOrders);
 
-    res.status(200).render("vendor/dashboard", { vendor , salesData,vendorOrders, topCategories,latestTenOrders,totalRevenue,customers});
+    res
+      .status(200)
+      .render("vendor/dashboard", {
+        vendor,
+        salesData,
+        vendorOrders,
+        topCategories,
+        latestTenOrders,
+        totalRevenue,
+        customers,
+      });
   } catch (error) {
-    console.error(error)
+    console.error(error);
     res.status(404).send("page not found");
   }
 };
@@ -177,7 +197,6 @@ let addProduct = async (req, res) => {
         (subcategory) => subcategory.subcategoryName
       ),
     }));
-  
 
     res.status(200).render("vendor/product-add", { categories });
   } catch (error) {
@@ -446,7 +465,7 @@ let getOrdersForVendor = async (req, res) => {
                 productName: matchingProduct.productName,
                 color: matchingProduct.productColor,
                 size: matchingProduct.productSize,
-                productId : product.productId,
+                productId: product.productId,
                 quantity: product.qty,
                 price: product.price,
                 orderStatus: product.orderStatus,
@@ -455,7 +474,7 @@ let getOrdersForVendor = async (req, res) => {
                 expectedDeliveryDate: order.expectedDeliveryDate,
                 shippingAddress: order.shippingAddress,
                 paymentMethod: order.paymentMethod,
-                cancelReason :product.cancelReason,
+                cancelReason: product.cancelReason,
               };
               vendorOrders.push(vendorOrder);
             }
@@ -509,17 +528,119 @@ let updateOrderStatus = async (req, res) => {
 };
 
 // GET VENDOR PROFILE
-let vendorProfile = async (req, res)=>{
-  const vendorId  =  req.user.id
+let vendorProfile = async (req, res) => {
+  const vendorId = req.user.id;
   try {
-    const vendor =  await Vendor.findOne({_id:vendorId})
+    const vendor = await Vendor.findOne({ _id: vendorId });
 
-    res.status(200).render("vendor/vendor-profile",{vendor})
-  } catch (error) {
+    res.status(200).render("vendor/vendor-profile", { vendor });
+  } catch (error) {}
+};
+
+// SALES REPORT PDF
+let salesPdf = async (req, res) => {
+  const { startDate, endDate } = req.body;
+  const vendorId = req.user.id; // Assuming you have user authentication
+
+  try {
+    // Fetch orders for the vendor within the specified date range
+    // const orders = await Order.find({
+    //   "products.vendor": vendorId,
+    //   date: { $gte: startDate, $lte: endDate },
+    // }).populate("products");
+
     
-  }
-}
 
+    const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
+      "products"
+    );
+    const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
+
+
+    const orders = vendorOrders()
+
+    // Create a new PDF document
+    const doc = new PDFDocument();
+    const fileName = `sales_report_${vendorId}_${Date.now()}.pdf`;
+    const filePath = `./pdf-reports/${fileName}`;
+
+    doc.pipe(fs.createWriteStream(filePath));
+
+    doc.fontSize(20).text("Sales Report", { align: "center" }).moveDown();
+
+    // Iterate through orders and add to PDF
+    orders.forEach((order, index) => {
+      doc.text(`Order ${index + 1}`);
+      order.products.forEach((product) => {
+        doc.text(`- ${product.name} - ${product.price}`);
+      });
+      doc.text(`Total Price: ${order.totalPrice}`);
+      doc.moveDown();
+    });
+
+    doc.end();
+
+    res.download(filePath, fileName, () => {
+      // Delete the file after it's downloaded
+      fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error("Error generating PDF report:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+// SALES REPORT EXCEL
+let salesExcel = async (req, res) => {
+  const { startDate, endDate } = req.body;
+  const vendorId = req.user.id; // Assuming you have user authentication
+
+  try {
+    // Fetch orders for the vendor within the specified date range
+    const orders = await Order.find({
+      "products.vendor": vendorId,
+      date: { $gte: startDate, $lte: endDate },
+    }).populate("products");
+
+    // Create a new Excel workbook and worksheet
+    const workbook = new Excel.Workbook();
+    const worksheet = workbook.addWorksheet("Sales Report");
+
+    // Define the headers for the Excel sheet
+    worksheet.columns = [
+      { header: "Order Number", key: "orderNumber", width: 15 },
+      { header: "Product Name", key: "productName", width: 30 },
+      { header: "Price", key: "price", width: 15 },
+      { header: "Total Price", key: "totalPrice", width: 15 },
+    ];
+
+    // Populate the Excel sheet with orders
+    orders.forEach((order, index) => {
+      order.products.forEach((product) => {
+        worksheet.addRow({
+          orderNumber: `Order ${index + 1}`,
+          productName: product.name,
+          price: product.price,
+          totalPrice: order.totalPrice,
+        });
+      });
+    });
+
+    const fileName = `sales_report_${vendorId}_${Date.now()}.xlsx`;
+    const filePath = `./excel-reports/${fileName}`;
+
+    // Save the Excel file
+    await workbook.xlsx.writeFile(filePath);
+
+    res.download(filePath, fileName, () => {
+      // Delete the file after it's downloaded
+      fs.unlinkSync(filePath);
+    });
+  } catch (error) {
+    console.error("Error generating Excel report:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
 
 module.exports = {
   loginGetPage,
@@ -540,4 +661,6 @@ module.exports = {
   getOrdersForVendor,
   updateOrderStatus,
   vendorProfile,
+  salesPdf,
+  salesExcel,
 };

@@ -1,7 +1,7 @@
 const moment = require("moment");
-const mongoose = require("mongoose")
-const Vendor = require("../models/vendorsModel")
-const User = require("../models/usersModel")
+const mongoose = require("mongoose");
+const Vendor = require("../models/vendorsModel");
+const User = require("../models/usersModel");
 
 // FUNCTION CALCULATE SALES OF EACH DAY
 function calculateTotalSales(vendorOrders) {
@@ -41,12 +41,12 @@ const getOrdersCountForLast10Days = (vendorOrders) => {
   const ordersCount = {};
 
   for (let i = 0; i < 10; i++) {
-    const currentDate = moment().subtract(i, 'days').format('YYYY-MM-DD');
+    const currentDate = moment().subtract(i, "days").format("YYYY-MM-DD");
     ordersCount[currentDate] = 0;
   }
 
   vendorOrders.forEach((order) => {
-    const orderDate = moment(order.orderDate).format('YYYY-MM-DD');
+    const orderDate = moment(order.orderDate).format("YYYY-MM-DD");
     if (ordersCount[orderDate] !== undefined) {
       ordersCount[orderDate]++;
     }
@@ -120,12 +120,6 @@ const getLatest10Orders = async () => {
     throw error;
   }
 };
-
-
-
-  
-
-
 
 module.exports = {
   calculateTotalSales,
