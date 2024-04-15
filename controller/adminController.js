@@ -8,6 +8,8 @@ const {
   getLatest10Orders,
 } = require("../helpers/adminDashboard");
 const jwt = require("jsonwebtoken");
+const cloudinary = require("../config/cloudinary");
+
 
 // ADMIN LOGIN PAGE DISPLAY
 let loginGetPage = (req, res) => {
@@ -66,6 +68,7 @@ let dashboardPage = async (req, res) => {
     const user = req.user;
     const vendors = await Vendor.find();
     const users = await User.find({}, "orders");
+    const admin = await Admin.findOne()    
 
     const allOrders = users.flatMap((user) => user.orders);
 
@@ -515,6 +518,43 @@ let deleteCoupon = async (req, res) => {
   }
 };
 
+// BANNER ADD POST
+let bannerAddPost = async (req, res) => {
+  const { placement } = req.body;
+  let imageData = req.files;
+
+  try {
+    let admin = await Admin.findOne();
+    console.log(placement, admin);
+
+    let imageUrl = ""; // Variable to store single image URL
+
+    if (placement) {
+      if (imageData.length > 0) {
+        const result = await cloudinary.uploader.upload(imageData[0].path);
+        imageUrl = result.secure_url;
+      } else {
+        console.log("No image data found");
+      }
+    } else {
+      console.log("No placement data found");
+    }
+
+    const newBanner = {
+      image: imageUrl, // Assign single image URL
+      placement,
+    };
+
+    admin.banner.push(newBanner);
+
+    await admin.save();
+    res.status(200).redirect("/admin/dashboard");
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server error" });
+  }
+};
+
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
   try {
@@ -554,4 +594,5 @@ module.exports = {
   editCouponGet,
   editCouponPost,
   deleteCoupon,
+  bannerAddPost,
 };

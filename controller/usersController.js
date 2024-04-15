@@ -9,7 +9,7 @@ const { name } = require("ejs");
 const mongoose = require("mongoose");
 const { log } = require("firebase-functions/logger");
 const Razorpay = require("razorpay");
-const {findUserOrders} = require("../helpers/userHelper")
+const { findUserOrders } = require("../helpers/userHelper");
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -20,7 +20,12 @@ const generateOTP = () => {
 let homePage = async (req, res) => {
   try {
     let products = await Vendor.find().select("products");
-    res.status(200).render("user/home", { products: products });
+    const admin = await Admin.findOne();
+    const bannerHome = admin.banner.filter(
+      (banner) => banner.placement === "home"
+    );
+
+    res.status(200).render("user/home", { products: products, bannerHome });
   } catch (error) {
     console.error("Failed to get home:", error);
     res.status(500).send("Internal Server Error");
@@ -519,6 +524,36 @@ let getProductsByCategory = async (req, res) => {
   }
 };
 
+// GET PRODUCTS BY SORT
+let getProductBySort = async (req, res) => {
+  const { option } = req.params;
+  try {
+    let vendorProducts = await Vendor.find().select("products");
+
+    let allProducts = vendorProducts.map((vendor) => vendor.products).flat();
+
+    switch (option) {
+      case "latest":
+        allProducts.sort((a, b) => new Date(b.date) - new Date(a.date));
+        break;
+      case "low to high":
+        allProducts.sort((a, b) => a.productPrice - b.productPrice);
+        break;
+      case "high to low":
+        allProducts.sort((a, b) => b.productPrice - a.productPrice);
+        break;
+      default:
+        // Default sorting
+        break;
+    }
+
+    res.status(200).json({ message: "product filtered", allProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 // DISPLAY SINGLE PRODUCT PAGE
 let singleProductGetPage = async (req, res) => {
   try {
@@ -868,9 +903,6 @@ let buyNowCheckOut = async (req, res) => {
             vendorId: vendor._id,
             vendorName: vendor.vendorName,
           };
-
-          console.log(product.productSubCategory);
-
           const productDetails = {
             _id: product._id,
             name: product.productName,
@@ -900,7 +932,7 @@ let buyNowCheckOut = async (req, res) => {
     res.status(200).render("user/checkout", { addresses, cart, totalPrice });
   } catch (error) {
     console.error("Error on checkout page display :", error);
-    res.status(500).json({ message: "An error occured" });
+    res.status(500).json({ message: "An error occured" }); 
   }
 };
 
@@ -946,16 +978,16 @@ let addAddress = async (req, res) => {
 let getAddressForEdiit = async (req, res) => {
   try {
     const userId = req.user.id;
-    const addressId  = req.params.addressId
+    const addressId = req.params.addressId;
 
     const user = await User.findOne({ _id: userId });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const addresses = user.addresses
+    const addresses = user.addresses;
 
-    return res.status(200).json({addresses})
+    return res.status(200).json({ addresses });
   } catch (error) {
     console.error(error);
     res.staus(500).json({ error: "an error occured" });
@@ -965,7 +997,8 @@ let getAddressForEdiit = async (req, res) => {
 // EDIT USER ADDRESS
 let editAddress = async (req, res) => {
   const addressId = req.params.id;
-  const { name, address, district, state, zip, email, phone } = req.body;7
+  const { name, address, district, state, zip, email, phone } = req.body;
+  7;
   try {
     const userForEditAddress = await User.findOne({ _id: req.user.id });
 
@@ -1002,8 +1035,7 @@ let editAddress = async (req, res) => {
 
     await userForEditAddress.save();
 
-    res.status(200).json({message:"address updated successfully"})
-    
+    res.status(200).json({ message: "address updated successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "An error occured" });
@@ -1280,14 +1312,14 @@ let userProfile = async (req, res) => {
 
   try {
     const user = await User.findById(userId).populate("orders");
-    console.log("d :",user);
+    console.log("d :", user);
     const addresses = user.addresses;
     const allVendors = await Vendor.find({}).populate("products");
-    
-    let cart = findUserOrders(user,allVendors)
+
+    let cart = findUserOrders(user, allVendors);
     cart.reverse();
 
-    res.status(200).render("user/account", { user, cart, addresses});
+    res.status(200).render("user/account", { user, cart, addresses });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -1300,7 +1332,7 @@ let orderCancelRequestPost = async (req, res) => {
   const { cancelReason } = req.body;
   const userId = req.user.id;
 
-    try {
+  try {
     // Find the user
     const user = await User.findById(userId);
     if (!user) {
@@ -1394,38 +1426,39 @@ let updateUserDetails = async (req, res) => {
   }
 };
 
-
 // APPLY COUPON
-let applyCoupon = async (req, res)=>{
-  const {couponCode, totalPrice} = req.body
-
+let applyCoupon = async (req, res) => {
+  const { couponCode, totalPrice } = req.body;
 
   try {
-    const admin = await Admin.findOne()
-    const coupon = admin.coupons.find(coupon => coupon.couponCode == couponCode )
+    const admin = await Admin.findOne();
+    const coupon = admin.coupons.find(
+      (coupon) => coupon.couponCode == couponCode
+    );
     let discountAmount = 0;
 
     console.log(coupon);
 
-    
-    if(!coupon || coupon.couponStatus === "InActive"){
-      return res.status(400).json({message: "Invalid Coupon"})
+    if (!coupon || coupon.couponStatus === "InActive") {
+      return res.status(400).json({ message: "Invalid Coupon" });
     }
 
-    if(coupon.couponType === "Fixed Amount"){
-      discountAmount = coupon.discountValue
-      return res.status(200).json({message :"coupon applied successfully ", discountAmount})
-    }
-    else if (coupon.couponType === "Percentage"){
+    if (coupon.couponType === "Fixed Amount") {
+      discountAmount = coupon.discountValue;
+      return res
+        .status(200)
+        .json({ message: "coupon applied successfully ", discountAmount });
+    } else if (coupon.couponType === "Percentage") {
       discountAmount = (coupon.discountValue / 100) * totalPrice;
-      return res.status(200).json({message :"coupon applied successfully ", discountAmount})
+      return res
+        .status(200)
+        .json({ message: "coupon applied successfully ", discountAmount });
     }
-    
   } catch (error) {
-    console.error(error)
-    res.staus(500).json({error :"Internal server error"})
+    console.error(error);
+    res.staus(500).json({ error: "Internal server error" });
   }
-}
+};
 
 module.exports = {
   homePage,
@@ -1465,4 +1498,5 @@ module.exports = {
   changePasswordPost,
   updateUserDetails,
   applyCoupon,
+  getProductBySort,
 };

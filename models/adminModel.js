@@ -21,12 +21,24 @@ const couponSchema = new mongoose.Schema({
   endDate:{type:Date}
 })
 
+const bannerSchema = new mongoose.Schema({
+  image: {
+    type: String,
+    required: true,
+  },
+  placement: {
+    type: String,
+    required: true,
+  },
+});
+
 const adminSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   categories :[categorySchema],
-  coupons : [couponSchema]
+  coupons : [couponSchema],
+  banner :[bannerSchema]
 });
 
 module.exports = mongoose.model("Admin", adminSchema);

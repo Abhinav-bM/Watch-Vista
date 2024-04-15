@@ -88,8 +88,6 @@
                 left: auto;
             }
             }
-
-
         </style>
 <body>
 
@@ -144,72 +142,14 @@
                         <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
                             <div class="header-right">
                                 <ul class="text-right">
-                                    <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-                                    <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a>
-                                    
-                                        <!-- search popup -->
-                                        <div id="search-popup">
-                                            <div class="close-search-popup">
-                                                <i class="fal fa-times"></i>
-                                            </div>
-                                            <div class="search-popup-inner mt-135">
-                                                <div class="search-title text-center">
-                                                    <h2>Search</h2>
-                                                </div>
-
-                                                <div class="search-content pt-55">
-                                                    <ul class="text-center">
-                                                        <li><a href="javascript:void(0)" class="active">All categories</a></li>
-                                                        <li><a href="javascript:void(0)">Men</a></li>
-                                                        <li><a href="javascript:void(0)">women</a></li>
-                                                        <li><a href="javascript:void(0)">Unisex</a></li>
-                                                    </ul>
-
-                                                    <div class="search-form mt-35">
-                                                        <form action="#" method="post">
-                                                            <input type="text" placeholder="Search Products...">
-                                                            <button type="submit"><i class="fal fa-search"></i></button>
-                                                        </form>
-                                                    </div>
-
-                                                    <div class="search-result-list">
-                                                        <ul class="text-left">
-                        
-                                                            <% products.forEach(prod=>{ %>
-                                                                <% prod.products.forEach(product=>{ %>
-                                                                      <li class="d-block d-flex align-items-center">
-                                                                        <!-- Display the image if available -->
-                                                                        <div class="search-result-img">
-                                                                          <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= product.productName %>">
-                                                                        </div>
-                                                                        <div class="search-result-desc pl-10">
-                                                                          <a href="/singleProduct" class="title px-0"><%= product.productName %></a>
-                                                                          <div class="price"><span>₹ <%= product.productPrice %></span></div>
-                                                                        </div>
-                                                                      </li>
-                    
-                                                                    <!-- Use a default image if no images available -->
-                                                                    <li class="d-block d-flex align-items-center">
-                                                                      <div class="search-result-img">
-                                                                        <img src="" class="w-100" alt="Default Image">
-                                                                      </div>
-                                                                      <div class="search-result-desc pl-10">
-                                                                        <a href="/singleProduct" class="title px-0"><%= product.productName %></a>
-                                                                        <div class="price"><span>₹ <%= product.productPrice %></span></div>
-                                                                      </div>
-                                                                    </li>
-                                                                <% }); %>
-                                                            <% }); %>
-                                                              
-                                                              
-
-                                                        </ul>       
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>    
-                                        </div>
+                                    <li>
+                                        <a href="javascript:void(0)" id="searchIcon"><i class="fal fa-search"></i></a>
                                     </li>
+                                    
+
+                                    <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
+
+
                                     <li><a href="wishlist.html" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
                                     <li><a href="javascript:void(0)"><i class="fal fa-shopping-bag"><span>5</span></i></a>
 
@@ -305,43 +245,41 @@
             </nav>
             <div class="shop-wrapper">
                 <div class="row">
-                    
+
                     <div class="col-12">
                         <div class="filter-heading">
                             <div class="row justify-content-end">
-                         
-                                    <!-- <div class="sorting d-inline-block">
-                                        <select name="sort" id="shop-sort">
-                                            <option value="default">Default sorting</option>
-                                            <option value="default">Short by popularity</option>
-                                            <option value="default">Sort by average rating</option>
-                                            <option value="default">Sort by latest</option>
-                                            <option value="default">Sort by price: low to high</option>
-                                            <option value="default">Sort by price: high to low</option>
-                                        </select>
-                                    </div> -->
-                                    <div class="filter">
-                                        <h6 class="d-inline-block filter-widget-toggle">Filter</h6>
-                                        <div class="filter-popup" style="display: none;">
-                                            <div class="row justify-content-center">
-                                                <div class="">
-                                                    <div class="widget">
-                                                        <h4 class="mb-30 text-light">Category</h4>
-                                                        <div class="category-list">
-                                                        <% allCategories.forEach(category => { %>
-                                                            <ul>
+
+                                <div class="sorting d-inline-block">
+                                    <select name="sort" id="shop-sort">
+                                        <option value="Default">Default sorting</option>
+                                        <option value="latest">Sort by latest</option>
+                                        <option value="low to high">Sort by price: low to high</option>
+                                        <option value="high to low">Sort by price: high to low</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter">
+                                    <h6 class="d-inline-block filter-widget-toggle">Filter</h6>
+                                    <div class="filter-popup" style="display: none;">
+                                        <div class="row justify-content-center">
+                                            <div class="">
+                                                <div class="widget">
+                                                    <h4 class="mb-30 text-light">Category</h4>
+                                                    <div class="category-list">
+                                                    <% allCategories.forEach(category => { %>
+                                                        <ul>
                                                             <li><a href="#" onclick="getProductsByCategory('<%= category %>',event)"><%= category %></a></li>
-                                                            </ul>
-                                                        <% }) %>
-                                                        </div>
+                                                        </ul>
+                                                    <% }) %>
                                                     </div>
                                                 </div>
-                                                <!-- Add more filter options here if needed -->
                                             </div>
+                                            <!-- Add more filter options here if needed -->
                                         </div>
                                     </div>
-                                      
-                                
+                                </div>
+
                             </div>
                         </div>
                         <!-- /. filter heading -->
@@ -529,6 +467,24 @@
             .then(response => {
                 console.log(response)
               displayProducts(response.data.filteredProducts);
+            })
+            .catch(error => {
+              console.error(error);
+            });
+        }
+
+        const shopSort = document.getElementById("shop-sort");
+            shopSort.addEventListener("change", (event) => {
+            const selectedOption = event.target.value;
+            sortProducts(selectedOption);
+        });
+
+        function sortProducts (selectedOption){
+            console.log("selected option : ",selectedOption)
+            axios.get(`/products/sort/${selectedOption}`)
+            .then(response => {
+                console.log(response)
+              displayProducts(response.data.allProducts);
             })
             .catch(error => {
               console.error(error);

@@ -4,6 +4,8 @@ const adminController = require("../controller/adminController");
 const { adminAuthMiddleware }  = require("../middleware/jwtMiddleware");
 const bodyParser = require("body-parser");
 const adminModel = require("../models/adminModel");
+const upload = require("../config/multer")
+
 
 // body parser middleware
 router.use(bodyParser.json());
@@ -34,8 +36,9 @@ router.post("/admin/deleteSubcategory",adminAuthMiddleware,adminController.delet
 router.post('/blockUser',adminController.blockUser);
 router.post("/admin/vendorVerify",adminController.verifyVendor)
 router.post("/admin/couponAddPost",adminAuthMiddleware,adminController.couponAddPost)
-
 router.put("/admin/editCouponPost",adminAuthMiddleware, adminController.editCouponPost)
+
+router.post("/admin/bannerAdd",adminAuthMiddleware,upload.array('bannerImage'),adminController.bannerAddPost)
 
 router.delete("/admin/deleteCoupon/:id",adminAuthMiddleware,adminController.deleteCoupon)
 

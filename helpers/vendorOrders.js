@@ -35,6 +35,8 @@ function vendorOrders(vendorProducts, usersWithOrders) {
       });
     });
   });
+
+  return vendorOrders
 }
 
 module.exports = {vendorOrders}

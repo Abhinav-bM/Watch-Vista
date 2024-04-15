@@ -41,12 +41,12 @@ const getOrdersCountForLast10Days = (vendorOrders) => {
   const ordersCount = {};
 
   for (let i = 0; i < 10; i++) {
-    const currentDate = moment().subtract(i, "days").format("YYYY-MM-DD");
+    const currentDate = moment().subtract(i, "days").format("MMMM D");
     ordersCount[currentDate] = 0;
   }
 
   vendorOrders.forEach((order) => {
-    const orderDate = moment(order.orderDate).format("YYYY-MM-DD");
+    const orderDate = moment(order.orderDate).format("MMMM D");
     if (ordersCount[orderDate] !== undefined) {
       ordersCount[orderDate]++;
     }
@@ -95,8 +95,8 @@ const getLatest10Orders = async () => {
                 price: product.price,
                 orderStatus: product.orderStatus,
                 totalAmount: order.totalAmount,
-                orderDate: order.orderDate,
-                expectedDeliveryDate: order.expectedDeliveryDate,
+                orderDate: moment(order.orderDate).format("MMMM D"), // Format order date
+                expectedDeliveryDate: moment(order.expectedDeliveryDate).format("MMMM D"), // Format expected delivery date
                 shippingAddress: order.shippingAddress,
                 paymentMethod: order.paymentMethod,
                 cancelReason: product.cancelReason,
@@ -120,6 +120,7 @@ const getLatest10Orders = async () => {
     throw error;
   }
 };
+
 
 module.exports = {
   calculateTotalSales,
