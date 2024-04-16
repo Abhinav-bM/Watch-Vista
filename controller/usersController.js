@@ -783,16 +783,13 @@ let updateCartQuantity = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // Find the index of the product in the cart
     const productIndex = user.cart.products.findIndex(
       (product) => product.productId.toString() === productId
     );
 
     if (productIndex !== -1) {
-      // Update the quantity of the product
       user.cart.products[productIndex].quantity = parseInt(quantity);
 
-      // Save the updated user document
       await user.save();
 
       ///////////////////////////////////

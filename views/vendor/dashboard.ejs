@@ -281,6 +281,7 @@
                 <h3 class="py-2 font-weight-bold">Sales Report</h3>
 
                 <form id="reportForm">
+                    <p id="reportDateError" style="color: red;"></p>
                   <div class="form-group py-2">
                     <label for="startDate">Start Date:</label>
                     <input type="date" id="startDate" name="startDate" class="form-control">
@@ -292,7 +293,6 @@
                   </div>
                   
                   <div class="form-group py-2">
-                    <button type="button" class="btn btn-primary" onclick="generatePDFReport()">Generate PDF Report</button>
                     <button type="button" class="btn btn-success" onclick="generateExcelReport()">Generate Excel Report</button>
                   </div>
                 </form>
@@ -313,42 +313,36 @@
 
     <script>
         // SALES REPORT
-        function generatePDFReport() {
-            const startDate = document.getElementById("startDate").value;
-            const endDate = document.getElementById("endDate").value;
-
-            axios
-                .post("/vendor/sales-report/pdf", { startDate, endDate })
-                .then((response) => {
-                const url = window.URL.createObjectURL(new Blob([response.data]));
-                const link = document.createElement("a");
-                link.href = url;
-                link.setAttribute("download", "sales_report.pdf");
-                document.body.appendChild(link);
-                link.click();
-                })
-                .catch((error) => {
-                console.error("Error generating PDF report:", error);
-                });
-        }
-
         function generateExcelReport() {
             const startDate = document.getElementById("startDate").value;
             const endDate = document.getElementById("endDate").value;
 
-            axios   
-                .post("/vendor/sales-report/excel", { startDate, endDate })
-                .then((response) => {
+            if(startDate === "" || endDate == ""){
+                document.getElementById('reportDateError').textContent = "select both dates"
+                return false
+            }
+
+            axios.get(`/vendor/sales-report/excel/${startDate}/${endDate}`, {
+                responseType: 'blob',
+                headers: {
+                    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }
+            })
+            .then((response) => {
+                document.getElementById('reportDateError').textContent = ""
+                document.getElementById("startDate").value =""
+                document.getElementById("endDate").value=""
+
                 const url = window.URL.createObjectURL(new Blob([response.data]));
                 const link = document.createElement("a");
                 link.href = url;
                 link.setAttribute("download", "sales_report.xlsx");
                 document.body.appendChild(link);
                 link.click();
-                })
-                .catch((error) => {
-                console.error("Error generating Excel report:", error);
-                });
+            })
+            .catch((error) => {
+            console.error("Error generating Excel report:", error);
+            });
         }
 
 

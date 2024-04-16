@@ -17,7 +17,6 @@ const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
 };
 require("dotenv").config();
-const PDFDocument = require("pdfkit");
 const Excel = require("exceljs");
 
 // VENDOR DASHBOARD PAGE DISPLAY
@@ -477,7 +476,7 @@ let getOrdersForVendor = async (req, res) => {
         });
       });
     });
-    
+
     res.render("vendor/order-list", { vendorOrders });
   } catch (error) {
     console.error(error);
@@ -532,121 +531,10 @@ let vendorProfile = async (req, res) => {
   } catch (error) {}
 };
 
-// SALES REPORT PDF
-let salesPdf = async (req, res) => {
-  const { startDate, endDate } = req.body;
-  const vendorId = req.user.id;
-
-  try {
-    const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
-      "products"
-    );
-    const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
-
-    // Check if vendorProducts or usersWithOrders are not found
-    if (!vendorProducts || !usersWithOrders) {
-      return res.status(404).json({ error: "Vendor or users data not found" });
-    }
-
-    const orders = vendorOrders(vendorProducts, usersWithOrders);
-
-    if (!orders || orders.length === 0) {
-      return res
-        .status(404)
-        .json({ error: "No orders found for the specified date range" });
-    }
-
-    // Create a new PDF document
-    const doc = new PDFDocument();
-    const fileName = `sales_report_${vendorId}_${Date.now()}.pdf`;
-    const filePath = path.join(__dirname, "..", "pdf-reports", fileName);
-
-    // Pipe the PDF document to a write stream
-    const writeStream = fs.createWriteStream(filePath);
-    doc.pipe(writeStream);
-
-    doc.fontSize(20).text("Sales Report", { align: "center" }).moveDown();
-
-    // Asynchronous loop function to process orders
-    const processOrders = async () => {
-      for (let index = 0; index < orders.length; index++) {
-        const order = orders[index];
-        console.log(`Processing Order ${index + 1}`);
-
-        // Print order details
-        doc.text(`Order ${index + 1}`);
-        doc.text(`Order ID: ${order.orderId}`);
-        doc.text(`Order Date: ${order.orderDate.toISOString().split("T")[0]}`);
-
-        // Check if expectedDeliveryDate is a valid date before using toISOString
-        const expectedDelivery =
-          order.expectedDeliveryDate instanceof Date
-            ? order.expectedDeliveryDate.toISOString().split("T")[0]
-            : "";
-        doc.text(`Expected Delivery Date: ${expectedDelivery}`);
-
-        doc.text(`Shipping Address:`);
-        doc.text(`Name: ${order.shippingAddress.name}`);
-        doc.text(`Address: ${order.shippingAddress.address}`);
-        doc.text(`District: ${order.shippingAddress.district}`);
-        doc.text(`State: ${order.shippingAddress.state}`);
-        doc.text(`Zip: ${order.shippingAddress.zip}`);
-        doc.text(`Phone: ${order.shippingAddress.phone}`);
-        doc.text(`Email: ${order.shippingAddress.email}`);
-        doc.text(`Payment Method: ${order.paymentMethod}`);
-        doc.text(`Total Amount: ${order.totalAmount}`);
-
-        // Print products in the order
-        doc.moveDown();
-        doc.text(`Products:`);
-        // Print product details
-        doc.text(
-          `- ${order.productName} - ${order.price} - Quantity: ${order.quantity}`
-        );
-
-        doc.moveDown();
-
-        // Wait for the write stream to finish writing
-        await new Promise((resolve) => doc.on("data", resolve));
-      }
-
-      // When all orders are processed, end the document
-      doc.end();
-    };
-
-    // Call the async function to process orders
-    await processOrders();
-
-    // Wait for the write stream to finish writing
-    writeStream.on("finish", () => {
-      res.download(filePath, fileName, (err) => {
-        if (err) {
-          console.error("Error downloading file:", err);
-          res.status(500).json({ error: "Internal Server Error" });
-        } else {
-          deleteFile(filePath);
-        }
-      });
-    });
-  } catch (error) {
-    console.error("Error generating PDF report:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-// Function to delete file
-const deleteFile = (filePath) => {
-  try {
-    fs.unlinkSync(filePath);
-    console.log(`Deleted file: ${filePath}`);
-  } catch (error) {
-    console.error(`Error deleting file: ${filePath}`, error);
-  }
-};
 
 // SALES REPORT EXCEL
 let salesExcel = async (req, res) => {
-  const { startDate, endDate } = req.body;
+  const { startDate, endDate } = req.params;
   const vendorId = req.user.id;
 
   try {
@@ -660,36 +548,45 @@ let salesExcel = async (req, res) => {
     }
 
     const orders = vendorOrders(vendorProducts, usersWithOrders);
+    const startDateObj = new Date(startDate);
+    const endDateObj = new Date(endDate);
+    const deliveredOrders = orders.filter(
+      (order) =>
+        order.orderStatus === "Delivered" &&
+        new Date(order.orderDate) >= startDateObj &&
+        new Date(order.orderDate) <= endDateObj
+    );
 
-    // If there are no orders, send a response
-    if (orders.length === 0) {
+    if (deliveredOrders.length === 0) {
       return res.status(404).json({ error: "No orders found" });
     }
 
-    console.log("Orders: ", orders);
-
+    // CREATE NEW WORK BOOK
     const workbook = new Excel.Workbook();
     const worksheet = workbook.addWorksheet("Orders");
 
-    // Add headers to the worksheet
+    // HEADERS TO WORK SHEET
     worksheet.columns = [
-      { header: "Order ID", key: "orderNumber" },
-      { header: "Product", key: "productName" },
-      { header: "Price", key: "price"},
-      { header: "Quantity", key: "quantity"},
+      { header: "Order ID", key: "orderId", width: 20 },
+      { header: "Product Name", key: "product", width: 20 },
+      { header: "Order Date", key: "orderDate", width: 20 },
+      { header: "Price", key: "price", width: 20 },
+      { header: "Quantity", key: "quantity", width: 20 },
+      { header: "Total", key: "total", width: 20 },
     ];
 
-    // Populate the Excel sheet with orders
-    orders.forEach((order) => {
+    // DATA ROWS TO WORK SHEET
+    deliveredOrders.forEach((item) => {
       worksheet.addRow({
-        orderNumber: order.orderId,
-        productName: order.productName, // Corrected key to "productName"
-        price: order.price, // Corrected key to "price"
-        quantity: order.quantity,
+        orderId: item.orderId,
+        product: item.productName,
+        orderDate: item.orderDate,
+        price: item.price,
+        quantity: item.quantity,
+        total: item.quantity * item.price,
       });
     });
 
-    // Set response headers for Excel file download
     res.setHeader(
       "Content-Type",
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -699,10 +596,8 @@ let salesExcel = async (req, res) => {
       "attachment; filename=sales_report.xlsx"
     );
 
-    // Write the workbook to the response stream
     await workbook.xlsx.write(res);
 
-    // End the response
     res.end();
   } catch (error) {
     console.error("Error generating Excel report:", error);
@@ -729,6 +624,5 @@ module.exports = {
   getOrdersForVendor,
   updateOrderStatus,
   vendorProfile,
-  salesPdf,
   salesExcel,
 };

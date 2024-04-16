@@ -25,7 +25,6 @@ router.get("/admin/couponList",adminAuthMiddleware,adminController.couponList)
 router.get("/admin/couponAddGet",adminAuthMiddleware,adminController.couponAddGet)
 router.get("/admin/editCouponGet/:id",adminAuthMiddleware,adminController.editCouponGet)
 router.get("/admin/banner",adminAuthMiddleware,adminController.bannerGetPage)
- 
 
 router.post("/admin/login", adminController.loginPostPage);
 router.post("/admin/addCategory",adminAuthMiddleware,adminController.addCategory)
@@ -37,9 +36,9 @@ router.post("/admin/deleteSubcategory",adminAuthMiddleware,adminController.delet
 router.post('/blockUser',adminController.blockUser);
 router.post("/admin/vendorVerify",adminController.verifyVendor)
 router.post("/admin/couponAddPost",adminAuthMiddleware,adminController.couponAddPost)
-router.put("/admin/editCouponPost",adminAuthMiddleware, adminController.editCouponPost)
-
 router.post("/admin/bannerAdd",adminAuthMiddleware,upload.array('bannerImage'),adminController.bannerAddPost)
+
+router.put("/admin/editCouponPost",adminAuthMiddleware, adminController.editCouponPost)
 
 router.delete("/admin/deleteCoupon/:id",adminAuthMiddleware,adminController.deleteCoupon)
 router.delete("/admin/bannerDelete/:bannerId",adminAuthMiddleware,adminController.deleteBanner)
