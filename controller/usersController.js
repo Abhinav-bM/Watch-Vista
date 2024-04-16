@@ -22,7 +22,7 @@ let homePage = async (req, res) => {
     let products = await Vendor.find().select("products");
     const admin = await Admin.findOne();
     const bannerHome = admin.banner.filter(
-      (banner) => banner.placement === "home"
+      (banner) => banner.placement === "Home Page"
     );
 
     res.status(200).render("user/home", { products: products, bannerHome });
@@ -548,6 +548,28 @@ let getProductBySort = async (req, res) => {
     }
 
     res.status(200).json({ message: "product filtered", allProducts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// GET PRODUCTS BY SEARCH
+let getSearchProduct = async (req, res) => {
+  const searchTerm = req.params.inputValue;
+  try {
+    const vendorProducts = await Vendor.find().select("products");
+
+    const allProducts = vendorProducts.map((vendor) => vendor.products).flat();
+
+    const filteredProducts = allProducts.filter(
+      (product) =>
+        product.productBrand.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
+        product.productName.toLowerCase().includes(searchTerm.trim().toLowerCase())
+    );
+
+    res.status(200).json({ message: "product filtered", filteredProducts });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -1108,7 +1130,7 @@ let placeOrderPost = async (req, res) => {
               vendorId: vendor._id,
               vendorName: vendor.vendorName,
             };
-            
+
             const productDetails = {
               _id: product._id,
               name: product.productName,
@@ -1139,7 +1161,7 @@ let placeOrderPost = async (req, res) => {
       });
     });
     // UPDATE VENDOR
-    await Promise.all(allProducts.map(vendor => vendor.save()));
+    await Promise.all(allProducts.map((vendor) => vendor.save()));
 
     const orderDate = new Date();
     const expectedDeliveryDate = new Date(orderDate);
@@ -1505,4 +1527,5 @@ module.exports = {
   updateUserDetails,
   applyCoupon,
   getProductBySort,
+  getSearchProduct,
 };

@@ -60,9 +60,9 @@
 
 
             /* Add this CSS to your stylesheet */
-            .filter {
+            /* .filter { */
             /* position: static; */
-            }
+            /* } */
 
             .filter-popup {
             position: absolute;
@@ -88,6 +88,64 @@
                 left: auto;
             }
             }
+
+            /* search  */
+            #searchIconDiv {
+                display: none;
+            }
+
+            /* Search area styles */
+            .search-area {
+                transform: translateX(-15%);
+                background: #fff;
+                width: 200px; /* Adjust as needed */
+            }
+
+            .search-area form {
+                display: flex;
+                align-items: center;
+            }
+
+            .search-area input[type="text"] {
+                flex: 1;
+                padding: 8px;
+                border: 1px solid #ccc;
+                border-radius: 4px 0 0 4px;
+                font-size: 14px;
+            }
+
+            .search-area button {
+                padding: 8px 12px;
+                background-color: #282829;
+                color: #fff;
+                border: none;
+                border-radius: 0 4px 4px 0;
+                cursor: pointer;
+                font-size: 14px;
+            }
+
+            .search-area button:hover {
+                background-color: #0056b3;
+            }
+
+            /* Media query for smaller screens */
+            @media screen and (max-width: 767px) {
+                #searchIconDiv {
+                    display: inline-block;
+                }
+
+                .search-area {
+                    display: none;
+                }
+            }
+
+            @media screen and (min-width: 1000px) and (max-width: 1260px) {
+                #smallSearchPopup {
+                    width: 10%; /* Adjust as needed */
+                    margin: 0 auto; /* Center horizontally */
+                }
+            }
+
         </style>
 <body>
 
@@ -142,14 +200,25 @@
                         <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
                             <div class="header-right">
                                 <ul class="text-right">
+
                                     <li>
-                                        <a href="javascript:void(0)" id="searchIcon"><i class="fal fa-search"></i></a>
+                                        <!-- Search icon for smaller screens -->
+                                        <div id="searchIconDiv">
+                                            <a href="javascript:void(0)" id="searchIcon" class="search-icon"><i class="fal fa-search"></i></a>
+                                        </div>
+                                      
+                                        <!-- Search area for larger screens -->
+                                        <div  id="smallSearchPopup" class="search-area">
+                                          <form action="" method="">
+                                            <input type="text" id="searchInput" placeholder="Search Products...">
+                                            <button type="button" id="searchButton"><i class="fal fa-search"></i></button>
+                                          </form>
+                                        </div>
                                     </li>
-                                    
 
                                     <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
 
-
+                                    
                                     <li><a href="wishlist.html" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
                                     <li><a href="/cart"><i class="fal fa-shopping-bag"><span>5</span></i></a>
 
@@ -165,6 +234,8 @@
                         </div>
                     </div>
             </div>
+
+ 
             <div class="mobile-menu visible-sm">
                 <div id="mobile-menu">
                     <ul>
@@ -412,7 +483,7 @@
 <!------------------------------------------------------------------------------------------------------------------------------------------>  
                                         </div>
                                         <div class="text-center mt-20">
-                                            <a href="shop.html" class="load-more">LOAD MORE...</a>
+                                            <a href="" class="load-more">LOAD MORE...</a>
                                         </div>
                                     </div>
                                 </div>
@@ -488,6 +559,23 @@
               console.error(error);
             });
         }
+
+        // SEARCH FUNCTION
+        document.getElementById("searchButton").addEventListener("click", function() {
+            const inputValue = document.getElementById("searchInput").value;
+            
+            axios.get(`/products/search/${inputValue}`)
+            .then(response => {
+                console.log(response)
+              displayProducts(response.data.filteredProducts);
+              document.getElementById("searchInput").value = "";
+              
+            })
+            .catch(error => {
+              console.error(error);
+            });
+
+        });
       
         // Function to display products on the page
         function displayProducts(products) {
@@ -616,6 +704,14 @@
     }
   });
 });
+
+////////////////
+$(document).ready(function() {
+  $("#searchIcon").click(function() {
+    $("#smallSearchPopup").toggle();
+  });
+});
+
 
 </script>
 

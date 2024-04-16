@@ -511,7 +511,19 @@ let deleteCoupon = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
-};
+}; 
+
+// BANNER GET PAGE
+let bannerGetPage = async (req, res)=>{
+  try {
+    const admin = await Admin.findOne()
+    const banner = admin.banner
+    res.status(200).render("admin/banner",{banner})
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error:"internal server error"})
+  }
+}
 
 // BANNER ADD POST
 let bannerAddPost = async (req, res) => {
@@ -543,12 +555,28 @@ let bannerAddPost = async (req, res) => {
     admin.banner.push(newBanner);
 
     await admin.save();
-    res.status(200).redirect("/admin/dashboard");
+    res.status(200).redirect("/admin/banner");
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server error" });
   }
 };
+
+// DELETE BANNER
+let deleteBanner = async (req, res)=>{
+  const bannerId = req.params.bannerId
+  try {
+    const admin = await Admin.findOne()
+    const banner = admin.banner
+    const index = banner.findIndex(ban => ban._id.toString() === bannerId)
+    banner.splice(index,1)
+    await admin.save()
+    res.status(200).json({message:"Banner deleted successfully"})
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({error:"Internal server error"})
+  }
+}
 
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
@@ -589,5 +617,7 @@ module.exports = {
   editCouponGet,
   editCouponPost,
   deleteCoupon,
+  bannerGetPage,
   bannerAddPost,
+  deleteBanner,
 };

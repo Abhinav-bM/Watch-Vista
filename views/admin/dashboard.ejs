@@ -96,6 +96,8 @@
                             <!-- <li><a class="ms-link" href="purchase.html">Purchase</a></li> -->
                         </ul>
                     </li>
+                    <li><a class="m-link" href="/admin/banner"><i class="icofont-page fs-5"></i> <span>Banner</span></a></li>
+
                 </ul>
             </div>
         </div>
@@ -298,52 +300,9 @@
                     </form>
                 </div>
             
-                <!-- Banner Management -->
-                <div class="container mt-5">
-                    <h3 class="py-2 font-weight-bold">Banner Management</h3>
-
-                    <div class="row mb-4">
-                      <div class="col-md-6">
-                        <form action="/admin/bannerAdd" method="post" id="bannerForm" class="mb-3" enctype="multipart/form-data" >
-                          <div class="mb-3">
-                            <label for="image" class="form-label">Image:</label>
-                            <input type="file" class="form-control" id="image" name="bannerImage" required>
-                          </div>
-                          <div class="mb-3">
-                            <label for="placement" class="form-label">Placement:</label>
-                            <select class="form-select" id="placement" name="placement" required>
-                              <option value="home">Home Page</option>
-                              <option value="about">About Us Page</option>
-                            </select>
-                          </div>
-                          <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#bannerModal">
-                            Banners
-                          </button>
-                          <button type="submit" class="btn btn-primary">Add Banner</button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
                 
-                  <!-- Bootstrap Modal -->
-                  <div class="modal fade" id="bannerModal" tabindex="-1" aria-labelledby="bannerModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="bannerModalLabel">Available Banners</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <ul id="modalBannerList" class="list-group">
-                            <!-- Available Banner items will be dynamically added here -->
-                          </ul>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                
+                  
             </div>
         </div>
     </div>

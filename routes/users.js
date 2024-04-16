@@ -26,6 +26,7 @@ router.get("/cart",verifyToken,userController.getCart)
 router.get("/checkout",verifyToken,userController.checkoutpage)
 router.get("/products/:category",userController.getProductsByCategory)
 router.get("/products/sort/:option",userController.getProductBySort)
+router.get("/products/search/:inputValue",userController.getSearchProduct)
 router.get("/buyNow/checkout/:productId",verifyToken,userController.buyNowCheckOut)
 router.get("/getAddressEdit/:addressId",verifyToken,userController.getAddressForEdiit)
  

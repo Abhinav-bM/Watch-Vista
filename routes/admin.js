@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controller/adminController");
-const { adminAuthMiddleware }  = require("../middleware/jwtMiddleware");
+const { adminAuthMiddleware, vendorAuthMiddleware }  = require("../middleware/jwtMiddleware");
 const bodyParser = require("body-parser");
 const adminModel = require("../models/adminModel");
 const upload = require("../config/multer")
@@ -24,7 +24,8 @@ router.get("/admin/vendorsList",adminAuthMiddleware,adminController.vendorsList)
 router.get("/admin/couponList",adminAuthMiddleware,adminController.couponList)
 router.get("/admin/couponAddGet",adminAuthMiddleware,adminController.couponAddGet)
 router.get("/admin/editCouponGet/:id",adminAuthMiddleware,adminController.editCouponGet)
-
+router.get("/admin/banner",adminAuthMiddleware,adminController.bannerGetPage)
+ 
 
 router.post("/admin/login", adminController.loginPostPage);
 router.post("/admin/addCategory",adminAuthMiddleware,adminController.addCategory)
@@ -41,6 +42,7 @@ router.put("/admin/editCouponPost",adminAuthMiddleware, adminController.editCoup
 router.post("/admin/bannerAdd",adminAuthMiddleware,upload.array('bannerImage'),adminController.bannerAddPost)
 
 router.delete("/admin/deleteCoupon/:id",adminAuthMiddleware,adminController.deleteCoupon)
+router.delete("/admin/bannerDelete/:bannerId",adminAuthMiddleware,adminController.deleteBanner)
 
 
 module.exports = router;

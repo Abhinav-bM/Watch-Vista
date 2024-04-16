@@ -1,24 +1,25 @@
 <!doctype html>
 <html class="no-js" lang="en" dir="ltr">
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/inventory-info.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/customers.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:28 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>::eBazar::  Stock Inventory List </title>
+    <title>Banner </title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
 
     <!-- plugin css file  -->
-    <link rel="stylesheet" href="assets/plugin/datatables/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="assets/plugin/datatables/dataTables.bootstrap5.min.css">
-
+    <link rel="stylesheet" href="/admin/assets/plugin/datatables/responsive.dataTables.min.css">
+    <link rel="stylesheet" href="/admin/assets/plugin/datatables/dataTables.bootstrap5.min.css">
+    
     <!-- project css file  -->
-    <link rel="stylesheet" href="assets/css/ebazar.style.min.css">
+    <link rel="stylesheet" href="/admin/assets/css/ebazar.style.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
     <div id="ebazar-layout" class="theme-blue">
-        
+
         <!-- sidebar -->
         <div class="sidebar px-4 py-4 py-md-4 me-0">
             <div class="d-flex flex-column h-100">
@@ -26,11 +27,11 @@
                     <span class="logo-icon">
                         <i class="bi bi-bag-check-fill fs-4"></i>
                     </span>
-                    <span class="logo-text">eBazar</span>
+                    <span class="logo-text">Admin</span>
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link" href="index.html"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li><a class="m-link" href="/admin/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
@@ -46,15 +47,24 @@
                             </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#categories" href="#">
-                            <i class="icofont-chart-flow fs-5"></i> <span>Categories</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                            <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse" id="categories">
-                                <li><a class="ms-link" href="/admin/categoryList">Category List</a></li>
-                                <li><a class="ms-link" href="categories-edit.html">Subcategory List</a></li>
-                                <li><a class="ms-link" href="categories-add.html">Categories Add</a></li>
-                            </ul>
-                    </li>
+                        <li><a class="m-link " href="/admin/categoryList"><i class="icofont-chart-flow fs-5"></i> <span>Category</span></a></li>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="categories">
+                            <!-- <li><a class="ms-link" href="/admin/categoryList">Category List</a></li> -->
+                            <!-- <li><a class="ms-link" href="/admin/subcategoryList">Subcategory List</a></li> -->
+                            <!-- <li><a class="ms-link" href="categories-add.html">Add category</a></li> -->
+                        </ul>
+                </li>
+
+                <li class="collapsed">
+                        <li><a class="m-link " href="/admin/subcategoryList"><i class="icofont-chart-flow fs-5"></i> <span>Subcategory</span></a></li>
+                        <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse" id="categories">
+                            <!-- <li><a class="ms-link" href="/admin/categoryList">Category List</a></li> -->
+                            <!-- <li><a class="ms-link" href="/admin/subcategoryList">Subcategory List</a></li> -->
+                            <!-- <li><a class="ms-link" href="categories-add.html">Add category</a></li> -->
+                        </ul>
+                </li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-order" href="#">
                         <i class="icofont-notepad fs-5"></i> <span>Orders</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
@@ -66,12 +76,11 @@
                         </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
-                        <i class="icofont-funky-man fs-5"></i> <span>Customers</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="customers-info">
-                            <li><a class="ms-link" href="customers.html">Customers List</a></li>
-                            <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li>
+                        <li><a class="m-link" href="/admin/customersList"><i class="icofont-funky-man fs-5"></i> <span>Users</span></a></li>                        
+                            <!-- Menu: Sub menu ul -->
+                        <ul class="sub-menu collapse show" id="customers-info">
+                            <!-- <li><a class="ms-link active" href="customers.html">Users List</a></li> -->
+                            <!-- <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li> -->
                         </ul>
                     </li>
                     <li class="collapsed">
@@ -85,44 +94,43 @@
                         </ul>
                     </li>
                     <li class="collapsed">
-                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
-                        <i class="icofont-chart-histogram fs-5"></i> <span>Inventory</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
+                        <i class="icofont-funky-man fs-5"></i> <span>Vendors</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse show" id="menu-inventory">
-                            <li><a class="ms-link active" href="inventory-info.html">Stock List</a></li>
-                            <li><a class="ms-link" href="purchase.html">Purchase</a></li>
-                            <li><a class="ms-link" href="supplier.html">Supplier</a></li>
-                            <li><a class="ms-link" href="returns.html">Returns</a></li>
-                            <li><a class="ms-link" href="department.html">Department</a></li>
+                        <ul class="sub-menu collapse" id="menu-inventory">
+                            <li><a class="ms-link" href="/admin/vendorsList">Vendors List</a></li>
+                            <!-- <li><a class="ms-link" href="purchase.html">Purchase</a></li> -->
                         </ul>
                     </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-Componentsone" href="#"><i
-                                class="icofont-ui-calculator"></i> <span>Accounts</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                    <li><a class="m-link active" href="/admin/banner"><i class="icofont-page fs-5"></i> <span>Banner</span></a></li>
+  
+                    <!-- <li class="collapsed"> -->
+                        <!-- <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-Componentsone" href="#"><i -->
+                                <!-- class="icofont-ui-calculator"></i> <span>Accounts</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a> -->
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-Componentsone">
+                        <!-- <ul class="sub-menu collapse" id="menu-Componentsone">
                             <li><a class="ms-link" href="invoices.html">Invoices </a></li>
                             <li><a class="ms-link" href="expenses.html">Expenses </a></li>
                             <li><a class="ms-link" href="salaryslip.html">Salary Slip </a></li>
                             <li><a class="ms-link" href="create-invoice.html">Create Invoice </a></li>
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#app" href="#">
-                        <i class="icofont-code-alt fs-5"></i> <span>App</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        </ul> -->
+                    <!-- </li> -->
+                    <!-- <li class="collapsed"> -->
+                        <!-- <a class="m-link" data-bs-toggle="collapse" data-bs-target="#app" href="#"> -->
+                        <!-- <i class="icofont-code-alt fs-5"></i> <span>App</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a> -->
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="app">
+                        <!-- <ul class="sub-menu collapse" id="app">
                             <li><a class="ms-link" href="calendar.html">Calandar</a></li>
                             <li><a class="ms-link" href="chat.html"> Chat App</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="m-link" href="store-locator.html"><i class="icofont-focus fs-5"></i> <span>Store Locator</span></a></li>
-                    <li><a class="m-link" href="ui-elements/ui-alerts.html"><i class="icofont-paint fs-5"></i> <span>UI Components</span></a></li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#page" href="#">
-                        <i class="icofont-page fs-5"></i> <span>Other Pages</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                        </ul> -->
+                    <!-- </li> -->
+                    <!-- <li><a class="m-link" href="store-locator.html"><i class="icofont-focus fs-5"></i> <span>Store Locator</span></a></li> -->
+                    <!-- <li><a class="m-link" href="ui-elements/ui-alerts.html"><i class="icofont-paint fs-5"></i> <span>UI Components</span></a></li> -->
+                    <!-- <li class="collapsed"> -->
+                        <!-- <a class="m-link" data-bs-toggle="collapse" data-bs-target="#page" href="#"> -->
+                        <!-- <i class="icofont-page fs-5"></i> <span>Other Pages</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a> -->
                         <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="page">
+                        <!-- <ul class="sub-menu collapse" id="page">
                             <li><a class="ms-link" href="admin-profile.html">Profile Page</a></li>
                             <li><a class="ms-link" href="purchase-plan.html">Price Plan Example</a></li>
                             <li><a class="ms-link" href="charts.html">Charts Example</a></li>
@@ -131,15 +139,15 @@
                             <li><a class="ms-link" href="icon.html">Icons</a></li>
                             <li><a class="ms-link" href="contact.html">Contact Us</a></li>
                             <li><a class="ms-link" href="todo-list.html">Todo List</a></li>
-                        </ul>
-                    </li>
+                        </ul> -->
+                    <!-- </li> -->
                 </ul>
                 <!-- Menu: menu collepce btn -->
-                <button type="button" class="btn btn-link sidebar-mini-btn text-light">
+                <!-- <button type="button" class="btn btn-link sidebar-mini-btn text-light">
                     <span class="ms-2"><i class="icofont-bubble-right"></i></span>
-                </button>
+                </button> -->
             </div>
-        </div>    
+        </div>
 
         <!-- main body area -->
         <div class="main px-lg-4 px-md-4"> 
@@ -148,7 +156,7 @@
             <div class="header">
                 <nav class="navbar py-4">
                     <div class="container-xxl">
-        
+
                         <!-- header rightbar icon -->
                         <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
                             <div class="d-flex">
@@ -158,25 +166,25 @@
                             </div>
                             <div class="dropdown zindex-popover">
                                 <a class="nav-link dropdown-toggle pulse" href="#" role="button" data-bs-toggle="dropdown">
-                                    <img src="assets/images/flag/GB.png" alt="">
+                                    <img src="/admin/assets/images/flag/GB.png" alt="">
                                 </a>
                                 <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-md-end p-0 m-0 mt-3">
                                     <div class="card border-0">
                                         <ul class="list-unstyled py-2 px-3">
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/GB.png" alt=""> English</a>
+                                                <a href="#" class=""><img src="/admin/assets/images/flag/GB.png" alt=""> English</a>
                                             </li>
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/DE.png" alt=""> German</a>
+                                                <a href="#" class=""><img src="/admin/assets/images/flag/DE.png" alt=""> German</a>
                                             </li>
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/FR.png" alt=""> French</a>
+                                                <a href="#" class=""><img src="/admin/assets/images/flag/FR.png" alt=""> French</a>
                                             </li>
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/IT.png" alt=""> Italian</a>
+                                                <a href="#" class=""><img src="/admin/assets/images/flag/IT.png" alt=""> Italian</a>
                                             </li>
                                             <li>
-                                                <a href="#" class=""><img src="assets/images/flag/RU.png" alt=""> Russian</a>
+                                                <a href="#" class=""><img src="/admin/assets/images/flag/RU.png" alt=""> Russian</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -201,7 +209,7 @@
                                                 <ul class="list-unstyled list mb-0">
                                                     <li class="py-2 mb-1 border-bottom">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar1.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/admin/assets/images/xs/avatar1.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Chloe Walkerr</span> <small>2MIN</small></p>
                                                                 <span class="">Added New Product 2021-07-15 <span class="badge bg-success">Add</span></span>
@@ -219,7 +227,7 @@
                                                     </li>
                                                     <li class="py-2 mb-1 border-bottom">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar3.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/admin/assets/images/xs/avatar3.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Melanie	Oliver</span> <small>1HR</small></p>
                                                                 <span class="">Orader  Return RT-00004</span>
@@ -228,7 +236,7 @@
                                                     </li>
                                                     <li class="py-2 mb-1 border-bottom">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar5.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/admin/assets/images/xs/avatar5.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Boris Hart</span> <small>13MIN</small></p>
                                                                 <span class="">Product Order to Toyseller</span>
@@ -237,7 +245,7 @@
                                                     </li>
                                                     <li class="py-2 mb-1 border-bottom">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar6.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/admin/assets/images/xs/avatar6.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Alan	Lambert</span> <small>1HR</small></p>
                                                                 <span class="">Leave Apply</span>
@@ -246,7 +254,7 @@
                                                     </li>
                                                     <li class="py-2">
                                                         <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="assets/images/xs/avatar7.svg" alt="">
+                                                            <img class="avatar rounded-circle" src="/admin/assets/images/xs/avatar7.svg" alt="">
                                                             <div class="flex-fill ms-2">
                                                                 <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Zoe Wright</span> <small class="">1DAY</small></p>
                                                                 <span class="">Product Stoke Entry Updated</span>
@@ -266,13 +274,13 @@
                                     <small>Admin Profile</small>
                                 </div>
                                 <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
-                                    <img class="avatar lg rounded-circle img-thumbnail" src="assets/images/profile_av.svg" alt="profile">
+                                    <img class="avatar lg rounded-circle img-thumbnail" src="/admin/assets/images/profile_av.svg" alt="profile">
                                 </a>
                                 <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
                                     <div class="card border-0 w280">
                                         <div class="card-body pb-0">
                                             <div class="d-flex py-1">
-                                                <img class="avatar rounded-circle" src="assets/images/profile_av.svg" alt="profile">
+                                                <img class="avatar rounded-circle" src="/admin/assets/images/profile_av.svg" alt="profile">
                                                 <div class="flex-fill ms-3">
                                                     <p class="mb-0"><span class="font-weight-bold">John	Quinn</span></p>
                                                     <small class="">Johnquinn@gmail.com</small>
@@ -294,12 +302,12 @@
                                 <a href="#" data-bs-toggle="modal" data-bs-target="#Settingmodal"><i class="icofont-gear-alt fs-5"></i></a>
                             </div>
                         </div>
-        
+
                         <!-- menu toggler -->
                         <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
                             <span class="fa fa-bars"></span>
                         </button>
-        
+
                         <!-- main menu Search-->
                         <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
                             <div class="input-group flex-nowrap input-group-lg">
@@ -308,144 +316,89 @@
                                 
                             </div>
                         </div>
-        
+
                     </div>
                 </nav>
             </div>
 
-            <!-- Body: Body -->
-            <div class="body d-flex py-3">
+            <!-- Body: Body -->       
+            <div class="body d-flex py-lg-3 py-md-2">
                 <div class="container-xxl">
                     <div class="row align-items-center">
                         <div class="border-0 mb-4">
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold mb-0">Stock Inventory List</h3>
+                                <h3 class="fw-bold mb-0">Banner Management</h3>
+                                <div class="col-auto d-flex w-sm-100">
+                                    <!-- <button type="button" class="btn btn-primary btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#expadd"><i class="icofont-plus-circle me-2 fs-6"></i>Add Customers</button> -->
+                                </div>
                             </div>
                         </div>
                     </div> <!-- Row end  -->
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-12">
-                            <div class="card">
+                    <div class="row clearfix gap-5">
+                        <div class="col-sm-7">
+                            <div class="card mb-3">
                                 <div class="card-body">
-                                    <table id="myDataTable" class="table table-hover align-middle mb-0" style="width: 100%;">
+                                    <table id="myProjectTable" class="table table-hover align-middle mb-0" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>Id</th>
-                                                <th>Products</th>
-                                                <th>Category</th>
-                                                <th>Date Added</th>
-                                                <th>Stock</th>
-                                                <th>In Stock</th>
-                                                <th>Color</th>
-                                                <th>Status</th>
+                                                <!-- <th>Id</th> -->
+                                                <th>image</th> 
+                                                <th>placement</th>
+                                                <th>Actions</th>  
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% banner.forEach(data=>{ %>
                                             <tr>
-                                                <td><strong>#SKUN111</strong></td>
-                                                <td><img src="assets/images/product/product-1.jpg" class="avatar lg rounded me-2" alt="profile-image"><span> Oculus VR </span></td>
-                                                <td>Game accessories</td>
-                                                <td>June 13, 2021</td>
-                                                <td>1455</td>
+                                                <!-- <td><strong>#CS-00002</strong></td> -->
                                                 <td>
-                                                    451
+                                                    <img src="<%= data.image %>" alt="" width="200px">                                                
                                                 </td>
-                                                <td>Yellow</td>
-                                                <td><span class="badge bg-warning">Offer process</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>#SKUN112</strong></td>
-                                                <td><img src="assets/images/product/product-2.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Wall Clock</span></td>
-                                                <td>Clock</td>
-                                                <td>June 22, 2021</td>
-                                                <td>5555</td>
+                                                <td><%= data.placement %></td>
+                                                <!-- <td><%= data.email %></td> -->
+                                                <!-- <td><%= data.phoneNumber %></td> -->
+                                                <!-- <td>South Africa</td> -->
+                                                <!-- <td>18</td> -->
                                                 <td>
-                                                    1451
+                                                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                                        <!-- <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#expedit"><i class="icofont-edit text-success"></i></button> -->
+                                                        <button type="button" onclick="deleteBanner('<%= data._id %>')" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button>
+                                                    </div>
                                                 </td>
-                                                <td>Gold</td>
-                                                <td><span class="badge bg-success">Sell</span></td>
                                             </tr>
-                                            <tr>
-                                                <td><strong>#SKUN113</strong></td>
-                                                <td><img src="assets/images/product/product-3.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Flower Port</span></td>
-                                                <td>accessories</td>
-                                                <td>June 16, 2021</td>
-                                                <td>555</td>
-                                                <td>
-                                                    11
-                                                </td>
-                                                <td>Silver</td>
-                                                <td><span class="badge bg-success">Sell</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>#SKUN114</strong></td>
-                                                <td><img src="assets/images/product/product-4.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Flower Port</span></td>
-                                                <td>Port Box</td>
-                                                <td>June 23, 2021</td>
-                                                <td>7581</td>
-                                                <td>
-                                                    2468
-                                                </td>
-                                                <td>Brown</td>
-                                                <td><span class="badge bg-warning">Offer process</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>#SKUN115</strong></td>
-                                                <td><img src="assets/images/product/product-5.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>School Bag</span></td>
-                                                <td>Bags</td>
-                                                <td>June 18, 2021</td>
-                                                <td>1581</td>
-                                                <td>
-                                                    1581
-                                                </td>
-                                                <td>Chocolate</td>
-                                                <td><span class="badge bg-danger">Out of Stock</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>#SKUN116</strong></td>
-                                                <td><img src="assets/images/product/product-6.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Rado Watch</span></td>
-                                                <td>Watch</td>
-                                                <td>June 13, 2021</td>
-                                                <td>4581</td>
-                                                <td>
-                                                    3468
-                                                </td>
-                                                <td>Silver</td>
-                                                <td><span class="badge bg-success">Sell</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>#SKUN117</strong></td>
-                                                <td><img src="assets/images/product/product-7.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Wildcraft</span></td>
-                                                <td>Traveling Bag</td>
-                                                <td>June 17, 2021</td>
-                                                <td>2581</td>
-                                                <td>
-                                                    2468
-                                                </td>
-                                                <td>Silver</td>
-                                                <td><span class="badge bg-success">Sell</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><strong>#SKUN118</strong></td>
-                                                <td><img src="assets/images/product/product-8.jpg" class="avatar lg rounded me-2" alt="profile-image"><span>Chair</span></td>
-                                                <td>Furniture</td>
-                                                <td>June 17, 2021</td>
-                                                <td>581</td>
-                                                <td>
-                                                    468
-                                                </td>
-                                                <td>Browen</td>
-                                                <td><span class="badge bg-success">Sell</span></td>
-                                            </tr>
+                                            <%  }) %>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+                        <!-- Banner Management -->
+
+                <div class="col-4 rounded" style="border: 1px solid rgb(237, 236, 236);">
+                    <h5 class="py-2 font-weight-bold">ADD NEW BANNER</h5>
+                    <div class="row mb-4">
+                      <div class="col-md-6">
+                        <form action="/admin/bannerAdd" method="post" id="bannerForm" class="mb-3" enctype="multipart/form-data" >
+                          <div class="mb-3">
+                            <label for="image" class="form-label">Image:</label>
+                            <input type="file" class="form-control" id="image" name="bannerImage" required>
+                          </div>
+                          <div class="mb-3">
+                            <label for="placement" class="form-label">Placement:</label>
+                            <select class="form-select" id="placement" name="placement" required>
+                              <option value="Home Page">Home Page</option>
+                              <option value="About Us Page">About Us Page</option>
+                            </select>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Add Banner</button>
+                        </form>
+                      </div>
                     </div>
+                  </div>
+                </div><!-- Row End -->
                 </div>
             </div>
-        
+            
             <!-- Modal Custom Settings-->
             <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">
                 <div class="modal-dialog  modal-sm">
@@ -586,29 +539,177 @@
                 </div>
             </div> 
 
+            <!-- Add Customers-->
+            <div class="modal fade" id="expadd" tabindex="-1"  aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title  fw-bold" id="expaddLabel">Add Customers</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="deadline-form">
+                            <form>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label for="item" class="form-label">Customers Name</label>
+                                        <input type="text" class="form-control" id="item">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="taxtno" class="form-label">Customers Profile</label>
+                                        <input type="File" class="form-control" id="taxtno">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label for="depone" class="form-label">Country</label>
+                                    <input type="text" class="form-control" id="depone">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="abc" class="form-label">Customers Register date</label>
+                                    <input type="date" class="form-control w-100" id="abc">
+                                </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                    <label for="abc11" class="form-label">Mail</label>
+                                    <input type="text" class="form-control" id="abc11">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="abc111" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="abc111">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label class="form-label">Total Order</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
+            <!-- Edit Customers-->
+            <div class="modal fade" id="expedit" tabindex="-1"  aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title  fw-bold" id="expeditLabel"> Edit Customers</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="deadline-form">
+                            <form>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-12">
+                                        <label for="item1" class="form-label">Customers Name</label>
+                                        <input type="text" class="form-control" id="item1" value="Cloth"> 
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <label for="taxtno1" class="form-label">Customers Profile</label>
+                                        <input type="file" class="form-control" id="taxtno1">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                <div class="col-sm-6">
+                                    <label class="form-label">Country</label>
+                                    <input type="text" class="form-control" value="South Africa">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="abc1" class="form-label">Customers Register date</label>
+                                    <input type="date" class="form-control w-100" id="abc1" value="2021-03-12">
+                                </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                    <label for="mailid" class="form-label">Mail</label>
+                                    <input type="text" class="form-control" id="mailid" value="PhilGlover@gmail.com">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="phoneid" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="phoneid" value="843-555-0175">
+                                    </div>
+                                </div>
+                                <div class="row g-3 mb-3">
+                                    <div class="col-sm-6">
+                                        <label class="form-label">Total Order</label>
+                                        <input type="text" class="form-control" value="18">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+
         </div> 
-
+            
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        function deleteBanner(bannerId){
+            console.log("banner id for deletion :",bannerId)
+            axios.delete(`/admin/bannerDelete/${bannerId}`)
+            .then((result) => {
+                window.location.href = "/admin/banner"
+            }).catch((err) => {
+                Toastify({
+                text: "An error occured pls try again",
+                duration: 3000
+                }).showToast();
+            });
+        }
+    </script>
+    
     <!-- Jquery Core Js -->
-    <script src="assets/bundles/libscripts.bundle.js"></script>
+    <script src="/admin/assets/bundles/libscripts.bundle.js"></script>
 
-    <!-- Plugin Js -->
-    <script src="assets/bundles/dataTables.bundle.js"></script>  
+    <!-- Plugin Js-->
+    <script src="/admin/assets/bundles/dataTables.bundle.js"></script>
 
     <!-- Jquery Page Js -->
     <script src="../js/template.js"></script>
     <script>
-        $('#myDataTable')
-        .addClass( 'nowrap' )
-        .dataTable( {
-            responsive: true,
-            columnDefs: [
-                { targets: [-1, -3], className: 'dt-body-right' }
-            ]
+        // project data table
+        $(document).ready(function() {
+            $('#myProjectTable')
+            .addClass( 'nowrap' )
+            .dataTable( {
+                responsive: true,
+                columnDefs: [
+                    { targets: [-1, -3], className: 'dt-body-right' }
+                ]
+            });
+            // $('.deleterow').on('click',function(){
+            // var tablename = $(this).closest('table').DataTable();  
+            // tablename
+            //         .row( $(this)
+            //         .parents('tr') )
+            //         .remove()
+            //         .draw();
+
+            // } );
         });
     </script>
 </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/inventory-info.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
-</html> 
+<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/customers.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:29 GMT -->
+</html>
