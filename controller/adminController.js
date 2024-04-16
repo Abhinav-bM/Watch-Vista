@@ -2,11 +2,7 @@ const { defaultWorkerPolicies } = require("twilio/lib/jwt/taskrouter/util");
 const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
 const Vendor = require("../models/vendorsModel");
-const {
-  calculateTotalSales,
-  getOrdersCountForLast10Days,
-  getLatest10Orders,
-} = require("../helpers/adminDashboard");
+const { calculateTotalSales, getOrdersCountForLast10Days, getLatest10Orders } = require("../helpers/adminDashboard");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
 
@@ -38,7 +34,6 @@ let loginPostPage = async (req, res) => {
             expiresIn: "24h",
           }
         );
-
         res.cookie("admin_jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
 
         res.redirect("/admin/dashboard");

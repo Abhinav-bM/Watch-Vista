@@ -477,7 +477,7 @@ let getOrdersForVendor = async (req, res) => {
         });
       });
     });
-
+    
     res.render("vendor/order-list", { vendorOrders });
   } catch (error) {
     console.error(error);

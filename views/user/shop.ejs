@@ -151,15 +151,13 @@
 
 
                                     <li><a href="wishlist.html" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
-                                    <li><a href="javascript:void(0)"><i class="fal fa-shopping-bag"><span>5</span></i></a>
+                                    <li><a href="/cart"><i class="fal fa-shopping-bag"><span>5</span></i></a>
 
                                     <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
                                         <ul class="submenu bold-content text-right">
                                             <li><a href="login.html">My Account</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
-                                            <li><a href="shop.html">Shop</a></li>
                                             <li><a href="wishlist.html">Wishlist</a></li>
-                                            <li><a href="question.html">Frequently</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -403,7 +401,7 @@
                                                                     <a href="/products?productId=<%= product._id %>" class="product-title"><%= product.productName %></a>
                                                                     <div class="price-switcher">
                                                                         <span class="price switcher-item">₹ <%= product.productPrice %></span>
-                                                                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
+                                                                        <span class="price switcher-item">₹ <%= product.productPrice %></span>
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -932,7 +932,7 @@ let buyNowCheckOut = async (req, res) => {
     res.status(200).render("user/checkout", { addresses, cart, totalPrice });
   } catch (error) {
     console.error("Error on checkout page display :", error);
-    res.status(500).json({ message: "An error occured" }); 
+    res.status(500).json({ message: "An error occured" });
   }
 };
 
@@ -1095,13 +1095,11 @@ let placeOrderPost = async (req, res) => {
       return res.status(404).json({ message: "Selected address not found" });
     }
 
-    ///////////////////////////////////
     const allProducts = await Vendor.find({}).populate("products");
     let cart = [];
 
     user.cart.products.forEach((cartProduct) => {
       const productId = cartProduct.productId;
-
       // Find the product in allProducts
       allProducts.forEach((vendor) => {
         vendor.products.forEach((product) => {
@@ -1110,7 +1108,7 @@ let placeOrderPost = async (req, res) => {
               vendorId: vendor._id,
               vendorName: vendor.vendorName,
             };
-
+            
             const productDetails = {
               _id: product._id,
               name: product.productName,
@@ -1129,11 +1127,19 @@ let placeOrderPost = async (req, res) => {
             };
 
             cart.push(productDetails);
+            // UPDATE PRODUCT QUANTITY IN VENDORS INVENTORY
+            const updatedProduct = vendor.products.find((p) =>
+              p._id.equals(productId)
+            );
+            if (updatedProduct) {
+              updatedProduct.productQTY -= cartProduct.quantity;
+            }
           }
         });
       });
     });
-    //////////////////////////////////////////////
+    // UPDATE VENDOR
+    await Promise.all(allProducts.map(vendor => vendor.save()));
 
     const orderDate = new Date();
     const expectedDeliveryDate = new Date(orderDate);
