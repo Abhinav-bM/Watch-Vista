@@ -27,9 +27,16 @@
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
-    
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
 
 </head>
         <style>
@@ -58,12 +65,7 @@
             }
             }
 
-
-            /* Add this CSS to your stylesheet */
-            /* .filter { */
-            /* position: static; */
-            /* } */
-
+            /* filter styles */
             .filter-popup {
             position: absolute;
             top: calc(100% + 10px);
@@ -219,14 +221,14 @@
                                     <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
 
                                     
-                                    <li><a href="wishlist.html" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
+                                    <li><a href="/wishlist" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
                                     <li><a href="/cart"><i class="fal fa-shopping-bag"><span>5</span></i></a>
 
                                     <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
                                         <ul class="submenu bold-content text-right">
                                             <li><a href="login.html">My Account</a></li>
                                             <li><a href="checkout.html">Checkout</a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                            <li><a href="/wishlist">Wishlist</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -379,7 +381,7 @@
                                                                     <a href="/singleProduct"
                                                                         class="product-category"><span>Men</span></a>
                                                                 </div>
-                                                                <a href="wishlist.html" class="wishlist float-right"><span><i
+                                                                <a href="/wishlist" class="wishlist float-right"><span><i
                                                                             class="fal fa-heart"></i></span></a>
                                                             </div>
                                                             <a href="/singleProduct" class="product-title">Light green crewnec...</a>
@@ -424,7 +426,7 @@
                                                                     <a href="shop2.html"
                                                                         class="product-category"><span>Woman</span></a>
                                                                 </div>
-                                                                <a href="wishlist.html" class="wishlist float-right"><span><i
+                                                                <a href="/wishlist" class="wishlist float-right"><span><i
                                                                             class="fal fa-heart"></i></span></a>
                                                             </div>
                                                             <a href="/singleProduct/" class="product-title">Light green crewnec...</a>
@@ -459,7 +461,10 @@
                                                         <div class="product-box mb-40">
                                                             <div class="product-box-wrapper">
                                                                 <div class="product-img">
-                                                                    <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= product.productName %>">
+                                                                    <a href="/products?productId=<%= product._id %>" class="product-category">                                                                    
+                                                                        <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= product.productName %>">
+                                                                    </a>
+
                                                                 </div>
                                             
                                                                 <div class="product-desc pb-20">
@@ -467,7 +472,15 @@
                                                                         <div class="categories">
                                                                             <a href="/products?productId=<%= product._id %>" class="product-category"><span><%= product.productCategory %></span></a>
                                                                         </div>
-                                                                        <a href="" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
+                                                                        <button class="btn btn-link" onclick="addToWishlist(event, '<%= product._id %>')">
+                                                                            <div class="wishlist float-right">
+                                                                                <% if(user && user.wishlist.products.some( wProduct => wProduct.productId.toString() === product._id.toString() )) { %>
+                                                                                    <i id="heartIcon-<%= product._id %>" class="fas fa-heart fa-lg text-danger"></i>
+                                                                                <% } else { %>
+                                                                                    <i id="heartIcon-<%= product._id %>" class="fal fa-heart fa-lg"></i>
+                                                                                <% } %>
+                                                                            </div>
+                                                                        </button>
                                                                     </div>
                                                                     <a href="/products?productId=<%= product._id %>" class="product-title"><%= product.productName %></a>
                                                                     <div class="price-switcher">
@@ -646,7 +659,7 @@
                                                 <li><a href="login.html">My account</a></li>
                                                 <li><a href="checkout.html">Checkout</a></li>
                                                 <li><a href="shop2.html">Shop</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                <li><a href="/wishlist">Wishlist</a></li>
                                                 <li><a href="question.html">Frequently</a></li>
                                             </ul>
                                         </div>
@@ -689,7 +702,54 @@
 
     </section>
     <!-- footer section end -->
-
+    <script>
+        function addToWishlist(event, productId) {
+            event.preventDefault();
+            axios.post('/products/addToWishlist', { productId })
+                .then((response) => {
+                    console.log(response);
+                    // Get the corresponding heart icon element
+                    const heartIcon = document.getElementById(`heartIcon-${productId}`);
+                    // Check if the product was added or removed from wishlist
+                    if (response.data.message === 'Product added to wishlist successfully') {
+                        heartIcon.classList.remove('fal');
+                        heartIcon.classList.add('fas');
+                        heartIcon.classList.add('text-danger');
+                        Toastify({
+                            text: "Product added to wishlist",
+                            duration: 2000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "black",
+                        }).showToast();
+                    } else if (response.data.message === 'Product removed from wishlist successfully') {
+                        // Change heart icon to regular red heart
+                        heartIcon.classList.remove('fas');
+                        heartIcon.classList.remove('text-danger');
+                        heartIcon.classList.add('fal');
+                        Toastify({
+                            text: "Product removed from wishlist",
+                            duration: 2000,
+                            gravity: "top",
+                            position: "right",
+                            backgroundColor: "black",
+                        }).showToast();
+                    }
+                })
+                .catch((error) => {
+                    console.log("sjfjskf",error);
+                    if(error.response.data.error === "User not found"){
+                        Toastify({
+                            text: "Please login for wishlisting a product",
+                            duration: 2000,
+                            gravity: "top",
+                            position: "right",
+                            // backgroundColor: "black",
+                        }).showToast();
+                    }
+                });
+        }
+    </script>
 
 <script>
     $(document).ready(function() {

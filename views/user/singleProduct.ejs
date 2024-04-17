@@ -27,8 +27,9 @@
     <link rel="stylesheet" href="/css/default.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/responsive.css">
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <style>
         /* CSS for Image Zoom */
@@ -128,77 +129,9 @@
                             <div class="header-right">
                                 <ul class="text-right">
                                     <li><a href="login.html" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-                                    <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a>
-                                    
-                                        <!-- search popup -->
-                                        <div id="search-popup">
-                                            <div class="close-search-popup">
-                                                <i class="fal fa-times"></i>
-                                            </div>
-                                            <div class="search-popup-inner mt-135">
-                                                <div class="search-title text-center">
-                                                    <h2>Search</h2>
-                                                </div>
-
-                                                <div class="search-content pt-55">
-                                                    <ul class="text-center">
-                                                        <li><a href="javascript:void(0)" class="active">All categories</a></li>
-                                                        <li><a href="javascript:void(0)">Men</a></li>
-                                                        <!-- <li><a href="javascript:void(0)">Gift Cards</a></li> -->
-                                                        <!-- <li><a href="javascript:void(0)">Handbag</a></li> -->
-                                                        <!-- <li><a href="javascript:void(0)">Kids</a></li> -->
-                                                        <!-- <li><a href="javascript:void(0)">Shoes</a></li> -->
-                                                        <li><a href="javascript:void(0)">Kids</a></li>
-                                                        <li><a href="javascript:void(0)">Women</a></li>
-                                                    </ul>
-
-                                                    <div class="search-form mt-35">
-                                                        <form action="#" method="post">
-                                                            <input type="text" placeholder="Search Products...">
-                                                            <button type="submit"><i class="fal fa-search"></i></button>
-                                                        </form>
-                                                    </div>
-
-                                                    <div class="search-result-list">
-                                                        <ul class="text-left">
-                                                            <li class="d-block d-flex align-items-center">
-                                                                <div class="search-result-img">
-                                                                    <img src="" class="w-100" alt="">
-                                                                </div>
-                                                                <div class="search-result-desc pl-10">
-                                                                    <a href="single-product-4.html" class="title px-0">ELLE  - Recliner syntheti chair</a>
-                                                                    <div class="price">$<span>399</span></div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li><a href="" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
-                                    <li><a href="/cart"><i class="fal fa-shopping-bag"><span></span></i></a>
-                                        <!-- <div class="minicart">
-                                            <div class="minicart-body">
-                                                <div class="minicart-content">
-                                                    
-                                                    
-                                                </div>
-                                            </div>
-                                            <div class="minicart-checkout">
-                                                <div class="minicart-checkout-heading mt-8 mb-25 overflow-hidden">
-                                                    <strong class="float-left">Subtotal:</strong>
-                                                    <span class="price float-right">503.00</span>
-                                                </div>
-                                                <div class="minicart-checkout-links">
-                                                    <a href="cart.html" class="generic-btn black-hover-btn text-uppercase w-100 mb-20">View cart</a>
-                                                    <a href="checkout.html" class="generic-btn black-hover-btn text-uppercase w-100 mb-20">Checkout</a>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </li>
+                                    <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a></li>
+                                    <li><a href="/wishlist" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
+                                    <li><a href="/cart"><i class="fal fa-shopping-bag"><span></span></i></a></li>
                                     <li><a href=""><i class="fal fa-align-right"></i></a>
                                         <ul class="submenu bold-content text-right">
                                             <li><a href="">My Account</a></li>
@@ -259,11 +192,7 @@
     <section class="single-product mb-90">
         <div class="container-fluid">
             <nav aria-label="breadcrumb" class="mb-40">
-                <ol class="breadcrumb p-0 m-0">
-                    <li class="breadcrumb-item"><a href="index4.html">Home</a></li>
-                    <li class="breadcrumb-item" aria-current="page">Product</li>
-                    <li class="breadcrumb-item active" aria-current="page">single Product</li>
-                </ol>
+               
             </nav>
             <div class="shop-wrapper">
                 <div class="single-product-top">
@@ -274,6 +203,7 @@
                                 <div class="row">
                                     
                                     <div class="col-10">
+                                       
                                         <div class="tab-content" id="v-pills-tabContent">
                                             
                                             <div class=" tab-pane fade show active" id="tab-1">
@@ -297,6 +227,7 @@
                                                     <a href="" class="popup-image" ><img src="<%= products.productImages[3] %>" class=" zoomable__img w-100" alt=""></a>
                                                 </div>
                                             </div>
+                                            
                                             
                                         </div>  
                                     </div>
@@ -333,49 +264,58 @@
                                     <div class="single-product-component">
                                         <h6>Color : <span class="color-value"><%= products.productColor %></span></h6>
                                     </div>
-                                    <div class="single-product-component mt-15">
-                                        <div class="size">
+                                    <div class="single-product-component mb-15">
+                                        <div class="size mb-15">
                                             <h6>Size :  <span> <%= products.productSize %></span></h6>
-                                            <!-- <form action="#">
-                                                <label for="t-xl" class="active">3xl</label>
-                                                <input type="radio" class="d-none" id="t-xl">
-                                                <label for="xl">xl</label>
-                                                <input type="radio" class="d-none" id="xl">
-                                                <label for="xxl">xxl</label>
-                                                <input type="radio" class="d-none" id="xxl">
-                                            </form> -->
+                                           
                                         </div>
+                                        <button class="wishlist-btn" onclick="addToWishlist(event, '<%= products._id %>')" style="background: none; border: none;">
+                                            <div class="wishlist float-right">
+                                                <% if(user && user.wishlist.products.some(wProduct => wProduct.productId.toString() === products._id.toString())) { %>
+                                                    <i id="heartIcon-<%= products._id %>" class="fas fa-heart fa-2x text-danger"></i>
+                                                <% } else { %>
+                                                    <i id="heartIcon-<%= products._id %>" class="fal fa-heart fa-2x"></i>
+                                                <% } %>
+                                            </div>
+                                        </button>
                                     </div>
+                                   
                                     <div class="quick-quantity mt-60">
+                                      
 
                                         
-                                    <button type="button" id="addToCartBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 20px;padding-right: 20px;transition: all .5s;" data-product-id="<%= products._id %>">
-                                        add to cart
-                                    </button>
-                                    <button type="button" id="buyNowBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 25px;padding-right: 25px;transition: all .5s;" data-product-id="<%= products._id %>">
-                                        <a href="/buyNow/checkout/<%= products._id %>" class="text-light" > Buy Now</a>
-                                    </button>
+                                        <button type="button" id="addToCartBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 20px; padding-right: 20px; transition: all .5s;">
+                                            Add to Cart
+                                        </button>
+                                        
+                                        
+                                        <!-- <button type="button" id="buyNowBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 25px;padding-right: 25px;transition: all .5s;" data-product-id="<%= products._id %>">
+                                            <a href="/buyNow/checkout/<%= products._id %>" class="text-light" > Buy Now</a>
+                                        </button> -->
+                                        
+                                            
+                                        
 
-                                    <!-------------ADDED TO CART-------------->
-                                    <div id="toastNotification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="500">
-                                        <div class="toast-body">
-                                          Product added to cart!
+                                        <!-------------ADDED TO CART-------------->
+                                        <div id="toastNotification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="500">
+                                            <div class="toast-body">
+                                            Product added to cart!
+                                            </div>
                                         </div>
-                                    </div>
-                                    
+                                        
 
-                                    </div>
-                                    <div class="single-product-action mt-35">
-                                        <ul>
-                                            <li><a href="wishlist.html"><i class="fal fa-heart"></i> add to wishlist</a></li>
-                                        </ul>
+                                        </div>
+                                        <div class="single-product-action mt-35">
+                                          
+                                        </div>   
+                                       
                                     </div>
                                     <!-- <div class="sku"><span>Sku: </span> <strong>M-Hat-8</strong></div> -->
                                     <div class="single-product-category">
                                         <ul>
-                                            <li class="mb-0"><a href="javascript:void(0)" class="title">Tags : </a></li>
-                                            <li class="mb-0"><a href="single-product-4.html"><%= products.productCategory %></a></li>
-                                            <li class="mb-0"><a href="single-product-4.html"><%= products.productSubCategory %></a></li>
+                                            <li class="mb-0"><a href="" class="title">Tags : </a></li>
+                                            <li class="mb-0"><a href=""><%= products.productCategory %></a></li>
+                                            <li class="mb-0"><a href=""><%= products.productSubCategory %></a></li>
                                         </ul>
                                     </div>
                                    
@@ -662,7 +602,7 @@
                                                 <li><a href="login.html">My account</a></li>
                                                 <li><a href="checkout.html">Checkout</a></li>
                                                 <li><a href="shop2.html">Shop</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                <li><a href="/wishlist">Wishlist</a></li>
                                                 <li><a href="question.html">Frequently</a></li>
                                             </ul>
                                         </div>
@@ -834,6 +774,55 @@
 <!--------------------------------------------Add to cart------------------------------------------------------->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+
+        // ADD TO WISHLIST
+        function addToWishlist(event, productId) {
+            event.preventDefault();
+            axios.post('/products/addToWishlist', { productId })
+            .then((response) => {
+                console.log(response);
+                // Get the corresponding heart icon element
+                const heartIcon = document.getElementById(`heartIcon-${productId}`);
+                // Check if the product was added or removed from wishlist
+                if (response.data.message === 'Product added to wishlist successfully') {
+                    Toastify({
+                        text: "Product added to wishlist",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "black",
+                    }).showToast();
+                    heartIcon.classList.remove('fal');
+                    heartIcon.classList.add('fas');
+                    heartIcon.classList.add('text-danger');
+                } else if (response.data.message === 'Product removed from wishlist successfully') {
+                    // Change heart icon to regular red heart
+                    Toastify({
+                        text: "Product removed from wishlist",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "black",
+                    }).showToast();
+                    heartIcon.classList.remove('fas');
+                    heartIcon.classList.remove('text-danger');
+                    heartIcon.classList.add('fal');
+                }
+            })
+            .catch((error) => {
+                console.log("sjfjskf",error);
+                if(error.response.data.error === "User not found"){
+                    Toastify({
+                        text: "Please login for wishlisting a product",
+                        duration: 3000,
+                        gravity: "top",
+                        position: "right",
+                        // backgroundColor: "black",
+                    }).showToast();
+                }
+            });
+        }
+
         // Function to add product to cart
         function addToCart(productId) {
             console.log("add to cart function triggered :",productId )

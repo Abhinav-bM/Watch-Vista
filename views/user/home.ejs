@@ -27,6 +27,15 @@
         <link rel="stylesheet" href="css/responsive.css">
 
 
+        <!-- toastify -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+        <!-- axios -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+
         
 
         <style>
@@ -118,92 +127,15 @@
                                     <div class="header-right">
                                         <ul class="text-right">
                                             <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-                                            <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a>
-
-                                                <!-- search popup -->
-                                                <div id="search-popup">
-                                                    <div class="close-search-popup">
-                                                        <i class="fal fa-times"></i>
-                                                    </div>
-                                                    <div class="search-popup-inner mt-135">
-                                                        <div class="search-title text-center">
-                                                            <h2>Search</h2>
-                                                        </div>
-
-                                                        <div class="search-content pt-55">
-                                                            <ul class="text-center">
-                                                                <li><a href="javascript:void(0)" class="active">All categories</a></li>
-                                                                <li><a href="javascript:void(0)">Men</a></li>
-                                                                <li><a href="javascript:void(0)">Kids</a></li>
-                                                                <li><a  href="javascript:void(0)">Women</a></li>
-                                                            </ul>
-
-                                                            <div class="search-form mt-35">
-                                                                <form action="#" method="post">
-                                                                    <input type="text" placeholder="Search Products...">
-                                                                    <button type="submit"><i class="fal fa-search"></i></button>
-                                                                </form>
-                                                            </div>
-
-                                                            <div class="search-result-list">
-                                                                <ul class="text-left">
-                                                                    <li class="d-block d-flex align-items-center">
-                                                                        <div class="search-result-img">
-                                                                            <img src="" class="w-100" alt="">
-                                                                        </div>
-                                                                        <div class="search-result-desc pl-10">
-                                                                            <a href="single-product-4.html" class="title px-0">ELLE  - Recliner syntheti chair</a>
-                                                                            <div class="price">$<span>399</span></div>
-                                                                        </div>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-
-
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li><a href="" data-toggle="tooltip" data-placement="bottom" title="view wishlist"><i class="fal fa-heart"><span></span></i></a></li>
-                                            <li><a href="/cart"><i class="fal fa-shopping-bag"><span>1</span></i></a>
-                                                <!-- <div class="minicart">
-                                                    <div class="minicart-body">
-                                                        <div class="minicart-content">
-                                                            <ul class="text-left">
-                                                                <li>
-                                                                    <div class="minicart-img">
-                                                                        <a href="single-product-4.html" class="p-0"><img src="" class="w-100" alt=""></a>
-                                                                    </div>
-                                                                    <div class="minicart-desc">
-                                                                        <a href="single-product-4.html" class="p-0">Capitalize on low hanging fruit t</a>
-                                                                        <strong>1 × $250.00</strong>
-                                                                    </div>
-                                                                    <div class="remove">
-                                                                        <i class="fal fa-times"></i>
-                                                                    </div>
-                                                                </li>
-
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <div class="minicart-checkout">
-                                                        <div class="minicart-checkout-heading mt-8 mb-25 overflow-hidden">
-                                                            <strong class="float-left">Subtotal:</strong>
-                                                            <span class="price float-right">503.00</span>
-                                                        </div>
-                                                        <div class="minicart-checkout-links">
-                                                            <a href="cart.html" class="generic-btn black-hover-btn text-uppercase w-100 mb-20">View cart</a>
-                                                            <a href="checkout.html" class="generic-btn black-hover-btn text-uppercase w-100 mb-20">Checkout</a>
-                                                        </div>
-                                                    </div>
-                                                </div> -->
-                                            </li>
+                                            <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a></li>
+                                            <li><a href="/wishlist" data-toggle="tooltip" data-placement="bottom" title="view wishlist"><i class="fal fa-heart"><span></span></i></a></li>
+                                            <li><a href="/cart"><i class="fal fa-shopping-bag"><span>1</span></i></a></li>
                                             <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
                                                 <ul class="submenu bold-content text-right">
                                                     <li><a href="/userProfile">My Account</a></li>
                                                     <!-- <li><a href="">Checkout</a></li> -->
                                                     <!-- <li><a href="">Shop</a></li> -->
-                                                    <li><a href="">Wishlist</a></li>
+                                                    <li><a href="/wishlist">Wishlist</a></li>
                                                     <!-- <li><a href="question.html">Frequently</a></li> -->
                                                 </ul>
                                             </li>
@@ -308,41 +240,7 @@
                 </div>
             </section>
             <!-- slider section end -->
-
-
-            <section class="service pt-57 mt-65">
-                <div class="container container-1200">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-4 col-md-6 service-item">
-                            <div class="service-box service-box-3">
-                                <div class="service-box-content text-center">
-                                    <h4 class="title">Worldwide Shipping</h4>
-                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit vulputatevelit esse molestie consequat.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 service-item">
-                            <div class="service-box service-box-3">
-                                <div class="service-box-content text-center">
-                                    <h4 class="title">Online Support 24/7</h4>
-                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit vulputate  velit esse molestie consequat.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-lg-6 hidden-md service-item">
-                            <div class="service-box service-box-3">
-                                <div class="service-box-content text-center">
-                                    <h4 class="title">Money Return Guarantee</h4>
-                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit vulputatevelit esse molestie consequat.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container   gray-border-bottom pb-85"></div>
-            </section>
+                
 
 
 
@@ -364,7 +262,10 @@
                               <div class="product-box mb-40">
                                 <div class="product-box-wrapper">
                                   <div class=" col-12 product-img img-container">
-                                      <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= products.productName %>">
+                                    <a href="/products?productId=<%= product._id %>" class="product-category">
+                                        <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= products.productName %>">
+                                    </a>
+
                                   </div>
                         
                                   <div class="product-desc pb-20">
@@ -372,7 +273,16 @@
                                       <div class="categories">
                                         <a href="/products?productId=<%= product._id %>" class="product-category"><span><%= product.productCategory %></span></a>
                                       </div>
-                                      <a href="" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
+                                        <button class="btn btn-link" onclick="addToWishlist(event, '<%= product._id %>')">
+                                            <div class="wishlist float-right">
+                                                <% if(user && user.wishlist.products.some( wProduct => wProduct.productId.toString() === product._id.toString() )) { %>
+                                                    <i id="heartIcon-<%= product._id %>" class="fas fa-heart fa-lg text-danger"></i>
+                                                <% } else { %>
+                                                    <i id="heartIcon-<%= product._id %>" class="fal fa-heart fa-lg"></i>
+                                                <% } %>
+                                            </div>
+                                        </button>
+
                                     </div>
                                     <a href="/products?productId=<%= product._id %>" class="product-title"><%= product.productName %></a>
                                     <div class="price-switcher">
@@ -450,7 +360,7 @@
                                                     <li><a href="/login">My account</a></li>
                                                     <li><a href="checkout.html">Checkout</a></li>
                                                     <li><a href="shop2.html">Shop</a></li>
-                                                    <li><a href="wishlist.html">Wishlist</a></li>
+                                                    <li><a href="/wishlist">Wishlist</a></li>
                                                     <li><a href="question.html">Frequently</a></li>
                                                 </ul>
                                             </div>
@@ -614,7 +524,54 @@
             <!-- startup popup end -->
 
 
-
+            <script>
+                function addToWishlist(event, productId) {
+                    event.preventDefault();
+                    axios.post('/products/addToWishlist', { productId })
+                        .then((response) => {
+                            console.log(response);
+                            // Get the corresponding heart icon element
+                            const heartIcon = document.getElementById(`heartIcon-${productId}`);
+                            // Check if the product was added or removed from wishlist
+                            if (response.data.message === 'Product added to wishlist successfully') {
+                                heartIcon.classList.remove('fal');
+                                heartIcon.classList.add('fas');
+                                heartIcon.classList.add('text-danger');
+                                Toastify({
+                                    text: "Product added to wishlist",
+                                    duration: 2000,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "black",
+                                }).showToast();
+                            } else if (response.data.message === 'Product removed from wishlist successfully') {
+                                // Change heart icon to regular red heart
+                                heartIcon.classList.remove('fas');
+                                heartIcon.classList.remove('text-danger');
+                                heartIcon.classList.add('fal');
+                                Toastify({
+                                    text: "Product removed from wishlist",
+                                    duration: 2000,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "black",
+                                }).showToast();
+                            }
+                        })
+                        .catch((error) => {
+                            console.log("sjfjskf",error);
+                            if(error.response.data.error === "User not found"){
+                                Toastify({
+                                    text: "Please login for wishlisting a product",
+                                    duration: 3000,
+                                    gravity: "top",
+                                    position: "right",
+                                    backgroundColor: "black",
+                                }).showToast();
+                            }
+                        });
+                }
+            </script>  
 
 
 

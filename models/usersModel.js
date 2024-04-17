@@ -28,6 +28,18 @@ const cartSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
 });
 
+// WIHSLIST SCHEMA
+const wishlistSchema = new mongoose.Schema({
+  products: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "vendor.products",
+      },
+    },
+  ],
+});
+
 // ORDER SCHEMA
 const orderSchema = new mongoose.Schema(
   {
@@ -35,9 +47,9 @@ const orderSchema = new mongoose.Schema(
     products: [
       {
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-        size:{type:String,required:true},
-        qty:{type:Number,required:true},
-        price:{type:Number,required:true},    
+        size: { type: String, required: true },
+        qty: { type: Number, required: true },
+        price: { type: Number, required: true },
         orderStatus: {
           type: String,
           default: "Pending",
@@ -50,8 +62,8 @@ const orderSchema = new mongoose.Schema(
     expectedDeliveryDate: { type: String },
     shippingAddress: { type: addressSchema },
     paymentMethod: { type: String, require: true },
-    razorPaymentId:{type:String},
-    razorpayOrderId:{type:String},
+    razorPaymentId: { type: String },
+    razorpayOrderId: { type: String },
   },
   { _id: false }
 );
@@ -61,6 +73,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, required: true },
   phoneNumber: { type: String, unique: true },
   password: { type: String },
+  wishlist: { type: wishlistSchema, default: { products: [] } },
   cart: { type: cartSchema, default: { products: [] } },
   addresses: [addressSchema],
   orders: [orderSchema],
@@ -71,7 +84,6 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-
 });
 
 module.exports = mongoose.model("User", userSchema);

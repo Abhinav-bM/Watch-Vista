@@ -18,6 +18,8 @@ const generateOTP = () => {
 
 // HOME PAGE DISPLAY
 let homePage = async (req, res) => {
+  const token = req.cookies.jwt;
+
   try {
     let products = await Vendor.find().select("products");
     const admin = await Admin.findOne();
@@ -25,7 +27,16 @@ let homePage = async (req, res) => {
       (banner) => banner.placement === "Home Page"
     );
 
-    res.status(200).render("user/home", { products: products, bannerHome });
+    let user;
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      const userId = decoded.id;
+      user = await User.findById(userId);
+    }
+
+    res
+      .status(200)
+      .render("user/home", { products: products, bannerHome, user });
   } catch (error) {
     console.error("Failed to get home:", error);
     res.status(500).send("Internal Server Error");
@@ -486,6 +497,7 @@ let userLogout = async (req, res) => {
 
 // SHOP PAGE DISPLAY
 let shopGetPage = async (req, res) => {
+  const token = req.cookies.jwt;
   try {
     let products = await Vendor.find().select("products");
 
@@ -495,7 +507,15 @@ let shopGetPage = async (req, res) => {
     admin.categories.forEach((category) => {
       allCategories.push(category.categoryName);
     });
-    res.status(200).render("user/shop", { products, allCategories });
+
+    let user;
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      const userId = decoded.id;
+      user = await User.findById(userId);
+    }
+
+    res.status(200).render("user/shop", { products, allCategories, user });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
@@ -564,12 +584,15 @@ let getSearchProduct = async (req, res) => {
 
     const filteredProducts = allProducts.filter(
       (product) =>
-        product.productBrand.toLowerCase().includes(searchTerm.trim().toLowerCase()) ||
-        product.productName.toLowerCase().includes(searchTerm.trim().toLowerCase())
+        product.productBrand
+          .toLowerCase()
+          .includes(searchTerm.trim().toLowerCase()) ||
+        product.productName
+          .toLowerCase()
+          .includes(searchTerm.trim().toLowerCase())
     );
 
     res.status(200).json({ message: "product filtered", filteredProducts });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -578,6 +601,7 @@ let getSearchProduct = async (req, res) => {
 
 // DISPLAY SINGLE PRODUCT PAGE
 let singleProductGetPage = async (req, res) => {
+  const token = req.cookies.jwt;
   try {
     const productId = req.query.productId;
 
@@ -595,10 +619,140 @@ let singleProductGetPage = async (req, res) => {
       throw new Error("Product not found");
     }
 
-    res.render("user/singleProduct", { products: products });
+    let user;
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      const userId = decoded.id;
+      user = await User.findById(userId);
+    }
+
+    res.render("user/singleProduct", { products: products, user });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
+  }
+};
+
+// GET WISLIST PAGE
+let getWishlist = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const allProducts = await Vendor.find({}).populate("products");
+    let wishlistProducts = [];
+
+    user.wishlist.products.forEach((cartProduct) => {
+      const productId = cartProduct.productId;
+
+      // Find the product in allProducts
+      allProducts.forEach((vendor) => {
+        vendor.products.forEach((product) => {
+          if (product._id.equals(productId)) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            const productDetails = {
+              _id: product._id,
+              name: product.productName,
+              category: product.productCategory,
+              subcategory: product.productSubCategory,
+              brand: product.productBrand,
+              color: product.productColor,
+              size: product.productSize,
+              quantity: cartProduct.quantity,
+              price: product.productPrice,
+              mrp: product.productMRP,
+              discount: product.productDiscount,
+              images: product.productImages,
+              description: product.productDescription,
+              vendor: vendorInfo,
+            };
+
+            wishlistProducts.push(productDetails);
+          }
+        });
+      });
+    });
+
+    res.render("user/wishlist", { wishlistProducts, user });
+  } catch (error) {}
+};
+
+// ADD TO WIHSLIST
+let addToWishlist = async (req, res) => {
+  const productId = req.body.productId;
+  const token = req.cookies.jwt;
+  let userId;
+  try {
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      userId = decoded.id;
+    }
+
+    console.log(userId, productId);
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const existingProductIndex = user.wishlist.products.findIndex(
+      (product) => product.productId.toString() === productId
+    );
+
+    if (existingProductIndex !== -1) {
+      user.wishlist.products.splice(existingProductIndex, 1);
+
+      await user.save();
+
+      return res
+        .status(200)
+        .json({ message: "Product removed from wishlist successfully", user });
+    } else {
+      user.wishlist.products.push({ productId });
+
+      await user.save();
+
+      return res
+        .status(201)
+        .json({ message: "Product added to wishlist successfully", user });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+// REMOVE PRODUCT
+let removeFromWishlist = async (req, res) => {
+  const { productId } = req.params;
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.wishlist.products = user.wishlist.products.filter(
+      (item) => item.productId.toString() !== productId
+    );
+
+    await user.save();
+
+    res.status(200).json({ message: "Product removed from wishlist" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -618,7 +772,6 @@ let addToCart = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    console.log(user);
 
     const existingProductIndex = user.cart.products.findIndex(
       (item) => item.productId.toString() === productId
@@ -1506,6 +1659,9 @@ module.exports = {
   shopGetPage,
   getProductsByCategory,
   singleProductGetPage,
+  getWishlist,
+  addToWishlist,
+  removeFromWishlist,
   addToCart,
   removeProductCart,
   getCart,

@@ -22,6 +22,7 @@ router.get("/forgotPassword", userController.forgotGetPage);
 router.get("/loginOtp", userController.loginWithOtpGetPage);
 router.get("/shop", userController.shopGetPage);
 router.get("/products", userController.singleProductGetPage);
+router.get("/wishlist",verifyToken,userController.getWishlist)
 router.get("/cart",verifyToken,userController.getCart)
 router.get("/checkout",verifyToken,userController.checkoutpage)
 router.get("/products/:category",userController.getProductsByCategory)
@@ -37,6 +38,7 @@ router.post("/forgotPassword", userController.forgotEmailPostPage);
 router.post("/resetPassword", userController.resetPassword);
 router.post("/loginOtp", userController.loginRequestOTP);
 router.post("/loginOtpDone", userController.loginVerifyOTP);
+router.post("/products/addToWishlist",userController.addToWishlist)
 router.post("/cart/add-to-cart",userController.addToCart)
 router.post("/cart/update-quantity",verifyToken,userController.updateCartQuantity)
 router.post("/add-address",verifyToken,userController.addAddress)
@@ -50,6 +52,7 @@ router.post("/apply-coupon",verifyToken,userController.applyCoupon)
 
 router.put("/update-address/:id",verifyToken,userController.editAddress)
 
+router.delete("/wishlist/remove/:productId",verifyToken,userController.removeFromWishlist)
 router.delete("/cart/:productId",verifyToken,userController.removeProductCart)
 router.delete("/delete-address/:addressId",verifyToken,userController.deleteAddress)
 
