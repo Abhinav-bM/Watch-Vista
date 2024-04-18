@@ -201,24 +201,41 @@ let addProduct = async (req, res) => {
 
 // ADD PRODUCT POST PAGE
 let addProductpost = async (req, res) => {
+  const {
+    productName,
+    productBrand,
+    productColor,
+    productSize,
+    productQuantity,
+    productPrice,
+    productMRP,
+    productDiscount,
+    productCategory,
+    productSubcategory,
+    productDescription,
+    croppedMainImage,
+  } = req.body;
+  console.log("Image datas :", req.body);
   try {
     let { email } = req.user;
-    let imageData = req.files;
+
     let productData = req.body;
 
     let vendor = await Vendor.findOne({ email });
 
-    const imageUrls = [];
+    ;
 
-    if (productData) {
-      for (const file of imageData) {
-        const result = await cloudinary.uploader.upload(file.path);
-        imageUrls.push(result.secure_url);
-      }
-    } else {
-      console.log("No product data found");
-    }
+    // if (productData) {
+    //   for (const file of imageData) {
+    //     const result = await cloudinary.uploader.upload(file.path);
+    //     imageUrls.push(result.secure_url);
+    //   }
+    // } else {
+    //   console.log("No product data found");
+    // }
+    const mainImage = await cloudinary.uploader.upload(croppedMainImage);
 
+    const imageUrls = [mainImage.secure_url]
     // Create a new Product instance with uploaded image URLs
     const newProduct = {
       productName: req.body.productName,
@@ -530,7 +547,6 @@ let vendorProfile = async (req, res) => {
     res.status(200).render("vendor/vendor-profile", { vendor });
   } catch (error) {}
 };
-
 
 // SALES REPORT EXCEL
 let salesExcel = async (req, res) => {

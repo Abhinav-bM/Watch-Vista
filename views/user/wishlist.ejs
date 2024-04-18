@@ -2,16 +2,16 @@
 <html class="no-js" lang="">
 
 
-<!-- Mirrored from wphix.com/template/mazia/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:39 GMT -->
+<!-- Mirrored from wphix.com/template/mazia//wishlist by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:39 GMT -->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Mazia - Clean Minimal eCommerce HTML5 Template</title>
+    <title>Wishlist♡</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="manifest" href="site.html">
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
@@ -184,8 +184,8 @@
                             <tbody>
                                 <% wishlistProducts?.forEach(product => { %>
                                 <tr id="wishlistItem-<%= product._id %>">
-                                    <td class="product-thumbnail"><a href=""><img src="<%= product.images[0] %>"alt=""></a></td>
-                                    <td class="product-name"><a href=""><%= product.name %></a></td>
+                                    <td class="product-thumbnail"><a href="/products?productId=<%= product._id %>"><img src="<%= product.images[0] %>"alt=""></a></td>
+                                    <td class="product-name"><a href="/products?productId=<%= product._id %>"><%= product.name %></a></td>
                                     <td class="product-price"><span class="amount"><%= product.price %></span></td>
                                     <td class="">
                                         <button class="button" type="button" onclick="addToCart('<%= product._id %>')" id="addToCartBtn">Add To Cart</button>
@@ -324,7 +324,7 @@
                                                 <li><a href="login.html">My account</a></li>
                                                 <li><a href="checkout.html">Checkout</a></li>
                                                 <li><a href="shop2.html">Shop</a></li>
-                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                <li><a href="/wishlist">Wishlist</a></li>
                                                 <li><a href="question.html">Frequently</a></li>
                                             </ul>
                                         </div>
@@ -510,6 +510,7 @@
                         duration: 2000,
                         gravity: "top",
                         position: "right",
+                        backgroundColor: "black",
                     }).showToast();
                 }
             })
@@ -569,5 +570,5 @@
 </body>
 
 
-<!-- Mirrored from wphix.com/template/mazia/wishlist.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:40 GMT -->
+<!-- Mirrored from wphix.com/template/mazia//wishlist by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:40 GMT -->
 </html>

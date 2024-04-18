@@ -14,10 +14,8 @@ const categorySchema = new mongoose.Schema({
 const couponSchema = new mongoose.Schema({
   couponCode :  {type:String},
   couponStatus :{type:String},
-  couponLimit :{type : Number},
   couponType:{type:String},
   discountValue :{type:Number},
-  startDate:{type:Date},
   endDate:{type:Date}
 })
 

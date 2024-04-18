@@ -28,9 +28,13 @@
 
     <!-- Include Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Include Cropper.js CSS and JavaScript -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-    
+        
+    <!-- Include Cropper.js library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+   
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         /* Add your CSS styles here */
@@ -348,8 +352,7 @@
 
 <!-- Body: Body --><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
 <h2 class="text-uppercase fw-bold px-3">Add New Product</h2><br>
-  <form class="needs-validation" action="/vendor/addProduct" method="POST" enctype="multipart/form-data">
-
+  <form class="needs-validation" name="myForm" action="/vendor/addProduct" method="POST" enctype="multipart/form-data">
 
     <div class="">   
         <div class="form-group px-3">
@@ -418,14 +421,52 @@
       <textarea id="productDescription" name="productDescription" rows="5" required></textarea>
     </div>
 
-    <div class="form-group images px-3">
+    <!-- <div class="form-group images px-3">
       <label for="productImages">Product Images :</label><br>
       <input type="file" id="productImages" name="productImages" multiple>
       <div id="previewContainer"></div>
-    </div>
+    </div> -->
+
+    <div class=" mb-3">
+        <label for="mainImage">Main image</label>
+        <input type="file" class="form-control" id="mainImage" name="mainImage">
+      </div>
+      <div class="mb-3 col-4">
+        <div id="imageContainer">
+          <img id="croppedMainImage" hidden name="croppedMainImage" src="#" alt="Cropped Image">
+        </div>
+      </div>
+      <div class=" mb-3">
+        <label for="secondImage">Second image</label>
+        <input type="file" class="form-control" id="secondImage" name="secondImage">
+      </div>
+      <div class="mb-3 col-4">
+        <div id="secondImageContainer">
+          <img id="croppedSecondImage" hidden name="croppedSecondImage" src="#" alt="Cropped Image">
+        </div>
+      </div>
+      <div class=" mb-3">
+        <label for="thirdImage">Third image</label>
+        <input type="file" class="form-control" id="thirdImage" name="thirdImage">
+      </div>
+      <div class="mb-3 col-4">
+        <div id="thirdImageContainer">
+          <img id="croppedThirdImage" hidden name="croppedThirdImage" src="#" alt="Cropped Image">
+        </div>
+      </div>
+      <div class=" mb-3">
+        <label for="fourthImage">Fourth image</label>
+        <input type="file" class="form-control" id="fourthImage" name="fourthImage">
+      </div>
+      <div class="mb-3 col-4">
+        <div id="fourthImageContainer">
+          <img id="croppedFourthImage" hidden name="croppedFourthImage" src="#" alt="Cropped Image">
+        </div>
+      </div>
 
     <div class="px-3">
-        <input type="submit" value="Add Product" class="btn-submit ">
+        <!-- <input  value="Add Product" class="btn-submit "> -->
+        <button type="submit" class="btn btn-primary">Add Product</button>
     </div>
   </form><br>
 
@@ -437,7 +478,54 @@
     <!-- Include Cropper.js JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mainImage = document.getElementById("mainImage");
+            const croppedMainImage = document.getElementById("croppedMainImage");
+            let cropperMain;
     
+            mainImage.addEventListener("change", function (e) {
+                const file = e.target.files[0];
+    
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        croppedMainImage.src = e.target.result;
+                        cropperMain = new Cropper(croppedMainImage, {
+                            aspectRatio: 1, 
+                            viewMode: 2,
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+    
+            const myForm = document.forms.myForm;
+    
+            myForm.addEventListener("submit", function (e) {
+                e.preventDefault();
+    
+                const croppedCanvas = cropperMain.getCroppedCanvas();
+    
+                if (!croppedCanvas) {
+                    alert("Please crop the main image before submitting.");
+                    return;
+                }
+    
+                const croppedDataUrl = croppedCanvas.toDataURL("image/jpeg");
+    
+                const croppedImageInput = document.createElement("input");
+                croppedImageInput.type = "hidden";
+                croppedImageInput.name = "croppedMainImage";
+                croppedImageInput.value = croppedDataUrl;
+                myForm.appendChild(croppedImageInput);
+    
+                myForm.submit();
+            });
+        });
+    </script>
+    <!-- <script src="/js/cropper.js"></script> -->
+
   <script>
 
     function getSubcategory() {
@@ -475,32 +563,30 @@
     document.addEventListener('DOMContentLoaded', () => {
         getSubcategory();
     });
-
-    //////////////////////////////////////////////////////////
     
   </script>
 
 <script>
-    function previewImages(event) {
-      var preview = document.getElementById('preview');
-      preview.innerHTML = '';
+    // function previewImages(event) {
+    //   var preview = document.getElementById('preview');
+    //   preview.innerHTML = '';
       
-      var files = event.target.files;
+    //   var files = event.target.files;
 
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        var reader = new FileReader();
+    //   for (var i = 0; i < files.length; i++) {
+    //     var file = files[i];
+    //     var reader = new FileReader();
 
-        reader.onload = function(e) {
-          var img = document.createElement('img');
-          img.className = 'preview-image';
-          img.src = e.target.result;
-          preview.appendChild(img);
-        }
+    //     reader.onload = function(e) {
+    //       var img = document.createElement('img');
+    //       img.className = 'preview-image';
+    //       img.src = e.target.result;
+    //       preview.appendChild(img);
+    //     }
 
-        reader.readAsDataURL(file);
-      }
-    }
+    //     reader.readAsDataURL(file);
+    //   }
+    // }
   </script>
 
   

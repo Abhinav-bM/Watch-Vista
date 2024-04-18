@@ -1617,7 +1617,8 @@ let applyCoupon = async (req, res) => {
 
     console.log(coupon);
 
-    if (!coupon || coupon.couponStatus === "InActive") {
+    const currentDate = new Date();
+    if (!coupon || coupon.couponStatus === "InActive" || coupon.endDate < currentDate) {
       return res.status(400).json({ message: "Invalid Coupon" });
     }
 

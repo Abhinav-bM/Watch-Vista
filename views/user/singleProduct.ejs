@@ -284,7 +284,7 @@
                                       
 
                                         
-                                        <button type="button" id="addToCartBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 20px; padding-right: 20px; transition: all .5s;">
+                                        <button type="button" onclick="addToCart('<%= products._id %>')" id="addToCartBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 20px; padding-right: 20px; transition: all .5s;">
                                             Add to Cart
                                         </button>
                                         
@@ -293,15 +293,6 @@
                                             <a href="/buyNow/checkout/<%= products._id %>" class="text-light" > Buy Now</a>
                                         </button> -->
                                         
-                                            
-                                        
-
-                                        <!-------------ADDED TO CART-------------->
-                                        <div id="toastNotification" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="500">
-                                            <div class="toast-body">
-                                            Product added to cart!
-                                            </div>
-                                        </div>
                                         
 
                                         </div>
@@ -831,23 +822,21 @@
             })
             .then(function (response) {
                 console.log("rrspnse :", response);
-
+                
                 if(response.status === 200){
-                       // Show the toast when product is added
-                    const toast = document.getElementById('toastNotification');
-                    toast.classList.add('show');
-
-                    // Hide the toast after 0.5 seconds
-                    setTimeout(function () {
-                        toast.classList.remove('show');
-                    }, 2000);
+                    Toastify({
+                        text: "Product Added to cart",
+                        duration: 2000,
+                        gravity: "top",
+                        position: "right",
+                    }).showToast();
                 }
             })
             .catch(function (error) {
                 if(error.response.status === 404){
                     Toastify({
                         text: "Try, After login",
-                        duration: 4000,
+                        duration: 2000,
                         gravity: "top",
                         position: "right",
                         backgroundColor: "red",
@@ -855,24 +844,14 @@
                 }else{
                     Toastify({
                         text: "An error occurred. Try again",
-                        duration: 4000,
+                        duration: 2000,
                         gravity: "top",
                         position: "right",
                         backgroundColor: "red",
                     }).showToast();
                 }
-              
             });
         }
-    
-        // Get the product ID from the button's data attribute
-        const addToCartBtn = document.getElementById('addToCartBtn');
-    
-        addToCartBtn.addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent default button behavior
-            const productId = this.getAttribute('data-product-id');
-            addToCart(productId);
-        });
     </script>
 
 

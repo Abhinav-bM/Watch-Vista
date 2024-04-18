@@ -433,7 +433,6 @@ let couponAddPost = async (req, res) => {
     couponStatus,
     couponType,
     discountValue,
-    startDate,
     endDate,
   } = req.body;
   try {
@@ -443,7 +442,6 @@ let couponAddPost = async (req, res) => {
       couponStatus,
       couponType,
       discountValue,
-      startDate,
       endDate,
     };
     admin.coupons.push(coupon);
