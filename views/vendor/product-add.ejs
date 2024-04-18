@@ -421,11 +421,6 @@
       <textarea id="productDescription" name="productDescription" rows="5" required></textarea>
     </div>
 
-    <!-- <div class="form-group images px-3">
-      <label for="productImages">Product Images :</label><br>
-      <input type="file" id="productImages" name="productImages" multiple>
-      <div id="previewContainer"></div>
-    </div> -->
 
     <div class=" mb-3">
         <label for="mainImage">Main image</label>
@@ -499,31 +494,116 @@
                     reader.readAsDataURL(file);
                 }
             });
+
+            const secondImage = document.getElementById('secondImage')
+            const croppedSecondImage = document.getElementById("croppedSecondImage")
+            let cropperSecond;
+
+            secondImage.addEventListener("change", function (e) {
+                const file = e.target.files[0];
     
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        croppedSecondImage.src = e.target.result;
+                        cropperSecond = new Cropper(croppedSecondImage, {
+                            aspectRatio: 1, 
+                            viewMode: 2,
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+
+            const thirdImage = document.getElementById('thirdImage')
+            const croppedThirdImage = document.getElementById("croppedThirdImage")
+            let cropperThird;
+
+            thirdImage.addEventListener("change", function (e) {
+                const file = e.target.files[0];
+    
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        croppedThirdImage.src = e.target.result;
+                        cropperThird = new Cropper(croppedThirdImage, {
+                            aspectRatio: 1, 
+                            viewMode: 2,
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            const FourthImage = document.getElementById('fourthImage')
+            const croppedFourthImage = document.getElementById("croppedFourthImage")
+            let cropperFourth;
+
+            FourthImage.addEventListener("change", function (e) {
+                const file = e.target.files[0];
+    
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        croppedFourthImage.src = e.target.result;
+                        cropperFourth = new Cropper(croppedFourthImage, {
+                            aspectRatio: 1, 
+                            viewMode: 2,
+                        });
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+    
+            // Form submission
             const myForm = document.forms.myForm;
-    
             myForm.addEventListener("submit", function (e) {
                 e.preventDefault();
-    
-                const croppedCanvas = cropperMain.getCroppedCanvas();
-    
-                if (!croppedCanvas) {
-                    alert("Please crop the main image before submitting.");
-                    return;
-                }
-    
-                const croppedDataUrl = croppedCanvas.toDataURL("image/jpeg");
-    
-                const croppedImageInput = document.createElement("input");
-                croppedImageInput.type = "hidden";
-                croppedImageInput.name = "croppedMainImage";
-                croppedImageInput.value = croppedDataUrl;
-                myForm.appendChild(croppedImageInput);
-    
+
+                // Main image
+                const croppedCanvasMain = cropperMain.getCroppedCanvas();
+                const croppedDataUrlMain = croppedCanvasMain.toDataURL("image/jpeg");
+                const croppedImageInputMain = document.createElement("input");
+                croppedImageInputMain.type = "hidden";
+                croppedImageInputMain.name = "croppedMainImage";
+                croppedImageInputMain.value = croppedDataUrlMain;
+                myForm.appendChild(croppedImageInputMain);
+
+                // Second image
+                const croppedCanvasSecond = cropperSecond.getCroppedCanvas();
+                const croppedDataUrlSecond = croppedCanvasSecond.toDataURL("image/jpeg");
+                const croppedImageInputSecond = document.createElement("input");
+                croppedImageInputSecond.type = "hidden";
+                croppedImageInputSecond.name = "croppedSecondImage";
+                croppedImageInputSecond.value = croppedDataUrlSecond;
+                myForm.appendChild(croppedImageInputSecond);
+
+                // Third image
+                const croppedCanvasThird = cropperThird.getCroppedCanvas();
+                const croppedDataUrlThird = croppedCanvasThird.toDataURL("image/jpeg");
+                const croppedImageInputThird = document.createElement("input");
+                croppedImageInputThird.type = "hidden";
+                croppedImageInputThird.name = "croppedThirdImage";
+                croppedImageInputThird.value = croppedDataUrlThird;
+                myForm.appendChild(croppedImageInputThird);
+
+                // Fourth image
+                const croppedCanvasFourth = cropperFourth.getCroppedCanvas();
+                const croppedDataUrlFourth = croppedCanvasFourth.toDataURL("image/jpeg");
+                const croppedImageInputFourth = document.createElement("input");
+                croppedImageInputFourth.type = "hidden";
+                croppedImageInputFourth.name = "croppedFourthImage";
+                croppedImageInputFourth.value = croppedDataUrlFourth;
+                myForm.appendChild(croppedImageInputFourth);
+
                 myForm.submit();
             });
         });
     </script>
+    
+    
     <!-- <script src="/js/cropper.js"></script> -->
 
   <script>

@@ -548,7 +548,7 @@
           axios.get(`/products/${category}`)
             .then(response => {
                 console.log(response)
-              displayProducts(response.data.filteredProducts);
+              displayProducts(response.data.filteredProducts, response.data.user);
             })
             .catch(error => {
               console.error(error);
@@ -565,8 +565,8 @@
             console.log("selected option : ",selectedOption)
             axios.get(`/products/sort/${selectedOption}`)
             .then(response => {
-                console.log(response)
-              displayProducts(response.data.allProducts);
+                console.log("lkjeflskdj :",response)
+              displayProducts(response.data.allProducts,response.data.user);
             })
             .catch(error => {
               console.error(error);
@@ -580,7 +580,7 @@
             axios.get(`/products/search/${inputValue}`)
             .then(response => {
                 console.log(response)
-              displayProducts(response.data.filteredProducts);
+              displayProducts(response.data.filteredProducts, response.data.user);
               document.getElementById("searchInput").value = "";
               
             })
@@ -591,37 +591,94 @@
         });
       
         // Function to display products on the page
-        function displayProducts(products) {
-          const productDisplay = document.getElementById('productDisplay');
-          productDisplay.innerHTML = ''; // Clear existing products
-      
-          products.forEach(product => {
-            const productHTML = `
-              <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                <div class="product-box mb-40">
-                  <div class="product-box-wrapper">
-                    <div class="product-img">
-                      <img src="${product.productImages[0]}" class="w-100" alt="${product.productName}">
-                    </div>
-                    <div class="product-desc pb-20">
-                      <div class="product-desc-top">
-                        <div class="categories">
-                          <a href="/products?productId=${product._id}" class="product-category"><span>${product.productCategory}</span></a>
-                        </div>
-                        <a href="" class="wishlist float-right"><span><i class="fal fa-heart"></i></span></a>
-                      </div>
-                      <a href="/products?productId=${product._id}" class="product-title">${product.productName}</a>
-                      <div class="price-switcher">
-                        <span class="price switcher-item">₹ ${product.productPrice}</span>
-                        <a href="cart.html" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `;
-            productDisplay.innerHTML += productHTML;
-          });
+        function displayProducts(products, user) {
+            const productDisplay = document.getElementById('productDisplay');
+            productDisplay.innerHTML = ''; // Clear existing products
+
+            products.forEach(product => {
+                // Create elements for product components
+                const productDiv = document.createElement('div');
+                productDiv.classList.add('col-xl-3', 'col-lg-3', 'col-md-4', 'col-sm-6', 'col-12');
+
+                const productBox = document.createElement('div');
+                productBox.classList.add('product-box', 'mb-40');
+
+                const productBoxWrapper = document.createElement('div');
+                productBoxWrapper.classList.add('product-box-wrapper');
+
+                const productImg = document.createElement('div');
+                productImg.classList.add('product-img');
+                const img = document.createElement('img');
+                img.src = product.productImages[0];
+                img.classList.add('w-100');
+                img.alt = product.productName;
+                productImg.appendChild(img);
+
+                const productDesc = document.createElement('div');
+                productDesc.classList.add('product-desc', 'pb-20');
+
+                const productDescTop = document.createElement('div');
+                productDescTop.classList.add('product-desc-top');
+
+                const categories = document.createElement('div');
+                categories.classList.add('categories');
+                const categoryLink = document.createElement('a');
+                categoryLink.href = `/products?productId=${product._id}`;
+                categoryLink.classList.add('product-category');
+                const categorySpan = document.createElement('span');
+                categorySpan.textContent = product.productCategory;
+                categoryLink.appendChild(categorySpan);
+                categories.appendChild(categoryLink);
+
+                const wishlistButton = document.createElement('button');
+                wishlistButton.classList.add('btn', 'btn-link');
+                wishlistButton.onclick = function() {
+                addToWishlist(event, product._id);
+                };
+                const wishlistDiv = document.createElement('div');
+                wishlistDiv.classList.add('wishlist', 'float-right');
+                const wishlistIcon = document.createElement('i');
+                wishlistIcon.id = `heartIcon-${product._id}`;
+                wishlistIcon.classList.add('fal', 'fa-heart', 'fa-lg');
+                wishlistDiv.appendChild(wishlistIcon);
+                wishlistButton.appendChild(wishlistDiv);
+
+                const productTitle = document.createElement('a');
+                productTitle.href = `/products?productId=${product._id}`;
+                productTitle.classList.add('product-title');
+                productTitle.textContent = product.productName;
+
+                const priceSwitcher = document.createElement('div');
+                priceSwitcher.classList.add('price-switcher');
+                const priceSpan1 = document.createElement('span');
+                priceSpan1.classList.add('price', 'switcher-item');
+                priceSpan1.textContent = `₹ ${product.productPrice}`;
+                const priceSpan2 = document.createElement('span');
+                priceSpan2.classList.add('price', 'switcher-item');
+                priceSpan2.textContent = `₹ ${product.productPrice}`;
+
+                // Assemble the product components
+                productDescTop.appendChild(categories);
+                productDescTop.appendChild(wishlistButton);
+                productDesc.appendChild(productDescTop);
+                productDesc.appendChild(productTitle);
+                priceSwitcher.appendChild(priceSpan1);
+                priceSwitcher.appendChild(priceSpan2);
+                productDesc.appendChild(priceSwitcher);
+
+                productBoxWrapper.appendChild(productImg);
+                productBoxWrapper.appendChild(productDesc);
+                productBox.appendChild(productBoxWrapper);
+                productDiv.appendChild(productBox);
+
+                // Append the product to the display container
+                productDisplay.appendChild(productDiv);
+
+                // Toggle heart icon based on wishlist status
+                if (user && user.wishlist.products.some(wProduct => wProduct.productId.toString() === product._id.toString())) {
+                    wishlistIcon.classList.add('text-danger');
+                }
+            });
         }
     </script>
 
@@ -741,7 +798,7 @@
                     if(error.response.data.error === "User not found"){
                         Toastify({
                             text: "Please login for wishlisting a product",
-                            duration: 2000,
+                            duration: 3000,
                             gravity: "top",
                             position: "right",
                             // backgroundColor: "black",

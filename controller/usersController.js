@@ -525,6 +525,7 @@ let shopGetPage = async (req, res) => {
 // PRDUCTS BASED ON CATEGORY
 let getProductsByCategory = async (req, res) => {
   const { category } = req.params;
+  const token = req.cookies.jwt;
 
   try {
     let vendorProducts = await Vendor.find().select("products");
@@ -534,10 +535,14 @@ let getProductsByCategory = async (req, res) => {
     let filteredProducts = allProducts.filter(
       (product) => product.productCategory === category
     );
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      const userId = decoded.id;
+      user = await User.findById(userId);
+    }
 
-    console.log(filteredProducts);
 
-    res.status(200).json({ message: "product filtered", filteredProducts });
+    res.status(200).json({ message: "product filtered", filteredProducts, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -546,12 +551,19 @@ let getProductsByCategory = async (req, res) => {
 
 // GET PRODUCTS BY SORT
 let getProductBySort = async (req, res) => {
+  const token = req.cookies.jwt;
   const { option } = req.params;
   try {
     let vendorProducts = await Vendor.find().select("products");
 
     let allProducts = vendorProducts.map((vendor) => vendor.products).flat();
 
+    let user;
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      const userId = decoded.id;
+      user = await User.findById(userId);
+    }
     switch (option) {
       case "latest":
         allProducts.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -567,7 +579,7 @@ let getProductBySort = async (req, res) => {
         break;
     }
 
-    res.status(200).json({ message: "product filtered", allProducts });
+    res.status(200).json({ message: "product filtered", allProducts,user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -576,6 +588,7 @@ let getProductBySort = async (req, res) => {
 
 // GET PRODUCTS BY SEARCH
 let getSearchProduct = async (req, res) => {
+  const token = req.cookies.jwt;
   const searchTerm = req.params.inputValue;
   try {
     const vendorProducts = await Vendor.find().select("products");
@@ -592,7 +605,14 @@ let getSearchProduct = async (req, res) => {
           .includes(searchTerm.trim().toLowerCase())
     );
 
-    res.status(200).json({ message: "product filtered", filteredProducts });
+    let user;
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      const userId = decoded.id;
+      user = await User.findById(userId);
+    }
+
+    res.status(200).json({ message: "product filtered", filteredProducts, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });

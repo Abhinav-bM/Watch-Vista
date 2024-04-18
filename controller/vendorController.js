@@ -202,18 +202,10 @@ let addProduct = async (req, res) => {
 // ADD PRODUCT POST PAGE
 let addProductpost = async (req, res) => {
   const {
-    productName,
-    productBrand,
-    productColor,
-    productSize,
-    productQuantity,
-    productPrice,
-    productMRP,
-    productDiscount,
-    productCategory,
-    productSubcategory,
-    productDescription,
     croppedMainImage,
+    croppedSecondImage,
+    croppedThirdImage,
+    croppedFourthImage,
   } = req.body;
   console.log("Image datas :", req.body);
   try {
@@ -223,19 +215,17 @@ let addProductpost = async (req, res) => {
 
     let vendor = await Vendor.findOne({ email });
 
-    ;
-
-    // if (productData) {
-    //   for (const file of imageData) {
-    //     const result = await cloudinary.uploader.upload(file.path);
-    //     imageUrls.push(result.secure_url);
-    //   }
-    // } else {
-    //   console.log("No product data found");
-    // }
     const mainImage = await cloudinary.uploader.upload(croppedMainImage);
+    const secondImage = await cloudinary.uploader.upload(croppedSecondImage);
+    const thirdImage = await cloudinary.uploader.upload(croppedThirdImage);
+    const fourthImage = await cloudinary.uploader.upload(croppedFourthImage);
 
-    const imageUrls = [mainImage.secure_url]
+    const imageUrls = [
+      mainImage.secure_url,
+      secondImage.secure_url,
+      thirdImage.secure_url,
+      fourthImage.secure_url,
+    ];
     // Create a new Product instance with uploaded image URLs
     const newProduct = {
       productName: req.body.productName,
