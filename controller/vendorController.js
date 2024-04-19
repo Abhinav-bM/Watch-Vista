@@ -137,7 +137,7 @@ let vendorLoginPostPage = async (req, res) => {
   try {
     const vendor = await Vendor.findOne({ email: req.body.email });
 
-    if (vendor.status) {
+    if (vendor?.status) {
       return res.render("vendor/vendorLogin", {
         error: "you are restricted by admin",
       });
@@ -611,6 +611,15 @@ let salesExcel = async (req, res) => {
   }
 };
 
+// RETURN AND REPAYMENT GET PAGE
+let returnRepaymentGetPage = async (req,res)=>{
+  try {
+      res.status(200).render("vendor/return-repayment")
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 module.exports = {
   loginGetPage,
   registerGetPage,
@@ -631,4 +640,5 @@ module.exports = {
   updateOrderStatus,
   vendorProfile,
   salesExcel,
+  returnRepaymentGetPage,
 };

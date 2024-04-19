@@ -96,6 +96,37 @@
         iframe[sandbox] .read-article{
             display: none;
         }
+
+        .bankDetails {
+            display: none;
+        }
+
+        #option1:checked + label + .bankDetails {
+            display: block;
+        }
+
+        /* style for return area */
+        .bankDetails {
+            display: none;
+            margin-top: 10px;
+        }
+        .bankDetails label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .bankDetails input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .bankDetails p {
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
     </style>
 </head>
 
@@ -193,359 +224,410 @@
     <main class="main-content" >
         <!--== Start My Account Wrapper ==-->
         <section class="my-account-area">
-        <div class="container pt--0 pb--0">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="myaccount-page-wrapper">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-4">
-                                    <nav>
-                                        <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
-                                            <button class="nav-link active"id="dashboad-tab" data-bs-toggle="tab"  data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">
-                                                Personal Information
-                                            </button>
-                                            <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false">
-                                                Orders
-                                            </button>
-                                            <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">
-                                                address
-                                            </button>
-                                            <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">
-                                                Change Password
-                                            </button>
-                                            <button class="nav-link" onclick="window.location.href = '/user/logout'" type="button">
-                                                Logout
-                                            </button>
+            <div class="container pt--0 pb--0">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="myaccount-page-wrapper">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-4">
+                                        <nav>
+                                            <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
+                                                <button class="nav-link active"id="dashboad-tab" data-bs-toggle="tab"  data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">
+                                                    Personal Information
+                                                </button>
+                                                <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false">
+                                                    Orders
+                                                </button>
+                                                <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">
+                                                    address
+                                                </button>
+                                                <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">
+                                                    Change Password
+                                                </button>
+                                                <button class="nav-link" onclick="window.location.href = '/user/logout'" type="button">
+                                                    Logout
+                                                </button>
 
-                                        </div>
-                                    </nav>
-                                </div>  
-                                <div class="col-lg-7 col-md-8">
-                                    <div class="tab-content" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="dashboad" role="tabpanel" aria-labelledby="dashboad-tab">
-                                            <div class="myaccount-content">
-                                                <div class="welcome d-flex justify-content-between">
-                                                    <h3>Hello, <span id="userName"><%= user.name %></span> </h3>
-                                                    <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
-                                                </div>
-                                                <p><strong>phone : <%= user.phoneNumber %></strong></p>
-                                                <p><strong>Email : <%= user.email %></strong></p><br>
-                                                <p>From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
-                                                <p></p>
                                             </div>
-                                        </div>
-
-                                        <!-- modal for details edit -->
-                                        <div class="modal" id="editModal">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title">Edit Details</h5>
-                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </nav>
+                                    </div>  
+                                    <div class="col-lg-7 col-md-8">
+                                        <div class="tab-content" id="nav-tabContent">
+                                            <div class="tab-pane fade show active" id="dashboad" role="tabpanel" aria-labelledby="dashboad-tab">
+                                                <div class="myaccount-content">
+                                                    <div class="welcome d-flex justify-content-between">
+                                                        <h3>Hello, <span id="userName"><%= user.name %></span> </h3>
+                                                        <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
                                                     </div>
-                                                    <div class="modal-body">
-                                                        <form id="editForm" >
-                                                            <div class="form-group">
-                                                                <label for="newName">Name:</label>
-                                                                <input type="text" class="form-control" id="newName" value="<%= user.name %>" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="newEmail">Email:</label>
-                                                                <input type="text" class="form-control" id="newEmail" value="<%= user.email %>" required>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <label for="newPhone">Phone:</label>
-                                                                <input type="text" class="form-control" id="newPhone" value="<%= user.phoneNumber %>" required>
-                                                            </div>
-                                                            <button type="button" onclick="submitUserEditForm(event)" class="btn btn-dark">Save Changes</button>
-                                                        </form>
-                                                    </div>
+                                                    <p><strong>phone : <%= user.phoneNumber %></strong></p>
+                                                    <p><strong>Email : <%= user.email %></strong></p><br>
+                                                    <p>From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
+                                                    <p></p>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
-                                            <div class="myaccount-content">
+                                            <!-- modal for details edit -->
+                                            <div class="modal" id="editModal">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Edit Details</h5>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form id="editForm" >
+                                                                <div class="form-group">
+                                                                    <label for="newName">Name:</label>
+                                                                    <input type="text" class="form-control" id="newName" value="<%= user.name %>" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="newEmail">Email:</label>
+                                                                    <input type="text" class="form-control" id="newEmail" value="<%= user.email %>" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="newPhone">Phone:</label>
+                                                                    <input type="text" class="form-control" id="newPhone" value="<%= user.phoneNumber %>" required>
+                                                                </div>
+                                                                <button type="button" onclick="submitUserEditForm(event)" class="btn btn-dark">Save Changes</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
+                                                <div class="myaccount-content">
+                                                    
+                                                    <!-- Button trigger modal -->
+                                                    <div class="d-flex justify-content-between">
+                                                        <h3>Addresses</h3>
+                                                        <button type="button" class="text-center" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: auto; height: 30px; border-radius: 5px; border: 2px;" >
+                                                            Add new address
+                                                        </button>
+                                                    </div>
                                                 
-                                                <!-- Button trigger modal -->
-                                                <div class="d-flex justify-content-between">
-                                                    <h3>Addresses</h3>
-                                                    <button type="button" class="text-center" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: auto; height: 30px; border-radius: 5px; border: 2px;" >
-                                                        Add new address
-                                                    </button>
-                                                </div>
-                                            
-                                               
-                                                <div class="" style="height: 300px; overflow-y: auto;">
-                                                    <div id="addressList">
-                                                        <!-- Checkbox for Delivery Address -->
-                                                        <% addresses.forEach(address => { %>
-                                                        <div class="my-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
-                                                            <div>
-                                                                <p class="m-0"><strong><%= address.name %></strong></p>
-                                                                <p class="m-0"><%= address.address %></p>
-                                                                <p class="m-0"><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
-                                                                <p class="m-0"><%= address.email %> , <%= address.phone %></p>
-                                                            </div>
+                                                
+                                                    <div class="" style="height: 300px; overflow-y: auto;">
+                                                        <div id="addressList">
+                                                            <!-- Checkbox for Delivery Address -->
+                                                            <% addresses.forEach(address => { %>
+                                                            <div class="my-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
+                                                                <div>
+                                                                    <p class="m-0"><strong><%= address.name %></strong></p>
+                                                                    <p class="m-0"><%= address.address %></p>
+                                                                    <p class="m-0"><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
+                                                                    <p class="m-0"><%= address.email %> , <%= address.phone %></p>
+                                                                </div>
 
-                                                            <!-- Edit and Delete Buttons -->
-                                                            <div class="mt-3 ">
-                                                                <button type="button" class="btn btn-sm border edit-address-btn"  data-address-id="<%= address._id %>" >
-                                                                    <i class="fas fa-edit text-success"></i>
-                                                                </button>
-                                                                <button type="button" class="btn btn-sm border ml-2 delete-address-btn" data-address-id="<%= address._id %>">
-                                                                    <i class="fas fa-trash text-danger"></i> 
-                                                                </button>
+                                                                <!-- Edit and Delete Buttons -->
+                                                                <div class="mt-3 ">
+                                                                    <button type="button" class="btn btn-sm border edit-address-btn"  data-address-id="<%= address._id %>" >
+                                                                        <i class="fas fa-edit text-success"></i>
+                                                                    </button>
+                                                                    <button type="button" class="btn btn-sm border ml-2 delete-address-btn" data-address-id="<%= address._id %>">
+                                                                        <i class="fas fa-trash text-danger"></i> 
+                                                                    </button>
+                                                                </div>
                                                             </div>
+                                                            <% }) %>
                                                         </div>
-                                                        <% }) %>
+                                                    
                                                     </div>
-                                                 
-                                                </div>
 
-                                                <!-- Modal for add address -->
-                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                            <h5 class="modal-title">New Address</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form id="addressForm" class="row g-3 needs-validation" onsubmit="return addressSubmission(event)" novalidate>
-                                                                    <div class="col-12 p-2">
-                                                                        <label for="name" class="form-label">Name</label>
-                                                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter your name.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-12 p-2">
-                                                                        <label for="address" class="form-label">Address</label>
-                                                                        <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter your address.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-md-6 p-2">
-                                                                        <label for="district" class="form-label">District</label>
-                                                                        <input type="text" name="district" class="form-control" id="district" placeholder="Town or city" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter your district.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-md-6 p-2">
-                                                                        <label for="state" class="form-label">State</label>
-                                                                        <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter your state.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-md-6 p-2">
-                                                                        <label for="zip" class="form-label">Zip</label>
-                                                                        <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip/Postal" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter a valid zip code.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-md-6 p-2">
-                                                                        <label for="phone" class="form-label">Phone Number</label>
-                                                                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Your Phone" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please provide a valid phone number.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-12 p-2">
-                                                                        <label for="email" class="form-label">Email Address</label>
-                                                                        <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please provide a valid email.
-                                                                        </div> -->
-                                                                    </div>
-
-                                                                    <div class="col-12 pt-3">
-                                                                        <button id="submitAddressBtn" type="submit"  class="btn btn-primary">Submit</button>
-                                                                    </div>
-                                                                </form>
-                                                                   
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- address modal ends here -->
-
-                                                <!-- modal for edit address starts here -->
-                                                <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+                                                    <!-- Modal for add address -->
+                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                <h5 class="modal-title">New Address</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <form id="editAddressForm" class="row g-3" novalidate>
-                                                                    <div class="col-12 p-2">
-                                                                        <label for="editName" class="form-label">Name</label>
-                                                                        <input type="text" name="name" class="form-control" id="nameEdit" placeholder="Your Name" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter your name.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-12 p-2">
-                                                                        <label for="editAddress" class="form-label">Address</label>
-                                                                        <input type="text" name="address" class="form-control" id="addressEdit" placeholder="Enter your address" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter your address.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-md-6 p-2">
-                                                                        <label for="editDistrict" class="form-label">District</label>
-                                                                        <input type="text" name="district" class="form-control" id="districtEdit" placeholder="Town or city" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter your district.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-md-6 p-2">
-                                                                        <label for="editState" class="form-label">State</label>
-                                                                        <input type="text" name="state" class="form-control" id="stateEdit" placeholder="Enter your state" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter your state.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-md-6 p-2">
-                                                                        <label for="editZip" class="form-label">Zip</label>
-                                                                        <input type="text" name="zip" class="form-control" id="zipEdit" placeholder="Zip/Postal" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please enter a valid zip code.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-md-6 p-2">
-                                                                        <label for="editPhone" class="form-label">Phone Number</label>
-                                                                        <input type="number" name="phone" class="form-control" id="phoneEdit" placeholder="Your Phone" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please provide a valid phone number.
-                                                                        </div> -->
-                                                                    </div>
-                                                                    <div class="col-12 p-2">
-                                                                        <label for="editEmail" class="form-label">Email Address</label>
-                                                                        <input type="email" name="email" class="form-control" id="emailEdit" placeholder="Your Email" required>
-                                                                        <!-- <div class="invalid-feedback">
-                                                                            Please provide a valid email.
-                                                                        </div> -->
-                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form id="addressForm" class="row g-3 needs-validation" onsubmit="return addressSubmission(event)" novalidate>
+                                                                        <div class="col-12 p-2">
+                                                                            <label for="name" class="form-label">Name</label>
+                                                                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter your name.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-12 p-2">
+                                                                            <label for="address" class="form-label">Address</label>
+                                                                            <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter your address.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-md-6 p-2">
+                                                                            <label for="district" class="form-label">District</label>
+                                                                            <input type="text" name="district" class="form-control" id="district" placeholder="Town or city" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter your district.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-md-6 p-2">
+                                                                            <label for="state" class="form-label">State</label>
+                                                                            <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter your state.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-md-6 p-2">
+                                                                            <label for="zip" class="form-label">Zip</label>
+                                                                            <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip/Postal" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter a valid zip code.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-md-6 p-2">
+                                                                            <label for="phone" class="form-label">Phone Number</label>
+                                                                            <input type="tel" name="phone" class="form-control" id="phone" placeholder="Your Phone" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please provide a valid phone number.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-12 p-2">
+                                                                            <label for="email" class="form-label">Email Address</label>
+                                                                            <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please provide a valid email.
+                                                                            </div> -->
+                                                                        </div>
 
-                                                                    <div class="col-12 pt-3">
-                                                                        <button type="button" id="updateAddressBtn" class="btn btn-primary">Submit</button>
-                                                                    </div>
-                                                                </form>
-                                                                   
-                                                            </div>
+                                                                        <div class="col-12 pt-3">
+                                                                            <button id="submitAddressBtn" type="submit"  class="btn btn-primary">Submit</button>
+                                                                        </div>
+                                                                    </form>
+                                                                    
+                                                                </div>
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- address modal ends here -->
+
+                                                    <!-- modal for edit address starts here -->
+                                                    <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form id="editAddressForm" class="row g-3" novalidate>
+                                                                        <div class="col-12 p-2">
+                                                                            <label for="editName" class="form-label">Name</label>
+                                                                            <input type="text" name="name" class="form-control" id="nameEdit" placeholder="Your Name" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter your name.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-12 p-2">
+                                                                            <label for="editAddress" class="form-label">Address</label>
+                                                                            <input type="text" name="address" class="form-control" id="addressEdit" placeholder="Enter your address" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter your address.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-md-6 p-2">
+                                                                            <label for="editDistrict" class="form-label">District</label>
+                                                                            <input type="text" name="district" class="form-control" id="districtEdit" placeholder="Town or city" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter your district.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-md-6 p-2">
+                                                                            <label for="editState" class="form-label">State</label>
+                                                                            <input type="text" name="state" class="form-control" id="stateEdit" placeholder="Enter your state" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter your state.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-md-6 p-2">
+                                                                            <label for="editZip" class="form-label">Zip</label>
+                                                                            <input type="text" name="zip" class="form-control" id="zipEdit" placeholder="Zip/Postal" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please enter a valid zip code.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-md-6 p-2">
+                                                                            <label for="editPhone" class="form-label">Phone Number</label>
+                                                                            <input type="number" name="phone" class="form-control" id="phoneEdit" placeholder="Your Phone" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please provide a valid phone number.
+                                                                            </div> -->
+                                                                        </div>
+                                                                        <div class="col-12 p-2">
+                                                                            <label for="editEmail" class="form-label">Email Address</label>
+                                                                            <input type="email" name="email" class="form-control" id="emailEdit" placeholder="Your Email" required>
+                                                                            <!-- <div class="invalid-feedback">
+                                                                                Please provide a valid email.
+                                                                            </div> -->
+                                                                        </div>
+
+                                                                        <div class="col-12 pt-3">
+                                                                            <button type="button" id="updateAddressBtn" class="btn btn-primary">Submit</button>
+                                                                        </div>
+                                                                    </form>
+                                                                    
+                                                                </div>
+
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                        <div class="tab-pane fade" id="account-info" role="tabpanel" aria-labelledby="account-info-tab">
-                                            <div class="myaccount-content">
-                                                <h3>Change Password</h3>
-
-                                                <form action="/change-password" onsubmit="changePassword(event)" class="form-group" >
-                                                    <label for="" class="">Current Password</label><br>
-                                                    <p id="currentPasswordError" style="color: red;"></p>
-                                                    <input id="currentPassword"  type="text" class="form-control" ><br>
-
-                                                    <label  for="" class="">New Password</label><br>
-                                                    <p id="newPasswordError" style="color: red;"></p>
-                                                    <input id="newPassword" type="text" class="form-control" ><br>
-
-                                                    <label for="" class="">Confirm Password</label><br>
-                                                    <p id="confirmPasswordError" style="color: red;"></p>
-                                                    <input id="confirmPassword" type="text" class="form-control" ><br>
-
-                                                    <button type="submit" class="btn btn-dark">Submit</button>
-                                                </form>
-                                                
-                                            </div>
-                                        </div>
-                                        
-
-                                            <div class="tab-pane fade scrollable" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                            <div class="tab-pane fade" id="account-info" role="tabpanel" aria-labelledby="account-info-tab">
                                                 <div class="myaccount-content">
-                                                    <h3>Orders</h3>
+                                                    <h3>Change Password</h3>
+
+                                                    <form action="/change-password" onsubmit="changePassword(event)" class="form-group" >
+                                                        <label for="" class="">Current Password</label><br>
+                                                        <p id="currentPasswordError" style="color: red;"></p>
+                                                        <input id="currentPassword"  type="text" class="form-control" ><br>
+
+                                                        <label  for="" class="">New Password</label><br>
+                                                        <p id="newPasswordError" style="color: red;"></p>
+                                                        <input id="newPassword" type="text" class="form-control" ><br>
+
+                                                        <label for="" class="">Confirm Password</label><br>
+                                                        <p id="confirmPasswordError" style="color: red;"></p>
+                                                        <input id="confirmPassword" type="text" class="form-control" ><br>
+
+                                                        <button type="submit" class="btn btn-dark">Submit</button>
+                                                    </form>
                                                     
-                                                    <% if (user.orders.length > 0) { %>
-                                                    <% cart.forEach((prod) => { %>
-                                                    <div class="myaccount-table table-responsive text-center">
-                                                        <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
-                                                        <div class="d-flex py-2 mb-2 align-items-center rounded " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
+                                                </div>
+                                            </div>
+                                            
 
-                                                            <div class="product col-4">
-                                                            <img src="<%= prod.images[0] %>" alt="" width="150px">
+                                                <div class="tab-pane fade scrollable" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                                    <div class="myaccount-content">
+                                                        <h3>Orders</h3>
+                                                        
+                                                        <% if (user.orders.length > 0) { %>
+                                                        <% cart.forEach((prod) => { %>
+                                                        <div class="myaccount-table table-responsive text-center">
+                                                            <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
+                                                            <div class="d-flex py-2 mb-2 align-items-center rounded " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
 
-                                                            <div class="mt-2">
-                                                                <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled') { %>
-                                                                <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')">Cancel Order</button>
-                                                                <% } else { %>
-                                                                <button class="rounded" disabled>Cancel Order</button>
-                                                                <% } %>
-                                                            </div>
-                                                            </div>
-
-                                                            <div class="d-grid text-start">
-                                                                <h6><%= prod.name %></6>
-                                                                <p class="m-0"><small>Color: <%= prod.color %> & Price:  <%= prod.price %></small></p>
-                                                                <p class="m-0"><small>Size: <%= prod.size %> & Quantity: <%= prod.quantity %></small></p>
-                                                                <p class="m-0"><small>Seller: <%= prod.vendor.vendorName %></small></p>
-                                                                <p class="m-0"><small>Expected Delivery: <%= prod.expectedDeliveryDate %></small></p>
-                                                                <p class="m-0"><small>Order Status: <%= prod.orderStatus %></small></p>
-                                                                <p class="m-0"><small>Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<br><%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></small></p>
-                                                            </div>
-                                                        </div>
-                                                            
-                                                        <!-- MODAL FOR ORDER CANCELLATION -->
-                                                        <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
-                                                            <div class="modal-dialog modal-dialog-centered">
-                                                                <div class="modal-content">
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
-                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <div class="product col-4">
+                                                                    <img src="<%= prod.images[0] %>" alt="" width="150px">
+                                                                    <div class="mt-2">
+                                                                        <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled' && prod.orderStatus !== 'Delivered') { %>
+                                                                            <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')" >Cancel Order</button>
+                                                                        <% } else if(prod.orderStatus === 'Delivered') { %>
+                                                                            <button class="rounded" onclick="openReturnModal('<%= prod.orderId %>', '<%= prod._id %>')">Return</button>
+                                                                        <% } else { %>
+                                                                            <button class="rounded" disabled>Cancel Order</button>
+                                                                        <% } %>
                                                                     </div>
-                                                                    <div class="modal-body">
-                                                                        <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
-                                                                            <div class="mb-3">
-                                                                                <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
-                                                                                <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
-                                                                            </div>
-                                                                            <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
-                                                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                                                        </form>
+                                                                </div>
+
+                                                                <div class="d-grid text-start">
+                                                                    <h6><%= prod.name %></h6>
+                                                                    <p class="m-0"><small>Color: <%= prod.color %> & Price:  <%= prod.price %></small></p>
+                                                                    <p class="m-0"><small>Size: <%= prod.size %> & Quantity: <%= prod.quantity %></small></p>
+                                                                    <p class="m-0"><small>Seller: <%= prod.vendor.vendorName %></small></p>
+                                                                    <p class="m-0"><small>Expected Delivery: <%= prod.expectedDeliveryDate %></small></p>
+                                                                    <p class="m-0"><small>Order Status: <%= prod.orderStatus %></small></p>
+                                                                    <p class="m-0"><small>Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<br><%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></small></p>
+                                                                </div>
+                                                            </div>
+                                                                
+                                                            <!-- MODAL FOR ORDER CANCELLATION -->
+                                                            <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                            
+                                                                        <div class="modal-body">
+                                                                            <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
+                                                                                <div class="mb-3">
+                                                                                    <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
+                                                                                    <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
+                                                                                </div>
+                                                                                <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
+                                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    <% }) %>
-                                                    <% } else { %>
-                                                    <p>No orders found.</p>
-                                                    <% } %>
-                                                </div>    
-                                            </div>
 
-                                        <!-- ORDER HISTORY TABLE ENDS -----------------------------------------------------------------------> 
-                                    </div>   
+                                                            <div class="modal fade" id="returnlModal_<%= prod._id %>" tabindex="-1" aria-labelledby="returnModalLabel_<%= prod._id %>" aria-hidden="true">
+                                                                <div class="modal-dialog modal-dialog-centered">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title" id="returnModalLabel_<%= prod._id %>">Return Product</h5>
+                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                        </div>
+                                                                       
+                                                                        <div class="modal-body">
+                                                                            <form id="returnOrderForm_<%= prod._id %>" onsubmit="submitReturn(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>',)">
+                                                                                <div class="mb-3">
+                                                                                    <label for="cancelReason_<%= prod._id %>" class="form-label pt-10">Return Reason</label>
+                                                                                    <textarea class="form-control" id="returnReason_<%= prod._id %>" name="returnReason" rows="3" required></textarea>
+                                                                                </div>
+                                                                                <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
+                                                                                <div>
+                                                                                    <h6>Refund</h6>
+                                                                                    <% if (prod.paymentMethod === 'RazorPay') { %>
+                                                                                        <input type="radio" id="originalPayment" name="paymentOption" value="Original Payment Method" checked>
+                                                                                        <label for="originalPayment">Original Payment method</label>
+                                                                                    <% } %>
+
+                                                                                    <p>or</p>
+                                                                                    <input type="radio" id="option1" name="paymentOption" value="Add Bank Account Details">
+                                                                                    <label for="option1">Add Bank Account Details</label>
+
+                                                                                    <div class="bankDetails">
+                                                                                        <label for="bankName">Bank Name:</label>
+                                                                                        <input type="text" id="bankName" name="bankName" placeholder="Enter Bank Name" required>
+                                                                                        <label for="accountHolderName">Account Holder Name:</label>
+                                                                                        <input type="text" id="accountHolderName" name="accountHolderName" placeholder="Enter Account Holder Name" required>
+                                                                                        <label for="accountNumber">Account Number:</label>
+                                                                                        <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter Account Number" required>
+                                                                                        <label for="ifsc">IFSC:</label>
+                                                                                        <input type="text" id="ifsc" name="ifsc" placeholder="Enter IFSC Code" required>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                
+                                                                                <button type="submit" class="btn btn-primary">Submit</button>
+                                                                            </form>
+                                                                           
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+
+                                                        <% }) %>
+                                                        <% } else { %>
+                                                        <p>No orders found.</p>
+                                                        <% } %>
+                                                    </div>    
+                                                </div>
+
+                                            <!-- ORDER HISTORY TABLE ENDS -----------------------------------------------------------------------> 
+                                        </div>   
+                                    </div>
                                 </div>
                             </div>
+                        
                         </div>
-                    
                     </div>
-                </div>
-            </div>    
+                </div>    
         </section>
         <!--== End My Account Wrapper ==-->
     </main>
@@ -640,22 +722,7 @@
     function enable(){
         document.querySelector('.scrollable').classList.remove('disable-scroll');
     }
-    // document.querySelector('#prevent').addEventListener('click', disable);
-    // document.querySelector('#allow').addEventListener('click', enable);
-    // SCROLL ENDS HERE
 
-    // WHEN THE USER PROFILE PAGE LOADS AFTER ORDER PLACED
-    // window.addEventListener('DOMContentLoaded', () => {
-    // const urlParams = new URLSearchParams(window.location.search);
-    // const showOrders = urlParams.get('showOrders');
-    // if (showOrders === 'true') {
-    //     // SIMULATE A CLICK ON THE ORDERS BUTTON
-    //     const ordersTab = document.getElementById('orders-tab');
-    //     if (ordersTab) {
-    //     ordersTab.click();
-    //     }
-    // }
-    // });
 
 
     // FUCTION FOR OPEN MODAL
@@ -665,7 +732,7 @@
         $('#cancelModal_' + productId).modal('show');
     }
 
-    // FUNCTION FOR POST CANCELLATION REASON
+    // FUNCTION FOR CANCELLATION REASON POST
     function submitCancellation(event, orderId, productId) {
         event.preventDefault();
 
@@ -683,6 +750,68 @@
             console.error(error);
         });
     }
+
+    // FUNCTION FOR OPEN RETURN MODAL
+    function openReturnModal(orderId,productId){
+        console.log("Opening return  modal for Order ID:", orderId, "Product ID:", productId);
+        $('#orderIdInput_' + productId).val(orderId);
+        $('#returnlModal_' + productId).modal('show');
+    }
+
+    // FUNCTION FOR RETURN REASON AND REFUND POST
+    function submitReturn(event, orderId, productId){
+        event.preventDefault()
+        const returnReason = $('#returnReason_' + productId).val()
+        const paymentOption = $('input[name="paymentOption"]:checked').val(); // Get selected payment option
+
+        console.log("payment option :", paymentOption);
+
+        const refundData = {
+            orderId : orderId,
+            productId:productId,
+            returnReason : returnReason,
+            refundMethod : paymentOption,
+
+        }
+
+        if(paymentOption === "Add Bank Account Details"){
+            const bankName = $('#bankName').val();
+            const accountHolderName = $('#accountHolderName').val();
+            const accountNumber = $('#accountNumber').val();
+            const ifsc = $('#ifsc').val();
+
+            const refundDetail = {
+                bankName : bankName,
+                accountHolderName : accountHolderName,
+                accountNumber : accountNumber,
+                ifsc : ifsc,
+            }
+
+            refundData.refundDetails = refundDetail
+            // Add bank details to refund data
+           
+        }   
+
+        axios.post("/product/return",{refundData})
+        .then((response)=>{
+            console.log("Response data from return add post : ", response)
+            $('#returnlModal_' + productId).modal('hide');
+
+        })
+        .catch((error)=>{
+            console.log("Response from erro return add post : ", error)
+            Toastify({
+                text: "An error occurred. Try again",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "red",
+            }).showToast();
+        })
+
+    }
+
+    
 
 
     // ADDRESS SUBMISSION WITH VALIDATION
@@ -783,11 +912,11 @@
                         deletedAddressElement.remove();
                     }
                     Toastify({
-                        text: "Address Deleted ✓",
+                        text: "Address Deleted",
                         duration: 3000,
                         gravity: "top",
                         position: "right",
-                        backgroundColor: "green",
+                        backgroundColor: "black",
                     }).showToast();
                 }
             })
@@ -926,42 +1055,42 @@
 
         // Make an Axios POST request to submit the form data
         axios.post("/change-password", formData)
-            .then(function (response) {
+        .then(function (response) {
 
-                document.getElementById("currentPassword").value = ""
-                document.getElementById("newPassword").value = " "
-                document.getElementById("confirmPassword").value = " "
+            document.getElementById("currentPassword").value = ""
+            document.getElementById("newPassword").value = " "
+            document.getElementById("confirmPassword").value = " "
 
-                document.getElementById("currentPasswordError").textContent = "";
-                document.getElementById("newPasswordError").textContent = "";
-                document.getElementById("confirmPasswordError").textContent = "";
+            document.getElementById("currentPasswordError").textContent = "";
+            document.getElementById("newPasswordError").textContent = "";
+            document.getElementById("confirmPasswordError").textContent = "";
+            Toastify({
+                text: "Password Updated",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "green",
+            }).showToast();
+
+        })
+        .catch(function (response) {
+            if(response.response.status === 400){
+                    document.getElementById("currentPasswordError").textContent = "Invalid Password";
+            }
+            else{
                 Toastify({
-                    text: "Password Updated",
+                    text: "An error occurred. Try again",
                     duration: 3000,
                     gravity: "top",
                     position: "right",
-                    backgroundColor: "green",
+                    backgroundColor: "red",
                 }).showToast();
-
-            })
-            .catch(function (response) {
-                if(response.response.status === 400){
-                    document.getElementById("currentPasswordError").textContent = "Invalid Password";
-                }
-                else{
-                    Toastify({
-                        text: "An error occurred. Try again",
-                        duration: 3000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "red",
-                    }).showToast();
-                }
-            });
+            }
+        });
     }
 
 
-    
+    // USER DETAILS EDIT
     function submitUserEditForm(event) {
         event.preventDefault();
         const newName = $('#newName').val();
@@ -986,24 +1115,30 @@
 
 
     // Function to trigger a click event on the "Addresses" button
-function triggerAddressesButtonClick() {
-  const addressesButton = document.getElementById('address-edit-tab');
-  if (addressesButton) {
-    addressesButton.click();
-  }
-}
+    function triggerAddressesButtonClick() {
+        const addressesButton = document.getElementById('address-edit-tab');
+        if (addressesButton) {
+            addressesButton.click();
+        }
+    }
 
-// Check for query parameter on page load
-window.addEventListener('load', (event) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const scrollTo = urlParams.get('scrollTo');
-  if (scrollTo === 'address-edit') {
-    triggerAddressesButtonClick();
-  }
-});
-    
+    function triggerOrderButtonClick (){
+        const orderAreaButton = document.getElementById('orders-tab')
+        orderAreaButton?.click()
+    }
 
-
+    // Check for query parameter on page load
+    window.addEventListener('load', (event) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const scrollTo = urlParams.get('scrollTo');
+    if (scrollTo === 'address-edit') {
+        triggerAddressesButtonClick();
+    }
+    else if(scrollTo === 'orders'){
+        triggerOrderButtonClick()
+    }
+    });
+        
 
 </script>
 

@@ -54,7 +54,15 @@ const orderSchema = new mongoose.Schema(
           type: String,
           default: "Pending", 
         },
-        cancelReason: { type: String }, // New field for cancellation reason
+        cancelReason: { type: String },
+        returnReason: { type: String }, 
+        refundMethod: { type: String }, 
+        refundDetails: { 
+          bankName: { type: String },
+          accountHolderName: { type: String },
+          accountNumber: { type: String },
+          ifsc: { type: String },
+        },
       },
     ],
     totalAmount: { type: Number },

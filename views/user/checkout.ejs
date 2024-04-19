@@ -325,16 +325,17 @@
                     <div class="p-2" >
                         <!-- Checkbox for Delivery Address -->
                         <% addresses.forEach((address,index) => { %>
-                        <div class="mb-3 px-4 pt-3 form-check rounded" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
+                        <div class="mb-3 px-4 pt-3 pb-1 form-check rounded" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
 
                             <input type="checkbox" class="form-check-input delivery-address" id="address_<%= address._id %>" data-address-id="<%= address._id %>" <% if (index === 0) { %> checked <% } %>>
                             <label for="address_<%= address._id %>" class="form-check-label">
                             <p class="m-0"><%= address.name %></p>
-                            <p class="m-0"><%= address.address %></p>
-                            <p class="m-0"><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
+                            <p class="m-0"><%= address.address %>, <%= address.district %>, <%= address.state %>, <%= address.zip %></p>
+                            <!-- <p class="m-0"></p> -->
                             <p class="m-0"><%= address.phone %> , <%= address.email %></p>
                             
                         </div>
+                        
                         <% }) %>
 
                         <!-- Button trigger modal -->
@@ -749,7 +750,7 @@
                     axios.post("/apply-coupon", { couponCode: enteredCouponCode, totalPrice })
                     .then((response) => {
                         if (response.status === 200) {
-                            const discountAmount = parseFloat(response.data.discountAmount); // Convert to number
+                            const discountAmount = parseFloat(response.data.discountAmount);
                             const newTotal = totalPrice - discountAmount;
     
                             document.getElementById('couponSuccess').textContent = 'COUPON APPLIED'
@@ -776,9 +777,7 @@
                     document.getElementById('coupon-code').value = ''
                     document.getElementById('orderTotal').textContent = totalPrice
                 })
-            </script>
-    
-            <script>
+        
     
                 document.addEventListener("DOMContentLoaded", function() {
                     var checkboxes = document.querySelectorAll('.payment-method input[type="checkbox"]');
@@ -902,16 +901,12 @@
                             confirmButtonText: "Ok"
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = '/userProfile?showOrders=true';
+                                window.location.href = `/userProfile?scrollTo=orders`
                             }
                         });
                     }
                 });
     
-            </script>
-    <!-- startup popup end -->
-
-    <script>
 
         // ADD NEW ADDRESS - CHECKOUT AREA
         document.getElementById("submitAddressBtn").addEventListener("click", function() {

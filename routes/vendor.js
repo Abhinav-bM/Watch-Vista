@@ -20,6 +20,8 @@ router.get("/vendor/orders",vendorAuthMiddleware,vendorController.getOrdersForVe
 router.get("/vendorProfile",vendorAuthMiddleware,vendorController.vendorProfile)
 router.get("/vendor/sales-report/excel/:startDate/:endDate",vendorAuthMiddleware,vendorController.salesExcel)
 
+router.get("/vendor/returnRepayment",vendorAuthMiddleware,vendorController.returnRepaymentGetPage)
+
 
 router.post("/vendor/register",vendorController.vendorRegisterPostPage) 
 router.post("/vendor/login",vendorController.vendorLoginPostPage)
@@ -29,6 +31,7 @@ router.post("/vendor/forgotOtpPost",vendorController.forgotOrpVerify)
 router.post("/vendor/addProduct",vendorAuthMiddleware,upload.fields([{ name: 'mainImage', maxCount: 1 }, { name: 'secondImage', maxCount: 1 }, { name: 'thirdImage', maxCount: 1 }, { name: 'fourthImage', maxCount: 1 }]),vendorController.addProductpost)
 
 router.post("/vendor/editProduct/:id",vendorAuthMiddleware,upload.array('productImages',4),vendorController.editProductPost)
+
 router.post("/vendor/deleteProduct/:id",vendorAuthMiddleware,vendorController.deleteProduct)
 router.post("/vendor/updateOrderStatus/:orderId/:productId",vendorAuthMiddleware,vendorController.updateOrderStatus)
 

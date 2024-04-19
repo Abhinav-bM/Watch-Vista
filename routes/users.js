@@ -44,6 +44,9 @@ router.post("/cart/update-quantity",verifyToken,userController.updateCartQuantit
 router.post("/add-address",verifyToken,userController.addAddress)
 router.post("/place-order",verifyToken,userController.placeOrderPost)
 router.post("/cancelOrder/:orderId/:productId",verifyToken,userController.orderCancelRequestPost)
+
+router.post("/product/return",verifyToken,userController.productReturnPost)
+
 router.post("/change-password",verifyToken,userController.changePasswordPost)
 router.post("/update-user-details",verifyToken,userController.updateUserDetails)
 router.post("/place-order/razorPay",verifyToken,userController.placeOrderPostRazorpay)

@@ -541,8 +541,9 @@ let getProductsByCategory = async (req, res) => {
       user = await User.findById(userId);
     }
 
-
-    res.status(200).json({ message: "product filtered", filteredProducts, user });
+    res
+      .status(200)
+      .json({ message: "product filtered", filteredProducts, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -579,7 +580,7 @@ let getProductBySort = async (req, res) => {
         break;
     }
 
-    res.status(200).json({ message: "product filtered", allProducts,user });
+    res.status(200).json({ message: "product filtered", allProducts, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -612,7 +613,9 @@ let getSearchProduct = async (req, res) => {
       user = await User.findById(userId);
     }
 
-    res.status(200).json({ message: "product filtered", filteredProducts, user });
+    res
+      .status(200)
+      .json({ message: "product filtered", filteredProducts, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -1510,7 +1513,6 @@ let userProfile = async (req, res) => {
 
   try {
     const user = await User.findById(userId).populate("orders");
-    console.log("d :", user);
     const addresses = user.addresses;
     const allVendors = await Vendor.find({}).populate("products");
 
@@ -1564,6 +1566,53 @@ let orderCancelRequestPost = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
+  }
+};
+
+// PRODUCT RETURN REASON AND REFUND POST
+let productReturnPost = async (req, res) => {
+  try {
+    const userId = req.user.id
+    const {refundData } = req.body;
+
+    // Find the user by ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // Find the order within the user's orders array
+    const order = user.orders.find(
+      (order) => order.orderId === refundData.orderId
+    );
+    if (!order) {
+      return res.status(404).json({ error: "Order not found" });
+    }
+
+    // Find the product within the order's products array
+    const product = order.products.find(
+      (product) => product.productId.toString() === refundData.productId
+    );
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Update return reason and refund details for the product
+    product.returnReason = refundData.returnReason;
+    product.refundMethod = refundData.refundMethod;
+    if (refundData.refundDetails) {
+      product.refundDetails = refundData.refundDetails;
+    }
+
+    // Save the changes
+    await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Return and refund details submitted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -1638,7 +1687,11 @@ let applyCoupon = async (req, res) => {
     console.log(coupon);
 
     const currentDate = new Date();
-    if (!coupon || coupon.couponStatus === "InActive" || coupon.endDate < currentDate) {
+    if (
+      !coupon ||
+      coupon.couponStatus === "InActive" ||
+      coupon.endDate < currentDate
+    ) {
       return res.status(400).json({ message: "Invalid Coupon" });
     }
 
@@ -1702,4 +1755,5 @@ module.exports = {
   applyCoupon,
   getProductBySort,
   getSearchProduct,
+  productReturnPost,
 };
