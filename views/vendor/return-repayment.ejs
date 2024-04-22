@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Orders List </title>
+    <title> Return-Repayment </title>
     <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
 
     <!-- plugin css file  -->
@@ -22,7 +22,7 @@
         <!-- sidebar -->
         <div class="sidebar px-4 py-4 py-md-4 me-0">
             <div class="d-flex flex-column h-100">
-                <a href="index.html" class="mb-0 brand-icon">
+                <a href="" class="mb-0 brand-icon">
                     <span class="logo-icon">
                         <i class="bi bi-bag-check-fill fs-4"></i>
                     </span>
@@ -30,35 +30,19 @@
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link" href="index.html"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li><a class="m-link" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
                             <ul class="sub-menu collapse" id="menu-product">
-                                <li><a class="ms-link" href="product-grid.html">Product Grid</a></li>
-                                <li><a class="ms-link" href="product-list.html">Product List</a></li>
-                                <li><a class="ms-link" href="product-edit.html">Product Edit</a></li>
-                                <li><a class="ms-link" href="product-detail.html">Product Details</a></li>
-                                <li><a class="ms-link" href="product-add.html">Product Add</a></li>
-                                <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li>
-                                <li><a class="ms-link" href="checkout.html">Checkout</a></li>
+                                <li><a class="ms-link" href="/vendor/productList">Products List</a></li>
+                                <li><a class="ms-link" href="/vendor/addProduct">Add Products</a></li>
                             </ul>
                     </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#categories" href="#">
-                            <i class="icofont-chart-flow fs-5"></i> <span>Categories</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                            <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse" id="categories">
-                                <li><a class="ms-link" href="categorie-list.html">Categories List</a></li>
-                                <li><a class="ms-link" href="categories-edit.html">Categories Edit</a></li>
-                                <li><a class="ms-link" href="categories-add.html">Categories Add</a></li>
-                            </ul>
-                    </li>
+
                     <li class="collapsed">
                         <li><a class="m-link " href="/vendor/orders"><i class="icofont-notepad"></i> <span>Orders</span></a></li>
-                        <!-- Menu: Sub menu ul -->
-                       
                     </li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
@@ -102,37 +86,10 @@
                             <li><a class="ms-link" href="create-invoice.html">Create Invoice </a></li>
                         </ul>
                     </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#app" href="#">
-                        <i class="icofont-code-alt fs-5"></i> <span>App</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="app">
-                            <li><a class="ms-link" href="calendar.html">Calandar</a></li>
-                            <li><a class="ms-link" href="chat.html"> Chat App</a></li>
-                        </ul>
-                    </li>
-                    <li><a class="m-link" href="store-locator.html"><i class="icofont-focus fs-5"></i> <span>Store Locator</span></a></li>
-                    <li><a class="m-link" href="ui-elements/ui-alerts.html"><i class="icofont-paint fs-5"></i> <span>UI Components</span></a></li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#page" href="#">
-                        <i class="icofont-page fs-5"></i> <span>Other Pages</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="page">
-                            <li><a class="ms-link" href="admin-profile.html">Profile Page</a></li>
-                            <li><a class="ms-link" href="purchase-plan.html">Price Plan Example</a></li>
-                            <li><a class="ms-link" href="charts.html">Charts Example</a></li>
-                            <li><a class="ms-link" href="table.html">Table Example</a></li>
-                            <li><a class="ms-link" href="forms.html">Forms Example</a></li>
-                            <li><a class="ms-link" href="icon.html">Icons</a></li>
-                            <li><a class="ms-link" href="contact.html">Contact Us</a></li>
-                            <li><a class="ms-link" href="todo-list.html">Todo List</a></li>
-                        </ul>
-                    </li>
+                    <li><a class="m-link active" href="/vendor/returnRepayment"><i class="icofont-notepad"></i> <span>Return & Repayment</span></a></li>
+                  
                 </ul>
-                <!-- Menu: menu collepce btn -->
-                <button type="button" class="btn btn-link sidebar-mini-btn text-light">
-                    <span class="ms-2"><i class="icofont-bubble-right"></i></span>
-                </button>
+               
             </div>
         </div>       
 
@@ -277,9 +234,9 @@
                                             <div><hr class="dropdown-divider border-dark"></div>
                                         </div>
                                         <div class="list-group m-2 ">
-                                            <a href="admin-profile.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user fs-5 me-3"></i>Profile Page</a>
-                                            <a href="order-invoices.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a>
-                                            <a href="ui-elements/auth-signin.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-5 me-3"></i>Signout</a>
+                                            <a href="" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user fs-5 me-3"></i>Profile Page</a>
+                                            <a href="" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a>
+                                            <a href="" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-5 me-3"></i>Signout</a>
                                             
                                         </div>
                                     </div>
@@ -314,7 +271,7 @@
                     <div class="row align-items-center"> 
                         <div class="border-0 mb-4"> 
                             <div class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap">
-                                <h3 class="fw-bold mb-0">Orders List</h3>
+                                <h3 class="fw-bold mb-0">Return List</h3>
                             </div>
                         </div>
                     </div> <!-- Row end  -->
@@ -322,33 +279,7 @@
                         <div class="col-md-12">
                             <div class="card"> 
                                 <div class="card-body"> 
-                                    <!--ORDER LIST TABLE STARTS-->
-                                    <!-- <table id="myDataTable" class="table table-hover align-middle mb-0" style="width: 100%;">  
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Item</th>
-                                                <th>Customer Name</th>
-                                                <th>Payment Info</th>
-                                                <th>Price</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-
-                                            <tr>
-                                                <td><a href=""><strong>#Order-78414</strong></a></td>
-                                                <td>Molly</td>
-                                                <td>Abhinav</td>
-                                                <td>Credit Card</td>
-                                                <td>
-                                                    $420
-                                                </td>
-                                                <td><span class="badge bg-warning">Progress</span></td>
-                                            </tr>
-                                          
-                                        </tbody>
-                                    </table> -->
+                                    <!-- RETURN ORDER LIST TABLE STARTS-->
                                     <table id="myDataTable" class="table table-hover align-middle mb-0" style="width: 100%;">  
                                         <thead>
                                           <tr>
@@ -357,63 +288,87 @@
                                             <th>Quantity</th>
                                             <th>Price</th>
                                             <th>color</th>
-                                            <th>Status</th>
+                                            <th>Reason</th>
                                             <th>View Details</th>
                                           </tr>
                                         </thead>
                                         <tbody>
+                                            <% returnOrders.forEach((order,index) => { %>
                                             <tr>
-                                              <td></td>
-                                              <td></td>
-                                              <td></td>
-                                              <td></td>
-                                              <td></td>
+                                              <td><%= order.orderId %></td>
+                                              <td><%= order.productName %></td>
+                                              <td><%= order.quantity %></td>
+                                              <td><%= order.price %></td>
+                                              <td><%= order.color %></td>
 
                                               <td>
-                                                <form id="" method="POST">
-                                                    <select name="status" class="form-select" onchange="updateOrderStatus(event, ' order.orderId ', ' order.productId ', ' index ')">
+                                                <!-- <form id="updateOrderForm" method="POST">
+                                                    <select name="status" class="form-select" onchange="">
                                                       <option value="Pending">Pending</option>
-                                                      <option value="Processing">Processing</option>
-                                                      <option value="Shipped" >Shipped</option>
+                                                      <option value="Processing" >Processing</option>
+                                                      <option value="Shipped">Shipped</option>
                                                       <option value="Delivered" >Delivered</option>
-                                                      <option value="Requested for Cancellation">Requested for Cancellation</option>
+                                                      <option value="Requested for Cancellation" >Requested for Cancellation</option>
                                                       <option value="Cancelled">Cancelled</option>
                                                     </select>
-                                                </form>
-                                            </td>
+                                                </form> -->
+                                                <%= order.returnReason %>
+                                                </td>
 
                                               <td>
                                                 <!-- Eye icon button to view details -->
-                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal order.orderId - order.productId ">
+                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal<%= index %>">
                                                   <i class="fas fa-eye"></i> View
                                                 </button>
                                               </td>
-                                            </tr>
-                                            <!-- Modal for order details -->
-                                              <div class="modal-dialog modal-dialog-centered">
-                                                <div class="modal-content">
-                                                  <div class="modal-header">
-                                                    <h5 class="modal-title" id="orderModalLabel order.orderId - order.productId ">Order Details</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                  </div>
-                                                  <div class="modal-body">
-                                                    <!-- Order details here -->
-                                                    <p><strong>Order ID:</strong>  order.orderId </p>
-                                                    <p><strong>Item:</strong>  order.productName </p>
-                                                    <p><strong>Quantity:</strong>  order.quantity </p>
-                                                    <p><strong>Price:</strong>  order.price </p>
-                                                    <p><strong>Total:</strong>  order.quantity * order.price </p>
-                                                    <p><strong>Order Date:</strong>  order.orderDate </p>
-                                                    <p><strong>Status:</strong>  order.orderStatus </p>
-                                                    <p><strong>Shipping Address:</strong>  order.shippingAddress.name ,  order.shippingAddress.address   order.shippingAddress.district ,  order.shippingAddress.state ,  order.shippingAddress.zip ,  order.shippingAddress.phone , </p>
-                                                    <!-- Add more order details as needed -->
-                                                        <p><strong>Cancellation Reason:</strong>  order.cancelReason </p>
-                                                     
+                                                <!-- Modal for order details -->
+                                            <div class="modal fade" id="orderModal<%= index %>" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="orderModalLabel">Order Details</h5>
+                                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                      <!-- Order details here -->
+                                                        <p><strong>Order ID:</strong><%= order.orderId %></p>
+                                                        <p><strong>Item:</strong> <%= order.productName %></p>
+                                                        <p><strong>Quantity:</strong> <%= order.quantity %></p>
+                                                        <p><strong>Price:</strong> <%= order.price %></p>
+                                                        <p><strong>Order Date:</strong><%= order.orderDate %> </p>
+                                                        <p><strong>Return Reason:</strong> <%= order.returnReason %></p>
+                                                        <p><strong>Refund Method:</strong> <%= order.refundMethod %> </p>
+
+                                                        <% if(order.refundMethod !== 'Original Payment Method'){ %>
+                                                            <p><strong>Refund Details:</strong><br>
+                                                                <strong>BankName:</strong><%= order.refundDetails?.bankName %> <br>
+                                                                <strong>Account Holder Name :</strong><%= order.refundDetails?.accountHolderName %> <br>
+                                                                <strong>Account Number :</strong><%= order.refundDetails?.accountNumber %> <br>
+                                                                <strong>IFSC :</strong><%= order.refundDetails?.ifsc %>
+                                                            </p>
+                                                        <% } %>
+
+                                                        <% if(order.refundMethod === 'Original Payment Method'){ %>
+                                                            <p><strong>Razorpay OrderId :</strong> <%= order.razorpayOrderId %></p>
+                                                            <p><strong>Razorpay PaymentId :</strong> <%= order.razorPaymentId %></p>
+                                                        <% } %>
+
+                                                        <% if (order.orderStatus === 'Refund Processed') { %>
+                                                            <p><Strong>Status :</Strong><%= order.orderStatus %></p>
+                                                        <% } else { %>
+                                                            <button type="button" class="btn btn-sm btn-primary" onclick="updateReturnStatus(event, '<%= order.orderId %>','<%= order.productId %>')">
+                                                                <i class="fas fa-eye"></i> Confirm
+                                                            </button>
+                                                        <% } %>
+  
+
+                                                    </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                            </div>
-                                            
+                                            </tr>
+                                            <% }) %>
+            
                                         </tbody>
                                       </table>
                                       
@@ -582,22 +537,19 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        function updateOrderStatus(event, orderId, productId, index) {
-            event.preventDefault(); // Prevent default form submission
-            console.log(orderId, productId);
 
-            const form = document.querySelector(`#updateOrderForm-${orderId}-${index}`);
-            const status = form.querySelector('select[name="status"]').value;
-
-            axios.post(`/vendor/updateOrderStatus/${orderId}/${productId}`, { status 
-                .then(response => {
-                    // Handle success response, if needed
-                    console.log(response.data);
-                
-                .catch(error => {
-                    // Handle error response, if needed
-                    console.error(error);
-                ;
+        function updateReturnStatus(event, orderId, productId){
+            const status = "Refund Processed"
+            axios.post(`/vendor/updateOrderStatus/${orderId}/${productId}`, { status })
+            .then(response => {
+                // Handle success response, if needed
+                console.log(response.data);
+                window.location.reload()
+            })
+            .catch(error => {
+                // Handle error response, if needed
+                console.error(error);
+            });
         }
       
     </script>
@@ -612,7 +564,7 @@
             columnDefs: [
                 { targets: [-1, -3], className: 'dt-body-right' }
             ]
-        ;
+        });
     </script>
 </body>
 

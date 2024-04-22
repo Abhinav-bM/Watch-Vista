@@ -28,8 +28,9 @@ router.get("/checkout",verifyToken,userController.checkoutpage)
 router.get("/products/:category",userController.getProductsByCategory)
 router.get("/products/sort/:option",userController.getProductBySort)
 router.get("/products/search/:inputValue",userController.getSearchProduct)
-router.get("/buyNow/checkout/:productId",verifyToken,userController.buyNowCheckOut)
+// router.get("/buyNow/checkout/:productId",verifyToken,userController.buyNowCheckOut)
 router.get("/getAddressEdit/:addressId",verifyToken,userController.getAddressForEdiit)
+router.get("/checkStockAvailability",verifyToken,userController.checkStockAvailability)
  
 router.post("/user/send-otp", userController.signupPostPage);
 router.post('/verify-otp', userController.signupVerify)
@@ -44,7 +45,6 @@ router.post("/cart/update-quantity",verifyToken,userController.updateCartQuantit
 router.post("/add-address",verifyToken,userController.addAddress)
 router.post("/place-order",verifyToken,userController.placeOrderPost)
 router.post("/cancelOrder/:orderId/:productId",verifyToken,userController.orderCancelRequestPost)
-
 router.post("/product/return",verifyToken,userController.productReturnPost)
 
 router.post("/change-password",verifyToken,userController.changePasswordPost)

@@ -303,7 +303,8 @@ let editProductPost = async (req, res) => {
     let vendorId = req.user.id;
     const imageUrls = [];
 
-    if (req.files) {
+    if (req.files && req.files.length > 0) {
+      // If there are files uploaded, process them
       for (const file of req.files) {
         const result = await cloudinary.uploader.upload(file.path);
         imageUrls.push(result.secure_url);
@@ -331,7 +332,12 @@ let editProductPost = async (req, res) => {
       updatedProduct.productMRP = req.body.productMRP;
       updatedProduct.productDiscount = req.body.productDiscount;
       updatedProduct.productDescription = req.body.productDescription;
-      updatedProduct.productImages = imageUrls;
+
+      // Only update productImages if there are new imageUrls
+      if (imageUrls.length > 0) {
+        updatedProduct.productImages = imageUrls;
+      }
+
       await vendor.save();
 
       res.status(200).redirect("/vendor/productList");
@@ -340,7 +346,7 @@ let editProductPost = async (req, res) => {
     console.error(error);
     res.status(500).send("server error edit failed");
   }
-};
+}
 
 // DELETE PRODUCT POST PAGE
 let deleteProduct = async (req, res) => {
@@ -449,7 +455,7 @@ let getOrdersForVendor = async (req, res) => {
     );
     const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
 
-    const vendorOrders = [];
+    const vendorOrder1 = [];
 
     usersWithOrders.forEach((user) => {
       user.orders.forEach((order) => {
@@ -477,14 +483,18 @@ let getOrdersForVendor = async (req, res) => {
                 paymentMethod: order.paymentMethod,
                 cancelReason: product.cancelReason,
               };
-              vendorOrders.push(vendorOrder);
+              vendorOrder1.push(vendorOrder);
             }
           }
         });
       });
     });
 
+
+    const vendorOrders = vendorOrder1.sort((a,b)=> b.orderDate - a.orderDate)
+    console.log("sdfgjdf : ",vendorOrders);
     res.render("vendor/order-list", { vendorOrders });
+
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -518,6 +528,10 @@ let updateOrderStatus = async (req, res) => {
     }
 
     product.orderStatus = status;
+
+    if (status === "Delivered") {
+      product.deliveredDate = new Date();
+    }
 
     await user.save();
 
@@ -612,13 +626,21 @@ let salesExcel = async (req, res) => {
 };
 
 // RETURN AND REPAYMENT GET PAGE
-let returnRepaymentGetPage = async (req,res)=>{
+let returnRepaymentGetPage = async (req, res) => {
+  const vendorId = req.user.id;
   try {
-      res.status(200).render("vendor/return-repayment")
+    const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
+      "products"
+    );
+    const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
+    const orders = vendorOrders(vendorProducts, usersWithOrders);
+    const returnOrders = orders.filter((order) => order.returnReason);
+    res.status(200).render("vendor/return-repayment", { returnOrders });
   } catch (error) {
-    console.error(error)
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
-}
+};
 
 module.exports = {
   loginGetPage,

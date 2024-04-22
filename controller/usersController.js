@@ -10,6 +10,8 @@ const mongoose = require("mongoose");
 const { log } = require("firebase-functions/logger");
 const Razorpay = require("razorpay");
 const { findUserOrders } = require("../helpers/userHelper");
+const { messages } = require("springedge");
+const { vendorLogout } = require("./vendorController");
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -36,7 +38,7 @@ let homePage = async (req, res) => {
 
     res
       .status(200)
-      .render("user/home", { products: products, bannerHome, user });
+      .render("user/home", { products: products, bannerHome, user ,wishlistProducts :user?.wishlist.products});
   } catch (error) {
     console.error("Failed to get home:", error);
     res.status(500).send("Internal Server Error");
@@ -515,7 +517,7 @@ let shopGetPage = async (req, res) => {
       user = await User.findById(userId);
     }
 
-    res.status(200).render("user/shop", { products, allCategories, user });
+    res.status(200).render("user/shop", { products, allCategories, user ,wishlistProducts :user?.wishlist.products});
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
@@ -649,7 +651,7 @@ let singleProductGetPage = async (req, res) => {
       user = await User.findById(userId);
     }
 
-    res.render("user/singleProduct", { products: products, user });
+    res.render("user/singleProduct", { products: products, user ,wishlistProducts :user?.wishlist.products });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
@@ -796,6 +798,22 @@ let addToCart = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
+    // Find the product in the vendor's products array
+    const vendor = await Vendor.findOne({ "products._id": productId });
+    if (!vendor) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    const product = vendor.products.find((p) => p._id.toString() === productId);
+    if (!product) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
+    // Check product availability and stock
+    if (product.productQTY <= 0) {
+      return res.status(400).json({ error: "Product out of stock" });
+    }
+
     const existingProductIndex = user.cart.products.findIndex(
       (item) => item.productId.toString() === productId
     );
@@ -857,6 +875,7 @@ let getCart = async (req, res) => {
               images: product.productImages,
               description: product.productDescription,
               vendor: vendorInfo,
+              productQTY: product.productQTY,
             };
 
             cart.push(productDetails);
@@ -872,7 +891,7 @@ let getCart = async (req, res) => {
     });
     return res
       .status(200)
-      .render("user/cart", { cart, subtotal, deliveryCharge });
+      .render("user/cart", { cart, subtotal, deliveryCharge, user ,wishlistProducts :user?.wishlist.products });
   } catch (error) {
     console.error("get Cart Error : ", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -954,7 +973,12 @@ let updateCartQuantity = async (req, res) => {
 
   try {
     const user = await User.findById(userId);
-
+    console.log("quantity :", quantity);
+    const vendor = await Vendor.findOne({"products._id" : productId})
+    const product = vendor.products.filter(prod=> prod._id.toString() === productId)
+    if(product[0].productQTY < quantity){
+      return res.status(400).json({ error: "Requested quantity not available in stock", quantity, productId })
+    }
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -999,6 +1023,7 @@ let updateCartQuantity = async (req, res) => {
                 images: product.productImages,
                 description: product.productDescription,
                 vendor: vendorInfo,
+                productQTY: product.productQTY,
               };
 
               cart.push(productDetails);
@@ -1031,73 +1056,23 @@ let checkoutpage = async (req, res) => {
     ///////////////////////////////////
     const allProducts = await Vendor.find({}).populate("products");
     let cart = [];
+    let outOfStockProducts = [];
 
-    user.cart.products.forEach((cartProduct) => {
+    // Check product availability and populate cart
+    for (const cartProduct of user.cart.products) {
       const productId = cartProduct.productId;
 
       // Find the product in allProducts
-      allProducts.forEach((vendor) => {
-        vendor.products.forEach((product) => {
-          if (product._id.equals(productId)) {
-            const vendorInfo = {
-              vendorId: vendor._id,
-              vendorName: vendor.vendorName,
-            };
-
-            const productDetails = {
-              _id: product._id,
-              name: product.productName,
-              category: product.productCategory,
-              subcategory: product.productSubCategory,
-              brand: product.productBrand,
-              color: product.productColor,
-              size: product.productSize,
-              quantity: cartProduct.quantity,
-              price: product.productPrice,
-              mrp: product.productMRP,
-              discount: product.productDiscount,
-              images: product.productImages,
-              description: product.productDescription,
-              vendor: vendorInfo,
-            };
-
-            cart.push(productDetails);
-          }
-        });
-      });
-    });
-    //////////////////////////////////////////////
-
-    let totalPrice = 0;
-    cart.forEach((prod) => (totalPrice += prod.price * prod.quantity));
-    res.status(200).render("user/checkout", { addresses, cart, totalPrice });
-  } catch (error) {
-    console.error("Error on checkout page display :", error);
-    res.status(500).json({ message: "An error occured" });
-  }
-};
-
-// BUY NOW TO CHECKOUTPAGE
-let buyNowCheckOut = async (req, res) => {
-  const userId = req.user.id;
-  const { productId } = req.params;
-
-  try {
-    const user = await User.findById({ _id: userId });
-    const addresses = user.addresses;
-
-    ///////////////////////////////////
-    const allProducts = await Vendor.find({}).populate("products");
-    let cart = [];
-
-    // Find the product in allProducts
-    allProducts.forEach((vendor) => {
-      vendor.products.forEach((product) => {
-        if (product._id.equals(productId)) {
+      for (const vendor of allProducts) {
+        const product = vendor.products.find((prod) =>
+          prod._id.equals(productId)
+        );
+        if (product) {
           const vendorInfo = {
             vendorId: vendor._id,
             vendorName: vendor.vendorName,
           };
+
           const productDetails = {
             _id: product._id,
             name: product.productName,
@@ -1106,7 +1081,7 @@ let buyNowCheckOut = async (req, res) => {
             brand: product.productBrand,
             color: product.productColor,
             size: product.productSize,
-            quantity: 1,
+            quantity: cartProduct.quantity,
             price: product.productPrice,
             mrp: product.productMRP,
             discount: product.productDiscount,
@@ -1115,21 +1090,90 @@ let buyNowCheckOut = async (req, res) => {
             vendor: vendorInfo,
           };
 
-          cart.push(productDetails);
+          // Check if product is in stock
+          if (product.productQTY >= cartProduct.quantity) {
+            cart.push(productDetails);
+          } else {
+            // If product is out of stock, add it to outOfStockProducts array
+            outOfStockProducts.push({
+              product: productDetails,
+              availableQuantity: product.productQTY,
+            });
+          }
         }
-      });
-    });
-
+      }
+    }
     //////////////////////////////////////////////
+
+    if (outOfStockProducts.length > 0) {
+      // If any product is out of stock, send a JSON response
+      return res
+        .status(400)
+        .json({ message: "Some products are out of stock" });
+    }
+
     let totalPrice = 0;
     cart.forEach((prod) => (totalPrice += prod.price * prod.quantity));
-
-    res.status(200).render("user/checkout", { addresses, cart, totalPrice });
+    res.status(200).render("user/checkout", { addresses, cart, totalPrice, user ,wishlistProducts :user?.wishlist.products });
   } catch (error) {
     console.error("Error on checkout page display :", error);
-    res.status(500).json({ message: "An error occured" });
+    res.status(500).json({ message: "An error occurred" });
   }
 };
+
+// BUY NOW TO CHECKOUTPAGE
+// let buyNowCheckOut = async (req, res) => {
+//   const userId = req.user.id;
+//   const { productId } = req.params;
+
+//   try {
+//     const user = await User.findById({ _id: userId });
+//     const addresses = user.addresses;
+
+//     ///////////////////////////////////
+//     const allProducts = await Vendor.find({}).populate("products");
+//     let cart = [];
+
+//     // Find the product in allProducts
+//     allProducts.forEach((vendor) => {
+//       vendor.products.forEach((product) => {
+//         if (product._id.equals(productId)) {
+//           const vendorInfo = {
+//             vendorId: vendor._id,
+//             vendorName: vendor.vendorName,
+//           };
+//           const productDetails = {
+//             _id: product._id,
+//             name: product.productName,
+//             category: product.productCategory,
+//             subcategory: product.productSubCategory,
+//             brand: product.productBrand,
+//             color: product.productColor,
+//             size: product.productSize,
+//             quantity: 1,
+//             price: product.productPrice,
+//             mrp: product.productMRP,
+//             discount: product.productDiscount,
+//             images: product.productImages,
+//             description: product.productDescription,
+//             vendor: vendorInfo,
+//           };
+
+//           cart.push(productDetails);
+//         }
+//       });
+//     });
+
+//     //////////////////////////////////////////////
+//     let totalPrice = 0;
+//     cart.forEach((prod) => (totalPrice += prod.price * prod.quantity));
+
+//     res.status(200).render("user/checkout", { addresses, cart, totalPrice });
+//   } catch (error) {
+//     console.error("Error on checkout page display :", error);
+//     res.status(500).json({ message: "An error occured" });
+//   }
+// };
 
 // ADD ADDRESS
 let addAddress = async (req, res) => {
@@ -1519,7 +1563,7 @@ let userProfile = async (req, res) => {
     let cart = findUserOrders(user, allVendors);
     cart.reverse();
 
-    res.status(200).render("user/account", { user, cart, addresses });
+    res.status(200).render("user/account", { cart, addresses , user ,wishlistProducts :user?.wishlist.products});
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -1572,8 +1616,8 @@ let orderCancelRequestPost = async (req, res) => {
 // PRODUCT RETURN REASON AND REFUND POST
 let productReturnPost = async (req, res) => {
   try {
-    const userId = req.user.id
-    const {refundData } = req.body;
+    const userId = req.user.id;
+    const { refundData } = req.body;
 
     // Find the user by ID
     const user = await User.findById(userId);
@@ -1602,6 +1646,7 @@ let productReturnPost = async (req, res) => {
     product.refundMethod = refundData.refundMethod;
     if (refundData.refundDetails) {
       product.refundDetails = refundData.refundDetails;
+      product.orderStatus = "Requested for Refund";
     }
 
     // Save the changes
@@ -1712,6 +1757,73 @@ let applyCoupon = async (req, res) => {
   }
 };
 
+// CHECK SOTCK
+let checkStockAvailability = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findOne({ _id: userId });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const allProducts = await Vendor.find({}).populate("products");
+    let cart = [];
+
+    user.cart.products.forEach((cartProduct) => {
+      const productId = cartProduct.productId;
+
+      // Find the product in allProducts
+      allProducts.forEach((vendor) => {
+        vendor.products.forEach((product) => {
+          if (product._id.equals(productId)) {
+            const vendorInfo = {
+              vendorId: vendor._id,
+              vendorName: vendor.vendorName,
+            };
+
+            const productDetails = {
+              _id: product._id,
+              name: product.productName,
+              category: product.productCategory,
+              subcategory: product.productSubCategory,
+              brand: product.productBrand,
+              color: product.productColor,
+              size: product.productSize,
+              quantity: cartProduct.quantity,
+              price: product.productPrice,
+              mrp: product.productMRP,
+              discount: product.productDiscount,
+              images: product.productImages,
+              description: product.productDescription,
+              vendor: vendorInfo,
+              productQTY: product.productQTY,
+            };
+
+            cart.push(productDetails);
+          }
+        });
+      });
+    });
+
+    let outOfStock = [];
+    cart.forEach((prod) => {
+      if (prod.productQTY <= 0) {
+        outOfStock.push(prod);
+      }
+    });
+
+    if (outOfStock.length > 0) {
+      return res.status(400).json({ message: "Product is out of stock" });
+    }
+
+    res.status(200).json({ messages: "Success" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 module.exports = {
   homePage,
   signupGetPage,
@@ -1748,7 +1860,7 @@ module.exports = {
   placeOrderPost,
   placeOrderPostRazorpay,
   successfulRazorpayOrder,
-  buyNowCheckOut,
+  // buyNowCheckOut,
   orderCancelRequestPost,
   changePasswordPost,
   updateUserDetails,
@@ -1756,4 +1868,5 @@ module.exports = {
   getProductBySort,
   getSearchProduct,
   productReturnPost,
+  checkStockAvailability,
 };

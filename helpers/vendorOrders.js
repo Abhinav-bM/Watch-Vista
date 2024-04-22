@@ -27,7 +27,12 @@ function vendorOrders(vendorProducts, usersWithOrders) {
               expectedDeliveryDate: order.expectedDeliveryDate,
               shippingAddress: order.shippingAddress,
               paymentMethod: order.paymentMethod,
-              cancelReason: product.cancelReason,
+              razorPaymentId:order.razorPaymentId,
+              razorpayOrderId : order.razorpayOrderId,              
+              cancelReason: product?.cancelReason,
+              returnReason : product?.returnReason,
+              refundMethod:product?.refundMethod,
+              refundDetails :product?.refundDetails
             };
             vendorOrders.push(vendorOrder);
           }

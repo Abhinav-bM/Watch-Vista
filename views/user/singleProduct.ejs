@@ -128,18 +128,22 @@
                         <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
                             <div class="header-right">
                                 <ul class="text-right">
-                                    <li><a href="login.html" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-                                    <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a></li>
-                                    <li><a href="/wishlist" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
-                                    <li><a href="/cart"><i class="fal fa-shopping-bag"><span></span></i></a></li>
-                                    <li><a href=""><i class="fal fa-align-right"></i></a>
-                                        <ul class="submenu bold-content text-right">
-                                            <li><a href="">My Account</a></li>
-                                            <li><a href="">Checkout</a></li>
-                                            <li><a href="">Shop</a></li>
-                                            <li><a href="">Wishlist</a></li>
-                                            <li><a href="">Frequently</a></li>
-                                        </ul>
+                                    <li>
+                                        <a href="/">
+                                            <span>Home </span>
+                                        </a>
+                                    </li>
+    
+                                    <li class="position-static">
+                                        <a href="/shop">
+                                            <span>Shop</span>
+                                        </a>
+                                    </li>
+    
+                                    <li>
+                                        <a href="/contact">
+                                            <span>Contact</span>
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -831,6 +835,7 @@
                         position: "right",
                     }).showToast();
                 }
+                
             })
             .catch(function (error) {
                 if(error.response.status === 404){
@@ -841,7 +846,17 @@
                         position: "right",
                         backgroundColor: "red",
                     }).showToast();
-                }else{
+                }
+                else if(error.response.status === 400){
+                    Toastify({
+                        text: "Product is out of stock",
+                        duration: 2000,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor : "orange"
+                    }).showToast();
+                }
+                else{
                     Toastify({
                         text: "An error occurred. Try again",
                         duration: 2000,

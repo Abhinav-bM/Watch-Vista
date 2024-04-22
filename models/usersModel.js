@@ -63,6 +63,7 @@ const orderSchema = new mongoose.Schema(
           accountNumber: { type: String },
           ifsc: { type: String },
         },
+        deliveredDate: { type: Date }, // New field for delivered date
       },
     ],
     totalAmount: { type: Number },

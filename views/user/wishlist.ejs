@@ -88,17 +88,21 @@
                 <nav>
                   <ul>
                     <li>
-                      <a href="/" class=""
-                        ><span>Home <i class=""></i></span
-                      ></a>
+                      <a href="/">
+                        <span>Home </span>
+                      </a>
                     </li>
-                    <li class="">
-                      <a href="/shop"
-                        ><span>Shop <i class=""></i></span
-                      ></a>
+
+                    <li class="position-static">
+                      <a href="/shop">
+                        <span>Shop</span>
+                      </a>
                     </li>
+
                     <li>
-                      <a href=""><span>About</span></a>
+                      <a href="/contact">
+                        <span>Contact</span>
+                      </a>
                     </li>
                   </ul>
                 </nav>
@@ -123,11 +127,7 @@
                       </article></a
                     >
                   </li>
-                  <li>
-                    <a href="javascript:void(0)"
-                      ><i class="fal fa-search"></i
-                    ></a>
-                  </li>
+
                   <li>
                     <a href="/wishlist"
                       ><i class="fal fa-heart active"
@@ -146,9 +146,9 @@
                     <a href=""><i class="fal fa-align-right"></i></a>
                     <ul class="submenu bold-content text-right">
                       <li><a href="/userProfile">My Account</a></li>
-                      <li><a href="/shop">Shop</a></li>
                       <li><a href="/wishlist">Wishlist</a></li>
-                      <li><a href="/wishlist">Frequently</a></li>
+                      <li><a href="/cart">Cart</a></li>
+                      <li><a href="/user/logout">Logout</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -610,6 +610,14 @@
                 gravity: "top",
                 position: "right",
                 backgroundColor: "red",
+              }).showToast();
+            } else if (error.response.status === 400) {
+              Toastify({
+                text: "Product is out of stock",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "orange",
               }).showToast();
             } else {
               Toastify({

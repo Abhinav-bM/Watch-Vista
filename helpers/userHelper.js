@@ -1,4 +1,6 @@
 const Vendor = require("../models/vendorsModel");
+const moment = require('moment');
+
 
 function findUserOrders(user, allVendors) {
   let cart = [];
@@ -17,6 +19,10 @@ function findUserOrders(user, allVendors) {
             vendorId: vendor._id,
             vendorName: vendor.vendorName,
           };
+
+          const deliveredDate = product.deliveredDate;
+          const today = moment();
+          const differenceInDays = today.diff(moment(deliveredDate), 'days');
 
           const productDetails = {
             _id: foundProduct._id,
@@ -39,6 +45,11 @@ function findUserOrders(user, allVendors) {
             totalAmount: order.totalAmount,
             expectedDeliveryDate: order.expectedDeliveryDate,
             orderStatus: product.orderStatus,
+            returnReason : product?.returnReason,
+            refundMethod:product?.refundMethod,
+            refundDetails :product?.refundDetails,
+            deliveredDate :product.deliveredDate,
+            differenceInDays: differenceInDays
           };
 
           cart.push(productDetails);

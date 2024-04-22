@@ -90,29 +90,22 @@
                                         <nav>
                                             <ul>
                                                 <li>
-                                                    <a href="/" class="active">
-                                                        <span>Home</span>
+                                                    <a href="/">
+                                                        <span>Home </span>
                                                     </a>
                                                 </li>
+                
                                                 <li class="position-static">
                                                     <a href="/shop">
                                                         <span>Shop</span>
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a href="">
-                                                        <span>Blog</span> 
-                                                    </a>
-                                                </li>
-
-                        
-                                                <li>
-                                                    <a href="">
-                                                        <span>About</span>
-                                                    </a>
                 
+                                                <li>
+                                                    <a href="/contact">
+                                                        <span>Contact</span>
+                                                    </a>
                                                 </li>
-                                                <li><a href=""><span>Contact</span></a></li>
                                             </ul>
                                         </nav>
                                     </div>
@@ -126,19 +119,38 @@
                                 <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
                                     <div class="header-right">
                                         <ul class="text-right">
-                                            <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-                                            <li><a href="javascript:void(0)"><i class="fal fa-search"></i></a></li>
-                                            <li><a href="/wishlist" data-toggle="tooltip" data-placement="bottom" title="view wishlist"><i class="fal fa-heart"><span></span></i></a></li>
-                                            <li><a href="/cart"><i class="fal fa-shopping-bag"><span>1</span></i></a></li>
-                                            <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
+                                            <li>
+                                                <a href="/login" class="account"
+                                                  ><i class="fal fa-user-friends"></i>
+                                                  <article class="account-registar d-inline-block">
+                                                    Login
+                                                  </article></a
+                                                >
+                                              </li>
+                            
+                                              <li>
+                                                <a href="/wishlist"
+                                                  ><i class="fal fa-heart active"
+                                                    ><span><%= wishlistProducts?.length %></span></i
+                                                  ></a
+                                                >
+                                              </li>
+                                              <li>
+                                                <a href="/cart"
+                                                  ><i class="fal fa-shopping-bag"
+                                                    ><span><%= user?.cart.products.length %></span></i
+                                                  ></a
+                                                >
+                                              </li>
+                                              <li>
+                                                <a href=""><i class="fal fa-align-right"></i></a>
                                                 <ul class="submenu bold-content text-right">
-                                                    <li><a href="/userProfile">My Account</a></li>
-                                                    <!-- <li><a href="">Checkout</a></li> -->
-                                                    <!-- <li><a href="">Shop</a></li> -->
-                                                    <li><a href="/wishlist">Wishlist</a></li>
-                                                    <!-- <li><a href="question.html">Frequently</a></li> -->
+                                                  <li><a href="/userProfile">My Account</a></li>
+                                                  <li><a href="/wishlist">Wishlist</a></li>
+                                                  <li><a href="/cart">Cart</a></li>
+                                                  <li><a href="/user/logout">Logout</a></li>
                                                 </ul>
-                                            </li>
+                                              </li>
                                         </ul>
                                     </div>
                                 </div>

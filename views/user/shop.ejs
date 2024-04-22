@@ -169,26 +169,22 @@
                                 <nav>
                                     <ul>
                                         <li>
-                                            <a href="/" class="">
+                                            <a href="/">
                                                 <span>Home </span>
                                             </a>
                                         </li>
-                                        <li >
-                                            <a href="/shop" class="active">
-                                                <span>Shop </span>
+        
+                                        <li class="position-static">
+                                            <a href="/shop">
+                                                <span>Shop</span>
                                             </a>
                                         </li>
+        
                                         <li>
-                                            <a href="">
-                                                <span>Blog</span> 
-                                            </a>   
-                                        </li>
-                                        <li>
-                                            <a href=""><span>About</span>
+                                            <a href="/contact">
+                                                <span>Contact</span>
                                             </a>
-                                            
                                         </li>
-                                        <li><a href="contact.html"><span>Contact</span></a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -204,33 +200,37 @@
                                 <ul class="text-right">
 
                                     <li>
-                                        <!-- Search icon for smaller screens -->
-                                        <div id="searchIconDiv">
-                                            <a href="javascript:void(0)" id="searchIcon" class="search-icon"><i class="fal fa-search"></i></a>
-                                        </div>
-                                      
-                                        <!-- Search area for larger screens -->
-                                        <div  id="smallSearchPopup" class="search-area">
-                                          <form action="" method="">
-                                            <input type="text" id="searchInput" placeholder="Search Products...">
-                                            <button type="button" id="searchButton"><i class="fal fa-search"></i></button>
-                                          </form>
-                                        </div>
-                                    </li>
-
-                                    <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-
-                                    
-                                    <li><a href="/wishlist" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
-                                    <li><a href="/cart"><i class="fal fa-shopping-bag"><span>5</span></i></a>
-
-                                    <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
+                                        <a href="/login" class="account"
+                                          ><i class="fal fa-user-friends"></i>
+                                          <article class="account-registar d-inline-block">
+                                            Login
+                                          </article></a
+                                        >
+                                      </li>
+                    
+                                      <li>
+                                        <a href="/wishlist"
+                                          ><i class="fal fa-heart active"
+                                            ><span><%= wishlistProducts?.length %></span></i
+                                          ></a
+                                        >
+                                      </li>
+                                      <li>
+                                        <a href="/cart"
+                                          ><i class="fal fa-shopping-bag"
+                                            ><span><%= user?.cart.products.length %></span></i
+                                          ></a
+                                        >
+                                      </li>
+                                      <li>
+                                        <a href=""><i class="fal fa-align-right"></i></a>
                                         <ul class="submenu bold-content text-right">
-                                            <li><a href="login.html">My Account</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
-                                            <li><a href="/wishlist">Wishlist</a></li>
+                                          <li><a href="/userProfile">My Account</a></li>
+                                          <li><a href="/wishlist">Wishlist</a></li>
+                                          <li><a href="/cart">Cart</a></li>
+                                          <li><a href="/user/logout">Logout</a></li>
                                         </ul>
-                                    </li>
+                                      </li>
                                 </ul>
                             </div>
                         </div>

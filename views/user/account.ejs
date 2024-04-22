@@ -161,19 +161,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="">
-                                        <span>Blog</span> 
-                                    </a>
-                                </li>
-                          
-                                <li>
-                                    <a href="">
-                                        <span>About</span>
-                                    </a>
-                                     
-                                </li>
-                                <li>
-                                    <a href="">
+                                    <a href="/contact">
                                         <span>Contact</span>
                                     </a>
                                 </li>
@@ -520,10 +508,12 @@
                                                                 <div class="product col-4">
                                                                     <img src="<%= prod.images[0] %>" alt="" width="150px">
                                                                     <div class="mt-2">
-                                                                        <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled' && prod.orderStatus !== 'Delivered') { %>
+                                                                        <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled' && prod.orderStatus !== 'Delivered' && prod.orderStatus !== "Requested for Refund" && prod.orderStatus !== "Refund Processed") { %>
                                                                             <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')" >Cancel Order</button>
-                                                                        <% } else if(prod.orderStatus === 'Delivered') { %>
+                                                                        <% } else if( prod.orderStatus === 'Delivered' && prod.differenceInDays <= 7 ) { %>
                                                                             <button class="rounded" onclick="openReturnModal('<%= prod.orderId %>', '<%= prod._id %>')">Return</button>
+                                                                        <% } else if( prod.orderStatus === "Refund Processed" || prod.orderStatus === "Requested for Refund") { %>
+                                                                            <button class="rounded" onclick="openReturnModal('<%= prod.orderId %>', '<%= prod._id %>')" disabled>Return</button>
                                                                         <% } else { %>
                                                                             <button class="rounded" disabled>Cancel Order</button>
                                                                         <% } %>
@@ -536,7 +526,7 @@
                                                                     <p class="m-0"><small>Size: <%= prod.size %> & Quantity: <%= prod.quantity %></small></p>
                                                                     <p class="m-0"><small>Seller: <%= prod.vendor.vendorName %></small></p>
                                                                     <p class="m-0"><small>Expected Delivery: <%= prod.expectedDeliveryDate %></small></p>
-                                                                    <p class="m-0"><small>Order Status: <%= prod.orderStatus %></small></p>
+                                                                    <p class="m-0"><small>Order Status :</small><small class="<%= prod.orderStatus === 'Delivered' ? 'text-success' : prod.orderStatus === 'Cancelled' ? 'text-danger' : 'text-warning' %>"> <%= prod.orderStatus %></small></p>
                                                                     <p class="m-0"><small>Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<br><%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></small></p>
                                                                 </div>
                                                             </div>
@@ -584,9 +574,9 @@
                                                                                     <% if (prod.paymentMethod === 'RazorPay') { %>
                                                                                         <input type="radio" id="originalPayment" name="paymentOption" value="Original Payment Method" checked>
                                                                                         <label for="originalPayment">Original Payment method</label>
+                                                                                        <p>or</p>
                                                                                     <% } %>
 
-                                                                                    <p>or</p>
                                                                                     <input type="radio" id="option1" name="paymentOption" value="Add Bank Account Details">
                                                                                     <label for="option1">Add Bank Account Details</label>
 
@@ -751,6 +741,7 @@
         });
     }
 
+
     // FUNCTION FOR OPEN RETURN MODAL
     function openReturnModal(orderId,productId){
         console.log("Opening return  modal for Order ID:", orderId, "Product ID:", productId);
@@ -771,7 +762,6 @@
             productId:productId,
             returnReason : returnReason,
             refundMethod : paymentOption,
-
         }
 
         if(paymentOption === "Add Bank Account Details"){
@@ -796,6 +786,7 @@
         .then((response)=>{
             console.log("Response data from return add post : ", response)
             $('#returnlModal_' + productId).modal('hide');
+            window.location.href = `/userProfile?scrollTo=orders`
 
         })
         .catch((error)=>{

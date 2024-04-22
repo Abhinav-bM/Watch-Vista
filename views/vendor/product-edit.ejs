@@ -85,31 +85,19 @@
                 </a>
                 <!-- Menu: main ul -->
                 <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+                    <li><a class="m-link active" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
                     <li class="collapsed">
-                        <a class="m-link active" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
+                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
                             <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                             <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse show" id="menu-product">
-                                <!-- <li><a class="ms-link" href="product-grid.html">Product Grid</a></li> -->
-                                <li><a class="ms-link" href="/vendor/productList">Product List</a></li>
-                                <!-- <li><a class="ms-link" href="product-edit.html">Product Edit</a></li> -->
-                                <!-- <li><a class="ms-link" href="product-detail.html">Product Details</a></li> -->
-                                <li><a class="ms-link " href="/vendor/addProduct">Add Product</a></li>
-                                <!-- <li><a class="ms-link" href="product-cart.html">Shopping Cart</a></li> -->
-                                <!-- <li><a class="ms-link" href="checkout.html">Checkout</a></li> -->
+                            <ul class="sub-menu collapse" id="menu-product">
+                                <li><a class="ms-link" href="/vendor/productList">Products List</a></li>
+                                <li><a class="ms-link" href="/vendor/addProduct">Add Products</a></li>
                             </ul>
                     </li>
-    
+
                     <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-order" href="#">
-                        <i class="icofont-notepad fs-5"></i> <span>Orders</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-order">
-                            <li><a class="ms-link" href="order-list.html">Orders List</a></li>
-                            <li><a class="ms-link" href="order-details.html">Order Details</a></li>
-                            <li><a class="ms-link" href="order-invoices.html">Order Invoices</a></li>
-                        </ul>
+                        <li><a class="m-link " href="/vendor/orders"><i class="icofont-notepad"></i> <span>Orders</span></a></li>
                     </li>
                     <li class="collapsed">
                         <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
@@ -153,6 +141,7 @@
                             <li><a class="ms-link" href="create-invoice.html">Create Invoice </a></li>
                         </ul>
                     </li>
+                    <li><a class="m-link " href="/vendor/returnRepayment"><i class="icofont-notepad"></i> <span>Return & Repayment</span></a></li>
   
                     
                 </ul>
@@ -405,19 +394,20 @@
         <div class="form-group images px-3">
             
         <label for="productImages">Product Images ( 4 images ):</label><br>
-            <% product.productImages.forEach(x=>{ %>
-            <input type="file" id="productImages" name="productImages" value="<%= x %>" multiple>
-            <img src="<%= x %>" alt="No image added" style="max-width: 100px;"><br>
+            
 
-            <!-- <input type="file" id="productImages" name="productImages" value="<%= product.productImages[1] %>" >
+            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[0] %>" >
+            <img src="<%= product.productImages[0] %>" alt="No image added" style="max-width: 100px;"><br>
+
+            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[1] %>">
             <img src="<%= product.productImages[1] %>" alt="No image added" style="max-width: 100px;"><br>
 
-            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[2] %>"  >
+            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[2] %>" >
             <img src="<%= product.productImages[2] %>" alt="No image added" style="max-width: 100px;"><br>
 
             <input type="file" id="productImages" name="productImages" value="<%= product.productImages[3] %>" >
-            <img src="<%= product.productImages[3] %>" alt="No image added" style="max-width: 100px;"><br> -->
-            <% }) %>
+            <img src="<%= product.productImages[2] %>" alt="No image added" style="max-width: 100px;"><br>
+
             
         </div>
 
