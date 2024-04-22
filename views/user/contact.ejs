@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html class="no-js" lang="">
+  <!-- Mirrored from wphix.com/template/mazia/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:38 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Mazia - Clean Minimal eCommerce HTML5 Template</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="manifest" href="site.html" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+    <!-- Place favicon.ico in the root directory -->
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <link rel="stylesheet" href="css/jquery-ui.css" />
+    <link rel="stylesheet" href="css/animate.min.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="css/meanmenu.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+  </head>
+
+  <body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
+
+    <!-- preloader -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+    </div>
+
+    <!-- header section start -->
+    <header
+      class="header pt-30 pb-30 header-sticky header-static"
+      style="padding-top: 30px; padding-bottom: 15px; top: 0px"
+    >
+      <div class="container-fluid">
+        <div class="header-nav position-relative">
+          <div class="row align-items-center">
+            <div class="col-xl-5 col-lg-6 hidden-md position-static">
+              <div class="header-nav">
+                <nav>
+                  <ul>
+                    <li>
+                      <a href="/">
+                        <span>Home </span>
+                      </a>
+                    </li>
+
+                    <li class="position-static">
+                      <a href="/shop">
+                        <span>Shop</span>
+                      </a>
+                    </li>
+
+                    <li>
+                      <a href="/contact">
+                        <span>Contact</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
+              <div class="logo">
+                <a href=""><img src="img/logo/logo1.png" alt="" /></a>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
+              <div class="header-right">
+                <ul class="text-right">
+                  <li>
+                    <a href="/login" class="account"
+                      ><i class="fal fa-user-friends"></i>
+                      <article class="account-registar d-inline-block">
+                        Login
+                      </article></a
+                    >
+                  </li>
+
+                  <li>
+                    <a href="/wishlist"
+                      ><i class="fal fa-heart active"
+                        ><span><%= wishlistProducts?.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a href="/cart"
+                      ><i class="fal fa-shopping-bag"
+                        ><span><%= user?.cart.products.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a href=""><i class="fal fa-align-right"></i></a>
+                    <ul class="submenu bold-content text-right">
+                      <li><a href="/userProfile">My Account</a></li>
+                      <li><a href="/wishlist">Wishlist</a></li>
+                      <li><a href="/cart">Cart</a></li>
+                      <li><a href="/user/logout">Logout</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mobile-menu visible-sm">
+          <div id="mobile-menu">
+            <ul>
+              <li>
+                <a href="/">
+                  <span>Home </span>
+                </a>
+              </li>
+
+              <li class="position-static">
+                <a href="/shop">
+                  <span>Shop</span>
+                </a>
+              </li>
+
+              <li>
+                <a href="/contact">
+                  <span>Contact</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- /. mobile nav -->
+      </div>
+    </header>
+    <!-- header section end -->
+
+    <!-- contact-form-area start -->
+    <section
+      class="contact-form-area gray-border-top pt-100 pb-100"
+      style="background-color: #f0efef"
+    >
+      <div class="container container-1430">
+        <div class="form-wrapper">
+          <div class="row align-items-center">
+            <div class="col-xl-8 col-lg-8">
+              <div class="section-title mb-55">
+                <p><span></span> Anything On your Mind</p>
+                <h1>Estimate Your Idea</h1>
+              </div>
+            </div>
+          </div>
+          <div class="contact-form">
+            <form id="contact-form" action="#">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-box user-icon mb-30">
+                    <input type="text" name="name" placeholder="Your Name" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-box email-icon mb-30">
+                    <input type="text" name="email" placeholder="Your Email" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-box phone-icon mb-30">
+                    <input type="text" name="phone" placeholder="Your Phone" />
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-box subject-icon mb-30">
+                    <input
+                      type="text"
+                      name="subject"
+                      placeholder="Your Subject"
+                    />
+                  </div>
+                </div>
+                <div class="col-lg-12">
+                  <div class="form-box message-icon mb-30">
+                    <textarea
+                      name="message"
+                      id="message"
+                      cols="30"
+                      rows="10"
+                      placeholder="Your Message"
+                    ></textarea>
+                  </div>
+                  <div class="contact-btn text-center">
+                    <button class="btn theme-btn1" type="submit">
+                      get action
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <p class="ajax-response text-center"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer section start -->
+    <section class="footer">
+      <div class="footer-bottom pt-77" style="background-color: #292929">
+        <div class="container-1180">
+          <div class="footer-bottom-wrapper">
+            <div class="footer-bottom-primary pb-60">
+              <div class="row">
+                <div class="col-xl-5 col-lg-5 col-md-9">
+                  <div class="footer-item has-desc">
+                    <div class="footer-logo mb-25">
+                      <img
+                        src="img/logo/logo2.png"
+                        width="120"
+                        height="31"
+                        alt=""
+                      />
+                    </div>
+                    <div class="footer-desc">
+                      <p class="mb-10">
+                        Sign to the WatchVista store mailing list to receive
+                        updates on new arrivals, special offers and other
+                        discount information.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-12">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="/userProfile" class="title">MY ACCOUNT</a>
+                          </li>
+                          <li><a href="/checkout">Cart</a></li>
+                          <li><a href="/shop">Shop</a></li>
+                          <li><a href="/wishlist">Wishlist</a></li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="" class="title">Quick Links</a>
+                          </li>
+                          <li><a href="">Special Offers</a></li>
+                          <li><a href="">Gift Cards</a></li>
+                          <li><a href="">Privacy Policy</a></li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="" class="title">Company Info</a>
+                          </li>
+                          <li><a href="">About us</a></li>
+                          <li>
+                            <a href="">Business With Us</a>
+                          </li>
+                          <li><a href="">Teams of Use</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- footer section end -->
+
+    <!-- JS here -->
+    <script
+      data-cfasync="false"
+      src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/one-page-nav-min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.meanmenu.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/fontawesome.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+
+  <!-- Mirrored from wphix.com/template/mazia/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:39 GMT -->
+</html>

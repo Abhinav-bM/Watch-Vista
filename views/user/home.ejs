@@ -1,626 +1,477 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
-    
-<!-- Mirrored from wphix.com/template/mazia/index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:03:42 GMT -->
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>WatchVista - Home</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Mirrored from wphix.com/template/mazia/index3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:03:42 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>WatchVista - Home</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="manifest" href="site.html">
-		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-        <!-- Place favicon.ico in the root directory -->
+    <link rel="manifest" href="site.html" />
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+    <!-- Place favicon.ico in the root directory -->
 
-		<!-- CSS here -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="css/fontawesome.min.css">
-        <link rel="stylesheet" href="css/animate.min.css">
-        <link rel="stylesheet" href="css/magnific-popup.css">
-        <link rel="stylesheet" href="css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="css/meanmenu.css">
-        <link rel="stylesheet" href="css/slick.css">
-        <link rel="stylesheet" href="css/default.css">
-        <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/responsive.css">
+    <!-- CSS here -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <link rel="stylesheet" href="css/animate.min.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="css/meanmenu.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
 
+    <!-- toastify -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
 
-        <!-- toastify -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-        <!-- axios -->
-        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+      /* Additional styling if needed */
 
+      .product-img {
+        position: relative;
+        overflow: hidden;
+      }
 
+      .product-img img {
+        transition: transform 0.5s ease;
+      }
 
-        
+      .product-img:hover img {
+        animation: zoom-in 5s infinite;
+      }
 
-        <style>
-            /* Additional styling if needed */
-            
-            .product-img {
-            position: relative;
-            overflow: hidden;
-            }
+      @keyframes zoom-in {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
 
-            .product-img img {
-            transition: transform 0.5s ease;
-            }
+    <!-- preloader -->
+    <div id="loader-wrapper">
+      <div id="loader"></div>
+    </div>
 
-            .product-img:hover img {
-            animation: zoom-in 5s infinite;
-            }
+    <!-- header section start -->
+    <header class="header header-2 pt-30 pb-20 header-sticky header-static">
+      <div class="container-fluid">
+        <div class="header-nav header-nav-2 position-relative">
+          <div class="row align-items-center">
+            <div class="col-xl-5 col-lg-6 hidden-md position-static">
+              <div class="header-nav">
+                <nav>
+                  <ul>
+                    <li>
+                      <a href="/">
+                        <span>Home </span>
+                      </a>
+                    </li>
 
-            @keyframes zoom-in {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-            }
+                    <li class="position-static">
+                      <a href="/shop">
+                        <span>Shop</span>
+                      </a>
+                    </li>
 
-        </style>
-    </head>
-    <body>
-        <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
-
-            <!-- preloader -->
-            <div id="loader-wrapper">
-                <div id="loader"></div>
+                    <li>
+                      <a href="/contact">
+                        <span>Contact</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
+              <div class="logo">
+                <a href="index3.html"
+                  ><img src="img/logo/logo1.png" alt=""
+                /></a>
+              </div>
             </div>
 
+            <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
+              <div class="header-right">
+                <ul class="text-right">
+                  <li>
+                    <a href="/login" class="account"
+                      ><i class="fal fa-user-friends"></i>
+                      <article class="account-registar d-inline-block">
+                        Login
+                      </article></a
+                    >
+                  </li>
 
-            <!-- header section start -->
-            <header class="header header-2 pt-30 pb-20  header-sticky header-static">
-                <div class="container-fluid">
-                    <div class="header-nav header-nav-2 position-relative">
-                            <div class="row align-items-center">
+                  <li>
+                    <a href="/wishlist"
+                      ><i class="fal fa-heart active"
+                        ><span><%= wishlistProducts?.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a href="/cart"
+                      ><i class="fal fa-shopping-bag"
+                        ><span><%= user?.cart.products.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a><i class="fal fa-align-right"></i></a>
+                    <ul class="submenu bold-content text-right">
+                      <li><a href="/userProfile">My Account</a></li>
+                      <li><a href="/wishlist">Wishlist</a></li>
+                      <li><a href="/cart">Cart</a></li>
+                      <li><a href="/user/logout">Logout</a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mobile-menu visible-sm">
+          <div id="mobile-menu">
+            <ul>
+              <li><a class="pl-3" href="/">Home</a></li>
+              <li><a class="pl-3" href="/shop">Shop</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /. mobile nav -->
+      </div>
+    </header>
+    <!-- header section end -->
 
-                                <div class="col-xl-5 col-lg-6 hidden-md position-static">
-                                    <div class="header-nav">
-                                        <nav>
-                                            <ul>
-                                                <li>
-                                                    <a href="/">
-                                                        <span>Home </span>
-                                                    </a>
-                                                </li>
-                
-                                                <li class="position-static">
-                                                    <a href="/shop">
-                                                        <span>Shop</span>
-                                                    </a>
-                                                </li>
-                
-                                                <li>
-                                                    <a href="/contact">
-                                                        <span>Contact</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                </div>
-                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
-                                    <div class="logo">
-                                        <a href="index3.html"><img src="img/logo/logo1.png" alt=""></a>
-                                    </div>
-                                </div>
-
-                                <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
-                                    <div class="header-right">
-                                        <ul class="text-right">
-                                            <li>
-                                                <a href="/login" class="account"
-                                                  ><i class="fal fa-user-friends"></i>
-                                                  <article class="account-registar d-inline-block">
-                                                    Login
-                                                  </article></a
-                                                >
-                                              </li>
-                            
-                                              <li>
-                                                <a href="/wishlist"
-                                                  ><i class="fal fa-heart active"
-                                                    ><span><%= wishlistProducts?.length %></span></i
-                                                  ></a
-                                                >
-                                              </li>
-                                              <li>
-                                                <a href="/cart"
-                                                  ><i class="fal fa-shopping-bag"
-                                                    ><span><%= user?.cart.products.length %></span></i
-                                                  ></a
-                                                >
-                                              </li>
-                                              <li>
-                                                <a href=""><i class="fal fa-align-right"></i></a>
-                                                <ul class="submenu bold-content text-right">
-                                                  <li><a href="/userProfile">My Account</a></li>
-                                                  <li><a href="/wishlist">Wishlist</a></li>
-                                                  <li><a href="/cart">Cart</a></li>
-                                                  <li><a href="/user/logout">Logout</a></li>
-                                                </ul>
-                                              </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                    </div>
-                    <div class="mobile-menu visible-sm">
-                        <div id="mobile-menu">
-                            <ul>
-                                <li><a  class="pl-3" href="javascript:void(0)">Home</a>
-                                    <ul class="pl-4">
-                                        <!-- <li><a href="index.html">Home Fashion 1</a></li> -->
-                                        <!-- <li><a href="index2.html">Home Fashion 2</a></li>
-                                        <li><a href="index3.html">Home Fashion 3</a></li>
-                                        <li><a href="index4.html">Home Fashion 4</a></li>
-                                        <li><a href="index5.html">Home Fashion 5</a></li>
-                                        <li><a href="index6.html">Home Fashion 6</a></li>
-                                        <li><a href="index7.html">Home Fashion 7</a></li> -->
-
-                                    </ul>
-                                </li>
-                                <li><a  class="pl-3" href="javascript:void(0)">Shop</a>
-                                    <ul>
-                                        <li><a href="shop.html">Shop Layout</a></li>
-                                        <li><a href="shop4.html">Masonry – Grid</a></li>
-                                        <li><a href="shop3.html">Pagination</a></li>
-                                        <li><a href="shop2.html">Ajax Load More</a></li>
-                                        <li><a href="shop2.html">Infinite Scroll</a></li>
-                                        <li><a href="shop2.html">Sidebar Right</a></li>
-                                        <li><a href="shop.html">Sidebar Left</a></li>
-                                        <li><a href="shop.html">Shop Pages</a></li>
-                                        <li><a href="shop2.html">List View</a></li>
-                                        <li><a href="shop3.html">Small Products</a></li>
-                                        <li><a href="shop2.html">Large Products</a></li>
-                                        <li><a href="shop3.html">Shop — 3 Items</a></li>
-                                        <li><a href="shop3.html">Shop — 4 Items</a></li>
-                                        <li><a href="shop4.html">Shop — 5 Items</a></li>
-                                        <li><a href="single-product-2.html">Product Layout</a></li>
-                                        <li><a href="single-product.html">Description Sticky</a></li>
-                                        <li><a href="single-product-2.html">Product Carousels</a></li>
-                                        <li><a href="single-product-3.html">Gallery Modern</a></li>
-                                        <li><a href="single-product-4.html">Thumbnail Left</a></li>
-                                        <li><a href="single-product-5.html">Thumbnail Right</a></li>
-                                        <li><a href="single-product-6.html">Thumbnail Botttom</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">Blog</a>
-                                    <ul>
-                                        <li><a href="blog.html">Grid layout</a></li>
-                                        <li><a href="blog2.html">Large image</a></li>
-                                        <li><a href="blog3.html">Left Sidebar</a></li>
-                                        <li><a href="blog4.html">Right Sidebar</a></li>
-                                        <li><a href="blog5.html">No sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="javascript:void(0)">Portfolio</a>
-                                    <ul>
-                                        <li><a href="portfolio.html">Single project</a></li>
-                                        <li><a href="portfolio2.html">Two Columns</a></li>
-                                        <li><a href="portfolio3.html">Three Columns</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="contact.html">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /. mobile nav -->
-                </div>
-            </header>
-            <!-- header section end -->
-
-
-
-
-            <!-- slider section start -->
-            <section class="slider">
-                <div class="container pl-0 pr-0">
-                    <div class="slider-active center-dots number-dots">
-                        <% bannerHome.forEach(banner => { %>
-                        <div class="single-slider large-content h-790 d-flex align-items-center" data-background="<%= banner.image %>">
-                            <div class="container-fluid">
-                                <div class="single-slider-inner">
-                                    <div class="single-slider-content text-left light-content pl-10" style="text-align: left !important;">
-                                        <div class="slider-heading small-heading-text" data-animation="flipInX" data-delay=".4s">
-                                            <h2 class="mb-0" style="color: white;">SmartWatch</h2>
-                                            <h2 class="mb-0" style="color: white;">New Trending 2024</h2>
-                                        </div>
-                                        <div class="slider-desc" data-animation="flipInX" data-delay=".6s">
-                                            <p class="mt-35 mb-0" style="color: white;">SmartWatch 2022 series, cutting-edge features and sleek designs. </p>
-                                        </div>
-                                        <div class="slider-link slider-link-2" data-animation="flipInX" data-delay=".8s">
-                                            <a href="/shop" class="generic-btn mt-70 red-hover-btn text-uppercase" tabindex="0">Discover now</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <% }) %>
-                    </div>
-                </div>
-            </section>
-            <!-- slider section end -->
-                
-
-
-
-            <!-- new arrival section start -->
-            <section class="new-arrival mt-120">
-                <div class="container container-1430">
-                  <div class="generic-title text-center">
-                    <h2 class="mb-20">#New Arrivals</h2>
-                    <!-- <p>Nam liber tempor cum soluta nobis eleifend option congue nihil</p> -->
-                    <!-- <p>doming id quod mazim placerat facer possim assum typi non habent claritatem insitam.</p> -->
+    <!-- slider section start -->
+    <section class="slider">
+      <div class="container pl-0 pr-0">
+        <div class="slider-active center-dots number-dots">
+          <% bannerHome.forEach(banner => { %>
+          <div
+            class="single-slider large-content h-790 d-flex align-items-center"
+            data-background="<%= banner.image %>"
+          >
+            <div class="container-fluid">
+              <div class="single-slider-inner">
+                <div
+                  class="single-slider-content text-left light-content pl-10"
+                  style="text-align: left !important"
+                >
+                  <div
+                    class="slider-heading small-heading-text"
+                    data-animation="flipInX"
+                    data-delay=".4s"
+                  >
+                    <h2 class="mb-0" style="color: white">SmartWatch</h2>
+                    <h2 class="mb-0" style="color: white">New Trending 2024</h2>
                   </div>
-                  
-                  <div class="new-arrival-wrapper mt-55">
-                    <div class="row">
+                  <div
+                    class="slider-desc"
+                    data-animation="flipInX"
+                    data-delay=".6s"
+                  >
+                    <p class="mt-35 mb-0" style="color: white">
+                      SmartWatch 2022 series, cutting-edge features and sleek
+                      designs.
+                    </p>
+                  </div>
+                  <div
+                    class="slider-link slider-link-2"
+                    data-animation="flipInX"
+                    data-delay=".8s"
+                  >
+                    <a
+                      href="/shop"
+                      class="generic-btn mt-70 red-hover-btn text-uppercase"
+                      tabindex="0"
+                      >Discover now</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </section>
+    <!-- slider section end -->
 
-                        <% products.forEach(prod=>{ %>
-                            <% prod.products.forEach(product=>{ %>
-                            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                              <div class="product-box mb-40">
-                                <div class="product-box-wrapper">
-                                  <div class=" col-12 product-img img-container">
-                                    <a href="/products?productId=<%= product._id %>" class="product-category">
-                                        <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= products.productName %>">
-                                    </a>
+    <!-- new arrival section start -->
+    <section class="new-arrival mt-120">
+      <div class="container container-1430">
+        <div class="generic-title text-center">
+          <h2 class="mb-20">#New Arrivals</h2>
+          <!-- <p>Nam liber tempor cum soluta nobis eleifend option congue nihil</p> -->
+          <!-- <p>doming id quod mazim placerat facer possim assum typi non habent claritatem insitam.</p> -->
+        </div>
 
-                                  </div>
-                        
-                                  <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                      <div class="categories">
-                                        <a href="/products?productId=<%= product._id %>" class="product-category"><span><%= product.productCategory %></span></a>
-                                      </div>
-                                        <button class="btn btn-link" onclick="addToWishlist(event, '<%= product._id %>')">
-                                            <div class="wishlist float-right">
-                                                <% if(user && user.wishlist.products.some( wProduct => wProduct.productId.toString() === product._id.toString() )) { %>
-                                                    <i id="heartIcon-<%= product._id %>" class="fas fa-heart fa-lg text-danger"></i>
-                                                <% } else { %>
-                                                    <i id="heartIcon-<%= product._id %>" class="fal fa-heart fa-lg"></i>
-                                                <% } %>
-                                            </div>
-                                        </button>
+        <div class="new-arrival-wrapper mt-55">
+          <div class="row">
+            <% products.forEach(prod=>{ %> <% prod.products.forEach(product=>{
+            %>
+            <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+              <div class="product-box mb-40">
+                <div class="product-box-wrapper">
+                  <div class="col-12 product-img img-container">
+                    <a
+                      href="/products?productId=<%= product._id %>"
+                      class="product-category"
+                    >
+                      <img
+                        src="<%= product.productImages[0] %>"
+                        class="w-100"
+                        alt="<%= products.productName %>"
+                      />
+                    </a>
+                  </div>
 
-                                    </div>
-                                    <a href="/products?productId=<%= product._id %>" class="product-title"><%= product.productName %></a>
-                                    <div class="price-switcher">
-                                      <span class="price switcher-item">₹ <%= product.productPrice %>/-</span>
-                                      <span class="price switcher-item">₹ <%= product.productPrice %>/-</span>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <% }); %>
-                        <% }); %>
+                  <div class="product-desc pb-20">
+                    <div class="product-desc-top">
+                      <div class="categories">
+                        <a
+                          href="/products?productId=<%= product._id %>"
+                          class="product-category"
+                          ><span><%= product.productCategory %></span></a
+                        >
+                      </div>
+                      <button
+                        class="btn btn-link"
+                        onclick="addToWishlist(event, '<%= product._id %>')"
+                      >
+                        <div class="wishlist float-right">
+                          <% if(user && user.wishlist.products.some( wProduct =>
+                          wProduct.productId.toString() ===
+                          product._id.toString() )) { %>
+                          <i
+                            id="heartIcon-<%= product._id %>"
+                            class="fas fa-heart fa-lg text-danger"
+                          ></i>
+                          <% } else { %>
+                          <i
+                            id="heartIcon-<%= product._id %>"
+                            class="fal fa-heart fa-lg"
+                          ></i>
+                          <% } %>
+                        </div>
+                      </button>
+                    </div>
+                    <a
+                      href="/products?productId=<%= product._id %>"
+                      class="product-title"
+                      ><%= product.productName %></a
+                    >
+                    <div class="price-switcher">
+                      <span class="price switcher-item"
+                        >₹ <%= product.productPrice %>/-</span
+                      >
+                      <span class="price switcher-item"
+                        >₹ <%= product.productPrice %>/-</span
+                      >
                     </div>
                   </div>
                 </div>
-              </section>           
-              <!-- new arrival section end -->
-
-     
-
-            <!-- footer section start -->
-            <section class="footer">
-               <div class="container">
-                <div class="footer-top footer-top-2 mt-110 pb-120 pt-115 gray-border-top">
-                    <div class="footer-top-wrapper">
-                        <div class="newsletter text-center row-content">
-                            <div class="row">
-                                <div class="col-12">
-                                    <h2 class="title mb-20">Sign Up</h2>
-                                    <p class="">Sign to the WatchVista store mailing list to receive updates on new arrivals, special offers and<br>
-                                        other discount information.
-                                    </p>
-                                </div>
-                                <div class="col-12">
-                                    <div class="newsletter-form">
-                                        <form action="/login" method="get">
-                                            <button type="submit" class="generic-btn text-center red-hover-btn text-uppercase"><a href="" style="color: white;">Signup Now</a></button>
-                                        </form>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- /.newsletter -->
-                        <!-- /. footer bottom -->
-                    </div>
-
-                </div>
-                <!-- footer top -->
-               </div>
-               <div class="footer-bottom pt-77" style="background-color: #292929;">
-                <div class="container-1180">
-                    <div class="footer-bottom-wrapper">
-                        <div class="footer-bottom-primary pb-60">
-                            <div class="row">
-                                <div class="col-xl-5 col-lg-5 col-md-9">
-                                    <div class="footer-item has-desc">
-                                        <div class="footer-logo mb-25">
-                                            <img src="img/logo/logo2.png" width="120" height="31" alt="">
-                                        </div>
-                                        <div class="footer-desc">
-                                            <p class="mb-10">WatchVista store is destination for exquisite timepieces that blend style, precision, and craftsmanship. We pride ourselves on curating a collection that caters to watch enthusiasts, fashion aficionados, and those seeking the perfect blend of elegance and functionality.</p>
-                                        </div>
-                                        <div class="footer-img mt-65">
-                                            <img src="img/logo/paypal.png" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-7 col-lg-7 col-md-12">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
-                                            <div class="footer-menu">
-                                                <ul>
-                                                    <li><a href="javascript:void(0)" class="title">MY ACCOUNT</a></li>
-                                                    <li><a href="/login">My account</a></li>
-                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                    <li><a href="shop2.html">Shop</a></li>
-                                                    <li><a href="/wishlist">Wishlist</a></li>
-                                                    <li><a href="question.html">Frequently</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
-                                            <div class="footer-menu">
-                                                <ul>
-                                                    <li><a href="javascript:void(0)" class="title">Quick Links</a></li>
-                                                    <li><a href="shop2.html">Special Offers</a></li>
-                                                    <li><a href="shop2.html">Gift Cards</a></li>
-                                                    <li><a href="shop2.html">F21 Red</a></li>
-                                                    <li><a href="about.html">Privacy Policy</a></li>
-                                                    <li><a href="about.html">Teams of Use</a></li>
-                                                    <li><a href="portfolio.html">Portfolio</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm">
-                                            <div class="footer-menu">
-                                                <ul>
-                                                    <li><a href="javascript:void(0)" class="title">Company Info</a></li>
-                                                    <li><a href="about.html">About us</a></li>
-                                                    <li><a href="blog.html">Careers</a></li>
-                                                    <li><a href="portfolio2.html">Business With Us</a></li>
-                                                    <li><a href="shop2.html">Find a Store</a></li>
-                                                    <li><a href="question.html">Teams of Use</a></li>
-                                                    <li><a href="portfolio3.html">Press &amp; Talent</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
+            <% }); %> <% }); %>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- new arrival section end -->
 
-            </section>
-            <!-- footer section end -->
-
-
-
-
-
-
-
-            <!-- product popup start -->
-            <section id="product-popup">
-                <div class="product-popup-overlay"></div>
-                <div class="product-popup-container">
-                    <div class="product-inner w-100">
-                        <div class="product-inner-content">
-                            <div class="quick-close-action"><i class="fal fa-times"></i></div>
-                            <div class="row">
-                                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6">
-                                    <div class="tab-content" id="pills-tabContent">
-                                        <div class="tab-pane fade show active" id="product-popup-1">
-                                            <div class="product-popup-img">
-                                                <img src="img/product/10.jpg" class="w-100" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="product-popup-2">
-                                            <div class="product-popup-img">
-                                                <img src="img/product/11.jpg" class="w-100" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="product-popup-3">
-                                            <div class="product-popup-img">
-                                                <img src="img/product/12.jpg" class="w-100" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <ul class="nav nav-pills justify-content-center mt-10" id="pills-tab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="active" data-toggle="pill" href="#product-popup-1">
-                                                <img src="img/product/10.jpg" class="w-100" alt="">
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="" data-toggle="pill" href="#product-popup-2">
-                                                <img src="img/product/11.jpg" class="w-100" alt="">
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="" data-toggle="pill" href="#product-popup-3">
-                                                <img src="img/product/12.jpg" class="w-100" alt="">
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6">
-                                    <div class="product-content">
-                                        <div class="product-title">
-                                            <h2>Nari Narwhal Usb...</h2>
-                                        </div>
-                                        <div class="price">$<span>44.00</span>–<span>$250.00</span></div>
-                                        <a href="shop.html" class="all-feature">See all feature</a>
-                                        <div class="quick-quantity mt-30">
-                                            <form action="#" method="POST">
-                                                <input type="number" value="1">
-                                                <button type="submit" class="generic-btn red-hover-btn text-capitalize">add to cart</button>
-                                            </form>
-                                        </div>
-
-                                        <div class="product-desc pb-20 mt-25 gray-border-top">
-                                            <p class="mb-0">Typi non habent claritatem insitam, est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus A Capitalize on low hanging fruit to identify a ballpark value added activity to beta test. Override the digital...ditional clickthroughs from DevOps. Nanotechnology immersion along the information highway will close the […]</p>
-                                        </div>
-                                        <div class="product-list mt-25">
-                                            <ul>
-                                                <li>– Light green crewnec...t.</li>
-                                                <li>– Hand pockets.</li>
-                                                <li>– Relaxed fit.</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- footer section start -->
+    <section class="footer">
+      <div class="footer-bottom pt-77" style="background-color: #292929">
+        <div class="container-1180">
+          <div class="footer-bottom-wrapper">
+            <div class="footer-bottom-primary pb-60">
+              <div class="row">
+                <div class="col-xl-5 col-lg-5 col-md-9">
+                  <div class="footer-item has-desc">
+                    <div class="footer-logo mb-25">
+                      <img
+                        src="img/logo/logo2.png"
+                        width="120"
+                        height="31"
+                        alt=""
+                      />
                     </div>
-                </div>
-            </section>
-            <!-- product popup end -->
-
-            <!-- startup popup start -->
-            <section id="startup-popup">
-                <div class="product-popup-overlay has-startup" style="opacity: 1;visibility: visible"></div>
-                <div class="startup-popup-body">
-                    <div class="startup-body-content h-100">
-                        <div class="row justify-content-end h-100">
-                            <div class="col-6 h-100">
-                                <div class="startup-popup-inner h-100">
-                                    <div class="close-search-popup">
-                                        <i class="fal fa-times"></i>
-                                    </div>
-                                    <div class="startup-popup-main-content">
-                                        <h2>Get Our Email Letter</h2>
-                                        <p class="mb-0">Subscribe to the WatchVista store mailing list to receive updates on new arrivals, special offers
-                                            and other discount information.</p>
-                                        <div class="startup-subscribe-form">
-                                            <form action="#" method="POST">
-                                                <input type="text" placeholder="Subscribe to our newsletter" class="mb-30">
-                                                <button class="generic-btn red-hover-btn text-uppercase">Subscribe now</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="startup-popup-sub-content">
-                                        <div class="popup-warning">
-                                            <input type="checkbox" id="startup-popup-hidden">
-                                            <label for="startup-popup-hidden">Do not show the popup again</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="footer-desc">
+                      <p class="mb-10">
+                        Sign to the WatchVista store mailing list to receive
+                        updates on new arrivals, special offers and other
+                        discount information.
+                      </p>
                     </div>
+                  </div>
                 </div>
-            </section>
-            <!-- startup popup end -->
+                <div class="col-xl-7 col-lg-7 col-md-12">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="/userProfile" class="title">MY ACCOUNT</a>
+                          </li>
+                          <li><a href="/checkout">Cart</a></li>
+                          <li><a href="/shop">Shop</a></li>
+                          <li><a href="/wishlist">Wishlist</a></li>
+                        </ul>
+                      </div>
+                    </div>
 
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="" class="title">Quick Links</a>
+                          </li>
+                          <li><a href="">Special Offers</a></li>
+                          <li><a href="">Gift Cards</a></li>
+                          <li><a href="">Privacy Policy</a></li>
+                        </ul>
+                      </div>
+                    </div>
 
-            <script>
-                function addToWishlist(event, productId) {
-                    event.preventDefault();
-                    axios.post('/products/addToWishlist', { productId })
-                        .then((response) => {
-                            console.log(response);
-                            // Get the corresponding heart icon element
-                            const heartIcon = document.getElementById(`heartIcon-${productId}`);
-                            // Check if the product was added or removed from wishlist
-                            if (response.data.message === 'Product added to wishlist successfully') {
-                                heartIcon.classList.remove('fal');
-                                heartIcon.classList.add('fas');
-                                heartIcon.classList.add('text-danger');
-                                Toastify({
-                                    text: "Product added to wishlist",
-                                    duration: 2000,
-                                    gravity: "top",
-                                    position: "right",
-                                    backgroundColor: "black",
-                                }).showToast();
-                            } else if (response.data.message === 'Product removed from wishlist successfully') {
-                                // Change heart icon to regular red heart
-                                heartIcon.classList.remove('fas');
-                                heartIcon.classList.remove('text-danger');
-                                heartIcon.classList.add('fal');
-                                Toastify({
-                                    text: "Product removed from wishlist",
-                                    duration: 2000,
-                                    gravity: "top",
-                                    position: "right",
-                                    backgroundColor: "black",
-                                }).showToast();
-                            }
-                        })
-                        .catch((error) => {
-                            console.log("sjfjskf",error);
-                            if(error.response.data.error === "User not found"){
-                                Toastify({
-                                    text: "Please login for wishlisting a product",
-                                    duration: 3000,
-                                    gravity: "top",
-                                    position: "right",
-                                    backgroundColor: "black",
-                                }).showToast();
-                            }
-                        });
-                }
-            </script>  
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="" class="title">Company Info</a>
+                          </li>
+                          <li><a href="">About us</a></li>
+                          <li>
+                            <a href="">Business With Us</a>
+                          </li>
+                          <li><a href="">Teams of Use</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- footer section end -->
 
+    <script>
+      function addToWishlist(event, productId) {
+        event.preventDefault();
+        axios
+          .post("/products/addToWishlist", { productId })
+          .then((response) => {
+            console.log(response);
+            // Get the corresponding heart icon element
+            const heartIcon = document.getElementById(`heartIcon-${productId}`);
+            // Check if the product was added or removed from wishlist
+            if (
+              response.data.message === "Product added to wishlist successfully"
+            ) {
+              heartIcon.classList.remove("fal");
+              heartIcon.classList.add("fas");
+              heartIcon.classList.add("text-danger");
+              Toastify({
+                text: "Product added to wishlist",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "black",
+              }).showToast();
+            } else if (
+              response.data.message ===
+              "Product removed from wishlist successfully"
+            ) {
+              // Change heart icon to regular red heart
+              heartIcon.classList.remove("fas");
+              heartIcon.classList.remove("text-danger");
+              heartIcon.classList.add("fal");
+              Toastify({
+                text: "Product removed from wishlist",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "black",
+              }).showToast();
+            }
+          })
+          .catch((error) => {
+            console.log("sjfjskf", error);
+            if (error.response.data.error === "User not found") {
+              Toastify({
+                text: "Please login for wishlisting a product",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "black",
+              }).showToast();
+            }
+          });
+      }
+    </script>
 
+    <script>
+      const slider = new Swiper(".slider-active", {
+        // Your Swiper options here
+        loop: true,
+        autoplay: {
+          delay: 5000, // Autoplay delay in milliseconds
+        },
+        // Other options...
+      });
+    </script>
 
-
-
-
-
-
-        <script>
-            const slider = new Swiper('.slider-active', {
-                // Your Swiper options here
-                loop: true,
-                autoplay: {
-                    delay: 5000, // Autoplay delay in milliseconds
-                },
-                // Other options...
-            })
-        </script>
-
-
-		<!-- JS here -->
-        <script src="js/vendor/jquery-1.12.4.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/isotope.pkgd.min.js"></script>
-        <script src="js/one-page-nav-min.js"></script>
-        <script src="js/slick.min.js"></script>
-        <script src="js/jquery.meanmenu.min.js"></script>
-        <script src="js/ajax-form.js"></script>
-        <script src="js/fontawesome.min.js"></script>
-        <script src="js/wow.min.js"></script>
-        <script src="js/jquery.scrollUp.min.js"></script>
-        <script src="js/imagesloaded.pkgd.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-    </body>
-
+    <!-- JS here -->
+    <script src="js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/isotope.pkgd.min.js"></script>
+    <script src="js/one-page-nav-min.js"></script>
+    <script src="js/slick.min.js"></script>
+    <script src="js/jquery.meanmenu.min.js"></script>
+    <script src="js/ajax-form.js"></script>
+    <script src="js/fontawesome.min.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>

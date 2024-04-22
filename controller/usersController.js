@@ -537,15 +537,20 @@ let getProductsByCategory = async (req, res) => {
     let filteredProducts = allProducts.filter(
       (product) => product.productCategory === category
     );
+
+    let user;
     if (token) {
       const decoded = jwt.verify(token, process.env.JWT_KEY);
       const userId = decoded.id;
       user = await User.findById(userId);
     }
 
+  
+
+
     res
       .status(200)
-      .json({ message: "product filtered", filteredProducts, user });
+      .json({ message: "product filtered", filteredProducts, });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -1824,6 +1829,24 @@ let checkStockAvailability = async (req, res) => {
   }
 };
 
+// CONTACT GET PAGE
+let getContactPage = async (req, res)=>{
+  try {
+    const token = req.cookies.jwt;
+    let user;
+    if (token) {
+      const decoded = jwt.verify(token, process.env.JWT_KEY);
+      const userId = decoded.id;
+      user = await User.findById(userId);
+    }
+
+    res.status(200).render("user/contact",{user ,wishlistProducts :user?.wishlist.products})
+  } catch (error) {
+    console.error(error)
+    res.status(500).redirect(" ")
+  }
+}
+
 module.exports = {
   homePage,
   signupGetPage,
@@ -1869,4 +1892,5 @@ module.exports = {
   getSearchProduct,
   productReturnPost,
   checkStockAvailability,
+  getContactPage,
 };

@@ -336,6 +336,10 @@ label {
 	vertical-align: middle;
 	white-space: nowrap;
 }
+.theme-btn1{
+  background: #363333;
+  color: #fff;
+}
 .theme-btn{
 	background: #fe4536;
 	color: #fff;

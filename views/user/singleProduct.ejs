@@ -1,56 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="">
-
-
-<!-- Mirrored from wphix.com/template/mazia/single-product-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:32 GMT -->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- Mirrored from wphix.com/template/mazia/single-product-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:32 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>single fixed</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="manifest" href="site.html">
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="manifest" href="site.html" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/css/jquery-ui.css">
-    <link rel="stylesheet" href="/css/animate.min.css">
-    <link rel="stylesheet" href="/css/magnific-popup.css">
-    <link rel="stylesheet" href="/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="/css/meanmenu.css">
-    <link rel="stylesheet" href="/css/slick.css">
-    <link rel="stylesheet" href="/css/default.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.css" />
+    <link rel="stylesheet" href="/css/animate.min.css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" />
+    <link rel="stylesheet" href="/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="/css/meanmenu.css" />
+    <link rel="stylesheet" href="/css/slick.css" />
+    <link rel="stylesheet" href="/css/default.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
 
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
 
     <style>
-        /* CSS for Image Zoom */
-        .zoomable {
-            position: relative;
-            overflow: hidden;
-        }
+      /* CSS for Image Zoom */
+      .zoomable {
+        position: relative;
+        overflow: hidden;
+      }
 
-        .zoomable__img {
-            transform-origin: var(--zoom-pos-x, 0%) var(--zoom-pos-y, 0%);
-            transition: transform 0.40s linear;
-        }
+      .zoomable__img {
+        transform-origin: var(--zoom-pos-x, 0%) var(--zoom-pos-y, 0%);
+        transition: transform 0.4s linear;
+      }
 
-        .zoomable--zoomed .zoomable__img {
-            cursor: zoom-in;
-            transform: scale(var(--zoom, 1));
-        }
+      .zoomable--zoomed .zoomable__img {
+        cursor: zoom-in;
+        transform: scale(var(--zoom, 1));
+      }
 
-
-        /* CSS for the toast notification */
-        .toast {
+      /* CSS for the toast notification */
+      .toast {
         position: fixed;
         bottom: 20px;
         left: 50%;
@@ -63,963 +67,715 @@
         padding: 10px;
         opacity: 0;
         transition: opacity 0.5s ease-in-out;
-        }
+      }
 
-        .toast.show {
+      .toast.show {
         opacity: 1;
-        }
-
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- preloader -->
     <div id="loader-wrapper">
-        <div id="loader"></div>
+      <div id="loader"></div>
     </div>
 
-
     <!-- header section start -->
-    <header class="header pt-30 pb-30  header-sticky header-static" style="padding-top: 30px; padding-bottom: 15px; top: 0px;">
-        <div class="container-fluid">
-            <div class="header-nav position-relative">
-                    <div class="row align-items-center">
-                       
+    <header
+      class="header pt-30 pb-30 header-sticky header-static"
+      style="padding-top: 30px; padding-bottom: 15px; top: 0px"
+    >
+      <div class="container-fluid">
+        <div class="header-nav position-relative">
+          <div class="row align-items-center">
+            <div class="col-xl-5 col-lg-6 hidden-md position-static">
+              <div class="header-nav">
+                <nav>
+                  <ul>
+                    <li>
+                      <a href="/">
+                        <span>Home </span>
+                      </a>
+                    </li>
 
-                        <div class="col-xl-5 col-lg-6 hidden-md position-static">
-                            <div class="header-nav">
-                                <nav>
-                                    <ul>
-                                        <li>
-                                            <a href="/"><span>Home</span>
-                                            </a>
-                                        
-                                            
-                                            
-                                        </li>
-                                        <li class="position-static">
-                                            <a href="/shop"><span>Shop</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href=""><span>Blog</span> 
-                                            </a>
-                                        </li>
-                                            
-                                        <li>
-                                            <a href="">
-                                                <span>About</span>
-                                            </a>
+                    <li class="position-static">
+                      <a href="/shop">
+                        <span>Shop</span>
+                      </a>
+                    </li>
 
-                                        </li>
-                                        <li>
-                                            <a href=""><span>Contact</span></a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
-                            <div class="logo">
-                                <a href="index3.html"><img src="/img/logo/logo1.png" alt=""></a>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
-                            <div class="header-right">
-                                <ul class="text-right">
-                                    <li>
-                                        <a href="/">
-                                            <span>Home </span>
-                                        </a>
-                                    </li>
-    
-                                    <li class="position-static">
-                                        <a href="/shop">
-                                            <span>Shop</span>
-                                        </a>
-                                    </li>
-    
-                                    <li>
-                                        <a href="/contact">
-                                            <span>Contact</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <li>
+                      <a href="/contact">
+                        <span>Contact</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
             </div>
-            <div class="mobile-menu visible-sm">
-                <div id="mobile-menu">
-                    <ul>
-                        <li><a  class="pl-3" href="javascript:void(0)">Home</a>
-                            <ul class="pl-4">
-                                
-                                
-                            </ul>
-                        </li>
-                        <li><a  class="pl-3" href="javascript:void(0)">Shop</a>
-                            <ul>
-                                <li><a href="shop.html">Shop Layout</a></li>
-                                <li><a href="shop4.html">Masonry – Grid</a></
-                            </ul>
-                        </li>
-                        <li><a href="javascript:void(0)">Blog</a>
-                            <ul>
-                                <li><a href="blog.html">Grid layout</a></li>
-                                <li><a href="blog2.html">Large image</a></li>
-                                <li><a href="blog3.html">Left Sidebar</a></li>
-                                <li><a href="blog4.html">Right Sidebar</a></li>
-                                <li><a href="blog5.html">No sidebar</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="javascript:void(0)">Portfolio</a>
-                            <ul>
-                                <li><a href="portfolio.html">Single project</a></li>
-                                <li><a href="portfolio2.html">Two Columns</a></li>
-                                <li><a href="portfolio3.html">Three Columns</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
+              <div class="logo">
+                <a href="index3.html"
+                  ><img src="/img/logo/logo1.png" alt=""
+                /></a>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
+              <div class="header-right">
+                <ul class="text-right">
+                  <li>
+                    <a href="/login" class="account"
+                      ><i class="fal fa-user-friends"></i>
+                      <article class="account-registar d-inline-block">
+                        Login
+                      </article></a
+                    >
+                  </li>
+
+                  <li>
+                    <a href="/wishlist"
+                      ><i class="fal fa-heart active"
+                        ><span><%= wishlistProducts?.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a href="/cart"
+                      ><i class="fal fa-shopping-bag"
+                        ><span><%= user?.cart.products.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a href=""><i class="fal fa-align-right"></i></a>
+                    <ul class="submenu bold-content text-right">
+                      <li><a href="/userProfile">My Account</a></li>
+                      <li><a href="/wishlist">Wishlist</a></li>
+                      <li><a href="/cart">Cart</a></li>
+                      <li><a href="/user/logout">Logout</a></li>
                     </ul>
-                </div>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <!-- /. mobile nav -->
+          </div>
         </div>
+        <div class="mobile-menu visible-sm">
+          <div id="mobile-menu">
+            <ul>
+              <li><a class="pl-3" href="/home">Home</a></li>
+              <li><a class="">Shop</a></li>
+              <li><a href="">Blog</a></li>
+              <li><a href="">Portfolio</a></li>
+              <li><a href="">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /. mobile nav -->
+      </div>
     </header>
     <!-- header section end -->
 
-
-
     <!-- single product start -->
     <section class="single-product mb-90">
-        <div class="container-fluid">
-            <nav aria-label="breadcrumb" class="mb-40">
-               
-            </nav>
-            <div class="shop-wrapper">
-                <div class="single-product-top">
-                    <div class="row">
-                        
-                        <div class="col-xl-6 col-lg-6 col-12">
-                            <div class="shop-img">
-                                <div class="row">
-                                    
-                                    <div class="col-10">
-                                       
-                                        <div class="tab-content" id="v-pills-tabContent">
-                                            
-                                            <div class=" tab-pane fade show active" id="tab-1">
-                                               
-                                                <div class="product-img zoomable d-flex justify-content-center">
-                                                    <a href="" class="popup-image"  ><img  src="<%= products.productImages[0] %>" class=" zoomable__img w-100 " alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="tab-2">
-                                                <div class="product-img zoomable d-flex justify-content-center">
-                                                    <a href="" class="popup-image" ><img src= "<%= products.productImages[1] %>" class=" zoomable__img w-100" alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="tab-3">
-                                                <div class="product-img zoomable d-flex justify-content-center">
-                                                    <a href="" class="popup-image" ><img src="<%= products.productImages[2] %>" class=" zoomable__img w-100" alt=""></a>
-                                                </div>
-                                            </div>
-                                            <div class="tab-pane fade" id="tab-4">
-                                                <div class="product-img zoomable d-flex justify-content-center">
-                                                    <a href="" class="popup-image" ><img src="<%= products.productImages[3] %>" class=" zoomable__img w-100" alt=""></a>
-                                                </div>
-                                            </div>
-                                            
-                                            
-                                        </div>  
-                                    </div>
-                                    <div class="col-2">
-                                        <div class="nav nav-pills has-border-img" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                            <a class="active img-" data-toggle="pill" href="#tab-1">
-                                                <img src="<%= products.productImages[0] %>" class="w-100" alt="">
-                                            </a>
-                                            <a data-toggle="pill" href="#tab-2">
-                                                <img src="<%= products.productImages[1] %>" class="w-100 mt-5-px" alt="">
-                                            </a>
-                                            <a data-toggle="pill" href="#tab-3">
-                                                <img src="<%= products.productImages[2] %>" class="w-100 mt-5-px" alt="">
-                                            </a>
-                                            <a data-toggle="pill" href="#tab-4">
-                                                <img src="<%= products.productImages[3] %>" class="w-100 mt-5-px" alt="">
-                                            </a>
-                                          </div>
-                                          
-                                    </div>
-                             
-                                </div>
-                                  
-                            </div>
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-12">
-                            <div class="single-product-sidebar">
-                                <div class="product-content">
-                                    <div class="single-product-title">
-                                        <h2><%= products.productName %></h2>
-                                    </div>
-                                    <div class="single-product-price">₹ <span><%= products.productPrice %>/-</span></div>
-
-                                    <div class="single-product-component">
-                                        <h6>Color : <span class="color-value"><%= products.productColor %></span></h6>
-                                    </div>
-                                    <div class="single-product-component mb-15">
-                                        <div class="size mb-15">
-                                            <h6>Size :  <span> <%= products.productSize %></span></h6>
-                                           
-                                        </div>
-                                        <button class="wishlist-btn" onclick="addToWishlist(event, '<%= products._id %>')" style="background: none; border: none;">
-                                            <div class="wishlist float-right">
-                                                <% if(user && user.wishlist.products.some(wProduct => wProduct.productId.toString() === products._id.toString())) { %>
-                                                    <i id="heartIcon-<%= products._id %>" class="fas fa-heart fa-2x text-danger"></i>
-                                                <% } else { %>
-                                                    <i id="heartIcon-<%= products._id %>" class="fal fa-heart fa-2x"></i>
-                                                <% } %>
-                                            </div>
-                                        </button>
-                                    </div>
-                                   
-                                    <div class="quick-quantity mt-60">
-                                      
-
-                                        
-                                        <button type="button" onclick="addToCart('<%= products._id %>')" id="addToCartBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 20px; padding-right: 20px; transition: all .5s;">
-                                            Add to Cart
-                                        </button>
-                                        
-                                        
-                                        <!-- <button type="button" id="buyNowBtn" class="list-add-cart-btn red-hover-btn border-0" style="padding-left: 25px;padding-right: 25px;transition: all .5s;" data-product-id="<%= products._id %>">
-                                            <a href="/buyNow/checkout/<%= products._id %>" class="text-light" > Buy Now</a>
-                                        </button> -->
-                                        
-                                        
-
-                                        </div>
-                                        <div class="single-product-action mt-35">
-                                          
-                                        </div>   
-                                       
-                                    </div>
-                                    <!-- <div class="sku"><span>Sku: </span> <strong>M-Hat-8</strong></div> -->
-                                    <div class="single-product-category">
-                                        <ul>
-                                            <li class="mb-0"><a href="" class="title">Tags : </a></li>
-                                            <li class="mb-0"><a href=""><%= products.productCategory %></a></li>
-                                            <li class="mb-0"><a href=""><%= products.productSubCategory %></a></li>
-                                        </ul>
-                                    </div>
-                                   
-                                </div>
-                            </div>
-                        </div>
-                        
-                       
-                    </div>
-                </div>
-
-                <div class="single-product-bottom mt-80 gray-border-top">
-                    <ul class="nav nav-pills justify-content-center mt-100">
-                        <li class="nav-item">
-                          <a class="active" data-toggle="pill" href="#desc-tab-1">Description</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="" data-toggle="pill" href="#desc-tab-2">Reviews (0)</a>
-                        </li>
-                      </ul>
-                      <div class="container container-1200">
-                        <div class="tab-content mt-60">
-                            <div class="tab-pane fade show active" id="desc-tab-1">
-                                <div class="single-product-tab-content">
-                                    <h3 class="title mb-30">Description</h3>
-                                    <p><%= products.productDescription %></p>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="desc-tab-2">
-                                <div class="single-product-tab-content">
-                                    <h3 class="title mb-30">Reviews</h3>
-                                    <div class="review-box-item">
-                                        <div class="row">
-                                            <div class="col-xl-1 col-lg-2 col-md-2 col-3 pr-xl-0">
-                                                <div class="review-box-img d-block text-right">
-                                                    <img src="<%= products.productImages[0] %>" width="60" height="60" class="avatar-img" alt="">
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-11 col-lg-10 col-9 pl-0">
-                                                <div class="review-box-content">
-                                                    <div class="row">
-                                                        <div class="col-7">
-                                                            <div class="author-name">
-                                                                <h6>John96</h6>
-                                                                <div class="content">
-                                                                    <p class="mb-0">Awesome</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-5 pr-5-px pl-0">
-                                                            <div class="rating text-right">
-                                                                <i class="fal fa-star red-color"></i>
-                                                                <i class="fal fa-star red-color"></i>
-                                                                <i class="fal fa-star red-color"></i>
-                                                                <i class="fal fa-star"></i>
-                                                                <i class="fal fa-star"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p>There are no reviews yet.</p>
-                                    <h4>Add a review</h4>
-
-                                    <form action="#" method="POST">
-                                        <label for="rating">Your Rating</label>
-                                        <input type="radio" class="d-none" id="rating">
-                                    </form>
-                                    <p class="star-rating">
-                                        <a href="javascript:void(0)"><i class="fal fa-star"></i></a>
-                                        <a href="javascript:void(0)"><i class="fal fa-star"></i></a>
-                                        <a href="javascript:void(0)"><i class="fal fa-star"></i></a>
-                                        <a href="javascript:void(0)"><i class="fal fa-star"></i></a>
-                                        <a href="javascript:void(0)"><i class="fal fa-star"></i></a>
-                                    </p>
-
-                                    <div class="form-group">
-                                        <label for="review">Review</label>
-                                        <textarea name="review" id="review" cols="30" rows="6" class="form-control"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="name">Name <span class="required">*</span></label>
-                                        <input type="text" name="name" id="name" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email <span class="required">*</span></label>
-                                        <input type="email" name="email" id="email" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="checkbox-input">
-                                            <input type="checkbox" id="condition" name="condition">
-                                        </div>
-                                        <label for="condition">Save my name, email, and website in this browser for the next time I comment.</label>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="generic-btn red-hover-btn" style="font-size: 14px !important;">Submit</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane fade" id="desc-tab-3">
-                                <div class="single-product-tab-content">
-                                    <h3 class="title mb-30">Additional information</h3>
-                                    <table class="table table-striped">
-                                        <tbody>
-                                            <tr>
-                                                <th>size</th>
-                                                <td>
-                                                    <ul>
-                                                        <li><a href="shop4.html">3XL</a></li>
-                                                        <li><a href="shop4.html">L</a></li>
-                                                        <li><a href="shop4.html">M</a></li>
-                                                        <li><a href="shop4.html">S</a></li>
-                                                        <li><a href="shop4.html">XL</a></li>
-                                                        <li><a href="shop4.html">XXL</a></li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th>color</th>
-                                                <td>
-                                                    <ul>
-                                                        <li><a href="shop4.html">Black</a></li>
-                                                        <li><a href="shop4.html">Blue</a></li>
-                                                        <li><a href="shop4.html">Gold</a></li>
-                                                        <li><a href="shop4.html">Gray</a></li>
-                                                        <li><a href="shop4.html">White</a></li>
-                                                        <li><a href="shop4.html">Yellow</a></li>
-                                                        <li><a href="shop4.html">Red</a></li>
-                                                    </ul>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+      <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-40"></nav>
+        <div class="shop-wrapper">
+          <div class="single-product-top">
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-12">
+                <div class="shop-img">
+                  <div class="row">
+                    <div class="col-10">
+                      <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="tab-1">
+                          <div
+                            class="product-img zoomable d-flex justify-content-center"
+                          >
+                            <a href="" class="popup-image"
+                              ><img
+                                src="<%= products.productImages[0] %>"
+                                class="zoomable__img w-100"
+                                alt=""
+                            /></a>
                           </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-2">
+                          <div
+                            class="product-img zoomable d-flex justify-content-center"
+                          >
+                            <a href="" class="popup-image"
+                              ><img
+                                src="<%= products.productImages[1] %>"
+                                class="zoomable__img w-100"
+                                alt=""
+                            /></a>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-3">
+                          <div
+                            class="product-img zoomable d-flex justify-content-center"
+                          >
+                            <a href="" class="popup-image"
+                              ><img
+                                src="<%= products.productImages[2] %>"
+                                class="zoomable__img w-100"
+                                alt=""
+                            /></a>
+                          </div>
+                        </div>
+                        <div class="tab-pane fade" id="tab-4">
+                          <div
+                            class="product-img zoomable d-flex justify-content-center"
+                          >
+                            <a href="" class="popup-image"
+                              ><img
+                                src="<%= products.productImages[3] %>"
+                                class="zoomable__img w-100"
+                                alt=""
+                            /></a>
+                          </div>
+                        </div>
                       </div>
+                    </div>
+                    <div class="col-2">
+                      <div
+                        class="nav nav-pills has-border-img"
+                        id="v-pills-tab"
+                        role="tablist"
+                        aria-orientation="vertical"
+                      >
+                        <a class="active img-" data-toggle="pill" href="#tab-1">
+                          <img
+                            src="<%= products.productImages[0] %>"
+                            class="w-100"
+                            alt=""
+                          />
+                        </a>
+                        <a data-toggle="pill" href="#tab-2">
+                          <img
+                            src="<%= products.productImages[1] %>"
+                            class="w-100 mt-5-px"
+                            alt=""
+                          />
+                        </a>
+                        <a data-toggle="pill" href="#tab-3">
+                          <img
+                            src="<%= products.productImages[2] %>"
+                            class="w-100 mt-5-px"
+                            alt=""
+                          />
+                        </a>
+                        <a data-toggle="pill" href="#tab-4">
+                          <img
+                            src="<%= products.productImages[3] %>"
+                            class="w-100 mt-5-px"
+                            alt=""
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-12">
+                <div class="single-product-sidebar">
+                  <div class="product-content">
+                    <div class="single-product-title">
+                      <h2><%= products.productName %></h2>
+                    </div>
+                    <div class="single-product-price">
+                      ₹ <span><%= products.productPrice %>/-</span>
+                    </div>
+
+                    <div class="single-product-component">
+                      <h6>
+                        Color :
+                        <span class="color-value"
+                          ><%= products.productColor %></span
+                        >
+                      </h6>
+                    </div>
+                    <div class="single-product-component mb-15">
+                      <div class="size mb-15">
+                        <h6>
+                          Size : <span> <%= products.productSize %></span>
+                        </h6>
+                      </div>
+                      <button
+                        class="wishlist-btn"
+                        onclick="addToWishlist(event, '<%= products._id %>')"
+                        style="background: none; border: none"
+                      >
+                        <div class="wishlist float-right">
+                          <% if(user && user.wishlist.products.some(wProduct =>
+                          wProduct.productId.toString() ===
+                          products._id.toString())) { %>
+                          <i
+                            id="heartIcon-<%= products._id %>"
+                            class="fas fa-heart fa-2x text-danger"
+                          ></i>
+                          <% } else { %>
+                          <i
+                            id="heartIcon-<%= products._id %>"
+                            class="fal fa-heart fa-2x"
+                          ></i>
+                          <% } %>
+                        </div>
+                      </button>
+                    </div>
+
+                    <div class="quick-quantity mt-60">
+                      <button
+                        type="button"
+                        onclick="addToCart('<%= products._id %>')"
+                        id="addToCartBtn"
+                        class="list-add-cart-btn red-hover-btn border-0"
+                        style="
+                          padding-left: 20px;
+                          padding-right: 20px;
+                          transition: all 0.5s;
+                        "
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
+                    <div class="single-product-action mt-35"></div>
+                  </div>
+                  <div class="single-product-category">
+                    <ul>
+                      <li class="mb-0"><a href="" class="title">Tags : </a></li>
+                      <li class="mb-0">
+                        <a href=""><%= products.productCategory %></a>
+                      </li>
+                      <li class="mb-0">
+                        <a href=""><%= products.productSubCategory %></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+
+        <div class="single-product-bottom mt-80 gray-border-top">
+          <ul class="nav nav-pills justify-content-center mt-100">
+            <li class="nav-item">
+              <a class="active" data-toggle="pill" href="#desc-tab-1"
+                >Description</a
+              >
+            </li>
+          </ul>
+          <div class="container container-1200">
+            <div class="tab-content mt-60">
+              <div class="tab-pane fade show active" id="desc-tab-1">
+                <div class="single-product-tab-content">
+                  <p><%= products.productDescription %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <!-- single product end -->
 
-
     <!-- related product start -->
-    <section class="related-product mt-120">
-        <div class="container-fluid">
-            <div class="generic-title text-center">
-                <h2 class="mb-20">Related Product</h2>
-            </div>
-            <div class="main-product-carousel owl-carousel red-nav mt-50">
-
-                <div class="carousel-single-item">
-                    <div class="col-12">
-                        <div class="product-box">
-                            <div class="product-box-wrapper">
-                                <div class="product-img">
-                                    <img src="/img/product/farniture-1.jpg" class="w-100" alt="">
-                                    <a href="single-product-3.html" class="d-block">
-                                        <div class="second-img">
-                                            <img src="/img/product/farniture-1-hover.jpg" alt="" class="w-100">
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="product-desc pb-20">
-                                    <div class="product-desc-top">
-                                        <div class="categories">
-                                            <a href="" class="product-category"><span></span></a>
-                                        </div>
-                                        <a href="" class="wishlist float-right"><span><i
-                                                    class="fal fa-heart"></i></span></a>
-                                    </div>
-                                    <a href="" class="product-title">Light green crewnecksweatshir</a>
-                                    <div class="price-switcher">
-                                        <span class="price switcher-item">$58.00</span>
-                                        <a href="" class="add-cart text-capitalize switcher-item">+add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+    <section class="related-product mt-120 mb-100">
+      <div class="container-fluid">
+        <div class="generic-title text-center">
+          <h2 class="mb-20">Related Product</h2>
         </div>
+        <div class="main-product-carousel owl-carousel red-nav mt-50">
+          <div class="carousel-single-item">
+            <div class="col-12">
+              <div class="product-box">
+                <div class="product-box-wrapper">
+                  <div class="product-img">
+                    <img
+                      src="/img/product/farniture-1.jpg"
+                      class="w-100"
+                      alt=""
+                    />
+                    <a href="single-product-3.html" class="d-block">
+                      <div class="second-img">
+                        <img
+                          src="/img/product/farniture-1-hover.jpg"
+                          alt=""
+                          class="w-100"
+                        />
+                      </div>
+                    </a>
+                  </div>
+
+                  <div class="product-desc pb-20">
+                    <div class="product-desc-top">
+                      <div class="categories">
+                        <a href="" class="product-category"><span></span></a>
+                      </div>
+                      <a href="" class="wishlist float-right"
+                        ><span><i class="fal fa-heart"></i></span
+                      ></a>
+                    </div>
+                    <a href="" class="product-title"
+                      >Light green crewnecksweatshir</a
+                    >
+                    <div class="price-switcher">
+                      <span class="price switcher-item">$58.00</span>
+                      <a href="" class="add-cart text-capitalize switcher-item"
+                        >+add to cart</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     <!-- related product end -->
 
-
-
     <!-- footer section start -->
     <section class="footer">
-        <div class="footer-top mt-120 pb-120 pt-115" style="background-color: #f5f5f5;">
-            <div class="footer-top-wrapper">
-                <div class="newsletter ">
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6">
-                            <h2 class="title m-0">Sign Up For Our Newsletter</h2>
-                            <p>Subscribe our newsletter and get discount 20% Off</p>
-                        </div>
-                        <div class="col-xl-6 col-lg-6">
-                            <div class="newsletter-form">
-                                <form action="#" method="POST">
-                                    <input type="text" placeholder="Search for our newsletter...">
-                                    <button type="submit"
-                                        class="generic-btn red-hover-btn text-uppercase float-right">Subscribe
-                                        Now</button>
-                                </form>
-                            </div>
-                        </div>
-
+      <div class="footer-bottom pt-77" style="background-color: #292929">
+        <div class="container-1180">
+          <div class="footer-bottom-wrapper">
+            <div class="footer-bottom-primary pb-60">
+              <div class="row">
+                <div class="col-xl-5 col-lg-5 col-md-9">
+                  <div class="footer-item has-desc">
+                    <div class="footer-logo mb-25">
+                      <img
+                        src="img/logo/logo2.png"
+                        width="120"
+                        height="31"
+                        alt=""
+                      />
                     </div>
-                </div>
-                <!-- /.newsletter -->
-                <div class="service pt-57 mt-40 gray-border-top">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-4 col-md-6 service-item">
-                            <div class="service-box service-box-2">
-                                <div class="service-box-content">
-                                    <h4 class="title">Worldwide Shipping</h4>
-                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit velit esse
-                                        molestie consequat.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-md-6 service-item">
-                            <div class="service-box service-box-2">
-                                <div class="service-box-content">
-                                    <h4 class="title">Online Support 24/7</h4>
-                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit velit esse
-                                        molestie consequat.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-xl-4 col-lg-6 hidden-md service-item">
-                            <div class="service-box service-box-2">
-                                <div class="service-box-content">
-                                    <h4 class="title">Money Return Guarantee</h4>
-                                    <p class="service-desc">Duis autem vel eum iriure dolor in hendrerit velit esse
-                                        molestie consequat.</p>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="footer-desc">
+                      <p class="mb-10">
+                        Sign to the WatchVista store mailing list to receive
+                        updates on new arrivals, special offers and other
+                        discount information.
+                      </p>
                     </div>
+                  </div>
                 </div>
-                <!-- /. service -->
-                <!-- /. footer bottom -->
+                <div class="col-xl-7 col-lg-7 col-md-12">
+                  <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="/userProfile" class="title">MY ACCOUNT</a>
+                          </li>
+                          <li><a href="/checkout">Cart</a></li>
+                          <li><a href="/shop">Shop</a></li>
+                          <li><a href="/wishlist">Wishlist</a></li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="" class="title">Quick Links</a>
+                          </li>
+                          <li><a href="">Special Offers</a></li>
+                          <li><a href="">Gift Cards</a></li>
+                          <li><a href="">Privacy Policy</a></li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm">
+                      <div class="footer-menu">
+                        <ul>
+                          <li>
+                            <a href="" class="title">Company Info</a>
+                          </li>
+                          <li><a href="">About us</a></li>
+                          <li>
+                            <a href="">Business With Us</a>
+                          </li>
+                          <li><a href="">Teams of Use</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
+          </div>
         </div>
-        <!-- footer top -->
-
-        <div class="footer-bottom pt-77" style="background-color: #292929;">
-            <div class="container-1180">
-                <div class="footer-bottom-wrapper">
-                    <div class="footer-bottom-primary pb-60">
-                        <div class="row">
-                            <div class="col-xl-5 col-lg-5 col-md-9">
-                                <div class="footer-item has-desc">
-                                    <div class="footer-logo mb-25">
-                                        <img src="/img/logo/logo2.png" width="120" height="31" alt="">
-                                    </div>
-                                    <div class="footer-desc">
-                                        <p class="mb-10">Mazia store is a premium theme with advanced admin module. It’s
-                                            extremely customizable, easy to use and fully responsive and retina ready.
-                                        </p>
-                                    </div>
-                                    <div class="footer-img mt-65">
-                                        <img src="/img/logo/paypal.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-7 col-lg-7 col-md-12">
-                                <div class="row">
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
-                                        <div class="footer-menu">
-                                            <ul>
-                                                <li><a href="javascript:void(0)" class="title">MY ACCOUNT</a></li>
-                                                <li><a href="login.html">My account</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="shop2.html">Shop</a></li>
-                                                <li><a href="/wishlist">Wishlist</a></li>
-                                                <li><a href="question.html">Frequently</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
-                                        <div class="footer-menu">
-                                            <ul>
-                                                <li><a href="javascript:void(0)" class="title">Quick Links</a></li>
-                                                <li><a href="shop2.html">Special Offers</a></li>
-                                                <li><a href="shop2.html">Gift Cards</a></li>
-                                                <li><a href="shop2.html">F21 Red</a></li>
-                                                <li><a href="about.html">Privacy Policy</a></li>
-                                                <li><a href="about.html">Teams of Use</a></li>
-                                                <li><a href="portfolio.html">Portfolio</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm">
-                                        <div class="footer-menu">
-                                            <ul>
-                                                <li><a href="javascript:void(0)" class="title">Company Info</a></li>
-                                                <li><a href="about.html">About us</a></li>
-                                                <li><a href="blog.html">Careers</a></li>
-                                                <li><a href="portfolio2.html">Business With Us</a></li>
-                                                <li><a href="shop2.html">Find a Store</a></li>
-                                                <li><a href="question.html">Teams of Use</a></li>
-                                                <li><a href="portfolio3.html">Press & Talent</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+      </div>
     </section>
     <!-- footer section end -->
 
-
-
-
-
-
-
-    <!-- product popup start -->
-    <section id="product-popup">
-        <div class="product-popup-overlay"></div>
-        <div class="product-popup-container">
-            <div class="product-inner w-100">
-                <div class="product-inner-content">
-                    <div class="quick-close-action"><i class="fal fa-times"></i></div>
-                    <div class="row">
-                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-6">
-                            <div class="tab-content">
-                                <div class="tab-pane fade show active" id="product-popup-1">
-                                    <div class="product-popup-img">
-                                        <img src="/img/product/10.jpg" class="w-100" alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="product-popup-2">
-                                    <div class="product-popup-img">
-                                        <img src="/img/product/11.jpg" class="w-100" alt="">
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="product-popup-3">
-                                    <div class="product-popup-img">
-                                        <img src="/img/product/12.jpg" class="w-100" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <ul class="nav nav-pills justify-content-center mt-10">
-                                <li class="nav-item">
-                                    <a class="active" data-toggle="pill" href="#product-popup-1">
-                                        <img src="/img/product/10.jpg" class="w-100" alt="">
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="" data-toggle="pill" href="#product-popup-2">
-                                        <img src="/img/product/11.jpg" class="w-100" alt="">
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="" data-toggle="pill" href="#product-popup-3">
-                                        <img src="/img/product/12.jpg" class="w-100" alt="">
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-xl-7 col-lg-7 col-md-7 col-sm-6">
-                            <div class="product-content">
-                                <div class="product-title">
-                                    <h2>Nari Narwhal Usb...</h2>
-                                </div>
-                                <div class="price">$<span>44.00</span>–<span>$250.00</span></div>
-                                <a href="single-product-3.html" class="all-feature">See all feature</a>
-                                <div class="quick-quantity mt-30">
-                                    <form action="#" method="POST">
-                                        <input type="number" value="1">
-                                        <button type="submit" class="generic-btn red-hover-btn text-capitalize">add to
-                                            cart</button>
-                                    </form>
-                                </div>
-
-                                <div class="product-desc pb-20 mt-25 gray-border-top">
-                                    <p class="mb-0">Typi non habent claritatem insitam, est usus legentis in iis qui
-                                        facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius
-                                        quod ii legunt saepius. Claritas est etiam processus A Capitalize on low hanging
-                                        fruit to identify a ballpark value added activity to beta test. Override the
-                                        digital...ditional clickthroughs from DevOps. Nanotechnology immersion along the
-                                        information highway will close the […]</p>
-                                </div>
-                                <div class="product-list mt-25">
-                                    <ul>
-                                        <li>– Light green crewnec...t.</li>
-                                        <li>– Hand pockets.</li>
-                                        <li>– Relaxed fit.</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- product popup end -->
-
-    <!-- startup popup start -->
-    <section id="startup-popup">
-        <div class="product-popup-overlay has-startup" style="opacity: 1;visibility: visible"></div>
-        <div class="startup-popup-body">
-            <div class="startup-body-content h-100">
-                <div class="row justify-content-end h-100">
-                    <div class="col-6 h-100">
-                        <div class="startup-popup-inner h-100">
-                            <div class="close-search-popup">
-                                <i class="fal fa-times"></i>
-                            </div>
-                            <div class="startup-popup-main-content">
-                                <h2>Get Our Email Letter</h2>
-                                <p class="mb-0">Subscribe to the Mazia store mailing list to receive updates on new
-                                    arrivals, special offers
-                                    and other discount information.</p>
-                                <div class="startup-subscribe-form">
-                                    <form action="#" method="POST">
-                                        <input type="text" placeholder="Subscribe to our newsletter" class="mb-30">
-                                        <button class="generic-btn red-hover-btn text-uppercase">Subscribe now</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="startup-popup-sub-content">
-                                <div class="popup-warning">
-                                    <input type="checkbox" id="startup-popup-hidden">
-                                    <label for="startup-popup-hidden">Do not show the popup again</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- startup popup end -->
-<!--------------------------------------------Add to cart------------------------------------------------------->
+    <!--------------------------------------------Add to cart------------------------------------------------------->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
+      // ADD TO WISHLIST
+      function addToWishlist(event, productId) {
+        event.preventDefault();
+        axios
+          .post("/products/addToWishlist", { productId })
+          .then((response) => {
+            console.log(response);
+            // Get the corresponding heart icon element
+            const heartIcon = document.getElementById(`heartIcon-${productId}`);
+            // Check if the product was added or removed from wishlist
+            if (
+              response.data.message === "Product added to wishlist successfully"
+            ) {
+              Toastify({
+                text: "Product added to wishlist",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "black",
+              }).showToast();
+              heartIcon.classList.remove("fal");
+              heartIcon.classList.add("fas");
+              heartIcon.classList.add("text-danger");
+            } else if (
+              response.data.message ===
+              "Product removed from wishlist successfully"
+            ) {
+              // Change heart icon to regular red heart
+              Toastify({
+                text: "Product removed from wishlist",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "black",
+              }).showToast();
+              heartIcon.classList.remove("fas");
+              heartIcon.classList.remove("text-danger");
+              heartIcon.classList.add("fal");
+            }
+          })
+          .catch((error) => {
+            console.log("sjfjskf", error);
+            if (error.response.data.error === "User not found") {
+              Toastify({
+                text: "Please login for wishlisting a product",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                // backgroundColor: "black",
+              }).showToast();
+            }
+          });
+      }
 
-        // ADD TO WISHLIST
-        function addToWishlist(event, productId) {
-            event.preventDefault();
-            axios.post('/products/addToWishlist', { productId })
-            .then((response) => {
-                console.log(response);
-                // Get the corresponding heart icon element
-                const heartIcon = document.getElementById(`heartIcon-${productId}`);
-                // Check if the product was added or removed from wishlist
-                if (response.data.message === 'Product added to wishlist successfully') {
-                    Toastify({
-                        text: "Product added to wishlist",
-                        duration: 3000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "black",
-                    }).showToast();
-                    heartIcon.classList.remove('fal');
-                    heartIcon.classList.add('fas');
-                    heartIcon.classList.add('text-danger');
-                } else if (response.data.message === 'Product removed from wishlist successfully') {
-                    // Change heart icon to regular red heart
-                    Toastify({
-                        text: "Product removed from wishlist",
-                        duration: 3000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "black",
-                    }).showToast();
-                    heartIcon.classList.remove('fas');
-                    heartIcon.classList.remove('text-danger');
-                    heartIcon.classList.add('fal');
-                }
-            })
-            .catch((error) => {
-                console.log("sjfjskf",error);
-                if(error.response.data.error === "User not found"){
-                    Toastify({
-                        text: "Please login for wishlisting a product",
-                        duration: 3000,
-                        gravity: "top",
-                        position: "right",
-                        // backgroundColor: "black",
-                    }).showToast();
-                }
-            });
-        }
+      // Function to add product to cart
+      function addToCart(productId) {
+        console.log("add to cart function triggered :", productId);
+        axios
+          .post("/cart/add-to-cart", {
+            productId: productId,
+          })
+          .then(function (response) {
+            console.log("rrspnse :", response);
 
-        // Function to add product to cart
-        function addToCart(productId) {
-            console.log("add to cart function triggered :",productId )
-            axios.post('/cart/add-to-cart', {
-                productId: productId
-            })
-            .then(function (response) {
-                console.log("rrspnse :", response);
-                
-                if(response.status === 200){
-                    Toastify({
-                        text: "Product Added to cart",
-                        duration: 2000,
-                        gravity: "top",
-                        position: "right",
-                    }).showToast();
-                }
-                
-            })
-            .catch(function (error) {
-                if(error.response.status === 404){
-                    Toastify({
-                        text: "Try, After login",
-                        duration: 2000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "red",
-                    }).showToast();
-                }
-                else if(error.response.status === 400){
-                    Toastify({
-                        text: "Product is out of stock",
-                        duration: 2000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor : "orange"
-                    }).showToast();
-                }
-                else{
-                    Toastify({
-                        text: "An error occurred. Try again",
-                        duration: 2000,
-                        gravity: "top",
-                        position: "right",
-                        backgroundColor: "red",
-                    }).showToast();
-                }
-            });
-        }
+            if (response.status === 200) {
+              Toastify({
+                text: "Product Added to cart",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+              }).showToast();
+            }
+          })
+          .catch(function (error) {
+            if (error.response.status === 404) {
+              Toastify({
+                text: "Try, After login",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "red",
+              }).showToast();
+            } else if (error.response.status === 400) {
+              Toastify({
+                text: "Product is out of stock",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "orange",
+              }).showToast();
+            } else {
+              Toastify({
+                text: "An error occurred. Try again",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "red",
+              }).showToast();
+            }
+          });
+      }
     </script>
 
+    <script>
+      // Constants
+      const Default = {
+        initialZoom: 3,
+        minZoom: 1.25,
+        maxZoom: 4,
+        zoomSpeed: 0.01,
+      };
 
-<script>
-    // Constants
-const Default = {
-    initialZoom: 3,
-    minZoom: 1.25,
-    maxZoom: 4,
-    zoomSpeed: 0.01
-};
+      // Class definition
+      class Zoomable {
+        constructor(element, config) {
+          this.element = element;
+          this.config = this._mergeConfig(config);
 
-// Class definition
-class Zoomable {
-    constructor(element, config) {
-        this.element = element;
-        this.config = this._mergeConfig(config);
+          const { initialZoom, minZoom, maxZoom } = this.config;
 
-        const { initialZoom, minZoom, maxZoom } = this.config;
+          this.zoomed = false;
+          this.initialZoom = Math.max(Math.min(initialZoom, maxZoom), minZoom);
+          this.zoom = this.initialZoom;
 
-        this.zoomed = false;
-        this.initialZoom = Math.max(Math.min(initialZoom, maxZoom), minZoom);
-        this.zoom = this.initialZoom;
+          this.img = element.querySelector(".zoomable__img");
+          this.img.draggable = false;
+          this.element.style.setProperty("--zoom", this.initialZoom);
 
-        this.img = element.querySelector(".zoomable__img");
-        this.img.draggable = false;
-        this.element.style.setProperty("--zoom", this.initialZoom);
+          this._addEventListeners();
+        }
 
-        this._addEventListeners();
-    }
+        static get Default() {
+          return Default;
+        }
 
-    static get Default() {
-        return Default;
-    }
-
-    _addEventListeners() {
-        this.element.addEventListener("mouseover", () =>
+        _addEventListeners() {
+          this.element.addEventListener("mouseover", () =>
             this._handleMouseover()
-        );
-        this.element.addEventListener("mousemove", (evt) =>
+          );
+          this.element.addEventListener("mousemove", (evt) =>
             this._handleMousemove(evt)
-        );
-        this.element.addEventListener("mouseout", () => this._handleMouseout());
-        this.element.addEventListener("wheel", (evt) => this._handleWheel(evt));
+          );
+          this.element.addEventListener("mouseout", () =>
+            this._handleMouseout()
+          );
+          this.element.addEventListener("wheel", (evt) =>
+            this._handleWheel(evt)
+          );
 
-        this.element.addEventListener("touchstart", (evt) =>
+          this.element.addEventListener("touchstart", (evt) =>
             this._handleTouchstart(evt)
-        );
-        this.element.addEventListener("touchmove", (evt) =>
+          );
+          this.element.addEventListener("touchmove", (evt) =>
             this._handleTouchmove(evt)
-        );
-        this.element.addEventListener("touchend", () => this._handleTouchend());
-    }
-
-    _handleMouseover() {
-        if (this.zoomed) {
-            return;
+          );
+          this.element.addEventListener("touchend", () =>
+            this._handleTouchend()
+          );
         }
 
-        this.element.classList.add("zoomable--zoomed");
-        this.zoomed = true;
-    }
-
-    _handleMousemove(evt) {
-        if (!this.zoomed) {
+        _handleMouseover() {
+          if (this.zoomed) {
             return;
+          }
+
+          this.element.classList.add("zoomable--zoomed");
+          this.zoomed = true;
         }
 
-        const elPos = this.element.getBoundingClientRect();
-
-        const percentageX = `${((evt.clientX - elPos.left) * 100) / elPos.width}%`;
-        const percentageY = `${((evt.clientY - elPos.top) * 100) / elPos.height}%`;
-
-        this.element.style.setProperty("--zoom-pos-x", percentageX);
-        this.element.style.setProperty("--zoom-pos-y", percentageY);
-    }
-
-    _handleMouseout() {
-        if (!this.zoomed) {
+        _handleMousemove(evt) {
+          if (!this.zoomed) {
             return;
+          }
+
+          const elPos = this.element.getBoundingClientRect();
+
+          const percentageX = `${
+            ((evt.clientX - elPos.left) * 100) / elPos.width
+          }%`;
+          const percentageY = `${
+            ((evt.clientY - elPos.top) * 100) / elPos.height
+          }%`;
+
+          this.element.style.setProperty("--zoom-pos-x", percentageX);
+          this.element.style.setProperty("--zoom-pos-y", percentageY);
         }
 
-        this.element.style.setProperty("--zoom", this.initialZoom);
-        this.element.classList.remove("zoomable--zoomed");
-
-        this.zoomed = false;
-    }
-
-    _handleWheel(evt) {
-        if (!this.zoomed) {
+        _handleMouseout() {
+          if (!this.zoomed) {
             return;
+          }
+
+          this.element.style.setProperty("--zoom", this.initialZoom);
+          this.element.classList.remove("zoomable--zoomed");
+
+          this.zoomed = false;
         }
 
-        evt.preventDefault();
-
-        const newZoom = this.zoom + evt.deltaY * (this.config.zoomSpeed * -1);
-        const { minZoom, maxZoom } = this.config;
-
-        this.zoom = Math.max(Math.min(newZoom, maxZoom), minZoom);
-        this.element.style.setProperty("--zoom", this.zoom);
-    }
-
-    _handleTouchstart(evt) {
-        evt.preventDefault();
-
-        this._handleMouseover();
-    }
-
-    _handleTouchmove(evt) {
-        if (!this.zoomed) {
+        _handleWheel(evt) {
+          if (!this.zoomed) {
             return;
+          }
+
+          evt.preventDefault();
+
+          const newZoom = this.zoom + evt.deltaY * (this.config.zoomSpeed * -1);
+          const { minZoom, maxZoom } = this.config;
+
+          this.zoom = Math.max(Math.min(newZoom, maxZoom), minZoom);
+          this.element.style.setProperty("--zoom", this.zoom);
         }
 
-        const elPos = this.element.getBoundingClientRect();
+        _handleTouchstart(evt) {
+          evt.preventDefault();
 
-        let percentageX = ((evt.touches[0].clientX - elPos.left) * 100) / elPos.width;
-        let percentageY = ((evt.touches[0].clientY - elPos.top) * 100) / elPos.height;
+          this._handleMouseover();
+        }
 
-        percentageX = Math.max(Math.min(percentageX, 100), 0);
-        percentageY = Math.max(Math.min(percentageY, 100), 0);
+        _handleTouchmove(evt) {
+          if (!this.zoomed) {
+            return;
+          }
 
-        this.element.style.setProperty("--zoom-pos-x", `${percentageX}%`);
-        this.element.style.setProperty("--zoom-pos-y", `${percentageY}%`);
-    }
+          const elPos = this.element.getBoundingClientRect();
 
-    _handleTouchend(evt) {
-        this._handleMouseout();
-    }
+          let percentageX =
+            ((evt.touches[0].clientX - elPos.left) * 100) / elPos.width;
+          let percentageY =
+            ((evt.touches[0].clientY - elPos.top) * 100) / elPos.height;
 
-    _mergeConfig(config) {
-        return {
+          percentageX = Math.max(Math.min(percentageX, 100), 0);
+          percentageY = Math.max(Math.min(percentageY, 100), 0);
+
+          this.element.style.setProperty("--zoom-pos-x", `${percentageX}%`);
+          this.element.style.setProperty("--zoom-pos-y", `${percentageY}%`);
+        }
+
+        _handleTouchend(evt) {
+          this._handleMouseout();
+        }
+
+        _mergeConfig(config) {
+          return {
             ...this.constructor.Default,
-            ...(typeof config === "object" ? config : {})
-        };
-    }
-}
+            ...(typeof config === "object" ? config : {}),
+          };
+        }
+      }
 
-// Implementation
-const zoomableImages = document.querySelectorAll(".zoomable");
+      // Implementation
+      const zoomableImages = document.querySelectorAll(".zoomable");
 
-for (const image of zoomableImages) {
-    new Zoomable(image);
-}
-
-</script>
-
-
-
-
-
-
-
-
+      for (const image of zoomableImages) {
+        new Zoomable(image);
+      }
+    </script>
 
     <!-- JS here -->
     <script src="/js/vendor/jquery-1.12.4.min.js"></script>
@@ -1039,8 +795,7 @@ for (const image of zoomableImages) {
     <script src="/js/jquery.magnific-popup.min.js"></script>
     <script src="/js/plugins.js"></script>
     <script src="/js/main.js"></script>
-</body>
+  </body>
 
-
-<!-- Mirrored from wphix.com/template/mazia/single-product-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:32 GMT -->
+  <!-- Mirrored from wphix.com/template/mazia/single-product-5.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:32 GMT -->
 </html>

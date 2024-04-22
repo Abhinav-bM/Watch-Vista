@@ -31,6 +31,7 @@ router.get("/products/search/:inputValue",userController.getSearchProduct)
 // router.get("/buyNow/checkout/:productId",verifyToken,userController.buyNowCheckOut)
 router.get("/getAddressEdit/:addressId",verifyToken,userController.getAddressForEdiit)
 router.get("/checkStockAvailability",verifyToken,userController.checkStockAvailability)
+router.get("/contact", userController.getContactPage)
  
 router.post("/user/send-otp", userController.signupPostPage);
 router.post('/verify-otp', userController.signupVerify)

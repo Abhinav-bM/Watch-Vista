@@ -1,867 +1,913 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="">
-
-
-<!-- Mirrored from wphix.com/template/mazia/shop3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:31 GMT -->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- Mirrored from wphix.com/template/mazia/shop3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:31 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <title>Shop</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="manifest" href="site.html">
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+    <link rel="manifest" href="site.html" />
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
     <!-- Place favicon.ico in the root directory -->
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/css/fontawesome.min.css">
-    <link rel="stylesheet" href="/css/jquery-ui.css">
-    <link rel="stylesheet" href="/css/animate.min.css">
-    <link rel="stylesheet" href="/css/magnific-popup.css">
-    <link rel="stylesheet" href="/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="/css/meanmenu.css">
-    <link rel="stylesheet" href="/css/slick.css">
-    <link rel="stylesheet" href="/css/default.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/responsive.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="/css/jquery-ui.css" />
+    <link rel="stylesheet" href="/css/animate.min.css" />
+    <link rel="stylesheet" href="/css/magnific-popup.css" />
+    <link rel="stylesheet" href="/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="/css/meanmenu.css" />
+    <link rel="stylesheet" href="/css/slick.css" />
+    <link rel="stylesheet" href="/css/default.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
 
     <!-- toastify -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
 
     <!-- axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <style>
+    .product-img {
+      position: relative;
+      overflow: hidden;
+    }
 
+    .product-img img {
+      transition: transform 0.5s ease;
+    }
 
+    .product-img:hover img {
+      animation: zoom-in 5s infinite;
+    }
 
-</head>
-        <style>
-           .product-img {
-            position: relative;
-            overflow: hidden;
-            }
+    @keyframes zoom-in {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
 
-            .product-img img {
-            transition: transform 0.5s ease;
-            }
+    /* filter styles */
+    .filter-popup {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      background: #393939;
+      padding: 20px;
+      z-index: 999;
+      border-radius: 4px;
+      display: none;
+      max-width: 250px; /* Set maximum width */
+      width: 100%;
+    }
 
-            .product-img:hover img {
-            animation: zoom-in 5s infinite;
-            }
+    .filter-popup.active {
+      display: block;
+    }
 
-            @keyframes zoom-in {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-            }
+    @media (min-width: 768px) {
+      .filter-popup {
+        max-width: 250px;
+        right: 0;
+        left: auto;
+      }
+    }
 
-            /* filter styles */
-            .filter-popup {
-            position: absolute;
-            top: calc(100% + 10px);
-            right: 0;
-            background: #393939;
-            padding: 20px;
-            z-index: 999;
-            border-radius: 4px;
-            display: none;
-            max-width: 250px; /* Set maximum width */
-            width: 100%;
-            }
+    /* search  */
+    #searchIconDiv {
+      display: none;
+    }
 
-            .filter-popup.active {
-            display: block;
-            }
+    /* Search area styles */
+    .search-area {
+      transform: translateX(-15%);
+      background: #fff;
+      width: 200px; /* Adjust as needed */
+    }
 
-            @media (min-width: 768px) {
-            .filter-popup {
-                max-width: 250px;
-                right: 0;
-                left: auto;
-            }
-            }
+    .search-area form {
+      display: flex;
+      align-items: center;
+    }
 
-            /* search  */
-            #searchIconDiv {
-                display: none;
-            }
+    .search-area input[type="text"] {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px 0 0 4px;
+      font-size: 14px;
+    }
 
-            /* Search area styles */
-            .search-area {
-                transform: translateX(-15%);
-                background: #fff;
-                width: 200px; /* Adjust as needed */
-            }
+    .search-area button {
+      padding: 8px 12px;
+      background-color: #282829;
+      color: #fff;
+      border: none;
+      border-radius: 0 4px 4px 0;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-            .search-area form {
-                display: flex;
-                align-items: center;
-            }
+    .search-area button:hover {
+      background-color: #0056b3;
+    }
 
-            .search-area input[type="text"] {
-                flex: 1;
-                padding: 8px;
-                border: 1px solid #ccc;
-                border-radius: 4px 0 0 4px;
-                font-size: 14px;
-            }
+    /* Media query for smaller screens */
+    @media screen and (max-width: 767px) {
+      #searchIconDiv {
+        display: inline-block;
+      }
 
-            .search-area button {
-                padding: 8px 12px;
-                background-color: #282829;
-                color: #fff;
-                border: none;
-                border-radius: 0 4px 4px 0;
-                cursor: pointer;
-                font-size: 14px;
-            }
+      .search-area {
+        display: none;
+      }
+    }
 
-            .search-area button:hover {
-                background-color: #0056b3;
-            }
-
-            /* Media query for smaller screens */
-            @media screen and (max-width: 767px) {
-                #searchIconDiv {
-                    display: inline-block;
-                }
-
-                .search-area {
-                    display: none;
-                }
-            }
-
-            @media screen and (min-width: 1000px) and (max-width: 1260px) {
-                #smallSearchPopup {
-                    width: 10%; /* Adjust as needed */
-                    margin: 0 auto; /* Center horizontally */
-                }
-            }
-
-        </style>
-<body>
-
+    @media screen and (min-width: 1000px) and (max-width: 1260px) {
+      #smallSearchPopup {
+        width: 10%; /* Adjust as needed */
+        margin: 0 auto; /* Center horizontally */
+      }
+    }
+  </style>
+  <body>
     <!-- preloader -->
     <div id="loader-wrapper">
-        <div id="loader"></div>
+      <div id="loader"></div>
     </div>
 
-
     <!-- header section start -->
-    <header class="header pt-30 pb-30  header-sticky header-static" style="padding-top: 30px; padding-bottom: 15px; top: 0px;">
-        <div class="container-fluid">
-            <div class="header-nav position-relative">
-                    <div class="row align-items-center">
-                       
+    <header
+      class="header pt-30 pb-30 header-sticky header-static"
+      style="padding-top: 30px; padding-bottom: 15px; top: 0px"
+    >
+      <div class="container-fluid">
+        <div class="header-nav position-relative">
+          <div class="row align-items-center">
+            <div class="col-xl-5 col-lg-6 hidden-md position-static">
+              <div class="header-nav">
+                <nav>
+                  <ul>
+                    <li>
+                      <a href="/">
+                        <span>Home </span>
+                      </a>
+                    </li>
 
-                        <div class="col-xl-5 col-lg-6 hidden-md position-static">
-                            <div class="header-nav">
-                                <nav>
-                                    <ul>
-                                        <li>
-                                            <a href="/">
-                                                <span>Home </span>
-                                            </a>
-                                        </li>
-        
-                                        <li class="position-static">
-                                            <a href="/shop">
-                                                <span>Shop</span>
-                                            </a>
-                                        </li>
-        
-                                        <li>
-                                            <a href="/contact">
-                                                <span>Contact</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
-                            <div class="logo">
-                                <a href="index3.html"><img src="/img/logo/logo1.png" alt=""></a>
-                            </div>
-                        </div>
+                    <li class="position-static">
+                      <a href="/shop">
+                        <span>Shop</span>
+                      </a>
+                    </li>
 
-                        <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
-                            <div class="header-right">
-                                <ul class="text-right">
-
-                                    <li>
-                                        <a href="/login" class="account"
-                                          ><i class="fal fa-user-friends"></i>
-                                          <article class="account-registar d-inline-block">
-                                            Login
-                                          </article></a
-                                        >
-                                      </li>
-                    
-                                      <li>
-                                        <a href="/wishlist"
-                                          ><i class="fal fa-heart active"
-                                            ><span><%= wishlistProducts?.length %></span></i
-                                          ></a
-                                        >
-                                      </li>
-                                      <li>
-                                        <a href="/cart"
-                                          ><i class="fal fa-shopping-bag"
-                                            ><span><%= user?.cart.products.length %></span></i
-                                          ></a
-                                        >
-                                      </li>
-                                      <li>
-                                        <a href=""><i class="fal fa-align-right"></i></a>
-                                        <ul class="submenu bold-content text-right">
-                                          <li><a href="/userProfile">My Account</a></li>
-                                          <li><a href="/wishlist">Wishlist</a></li>
-                                          <li><a href="/cart">Cart</a></li>
-                                          <li><a href="/user/logout">Logout</a></li>
-                                        </ul>
-                                      </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    <li>
+                      <a href="/contact">
+                        <span>Contact</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
+              <div class="logo">
+                <a href="index3.html"
+                  ><img src="/img/logo/logo1.png" alt=""
+                /></a>
+              </div>
             </div>
 
- 
-            <div class="mobile-menu visible-sm">
-                <div id="mobile-menu">
-                    <ul>
-                        <li><a  class="pl-3" href="javascript:void(0)">Home</a>
-                            <ul class="pl-4">
-                                <li><a href="index.html">Home Fashion 1</a></li>
-                                <li><a href="index2.html">Home Fashion 2</a></li>
-                                <li><a href="index3.html">Home Fashion 3</a></li>
-                                <li><a href="index4.html">Home Fashion 4</a></li>
-                                <li><a href="index5.html">Home Fashion 5</a></li>
-                                <li><a href="index6.html">Home Fashion 6</a></li>
-                                <li><a href="index7.html">Home Fashion 7</a></li>
-                                
-                            </ul>
-                        </li>
-                        <li><a  class="pl-3" href="javascript:void(0)">Shop</a>
-                            <ul>
-                                <li><a href="shop.html">Shop Layout</a></li>
-                                <li><a href="shop4.html">Masonry – Grid</a></li>
-                                <li><a href="shop3.html">Pagination</a></li>
-                                <li><a href="shop2.html">Ajax Load More</a></li>
-                                <li><a href="shop2.html">Infinite Scroll</a></li>
-                                <li><a href="shop2.html">Sidebar Right</a></li>
-                                <li><a href="shop.html">Sidebar Left</a></li>
-                                <li><a href="shop.html">Shop Pages</a></li>
-                                <li><a href="shop2.html">List View</a></li>
-                                <li><a href="shop3.html">Small Products</a></li>
-                                <li><a href="shop2.html">Large Products</a></li>
-                                <li><a href="shop3.html">Shop — 3 Items</a></li>
-                                <li><a href="shop3.html">Shop — 4 Items</a></li>
-                                <li><a href="shop4.html">Shop — 5 Items</a></li>
-                                <li><a href="/singleProduct-2.html">Product Layout</a></li>
-                                <li><a href="/singleProduct.html">Description Sticky</a></li>
-                                <li><a href="/singleProduct-2.html">Product Carousels</a></li>
-                                <li><a href="/singleProduct-3.html">Gallery Modern</a></li>
-                                <li><a href="/singleProduct">Thumbnail Left</a></li>
-                                <li><a href="/singleProduct-5.html">Thumbnail Right</a></li>
-                                <li><a href="/singleProduct-6.html">Thumbnail Botttom</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="javascript:void(0)">Blog</a>
-                            <ul>
-                                <li><a href="blog.html">Grid layout</a></li>
-                                <li><a href="blog2.html">Large image</a></li>
-                                <li><a href="blog3.html">Left Sidebar</a></li>
-                                <li><a href="blog4.html">Right Sidebar</a></li>
-                                <li><a href="blog5.html">No sidebar</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="javascript:void(0)">Portfolio</a>
-                            <ul>
-                                <li><a href="portfolio.html">Single project</a></li>
-                                <li><a href="portfolio2.html">Two Columns</a></li>
-                                <li><a href="portfolio3.html">Three Columns</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="contact.html">Contact</a></li>
+            <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
+              <div class="header-right">
+                <ul class="text-right">
+                  <li>
+                    <a href="/login" class="account"
+                      ><i class="fal fa-user-friends"></i>
+                      <article class="account-registar d-inline-block">
+                        Login
+                      </article></a
+                    >
+                  </li>
+
+                  <li>
+                    <a href="/wishlist"
+                      ><i class="fal fa-heart active"
+                        ><span><%= wishlistProducts?.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a href="/cart"
+                      ><i class="fal fa-shopping-bag"
+                        ><span><%= user?.cart.products.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a href=""><i class="fal fa-align-right"></i></a>
+                    <ul class="submenu bold-content text-right">
+                      <li><a href="/userProfile">My Account</a></li>
+                      <li><a href="/wishlist">Wishlist</a></li>
+                      <li><a href="/cart">Cart</a></li>
+                      <li><a href="/user/logout">Logout</a></li>
                     </ul>
-                </div>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <!-- /. mobile nav -->
+          </div>
         </div>
+
+        <div class="mobile-menu visible-sm">
+          <div id="mobile-menu">
+            <ul>
+              <li><a class="pl-3" href="/">Home</a></li>
+              <li><a class="pl-3" href="/shop">Shop</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /. mobile nav -->
+      </div>
     </header>
     <!-- header section end -->
 
-
-
-
     <div class="shop-body">
-        <div class="container-fluid">
-            <nav aria-label="breadcrumb" class="mb-40">
-                <ol class="breadcrumb p-0 m-0">
-                    <!-- <li class="breadcrumb-item"><a href="i">Home</a></li>
+      <div class="container-fluid">
+        <nav aria-label="breadcrumb" class="mb-40">
+          <ol class="breadcrumb p-0 m-0">
+            <!-- <li class="breadcrumb-item"><a href="i">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Shop</li> -->
-                </ol>
-            </nav>
-            <div class="shop-wrapper">
-                <div class="row">
+          </ol>
+        </nav>
+        <div class="shop-wrapper">
+          <div class="row">
+            <div class="col-12">
+              <div class="filter-heading">
+                <div class="row justify-content-end">
+                  <div class="sorting d-inline-block">
+                    <select name="sort" id="shop-sort">
+                      <option value="Default">Default sorting</option>
+                      <option value="latest">Sort by latest</option>
+                      <option value="low to high">
+                        Sort by price: low to high
+                      </option>
+                      <option value="high to low">
+                        Sort by price: high to low
+                      </option>
+                    </select>
+                  </div>
 
-                    <div class="col-12">
-                        <div class="filter-heading">
-                            <div class="row justify-content-end">
-
-                                <div class="sorting d-inline-block">
-                                    <select name="sort" id="shop-sort">
-                                        <option value="Default">Default sorting</option>
-                                        <option value="latest">Sort by latest</option>
-                                        <option value="low to high">Sort by price: low to high</option>
-                                        <option value="high to low">Sort by price: high to low</option>
-                                    </select>
-                                </div>
-
-                                <div class="filter">
-                                    <h6 class="d-inline-block filter-widget-toggle">Filter</h6>
-                                    <div class="filter-popup" style="display: none;">
-                                        <div class="row justify-content-center">
-                                            <div class="">
-                                                <div class="widget">
-                                                    <h4 class="mb-30 text-light">Category</h4>
-                                                    <div class="category-list">
-                                                    <% allCategories.forEach(category => { %>
-                                                        <ul>
-                                                            <li><a href="#" onclick="getProductsByCategory('<%= category %>',event)"><%= category %></a></li>
-                                                        </ul>
-                                                    <% }) %>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- Add more filter options here if needed -->
-                                        </div>
-                                    </div>
-                                </div>
-
+                  <div class="filter">
+                    <h6 class="d-inline-block filter-widget-toggle">Filter</h6>
+                    <div class="filter-popup" style="display: none">
+                      <div class="row justify-content-center">
+                        <div class="">
+                          <div class="widget">
+                            <h4 class="mb-30 text-light">Category</h4>
+                            <div class="category-list">
+                              <% allCategories.forEach(category => { %>
+                              <ul>
+                                <li>
+                                  <a
+                                    href="#"
+                                    onclick="getProductsByCategory('<%= category %>',event)"
+                                    ><%= category %></a
+                                  >
+                                </li>
+                              </ul>
+                              <% }) %>
                             </div>
+                          </div>
                         </div>
-                        <!-- /. filter heading -->
-                        <div class="filter-content">
-                            <div class="tab-content">
-                                <div class="tab-pane fade" id="shop-tab-1">
-                                    <div class="product-wrapper mt-55">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="product-box mb-40">
-                                                    <div class="product-box-wrapper">
-                                                        <div class="product-img">
-                                                            <img src="/img/product/5.jpg" class="w-100" alt="">
-                                                            <a href="/singleProduct" class="d-block">
-                                                                <div class="second-img">
-                                                                    <img src="/img/product/5-hover.jpg" alt=""
-                                                                        class="w-100">
-                                                                </div>
-                                                            </a>
-                                                            <a href="javascript:void(0)"
-                                                                class="product-img-link quick-view-1 text-capitalize">Quick
-                                                                view</a>
-                                                        </div>
-
-                                                        <div class="product-desc pb-20">
-                                                            <div class="product-desc-top">
-                                                                <div class="categories">
-                                                                    <a href="/singleProduct"
-                                                                        class="product-category"><span>Men</span></a>
-                                                                </div>
-                                                                <a href="/wishlist" class="wishlist float-right"><span><i
-                                                                            class="fal fa-heart"></i></span></a>
-                                                            </div>
-                                                            <a href="/singleProduct" class="product-title">Light green crewnec...</a>
-                                                            <div class="price-switcher">
-                                                                <span class="price switcher-item">$58.00</span>
-                                                                <a href="cart.html"
-                                                                    class="add-cart text-capitalize switcher-item">+add
-                                                                    to cart</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                        <div class="text-center mt-20">
-                                            <a href="shop.html" class="load-more">LOAD MORE...</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="shop-tab-2">
-                                    <div class="product-wrapper mt-55">
-                                        <div class="row">
-                                            <div class="col-xl-4 col-md-4 col-6">
-                                                <div class="product-box mb-40">
-                                                    <div class="product-box-wrapper">
-                                                        <div class="product-img">
-                                                            <img src="/img/product/5.jpg" class="w-100" alt="">
-                                                            <a href="/singleProduct" class="d-block">
-                                                                <div class="second-img">
-                                                                    <img src="/img/product/5-hover.jpg" alt=""
-                                                                        class="w-100">
-                                                                </div>
-                                                            </a>
-                                                            <a href="javascript:void(0)"
-                                                                class="product-img-link quick-view-1 text-capitalize">Quick
-                                                                view</a>
-                                                        </div>
-
-                                                        <div class="product-desc pb-20">
-                                                            <div class="product-desc-top">
-                                                                <div class="categories">
-                                                                    <a href="shop2.html"
-                                                                        class="product-category"><span>Woman</span></a>
-                                                                </div>
-                                                                <a href="/wishlist" class="wishlist float-right"><span><i
-                                                                            class="fal fa-heart"></i></span></a>
-                                                            </div>
-                                                            <a href="/singleProduct/" class="product-title">Light green crewnec...</a>
-                                                            <div class="price-switcher">
-                                                                <span class="price switcher-item">$58.00</span>
-                                                                <a href="cart.html"
-                                                                    class="add-cart text-capitalize switcher-item">+add
-                                                                    to cart</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>       
-                                        </div>
-                                        <div class="text-center mt-20">
-                                            <a href="shop.html" class="load-more">LOAD MORE...</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div id="productList" data-products="<%- JSON.stringify(products) %>">
-
-                                <div class="tab-pane fade  show active" id="shop-tab-3">
-                                    <div class="product-wrapper mt-55">
-                                        <div class="row" id="productDisplay">
-<!------------------------------------------------------------------------------------------------------------------------------------------>  
-                                             
-                                            <!-- Initial product list div -->
-                                            <% products.forEach(prod=>{ %>
-                                                <% prod.products.forEach(product=>{ %>
-                                                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-                                                        <div class="product-box mb-40">
-                                                            <div class="product-box-wrapper">
-                                                                <div class="product-img">
-                                                                    <a href="/products?productId=<%= product._id %>" class="product-category">                                                                    
-                                                                        <img src="<%= product.productImages[0] %>" class="w-100" alt="<%= product.productName %>">
-                                                                    </a>
-
-                                                                </div>
-                                            
-                                                                <div class="product-desc pb-20">
-                                                                    <div class="product-desc-top">
-                                                                        <div class="categories">
-                                                                            <a href="/products?productId=<%= product._id %>" class="product-category"><span><%= product.productCategory %></span></a>
-                                                                        </div>
-                                                                        <button class="btn btn-link" onclick="addToWishlist(event, '<%= product._id %>')">
-                                                                            <div class="wishlist float-right">
-                                                                                <% if(user && user.wishlist.products.some( wProduct => wProduct.productId.toString() === product._id.toString() )) { %>
-                                                                                    <i id="heartIcon-<%= product._id %>" class="fas fa-heart fa-lg text-danger"></i>
-                                                                                <% } else { %>
-                                                                                    <i id="heartIcon-<%= product._id %>" class="fal fa-heart fa-lg"></i>
-                                                                                <% } %>
-                                                                            </div>
-                                                                        </button>
-                                                                    </div>
-                                                                    <a href="/products?productId=<%= product._id %>" class="product-title"><%= product.productName %></a>
-                                                                    <div class="price-switcher">
-                                                                        <span class="price switcher-item">₹ <%= product.productPrice %></span>
-                                                                        <span class="price switcher-item">₹ <%= product.productPrice %></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                <% }); %>
-                                            <% }); %>  
-<!------------------------------------------------------------------------------------------------------------------------------------------>  
-                                        </div>
-                                        <div class="text-center mt-20">
-                                            <a href="" class="load-more">LOAD MORE...</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="shop-tab-4">
-                                    <div class="product-wrapper mt-55">
-                                        <div class="product-box mb-40">
-                                            <div class="product-box-wrapper">
-                                              
-                                            </div>
-                                        </div>
-                                        <div class="product-box mb-40">
-                                            <div class="product-box-wrapper">
-                                               
-                                            </div>
-                                        </div>
-                                        <div class="product-box mb-40">
-                                            <div class="product-box-wrapper">
-                                                
-                                            </div>
-                                        </div>
-                                        <div class="product-box mb-40">
-                                            <div class="product-box-wrapper">
-
-                                            </div>
-                                        </div>
-                                        <!-- /. product box -->
-                                        <div class="text-center mt-20">
-                                            <a href="" class="load-more">LOAD MORE...</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /. filter content -->
+                        <!-- Add more filter options here if needed -->
+                      </div>
                     </div>
-                    <!-- /. shop products -->
+                  </div>
                 </div>
+              </div>
+              <!-- /. filter heading -->
+              <div class="filter-content">
+                <div class="tab-content">
+                  <div class="tab-pane fade" id="shop-tab-1">
+                    <div class="product-wrapper mt-55">
+                      <div class="row">
+                        <div class="col-6">
+                          <div class="product-box mb-40">
+                            <div class="product-box-wrapper">
+                              <div class="product-img">
+                                <img
+                                  src="/img/product/5.jpg"
+                                  class="w-100"
+                                  alt=""
+                                />
+                                <a href="/singleProduct" class="d-block">
+                                  <div class="second-img">
+                                    <img
+                                      src="/img/product/5-hover.jpg"
+                                      alt=""
+                                      class="w-100"
+                                    />
+                                  </div>
+                                </a>
+                                <a
+                                  href="javascript:void(0)"
+                                  class="product-img-link quick-view-1 text-capitalize"
+                                  >Quick view</a
+                                >
+                              </div>
+
+                              <div class="product-desc pb-20">
+                                <div class="product-desc-top">
+                                  <div class="categories">
+                                    <a
+                                      href="/singleProduct"
+                                      class="product-category"
+                                      ><span>Men</span></a
+                                    >
+                                  </div>
+                                  <a
+                                    href="/wishlist"
+                                    class="wishlist float-right"
+                                    ><span><i class="fal fa-heart"></i></span
+                                  ></a>
+                                </div>
+                                <a href="/singleProduct" class="product-title"
+                                  >Light green crewnec...</a
+                                >
+                                <div class="price-switcher">
+                                  <span class="price switcher-item"
+                                    >$58.00</span
+                                  >
+                                  <a
+                                    href="cart.html"
+                                    class="add-cart text-capitalize switcher-item"
+                                    >+add to cart</a
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-center mt-20">
+                        <a href="shop.html" class="load-more">LOAD MORE...</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tab-pane fade" id="shop-tab-2">
+                    <div class="product-wrapper mt-55">
+                      <div class="row">
+                        <div class="col-xl-4 col-md-4 col-6">
+                          <div class="product-box mb-40">
+                            <div class="product-box-wrapper">
+                              <div class="product-img">
+                                <img
+                                  src="/img/product/5.jpg"
+                                  class="w-100"
+                                  alt=""
+                                />
+                                <a href="/singleProduct" class="d-block">
+                                  <div class="second-img">
+                                    <img
+                                      src="/img/product/5-hover.jpg"
+                                      alt=""
+                                      class="w-100"
+                                    />
+                                  </div>
+                                </a>
+                                <a
+                                  href="javascript:void(0)"
+                                  class="product-img-link quick-view-1 text-capitalize"
+                                  >Quick view</a
+                                >
+                              </div>
+
+                              <div class="product-desc pb-20">
+                                <div class="product-desc-top">
+                                  <div class="categories">
+                                    <a
+                                      href="shop2.html"
+                                      class="product-category"
+                                      ><span>Woman</span></a
+                                    >
+                                  </div>
+                                  <a
+                                    href="/wishlist"
+                                    class="wishlist float-right"
+                                    ><span><i class="fal fa-heart"></i></span
+                                  ></a>
+                                </div>
+                                <a href="/singleProduct/" class="product-title"
+                                  >Light green crewnec...</a
+                                >
+                                <div class="price-switcher">
+                                  <span class="price switcher-item"
+                                    >$58.00</span
+                                  >
+                                  <a
+                                    href="cart.html"
+                                    class="add-cart text-capitalize switcher-item"
+                                    >+add to cart</a
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="text-center mt-20">
+                        <a href="shop.html" class="load-more">LOAD MORE...</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div
+                    id="productList"
+                    data-products="<%- JSON.stringify(products) %>"
+                  >
+                    <div class="tab-pane fade show active" id="shop-tab-3">
+                      <div class="product-wrapper mt-55">
+                        <div class="row" id="productDisplay">
+                          <!------------------------------------------------------------------------------------------------------------------------------------------>
+
+                          <!-- Initial product list div -->
+                          <% products.forEach(prod=>{ %> <%
+                          prod.products.forEach(product=>{ %>
+                          <div
+                            class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12"
+                          >
+                            <div class="product-box mb-40">
+                              <div class="product-box-wrapper">
+                                <div class="product-img">
+                                  <a
+                                    href="/products?productId=<%= product._id %>"
+                                    class="product-category"
+                                  >
+                                    <img
+                                      src="<%= product.productImages[0] %>"
+                                      class="w-100"
+                                      alt="<%= product.productName %>"
+                                    />
+                                  </a>
+                                </div>
+
+                                <div class="product-desc pb-20">
+                                  <div class="product-desc-top">
+                                    <div class="categories">
+                                      <a
+                                        href="/products?productId=<%= product._id %>"
+                                        class="product-category"
+                                        ><span
+                                          ><%= product.productCategory %></span
+                                        ></a
+                                      >
+                                    </div>
+                                    <button
+                                      class="btn btn-link"
+                                      onclick="addToWishlist(event, '<%= product._id %>')"
+                                    >
+                                      <div class="wishlist float-right">
+                                        <% if(user &&
+                                        user.wishlist.products.some( wProduct =>
+                                        wProduct.productId.toString() ===
+                                        product._id.toString() )) { %>
+                                        <i
+                                          id="heartIcon-<%= product._id %>"
+                                          class="fas fa-heart fa-lg text-danger"
+                                        ></i>
+                                        <% } else { %>
+                                        <i
+                                          id="heartIcon-<%= product._id %>"
+                                          class="fal fa-heart fa-lg"
+                                        ></i>
+                                        <% } %>
+                                      </div>
+                                    </button>
+                                  </div>
+                                  <a
+                                    href="/products?productId=<%= product._id %>"
+                                    class="product-title"
+                                    ><%= product.productName %></a
+                                  >
+                                  <div class="price-switcher">
+                                    <span class="price switcher-item"
+                                      >₹ <%= product.productPrice %></span
+                                    >
+                                    <span class="price switcher-item"
+                                      >₹ <%= product.productPrice %></span
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <% }); %> <% }); %>
+                          <!------------------------------------------------------------------------------------------------------------------------------------------>
+                        </div>
+                        <div class="text-center mt-20">
+                          <a href="" class="load-more">LOAD MORE...</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" id="shop-tab-4">
+                      <div class="product-wrapper mt-55">
+                        <div class="product-box mb-40">
+                          <div class="product-box-wrapper"></div>
+                        </div>
+                        <div class="product-box mb-40">
+                          <div class="product-box-wrapper"></div>
+                        </div>
+                        <div class="product-box mb-40">
+                          <div class="product-box-wrapper"></div>
+                        </div>
+                        <div class="product-box mb-40">
+                          <div class="product-box-wrapper"></div>
+                        </div>
+                        <!-- /. product box -->
+                        <div class="text-center mt-20">
+                          <a href="" class="load-more">LOAD MORE...</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- /. filter content -->
+              </div>
+              <!-- /. shop products -->
             </div>
+          </div>
         </div>
-    </div>
+      </div>
 
+      <!-- footer section start -->
+      <section class="footer">
+        <div class="footer-bottom pt-77" style="background-color: #292929">
+          <div class="container-1180">
+            <div class="footer-bottom-wrapper">
+              <div class="footer-bottom-primary pb-60">
+                <div class="row">
+                  <div class="col-xl-5 col-lg-5 col-md-9">
+                    <div class="footer-item has-desc">
+                      <div class="footer-logo mb-25">
+                        <img
+                          src="img/logo/logo2.png"
+                          width="120"
+                          height="31"
+                          alt=""
+                        />
+                      </div>
+                      <div class="footer-desc">
+                        <p class="mb-10">
+                          Sign to the WatchVista store mailing list to receive
+                          updates on new arrivals, special offers and other
+                          discount information.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xl-7 col-lg-7 col-md-12">
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                        <div class="footer-menu">
+                          <ul>
+                            <li>
+                              <a href="/userProfile" class="title"
+                                >MY ACCOUNT</a
+                              >
+                            </li>
+                            <li><a href="/checkout">Cart</a></li>
+                            <li><a href="/shop">Shop</a></li>
+                            <li><a href="/wishlist">Wishlist</a></li>
+                          </ul>
+                        </div>
+                      </div>
 
+                      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                        <div class="footer-menu">
+                          <ul>
+                            <li>
+                              <a href="" class="title">Quick Links</a>
+                            </li>
+                            <li><a href="">Special Offers</a></li>
+                            <li><a href="">Gift Cards</a></li>
+                            <li><a href="">Privacy Policy</a></li>
+                          </ul>
+                        </div>
+                      </div>
 
-    <script>
+                      <div
+                        class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm"
+                      >
+                        <div class="footer-menu">
+                          <ul>
+                            <li>
+                              <a href="" class="title">Company Info</a>
+                            </li>
+                            <li><a href="">About us</a></li>
+                            <li>
+                              <a href="">Business With Us</a>
+                            </li>
+                            <li><a href="">Teams of Use</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- footer section end -->
+
+      <script>
         // Function to fetch products by category
         function getProductsByCategory(category, event) {
-            event.preventDefault(); // Prevent default behavior of anchor tag
-            console.log("function called")
-          axios.get(`/products/${category}`)
-            .then(response => {
-                console.log(response)
-              displayProducts(response.data.filteredProducts, response.data.user);
+          event.preventDefault(); // Prevent default behavior of anchor tag
+          console.log("function called");
+          axios
+            .get(`/products/${category}`)
+            .then((response) => {
+              console.log(response);
+              displayProducts(
+                response.data.filteredProducts,
+                response.data.user
+              );
             })
-            .catch(error => {
+            .catch((error) => {
               console.error(error);
             });
         }
 
         const shopSort = document.getElementById("shop-sort");
-            shopSort.addEventListener("change", (event) => {
-            const selectedOption = event.target.value;
-            sortProducts(selectedOption);
+        shopSort.addEventListener("change", (event) => {
+          const selectedOption = event.target.value;
+          sortProducts(selectedOption);
         });
 
-        function sortProducts (selectedOption){
-            console.log("selected option : ",selectedOption)
-            axios.get(`/products/sort/${selectedOption}`)
-            .then(response => {
-                console.log("lkjeflskdj :",response)
-              displayProducts(response.data.allProducts,response.data.user);
+        function sortProducts(selectedOption) {
+          console.log("selected option : ", selectedOption);
+          axios
+            .get(`/products/sort/${selectedOption}`)
+            .then((response) => {
+              console.log("lkjeflskdj :", response);
+              displayProducts(response.data.allProducts, response.data.user);
             })
-            .catch(error => {
+            .catch((error) => {
               console.error(error);
             });
         }
 
         // SEARCH FUNCTION
-        document.getElementById("searchButton").addEventListener("click", function() {
+        document
+          .getElementById("searchButton")
+          .addEventListener("click", function () {
             const inputValue = document.getElementById("searchInput").value;
-            
-            axios.get(`/products/search/${inputValue}`)
-            .then(response => {
-                console.log(response)
-              displayProducts(response.data.filteredProducts, response.data.user);
-              document.getElementById("searchInput").value = "";
-              
-            })
-            .catch(error => {
-              console.error(error);
-            });
 
-        });
-      
+            axios
+              .get(`/products/search/${inputValue}`)
+              .then((response) => {
+                console.log(response);
+                displayProducts(
+                  response.data.filteredProducts,
+                  response.data.user
+                );
+                document.getElementById("searchInput").value = "";
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          });
+
         // Function to display products on the page
         function displayProducts(products, user) {
-            const productDisplay = document.getElementById('productDisplay');
-            productDisplay.innerHTML = ''; // Clear existing products
+          const productDisplay = document.getElementById("productDisplay");
+          productDisplay.innerHTML = ""; // Clear existing products
 
-            products.forEach(product => {
-                // Create elements for product components
-                const productDiv = document.createElement('div');
-                productDiv.classList.add('col-xl-3', 'col-lg-3', 'col-md-4', 'col-sm-6', 'col-12');
+          products.forEach((product) => {
+            // Create elements for product components
+            const productDiv = document.createElement("div");
+            productDiv.classList.add(
+              "col-xl-3",
+              "col-lg-3",
+              "col-md-4",
+              "col-sm-6",
+              "col-12"
+            );
 
-                const productBox = document.createElement('div');
-                productBox.classList.add('product-box', 'mb-40');
+            const productBox = document.createElement("div");
+            productBox.classList.add("product-box", "mb-40");
 
-                const productBoxWrapper = document.createElement('div');
-                productBoxWrapper.classList.add('product-box-wrapper');
+            const productBoxWrapper = document.createElement("div");
+            productBoxWrapper.classList.add("product-box-wrapper");
 
-                const productImg = document.createElement('div');
-                productImg.classList.add('product-img');
-                const img = document.createElement('img');
-                img.src = product.productImages[0];
-                img.classList.add('w-100');
-                img.alt = product.productName;
-                productImg.appendChild(img);
+            const productImg = document.createElement("div");
+            productImg.classList.add("product-img");
+            const img = document.createElement("img");
+            img.src = product.productImages[0];
+            img.classList.add("w-100");
+            img.alt = product.productName;
+            productImg.appendChild(img);
 
-                const productDesc = document.createElement('div');
-                productDesc.classList.add('product-desc', 'pb-20');
+            const productDesc = document.createElement("div");
+            productDesc.classList.add("product-desc", "pb-20");
 
-                const productDescTop = document.createElement('div');
-                productDescTop.classList.add('product-desc-top');
+            const productDescTop = document.createElement("div");
+            productDescTop.classList.add("product-desc-top");
 
-                const categories = document.createElement('div');
-                categories.classList.add('categories');
-                const categoryLink = document.createElement('a');
-                categoryLink.href = `/products?productId=${product._id}`;
-                categoryLink.classList.add('product-category');
-                const categorySpan = document.createElement('span');
-                categorySpan.textContent = product.productCategory;
-                categoryLink.appendChild(categorySpan);
-                categories.appendChild(categoryLink);
+            const categories = document.createElement("div");
+            categories.classList.add("categories");
+            const categoryLink = document.createElement("a");
+            categoryLink.href = `/products?productId=${product._id}`;
+            categoryLink.classList.add("product-category");
+            const categorySpan = document.createElement("span");
+            categorySpan.textContent = product.productCategory;
+            categoryLink.appendChild(categorySpan);
+            categories.appendChild(categoryLink);
 
-                const wishlistButton = document.createElement('button');
-                wishlistButton.classList.add('btn', 'btn-link');
-                wishlistButton.onclick = function() {
-                addToWishlist(event, product._id);
-                };
-                const wishlistDiv = document.createElement('div');
-                wishlistDiv.classList.add('wishlist', 'float-right');
-                const wishlistIcon = document.createElement('i');
-                wishlistIcon.id = `heartIcon-${product._id}`;
-                wishlistIcon.classList.add('fal', 'fa-heart', 'fa-lg');
-                wishlistDiv.appendChild(wishlistIcon);
-                wishlistButton.appendChild(wishlistDiv);
+            const wishlistButton = document.createElement("button");
+            wishlistButton.classList.add("btn", "btn-link");
+            wishlistButton.onclick = function () {
+              addToWishlist(event, product._id);
+            };
+            const wishlistDiv = document.createElement("div");
+            wishlistDiv.classList.add("wishlist", "float-right");
+            const wishlistIcon = document.createElement("i");
+            wishlistIcon.id = `heartIcon-${product._id}`;
+            wishlistIcon.classList.add("fal", "fa-heart", "fa-lg");
+            wishlistDiv.appendChild(wishlistIcon);
+            wishlistButton.appendChild(wishlistDiv);
 
-                const productTitle = document.createElement('a');
-                productTitle.href = `/products?productId=${product._id}`;
-                productTitle.classList.add('product-title');
-                productTitle.textContent = product.productName;
+            const productTitle = document.createElement("a");
+            productTitle.href = `/products?productId=${product._id}`;
+            productTitle.classList.add("product-title");
+            productTitle.textContent = product.productName;
 
-                const priceSwitcher = document.createElement('div');
-                priceSwitcher.classList.add('price-switcher');
-                const priceSpan1 = document.createElement('span');
-                priceSpan1.classList.add('price', 'switcher-item');
-                priceSpan1.textContent = `₹ ${product.productPrice}`;
-                const priceSpan2 = document.createElement('span');
-                priceSpan2.classList.add('price', 'switcher-item');
-                priceSpan2.textContent = `₹ ${product.productPrice}`;
+            const priceSwitcher = document.createElement("div");
+            priceSwitcher.classList.add("price-switcher");
+            const priceSpan1 = document.createElement("span");
+            priceSpan1.classList.add("price", "switcher-item");
+            priceSpan1.textContent = `₹ ${product.productPrice}`;
+            const priceSpan2 = document.createElement("span");
+            priceSpan2.classList.add("price", "switcher-item");
+            priceSpan2.textContent = `₹ ${product.productPrice}`;
 
-                // Assemble the product components
-                productDescTop.appendChild(categories);
-                productDescTop.appendChild(wishlistButton);
-                productDesc.appendChild(productDescTop);
-                productDesc.appendChild(productTitle);
-                priceSwitcher.appendChild(priceSpan1);
-                priceSwitcher.appendChild(priceSpan2);
-                productDesc.appendChild(priceSwitcher);
+            // Assemble the product components
+            productDescTop.appendChild(categories);
+            productDescTop.appendChild(wishlistButton);
+            productDesc.appendChild(productDescTop);
+            productDesc.appendChild(productTitle);
+            priceSwitcher.appendChild(priceSpan1);
+            priceSwitcher.appendChild(priceSpan2);
+            productDesc.appendChild(priceSwitcher);
 
-                productBoxWrapper.appendChild(productImg);
-                productBoxWrapper.appendChild(productDesc);
-                productBox.appendChild(productBoxWrapper);
-                productDiv.appendChild(productBox);
+            productBoxWrapper.appendChild(productImg);
+            productBoxWrapper.appendChild(productDesc);
+            productBox.appendChild(productBoxWrapper);
+            productDiv.appendChild(productBox);
 
-                // Append the product to the display container
-                productDisplay.appendChild(productDiv);
+            // Append the product to the display container
+            productDisplay.appendChild(productDiv);
 
-                // Toggle heart icon based on wishlist status
-                if (user && user.wishlist.products.some(wProduct => wProduct.productId.toString() === product._id.toString())) {
-                    wishlistIcon.classList.add('text-danger');
-                }
+            // Toggle heart icon based on wishlist status
+            if (
+              user &&
+              user.wishlist.products.some(
+                (wProduct) =>
+                  wProduct.productId.toString() === product._id.toString()
+              )
+            ) {
+              wishlistIcon.classList.add("text-danger");
+            }
+          });
+        }
+
+        // ADD TO WISHLIST
+        function addToWishlist(event, productId) {
+          event.preventDefault();
+          axios
+            .post("/products/addToWishlist", { productId })
+            .then((response) => {
+              console.log(response);
+              // Get the corresponding heart icon element
+              const heartIcon = document.getElementById(
+                `heartIcon-${productId}`
+              );
+              // Check if the product was added or removed from wishlist
+              if (
+                response.data.message ===
+                "Product added to wishlist successfully"
+              ) {
+                heartIcon.classList.remove("fal");
+                heartIcon.classList.add("fas");
+                heartIcon.classList.add("text-danger");
+                Toastify({
+                  text: "Product added to wishlist",
+                  duration: 2000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor: "black",
+                }).showToast();
+              } else if (
+                response.data.message ===
+                "Product removed from wishlist successfully"
+              ) {
+                // Change heart icon to regular red heart
+                heartIcon.classList.remove("fas");
+                heartIcon.classList.remove("text-danger");
+                heartIcon.classList.add("fal");
+                Toastify({
+                  text: "Product removed from wishlist",
+                  duration: 2000,
+                  gravity: "top",
+                  position: "right",
+                  backgroundColor: "black",
+                }).showToast();
+              }
+            })
+            .catch((error) => {
+              console.log("sjfjskf", error);
+              if (error.response.data.error === "User not found") {
+                Toastify({
+                  text: "Please login for wishlisting a product",
+                  duration: 3000,
+                  gravity: "top",
+                  position: "right",
+                  // backgroundColor: "black",
+                }).showToast();
+              }
             });
         }
-    </script>
+      </script>
 
+      <script>
+        $(document).ready(function () {
+          $(".filter-widget-toggle").click(function () {
+            $(".filter-popup").toggleClass("active");
+          });
 
-    <!-- footer section start -->
-    <section class="footer mb-0">
-        <!-- footer top -->
+          // Clicking outside the filter popup closes it
+          $(document).click(function (event) {
+            if (!$(event.target).closest(".filter").length) {
+              $(".filter-popup").removeClass("active");
+            }
+          });
+        });
 
-        <div class="footer-bottom pt-77" style="background-color: #292929;">
-            <div class="container-1180">
-                <div class="footer-bottom-wrapper">
-                    <div class="footer-bottom-primary pb-60">
-                        <div class="row">
-                            <div class="col-xl-5 col-lg-5 col-md-9">
-                                <div class="footer-item has-desc">
-                                    <div class="footer-logo mb-25">
-                                        <img src="/img/logo/logo2.png" width="120" height="31" alt="">
-                                    </div>
-                                    <div class="footer-desc">
-                                        <p class="mb-10">Mazia store is a premium theme with advanced admin module. It’s
-                                            extremely customizable, easy to use and fully responsive and retina ready.
-                                        </p>
-                                    </div>
-                                    <div class="footer-img mt-65">
-                                        <img src="/img/logo/paypal.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-7 col-lg-7 col-md-12">
-                                <div class="row">
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
-                                        <div class="footer-menu">
-                                            <ul>
-                                                <li><a href="javascript:void(0)" class="title">MY ACCOUNT</a></li>
-                                                <li><a href="login.html">My account</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="shop2.html">Shop</a></li>
-                                                <li><a href="/wishlist">Wishlist</a></li>
-                                                <li><a href="question.html">Frequently</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+        ////////////////
+        $(document).ready(function () {
+          $("#searchIcon").click(function () {
+            $("#smallSearchPopup").toggle();
+          });
+        });
+      </script>
 
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
-                                        <div class="footer-menu">
-                                            <ul>
-                                                <li><a href="javascript:void(0)" class="title">Quick Links</a></li>
-                                                <li><a href="shop2.html">Special Offers</a></li>
-                                                <li><a href="shop2.html">Gift Cards</a></li>
-                                                <li><a href="shop2.html">F21 Red</a></li>
-                                                <li><a href="about.html">Privacy Policy</a></li>
-                                                <li><a href="about.html">Teams of Use</a></li>
-                                                <li><a href="portfolio.html">Portfolio</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+      <!-- JS here -->
+      <script src="/js/vendor/jquery-1.12.4.min.js"></script>
+      <script src="/js/popper.min.js"></script>
+      <script src="/js/bootstrap.min.js"></script>
+      <script src="/js/owl.carousel.min.js"></script>
+      <script src="/js/isotope.pkgd.min.js"></script>
+      <script src="/js/one-page-nav-min.js"></script>
+      <script src="/js/slick.min.js"></script>
+      <script src="/js/jquery.meanmenu.min.js"></script>
+      <script src="/js/ajax-form.js"></script>
+      <script src="/js/fontawesome.min.js"></script>
+      <script src="/js/wow.min.js"></script>
+      <script src="/js/jquery-ui.js"></script>
+      <script src="/js/jquery.scrollUp.min.js"></script>
+      <script src="/js/imagesloaded.pkgd.min.js"></script>
+      <script src="/js/jquery.magnific-popup.min.js"></script>
+      <script src="/js/plugins.js"></script>
+      <script src="/js/main.js"></script>
 
-                                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 hidden-sm">
-                                        <div class="footer-menu">
-                                            <ul>
-                                                <li><a href="javascript:void(0)" class="title">Company Info</a></li>
-                                                <li><a href="about.html">About us</a></li>
-                                                <li><a href="blog.html">Careers</a></li>
-                                                <li><a href="portfolio2.html">Business With Us</a></li>
-                                                <li><a href="shop2.html">Find a Store</a></li>
-                                                <li><a href="question.html">Teams of Use</a></li>
-                                                <li><a href="portfolio3.html">Press & Talent</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-    <!-- footer section end -->
-    <script>
-        function addToWishlist(event, productId) {
-            event.preventDefault();
-            axios.post('/products/addToWishlist', { productId })
-                .then((response) => {
-                    console.log(response);
-                    // Get the corresponding heart icon element
-                    const heartIcon = document.getElementById(`heartIcon-${productId}`);
-                    // Check if the product was added or removed from wishlist
-                    if (response.data.message === 'Product added to wishlist successfully') {
-                        heartIcon.classList.remove('fal');
-                        heartIcon.classList.add('fas');
-                        heartIcon.classList.add('text-danger');
-                        Toastify({
-                            text: "Product added to wishlist",
-                            duration: 2000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "black",
-                        }).showToast();
-                    } else if (response.data.message === 'Product removed from wishlist successfully') {
-                        // Change heart icon to regular red heart
-                        heartIcon.classList.remove('fas');
-                        heartIcon.classList.remove('text-danger');
-                        heartIcon.classList.add('fal');
-                        Toastify({
-                            text: "Product removed from wishlist",
-                            duration: 2000,
-                            gravity: "top",
-                            position: "right",
-                            backgroundColor: "black",
-                        }).showToast();
-                    }
-                })
-                .catch((error) => {
-                    console.log("sjfjskf",error);
-                    if(error.response.data.error === "User not found"){
-                        Toastify({
-                            text: "Please login for wishlisting a product",
-                            duration: 3000,
-                            gravity: "top",
-                            position: "right",
-                            // backgroundColor: "black",
-                        }).showToast();
-                    }
-                });
-        }
-    </script>
-
-<script>
-    $(document).ready(function() {
-  $(".filter-widget-toggle").click(function() {
-    $(".filter-popup").toggleClass("active");
-  });
-
-  // Clicking outside the filter popup closes it
-  $(document).click(function(event) {
-    if (!$(event.target).closest('.filter').length) {
-      $(".filter-popup").removeClass("active");
-    }
-  });
-});
-
-////////////////
-$(document).ready(function() {
-  $("#searchIcon").click(function() {
-    $("#smallSearchPopup").toggle();
-  });
-});
-
-
-</script>
-
-
-
-
-
-
-
-
-
-
-
-    <!-- JS here -->
-    <script src="/js/vendor/jquery-1.12.4.min.js"></script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/owl.carousel.min.js"></script>
-    <script src="/js/isotope.pkgd.min.js"></script>
-    <script src="/js/one-page-nav-min.js"></script>
-    <script src="/js/slick.min.js"></script>
-    <script src="/js/jquery.meanmenu.min.js"></script>
-    <script src="/js/ajax-form.js"></script>
-    <script src="/js/fontawesome.min.js"></script>
-    <script src="/js/wow.min.js"></script>
-    <script src="/js/jquery-ui.js"></script>
-    <script src="/js/jquery.scrollUp.min.js"></script>
-    <script src="/js/imagesloaded.pkgd.min.js"></script>
-    <script src="/js/jquery.magnific-popup.min.js"></script>
-    <script src="/js/plugins.js"></script>
-    <script src="/js/main.js"></script>
-</body>
-
-
-<!-- Mirrored from wphix.com/template/mazia/shop3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:31 GMT -->
+      <!-- Mirrored from wphix.com/template/mazia/shop3.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 06:04:31 GMT -->
+    </div>
+  </body>
 </html>
