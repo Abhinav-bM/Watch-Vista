@@ -36,9 +36,12 @@ let homePage = async (req, res) => {
       user = await User.findById(userId);
     }
 
-    res
-      .status(200)
-      .render("user/home", { products: products, bannerHome, user ,wishlistProducts :user?.wishlist.products});
+    res.status(200).render("user/home", {
+      products: products,
+      bannerHome,
+      user,
+      wishlistProducts: user?.wishlist.products,
+    });
   } catch (error) {
     console.error("Failed to get home:", error);
     res.status(500).send("Internal Server Error");
@@ -517,7 +520,12 @@ let shopGetPage = async (req, res) => {
       user = await User.findById(userId);
     }
 
-    res.status(200).render("user/shop", { products, allCategories, user ,wishlistProducts :user?.wishlist.products});
+    res.status(200).render("user/shop", {
+      products,
+      allCategories,
+      user,
+      wishlistProducts: user?.wishlist.products,
+    });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
@@ -545,12 +553,7 @@ let getProductsByCategory = async (req, res) => {
       user = await User.findById(userId);
     }
 
-  
-
-
-    res
-      .status(200)
-      .json({ message: "product filtered", filteredProducts, });
+    res.status(200).json({ message: "product filtered", filteredProducts });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -656,7 +659,11 @@ let singleProductGetPage = async (req, res) => {
       user = await User.findById(userId);
     }
 
-    res.render("user/singleProduct", { products: products, user ,wishlistProducts :user?.wishlist.products });
+    res.render("user/singleProduct", {
+      products: products,
+      user,
+      wishlistProducts: user?.wishlist.products,
+    });
   } catch (error) {
     console.log("page not found :", error);
     res.status(404).send("page not found");
@@ -894,9 +901,13 @@ let getCart = async (req, res) => {
     cart.forEach((prod) => {
       subtotal += prod.quantity * prod.price;
     });
-    return res
-      .status(200)
-      .render("user/cart", { cart, subtotal, deliveryCharge, user ,wishlistProducts :user?.wishlist.products });
+    return res.status(200).render("user/cart", {
+      cart,
+      subtotal,
+      deliveryCharge,
+      user,
+      wishlistProducts: user?.wishlist.products,
+    });
   } catch (error) {
     console.error("get Cart Error : ", error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -979,10 +990,16 @@ let updateCartQuantity = async (req, res) => {
   try {
     const user = await User.findById(userId);
     console.log("quantity :", quantity);
-    const vendor = await Vendor.findOne({"products._id" : productId})
-    const product = vendor.products.filter(prod=> prod._id.toString() === productId)
-    if(product[0].productQTY < quantity){
-      return res.status(400).json({ error: "Requested quantity not available in stock", quantity, productId })
+    const vendor = await Vendor.findOne({ "products._id": productId });
+    const product = vendor.products.filter(
+      (prod) => prod._id.toString() === productId
+    );
+    if (product[0].productQTY < quantity) {
+      return res.status(400).json({
+        error: "Requested quantity not available in stock",
+        quantity,
+        productId,
+      });
     }
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -1119,7 +1136,13 @@ let checkoutpage = async (req, res) => {
 
     let totalPrice = 0;
     cart.forEach((prod) => (totalPrice += prod.price * prod.quantity));
-    res.status(200).render("user/checkout", { addresses, cart, totalPrice, user ,wishlistProducts :user?.wishlist.products });
+    res.status(200).render("user/checkout", {
+      addresses,
+      cart,
+      totalPrice,
+      user,
+      wishlistProducts: user?.wishlist.products,
+    });
   } catch (error) {
     console.error("Error on checkout page display :", error);
     res.status(500).json({ message: "An error occurred" });
@@ -1568,7 +1591,12 @@ let userProfile = async (req, res) => {
     let cart = findUserOrders(user, allVendors);
     cart.reverse();
 
-    res.status(200).render("user/account", { cart, addresses , user ,wishlistProducts :user?.wishlist.products});
+    res.status(200).render("user/account", {
+      cart,
+      addresses,
+      user,
+      wishlistProducts: user?.wishlist.products,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -1830,7 +1858,7 @@ let checkStockAvailability = async (req, res) => {
 };
 
 // CONTACT GET PAGE
-let getContactPage = async (req, res)=>{
+let getContactPage = async (req, res) => {
   try {
     const token = req.cookies.jwt;
     let user;
@@ -1840,12 +1868,15 @@ let getContactPage = async (req, res)=>{
       user = await User.findById(userId);
     }
 
-    res.status(200).render("user/contact",{user ,wishlistProducts :user?.wishlist.products})
+    res.status(200).render("user/contact", {
+      user,
+      wishlistProducts: user?.wishlist.products,
+    });
   } catch (error) {
-    console.error(error)
-    res.status(500).redirect(" ")
+    console.error(error);
+    res.status(500).redirect(" ");
   }
-}
+};
 
 module.exports = {
   homePage,
