@@ -80,14 +80,14 @@
     <div class="signup-container">
       <div class="text-center">
         <img
-          class="pb-5"
+          class="pb-2"
           src="/img/logo/logo1.png"
           alt=""
           style="max-width: 160px"
         />
       </div>
 
-      <form id="forgotPasswordForm" action="/forgotPassword" method="post">
+      <form id="forgotPasswordForm" class="px-3" action="/forgotPassword" method="post">
         <% if (typeof error !== 'undefined' && error !== null) { %>
         <p style="color: red"><%= error %></p>
               <% } %>
@@ -95,7 +95,7 @@
         <small id="emailOrPhone-error" style="color: red; display: none"
           >Please enter Email or Phone</small
         ><br />
-        <label for="email">Email or Phone <span>**</span></label>
+        <label for="email">Email or Phone <span class="text-danger">**</span></label>
         <input
           id="emailOrPhone"
           name="emailOrPhone"

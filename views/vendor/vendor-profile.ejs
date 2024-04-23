@@ -1,507 +1,798 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
-
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/vendor-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:38 GMT -->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>::eBazar::  Admin Profile </title>   
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+  <!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/vendor-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:38 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>::eBazar:: Admin Profile</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- Favicon-->
 
     <!-- project css file  -->
-    <link rel="stylesheet" href="/vendor/assets/css/ebazar.style.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/vendor/assets/css/ebazar.style.min.css" />
+  </head>
+  <body>
     <div id="ebazar-layout" class="theme-blue">
-        
-        <!-- sidebar -->
-        <div class="sidebar px-4 py-4 py-md-4 me-0">
-            <div class="d-flex flex-column h-100">
-                <a href="index.html" class="mb-0 brand-icon">
-                    <span class="logo-icon">
-                        <i class="bi bi-bag-check-fill fs-4"></i>
-                    </span>
-                    <span class="logo-text"><%= vendor.vendorName %></span>
-                </a>
-                <!-- Menu: main ul -->
-                <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link active" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
-                            <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                            <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse" id="menu-product">
-                                <li><a class="ms-link" href="/vendor/productList">Products List</a></li>
-                                <li><a class="ms-link" href="/vendor/addProduct">Add Products</a></li>
-                            </ul>
-                    </li>
+      <!-- sidebar -->
+      <div class="sidebar px-4 py-4 py-md-4 me-0">
+        <div class="d-flex flex-column h-100">
+          <a href="index.html" class="mb-0 brand-icon">
+            <span class="logo-icon">
+              <i class="bi bi-bag-check-fill fs-4"></i>
+            </span>
+            <span class="logo-text"><%= vendor.vendorName %></span>
+          </a>
+          <!-- Menu: main ul -->
+          <ul class="menu-list flex-grow-1 mt-3">
+            <li>
+              <a class="m-link" href="/vendor/dashboard"
+                ><i class="icofont-home fs-5"></i> <span>Dashboard</span></a
+              >
+            </li>
 
-                    <li class="collapsed">
-                        <li><a class="m-link " href="/vendor/orders"><i class="icofont-notepad"></i> <span>Orders</span></a></li>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
-                        <i class="icofont-funky-man fs-5"></i> <span>Customers</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="customers-info">
-                            <li><a class="ms-link" href="customers.html">Customers List</a></li>
-                            <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li>
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-sale" href="#">
-                        <i class="icofont-sale-discount fs-5"></i> <span>Sales Promotion</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-sale">
-                            <li><a class="ms-link" href="coupons-list.html">Coupons List</a></li>
-                            <li><a class="ms-link" href="coupon-add.html">Coupons Add</a></li>
-                            <li><a class="ms-link" href="coupon-edit.html">Coupons Edit</a></li>
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
-                        <i class="icofont-chart-histogram fs-5"></i> <span>Inventory</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-inventory">
-                            <li><a class="ms-link" href="inventory-info.html">Stock List</a></li>
-                            <li><a class="ms-link" href="purchase.html">Purchase</a></li>
-                            <li><a class="ms-link" href="supplier.html">Supplier</a></li>
-                            <li><a class="ms-link" href="returns.html">Returns</a></li>
-                            <li><a class="ms-link" href="department.html">Department</a></li>
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-Componentsone" href="#"><i
-                                class="icofont-ui-calculator"></i> <span>Accounts</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-Componentsone">
-                            <li><a class="ms-link" href="invoices.html">Invoices </a></li>
-                            <li><a class="ms-link" href="expenses.html">Expenses </a></li>
-                            <li><a class="ms-link" href="salaryslip.html">Salary Slip </a></li>
-                            <li><a class="ms-link" href="create-invoice.html">Create Invoice </a></li>
-                        </ul>
-                    </li>
-                    <li><a class="m-link " href="/vendor/returnRepayment"><i class="icofont-notepad"></i> <span>Return & Repayment</span></a></li>
-                    
-                </ul>
-               
-            </div>
-        </div>  
+            <li>
+              <a class="m-link" href="/vendor/productList"
+                ><i class="icofont-truck-loaded fs-5"></i>Products</a
+              >
+            </li>
+            <li>
+              <a class="m-link" href="/vendor/addProduct"
+                ><i class="icofont-truck-loaded fs-5"></i>Add Product</a
+              >
+            </li>
 
-        <!-- main body area -->
-        <div class="main px-lg-4 px-md-4">
+            <li></li>
 
-            <!-- Body: Header -->
-            <div class="header">
-                <nav class="navbar py-4">
-                    <div class="container-xxl">
-        
-                        <!-- header rightbar icon -->
-                        <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">         
-                            <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
-                                <div class="u-info me-2">
-                                    <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold"><%= vendor.vendorName %></span></p>
-                                    <small><%= vendor.email %></small>
-                                </div>
-                                <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
-                                    <img class="avatar lg rounded-circle img-thumbnail" src="/vendor/assets/images/profile_av.svg" alt="profile">
-                                </a>
-                                <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
-                                    <div class="card border-0 w280">
-                                        <div class="card-body pb-0">
-                                            <div class="d-flex py-1">
-                                                <img class="avatar rounded-circle" src="/vendor/assets/images/profile_av.svg" alt="profile">
-                                                <div class="flex-fill ms-3">
-                                                    <p class="mb-0"><span class="font-weight-bold"><%= vendor.vendorName %></span></p>
-                                                    <small class=""><%= vendor.email %></small>
-                                                </div>
-                                            </div>
-                                            
-                                            <div><hr class="dropdown-divider border-dark"></div>
-                                        </div>
-                                        <div class="list-group m-2 ">
-                                            <a href="/vendorProfile" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user fs-5 me-3"></i>Profile Page</a>
-                                            <a href="" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a>
-                                            <a href="/vendor/logout" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-5 me-3"></i>Signout</a>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <li class=""></li>
+            <li>
+              <a class="m-link" href="/vendor/orders"
+                ><i class="icofont-notepad"></i> <span>Orders</span></a
+              >
+            </li>
+
+            <li>
+              <a class="m-link" href="/vendor/returnRepayment"
+                ><i class="icofont-notepad"></i>
+                <span>Return & Repayment</span></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- main body area -->
+      <div class="main px-lg-4 px-md-4">
+        <!-- Body: Header -->
+        <div class="header">
+          <nav class="navbar py-4">
+            <div class="container-xxl">
+              <!-- header rightbar icon -->
+              <div
+                class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1"
+              >
+                <div
+                  class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover"
+                >
+                  <div class="u-info me-2">
+                    <p class="mb-0 text-end line-height-sm">
+                      <span class="font-weight-bold"
+                        ><%= vendor.vendorName %></span
+                      >
+                    </p>
+                    <small><%= vendor.email %></small>
+                  </div>
+                  <a
+                    class="nav-link dropdown-toggle pulse p-0"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    data-bs-display="static"
+                  >
+                    <img
+                      class="avatar lg rounded-circle img-thumbnail"
+                      src="/vendor/assets/images/profile_av.svg"
+                      alt="profile"
+                    />
+                  </a>
+                  <div
+                    class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0"
+                  >
+                    <div class="card border-0 w280">
+                      <div class="card-body pb-0">
+                        <div class="d-flex py-1">
+                          <img
+                            class="avatar rounded-circle"
+                            src="/vendor/assets/images/profile_av.svg"
+                            alt="profile"
+                          />
+                          <div class="flex-fill ms-3">
+                            <p class="mb-0">
+                              <span class="font-weight-bold"
+                                ><%= vendor.vendorName %></span
+                              >
+                            </p>
+                            <small class=""><%= vendor.email %></small>
+                          </div>
                         </div>
-        
-                        <!-- menu toggler -->
-                        <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
-                            <span class="fa fa-bars"></span>
+
+                        <div><hr class="dropdown-divider border-dark" /></div>
+                      </div>
+                      <div class="list-group m-2">
+                        <a
+                          href="/vendorProfile"
+                          class="list-group-item list-group-item-action border-0"
+                          ><i class="icofont-ui-user fs-5 me-3"></i>Profile
+                          Page</a
+                        >
+                        <a
+                          href=""
+                          class="list-group-item list-group-item-action border-0"
+                          ><i class="icofont-file-text fs-5 me-3"></i>Order
+                          Invoices</a
+                        >
+                        <a
+                          href="/vendor/logout"
+                          class="list-group-item list-group-item-action border-0"
+                          ><i class="icofont-logout fs-5 me-3"></i>Signout</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- menu toggler -->
+              <button
+                class="navbar-toggler p-0 border-0 menu-toggle order-3"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainHeader"
+              >
+                <span class="fa fa-bars"></span>
+              </button>
+
+              <!-- main menu Search-->
+              <div
+                class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0"
+              >
+                <div class="input-group flex-nowrap input-group-lg">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search"
+                    aria-label="search"
+                    aria-describedby="addon-wrapping"
+                  />
+                  <button
+                    type="button"
+                    class="input-group-text"
+                    id="addon-wrapping"
+                  >
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <!-- Body: Body -->
+        <div class="body d-flex py-3">
+          <div class="container-xxl">
+            <div class="row g-3">
+              <div class="col-xl-4 col-lg-5 col-md-12">
+                <div class="card profile-card flex-column mb-3">
+                  <div
+                    class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
+                  >
+                    <h6 class="mb-0 fw-bold">Profile</h6>
+                  </div>
+                  <div class="card-body d-flex profile-fulldeatil flex-column">
+                    <div class="profile-block text-center w220 mx-auto">
+                      <a href="#">
+                        <img
+                          src="/vendor/assets/images/lg/avatar4.svg"
+                          alt=""
+                          class="avatar xl rounded img-thumbnail shadow-sm"
+                        />
+                      </a>
+                      <button
+                        class="btn btn-primary"
+                        style="position: absolute; top: 15px; right: 15px"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editprofile"
+                      >
+                        <i class="icofont-edit"></i>
+                      </button>
+                    </div>
+                    <div class="profile-info w-100">
+                      <h6 class="mb-0 mt-2 fw-bold d-block fs-6 text-center">
+                        <%= vendor.vendorName %>
+                      </h6>
+                      <span
+                        class="py-1 fw-bold small-11 mb-0 mt-1 text-muted text-center mx-auto d-block"
+                        >24 years, California</span
+                      >
+                      <p class="mt-2">
+                        Duis felis ligula, pharetra at nisl sit amet,
+                        ullamcorper fringilla mi. Cras luctus metus non enim
+                        porttitor sagittis. Sed tristique scelerisque arcu id
+                        dignissim.
+                      </p>
+                      <div class="row g-2 pt-2">
+                        <div class="col-xl-12">
+                          <div class="d-flex align-items-center">
+                            <i class="icofont-ui-touch-phone"></i>
+                            <span class="ms-2"><%= vendor.phoneNumber %></span>
+                          </div>
+                        </div>
+                        <div class="col-xl-12">
+                          <div class="d-flex align-items-center">
+                            <i class="icofont-email"></i>
+                            <span class="ms-2"><%= vendor.email %></span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-8 col-lg-7 col-md-12">
+                <div class="card mb-3">
+                  <div
+                    class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0"
+                  >
+                    <h6 class="mb-0 fw-bold">Profile Settings</h6>
+                  </div>
+                  <div class="card-body">
+                    <form class="row g-4">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="form-label">User Name</label>
+                          <input class="form-control" type="text" />
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="form-label">Password</label>
+                          <input class="form-control" type="Password" />
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                          <label class="form-label"
+                            >Company Name
+                            <span class="text-danger">*</span></label
+                          >
+                          <input class="form-control" type="text" value="" />
+                        </div>
+                      </div>
+                      <div class="col-md-4 col-sm-12">
+                        <div class="form-group">
+                          <label class="form-label"
+                            >Mobile Number
+                            <span class="text-danger">*</span></label
+                          >
+                          <input class="form-control" type="text" />
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
+                          <label class="form-label">Address</label>
+                          <textarea
+                            class="form-control"
+                            aria-label="With textarea"
+                          ></textarea>
+                        </div>
+                      </div>
+                      <div class="col-md-6 col-sm-12">
+                        <label class="form-label"
+                          >Email <span class="text-danger">*</span></label
+                        >
+                        <div class="input-group">
+                          <span class="input-group-text">@</span>
+                          <input type="text" class="form-control" />
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 col-md-6 col-lg-3">
+                        <div class="form-group">
+                          <label class="form-label">City</label>
+                          <input class="form-control" type="text" />
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-md-6 col-lg-3">
+                        <div class="form-group">
+                          <label class="form-label">Postal Code</label>
+                          <input class="form-control" type="text" />
+                        </div>
+                      </div>
+
+                      <div class="col-12 mt-4">
+                        <button
+                          type="button"
+                          class="btn btn-primary text-uppercase px-5"
+                        >
+                          SAVE
                         </button>
-        
-                        <!-- main menu Search-->
-                        <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
-                            <div class="input-group flex-nowrap input-group-lg">
-                                <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
-                                <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
-                                
-                            </div>
-                        </div>
-        
-                    </div>
-                </nav>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
 
-            <!-- Body: Body -->
-            <div class="body d-flex py-3">
-                <div class="container-xxl">
-                    <div class="row g-3">
-                        <div class="col-xl-4 col-lg-5 col-md-12">
-                            <div class="card profile-card flex-column mb-3">
-                                <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
-                                    <h6 class="mb-0 fw-bold ">Profile</h6>
-                                </div>
-                                <div class="card-body d-flex profile-fulldeatil flex-column">
-                                    <div class="profile-block text-center w220 mx-auto">
-                                        <a href="#">
-                                            <img src="/vendor/assets/images/lg/avatar4.svg" alt="" class="avatar xl rounded img-thumbnail shadow-sm">
-                                        </a>
-                                        <button class="btn btn-primary" style="position: absolute;top:15px;right: 15px;" data-bs-toggle="modal" data-bs-target="#editprofile"><i class="icofont-edit"></i></button>
-                                       
-                                    </div>
-                                    <div class="profile-info w-100">
-                                        <h6  class="mb-0 mt-2  fw-bold d-block fs-6 text-center"><%= vendor.vendorName %></h6>
-                                        <span class="py-1 fw-bold small-11 mb-0 mt-1 text-muted text-center mx-auto d-block">24 years, California</span>
-                                        <p class="mt-2">Duis felis ligula, pharetra at nisl sit amet, ullamcorper fringilla mi. Cras luctus metus non enim porttitor sagittis. Sed tristique scelerisque arcu id dignissim.</p>
-                                        <div class="row g-2 pt-2">
-                                            <div class="col-xl-12">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="icofont-ui-touch-phone"></i>
-                                                    <span class="ms-2"><%= vendor.phoneNumber %></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-xl-12">
-                                                <div class="d-flex align-items-center">
-                                                    <i class="icofont-email"></i>
-                                                    <span class="ms-2"><%= vendor.email %></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-8 col-lg-7 col-md-12">
-                            <div class="card mb-3">
-                                <div class="card-header py-3 d-flex justify-content-between bg-transparent border-bottom-0">
-                                    <h6 class="mb-0 fw-bold ">Profile Settings</h6>
-                                </div>
-                                <div class="card-body">
-                                    <form class="row g-4">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="form-label">User Name</label>
-                                                <input class="form-control"  type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="form-label">Password</label>
-                                                <input class="form-control" type="Password">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Company Name <span class="text-danger">*</span></label>
-                                                <input class="form-control" type="text" value="">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 col-sm-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
-                                                <input class="form-control"  type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label class="form-label">Address</label>
-                                                <textarea class="form-control"  aria-label="With textarea"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-12">
-                                            <label class="form-label">Email <span class="text-danger">*</span></label>
-                                            <div class="input-group">
-                                                <span class="input-group-text">@</span>
-                                                <input type="text" class="form-control">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-sm-6 col-md-6 col-lg-3">
-                                            <div class="form-group">
-                                                <label class="form-label">City</label>
-                                                <input class="form-control"  type="text">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-3">
-                                            <div class="form-group">
-                                                <label class="form-label">Postal Code</label>
-                                                <input class="form-control"  type="text">
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="col-12 mt-4">
-                                            <button type="button" class="btn btn-primary text-uppercase px-5">SAVE</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            
-                        </div>
-                    </div>
+        <!-- Modal Custom Settings-->
+        <div
+          class="modal fade right"
+          id="Settingmodal"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Custom Settings</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body custom_setting">
+                <!-- Settings: Color -->
+                <div class="setting-theme pb-3">
+                  <h6 class="card-title mb-2 fs-6 d-flex align-items-center">
+                    <i class="icofont-color-bucket fs-4 me-2 text-primary"></i
+                    >Template Color Settings
+                  </h6>
+                  <ul
+                    class="list-unstyled row row-cols-3 g-2 choose-skin mb-2 mt-2"
+                  >
+                    <li data-theme="indigo"><div class="indigo"></div></li>
+                    <li data-theme="tradewind">
+                      <div class="tradewind"></div>
+                    </li>
+                    <li data-theme="monalisa"><div class="monalisa"></div></li>
+                    <li data-theme="blue" class="active">
+                      <div class="blue"></div>
+                    </li>
+                    <li data-theme="cyan"><div class="cyan"></div></li>
+                    <li data-theme="green"><div class="green"></div></li>
+                    <li data-theme="orange"><div class="orange"></div></li>
+                    <li data-theme="blush"><div class="blush"></div></li>
+                    <li data-theme="red"><div class="red"></div></li>
+                  </ul>
                 </div>
+                <div class="sidebar-gradient py-3">
+                  <h6 class="card-title mb-2 fs-6 d-flex align-items-center">
+                    <i class="icofont-paint fs-4 me-2 text-primary"></i>Sidebar
+                    Gradient
+                  </h6>
+                  <div class="form-check form-switch gradient-switch pt-2 mb-2">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="CheckGradient"
+                    />
+                    <label class="form-check-label" for="CheckGradient"
+                      >Enable Gradient! ( Sidebar )</label
+                    >
+                  </div>
+                </div>
+                <!-- Settings: Template dynamics -->
+                <div class="dynamic-block py-3">
+                  <ul class="list-unstyled choose-skin mb-2 mt-1">
+                    <li data-theme="dynamic">
+                      <div class="dynamic">
+                        <i class="icofont-paint me-2"></i> Click to Dyanmic
+                        Setting
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="dt-setting">
+                    <ul class="list-group list-unstyled mt-1">
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label>Primary Color</label>
+                        <button
+                          id="primaryColorPicker"
+                          class="btn bg-primary avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label>Secondary Color</label>
+                        <button
+                          id="secondaryColorPicker"
+                          class="btn bg-secondary avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 1</label>
+                        <button
+                          id="chartColorPicker1"
+                          class="btn chart-color1 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 2</label>
+                        <button
+                          id="chartColorPicker2"
+                          class="btn chart-color2 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 3</label>
+                        <button
+                          id="chartColorPicker3"
+                          class="btn chart-color3 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 4</label>
+                        <button
+                          id="chartColorPicker4"
+                          class="btn chart-color4 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 5</label>
+                        <button
+                          id="chartColorPicker5"
+                          class="btn chart-color5 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- Settings: Font -->
+                <div class="setting-font py-3">
+                  <h6 class="card-title mb-2 fs-6 d-flex align-items-center">
+                    <i class="icofont-font fs-4 me-2 text-primary"></i> Font
+                    Settings
+                  </h6>
+                  <ul class="list-group font_setting mt-1">
+                    <li class="list-group-item py-1 px-2">
+                      <div class="form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="font"
+                          id="font-poppins"
+                          value="font-poppins"
+                        />
+                        <label class="form-check-label" for="font-poppins">
+                          Poppins Google Font
+                        </label>
+                      </div>
+                    </li>
+                    <li class="list-group-item py-1 px-2">
+                      <div class="form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="font"
+                          id="font-opensans"
+                          value="font-opensans"
+                          checked=""
+                        />
+                        <label class="form-check-label" for="font-opensans">
+                          Open Sans Google Font
+                        </label>
+                      </div>
+                    </li>
+                    <li class="list-group-item py-1 px-2">
+                      <div class="form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="font"
+                          id="font-montserrat"
+                          value="font-montserrat"
+                        />
+                        <label class="form-check-label" for="font-montserrat">
+                          Montserrat Google Font
+                        </label>
+                      </div>
+                    </li>
+                    <li class="list-group-item py-1 px-2">
+                      <div class="form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="font"
+                          id="font-mukta"
+                          value="font-mukta"
+                        />
+                        <label class="form-check-label" for="font-mukta">
+                          Mukta Google Font
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Settings: Light/dark -->
+                <div class="setting-mode py-3">
+                  <h6 class="card-title mb-2 fs-6 d-flex align-items-center">
+                    <i class="icofont-layout fs-4 me-2 text-primary"></i
+                    >Contrast Layout
+                  </h6>
+                  <ul class="list-group list-unstyled mb-0 mt-1">
+                    <li
+                      class="list-group-item d-flex align-items-center py-1 px-2"
+                    >
+                      <div class="form-check form-switch theme-switch mb-0">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="theme-switch"
+                        />
+                        <label class="form-check-label" for="theme-switch"
+                          >Enable Dark Mode!</label
+                        >
+                      </div>
+                    </li>
+                    <li
+                      class="list-group-item d-flex align-items-center py-1 px-2"
+                    >
+                      <div
+                        class="form-check form-switch theme-high-contrast mb-0"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="theme-high-contrast"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="theme-high-contrast"
+                          >Enable High Contrast</label
+                        >
+                      </div>
+                    </li>
+                    <li
+                      class="list-group-item d-flex align-items-center py-1 px-2"
+                    >
+                      <div class="form-check form-switch theme-rtl mb-0">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="theme-rtl"
+                        />
+                        <label class="form-check-label" for="theme-rtl"
+                          >Enable RTL Mode!</label
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-start">
+                <button
+                  type="button"
+                  class="btn btn-white border lift"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary lift">
+                  Save Changes
+                </button>
+              </div>
             </div>
-        
-            <!-- Modal Custom Settings-->
-            <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">
-                <div class="modal-dialog  modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Custom Settings</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body custom_setting">
-                            <!-- Settings: Color -->
-                            <div class="setting-theme pb-3">
-                                <h6 class="card-title mb-2 fs-6 d-flex align-items-center"><i class="icofont-color-bucket fs-4 me-2 text-primary"></i>Template Color Settings</h6>
-                                <ul class="list-unstyled row row-cols-3 g-2 choose-skin mb-2 mt-2">
-                                    <li data-theme="indigo"><div class="indigo"></div></li>
-                                    <li data-theme="tradewind"><div class="tradewind"></div></li>
-                                    <li data-theme="monalisa"><div class="monalisa"></div></li>
-                                    <li data-theme="blue" class="active"><div class="blue"></div></li>
-                                    <li data-theme="cyan"><div class="cyan"></div></li>
-                                    <li data-theme="green"><div class="green"></div></li>
-                                    <li data-theme="orange"><div class="orange"></div></li>
-                                    <li data-theme="blush"><div class="blush"></div></li>
-                                    <li data-theme="red"><div class="red"></div></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-gradient py-3">
-                                <h6 class="card-title mb-2 fs-6 d-flex align-items-center"><i class="icofont-paint fs-4 me-2 text-primary"></i>Sidebar Gradient</h6>
-                                <div class="form-check form-switch gradient-switch pt-2 mb-2">
-                                    <input class="form-check-input" type="checkbox" id="CheckGradient">
-                                    <label class="form-check-label" for="CheckGradient">Enable Gradient! ( Sidebar )</label>
-                                </div>
-                            </div>
-                            <!-- Settings: Template dynamics -->
-                            <div class="dynamic-block py-3">
-                                <ul class="list-unstyled choose-skin mb-2 mt-1">
-                                    <li data-theme="dynamic"><div class="dynamic"><i class="icofont-paint me-2"></i> Click to Dyanmic Setting</div></li>
-                                </ul>
-                                <div class="dt-setting">
-                                    <ul class="list-group list-unstyled mt-1">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label>Primary Color</label>
-                                            <button id="primaryColorPicker" class="btn bg-primary avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label>Secondary Color</label>
-                                            <button id="secondaryColorPicker" class="btn bg-secondary avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 1</label>
-                                            <button id="chartColorPicker1" class="btn chart-color1 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 2</label>
-                                            <button id="chartColorPicker2" class="btn chart-color2 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 3</label>
-                                            <button id="chartColorPicker3" class="btn chart-color3 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 4</label>
-                                            <button id="chartColorPicker4" class="btn chart-color4 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 5</label>
-                                            <button id="chartColorPicker5" class="btn chart-color5 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Settings: Font -->
-                            <div class="setting-font py-3">
-                                <h6 class="card-title mb-2 fs-6 d-flex align-items-center"><i class="icofont-font fs-4 me-2 text-primary"></i> Font Settings</h6>
-                                <ul class="list-group font_setting mt-1">
-                                    <li class="list-group-item py-1 px-2">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="font" id="font-poppins" value="font-poppins">
-                                            <label class="form-check-label" for="font-poppins">
-                                                Poppins Google Font
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item py-1 px-2">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="font" id="font-opensans" value="font-opensans" checked="">
-                                            <label class="form-check-label" for="font-opensans">
-                                                Open Sans Google Font
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item py-1 px-2">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="font" id="font-montserrat" value="font-montserrat">
-                                            <label class="form-check-label" for="font-montserrat">
-                                                Montserrat Google Font
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item py-1 px-2">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="font" id="font-mukta" value="font-mukta">
-                                            <label class="form-check-label" for="font-mukta">
-                                                Mukta Google Font
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Settings: Light/dark -->
-                            <div class="setting-mode py-3">
-                                <h6 class="card-title mb-2 fs-6 d-flex align-items-center"><i class="icofont-layout fs-4 me-2 text-primary"></i>Contrast Layout</h6>
-                                <ul class="list-group list-unstyled mb-0 mt-1">
-                                    <li class="list-group-item d-flex align-items-center py-1 px-2">
-                                        <div class="form-check form-switch theme-switch mb-0">
-                                            <input class="form-check-input" type="checkbox" id="theme-switch">
-                                            <label class="form-check-label" for="theme-switch">Enable Dark Mode!</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-1 px-2">
-                                        <div class="form-check form-switch theme-high-contrast mb-0">
-                                            <input class="form-check-input" type="checkbox" id="theme-high-contrast">
-                                            <label class="form-check-label" for="theme-high-contrast">Enable High Contrast</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-1 px-2">
-                                        <div class="form-check form-switch theme-rtl mb-0">
-                                            <input class="form-check-input" type="checkbox" id="theme-rtl">
-                                            <label class="form-check-label" for="theme-rtl">Enable RTL Mode!</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-start">
-                            <button type="button" class="btn btn-white border lift" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary lift">Save Changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div> 
+          </div>
+        </div>
 
-            <!-- Edit Password-->
-            <div class="modal fade" id="authchange" tabindex="-1"  aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title  fw-bold" id="expeditLabel"> Edit Authentication</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Edit Password-->
+        <div
+          class="modal fade"
+          id="authchange"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="expeditLabel">
+                  Edit Authentication
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="deadline-form">
+                  <form>
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <label for="item1" class="form-label">User Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="item1"
+                          value="Adrian007"
+                        />
+                      </div>
+                      <div class="col-sm-6">
+                        <label for="taxtno111" class="form-label"
+                          >Password</label
+                        >
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="taxtno111"
+                          value="abcxyzabc"
+                        />
+                      </div>
+                      <div class="col-sm-12">
+                        <label for="taxtno11" class="form-label"
+                          >Conform Password</label
+                        >
+                        <input type="text" class="form-control" id="taxtno11" />
+                      </div>
                     </div>
-                    <div class="modal-body">
-                        
-                        <div class="deadline-form">
-                            <form>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-sm-6">
-                                        <label for="item1" class="form-label">User Name</label>
-                                        <input type="text" class="form-control" id="item1" value="Adrian007"> 
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="taxtno111" class="form-label">Password</label>
-                                        <input type="password" class="form-control" id="taxtno111" value="abcxyzabc">
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <label for="taxtno11" class="form-label">Conform Password</label>
-                                        <input type="text" class="form-control" id="taxtno11">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
+                  </form>
                 </div>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Done
+                </button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
             </div>
+          </div>
+        </div>
 
-            <!-- Edit profile-->
-            <div class="modal fade" id="editprofile" tabindex="-1"  aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title  fw-bold" id="expeditLabel1111"> Edit Profile</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Edit profile-->
+        <div
+          class="modal fade"
+          id="editprofile"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div
+            class="modal-dialog modal-dialog-centered modal-md modal-dialog-scrollable"
+          >
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="expeditLabel1111">
+                  Edit Profile
+                </h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="deadline-form">
+                  <form>
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-12">
+                        <label for="item100" class="form-label">Name</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="item100"
+                          value="Adrian Allan"
+                        />
+                      </div>
+                      <div class="col-sm-12">
+                        <label for="taxtno200" class="form-label"
+                          >Profile</label
+                        >
+                        <input
+                          type="file"
+                          class="form-control"
+                          id="taxtno200"
+                        />
+                      </div>
                     </div>
-                    <div class="modal-body">
-                        
-                        <div class="deadline-form">
-                            <form>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-sm-12">
-                                        <label for="item100" class="form-label">Name</label>
-                                        <input type="text" class="form-control" id="item100" value="Adrian Allan"> 
-                                    </div>
-                                    <div class="col-sm-12">
-                                        <label for="taxtno200" class="form-label">Profile</label>
-                                        <input type="file" class="form-control" id="taxtno200">
-                                    </div>
-                                </div>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Details</label>
-                                        <textarea class="form-control" rows="3">Duis felis ligula, pharetra at nisl sit amet, ullamcorper fringilla mi. Cras luctus metus non enim porttitor sagittis. Sed tristique scelerisque arcu id dignissim. Aenean sed erat ut est commodo tristique ac a metus. Praesent efficitur congue orci. Fusce in mi condimentum mauris maximus sodales. Quisque dictum est augue, vitae cursus quam finibus in. Nulla at tempus enim. Fusce sed mi et nibh laoreet consectetur nec vitae lacus.</textarea>
-                                    </div>
-                                </div>
-                                <div class="row g-3 mb-3">
-                                <div class="col-sm-6">
-                                    <label class="form-label">Country</label>
-                                    <input type="text" class="form-control" value="California">
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="abc1" class="form-label">Birthday date</label>
-                                    <input type="date" class="form-control w-100" id="abc1" value="1980-03-19">
-                                </div>
-                                </div>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-sm-6">
-                                    <label for="mailid" class="form-label">Mail</label>
-                                    <input type="text" class="form-control" id="mailid" value="adrianallan@gmail.com">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label for="phoneid" class="form-label">Phone</label>
-                                        <input type="text" class="form-control" id="phoneid" value="202-555-0174">
-                                    </div>
-                                </div>
-                                <div class="row g-3 mb-3">
-                                    <div class="col-sm-12">
-                                        <label class="form-label">Address</label>
-                                        <textarea class="form-control" rows="3">2734 West Fork Street,EASTON 02334.</textarea>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-12">
+                        <label class="form-label">Details</label>
+                        <textarea class="form-control" rows="3">
+Duis felis ligula, pharetra at nisl sit amet, ullamcorper fringilla mi. Cras luctus metus non enim porttitor sagittis. Sed tristique scelerisque arcu id dignissim. Aenean sed erat ut est commodo tristique ac a metus. Praesent efficitur congue orci. Fusce in mi condimentum mauris maximus sodales. Quisque dictum est augue, vitae cursus quam finibus in. Nulla at tempus enim. Fusce sed mi et nibh laoreet consectetur nec vitae lacus.</textarea
+                        >
+                      </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Done</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <label class="form-label">Country</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          value="California"
+                        />
+                      </div>
+                      <div class="col-sm-6">
+                        <label for="abc1" class="form-label"
+                          >Birthday date</label
+                        >
+                        <input
+                          type="date"
+                          class="form-control w-100"
+                          id="abc1"
+                          value="1980-03-19"
+                        />
+                      </div>
                     </div>
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-6">
+                        <label for="mailid" class="form-label">Mail</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="mailid"
+                          value="adrianallan@gmail.com"
+                        />
+                      </div>
+                      <div class="col-sm-6">
+                        <label for="phoneid" class="form-label">Phone</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="phoneid"
+                          value="202-555-0174"
+                        />
+                      </div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                      <div class="col-sm-12">
+                        <label class="form-label">Address</label>
+                        <textarea class="form-control" rows="3">
+2734 West Fork Street,EASTON 02334.</textarea
+                        >
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Done
+                </button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
             </div>
-        </div>  
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Jquery Core Js -->
@@ -509,7 +800,7 @@
 
     <!-- Jquery Page Js -->
     <script src="../js/template.js"></script>
- </body>
+  </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/vendor-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:38 GMT -->
-</html> 
+  <!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/vendor-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:38 GMT -->
+</html>

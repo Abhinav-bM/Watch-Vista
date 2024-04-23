@@ -23,7 +23,11 @@ let homePage = async (req, res) => {
   const token = req.cookies.jwt;
 
   try {
-    let products = await Vendor.find().select("products");
+    let vendors = await Vendor.find().select("products");
+    const allProducts = vendors.flatMap((vendor) => vendor.products);
+    allProducts.sort((a, b) => b.createdAt - a.createdAt);
+    const latestProducts = allProducts.slice(0, 8);
+
     const admin = await Admin.findOne();
     const bannerHome = admin.banner.filter(
       (banner) => banner.placement === "Home Page"
@@ -37,7 +41,7 @@ let homePage = async (req, res) => {
     }
 
     res.status(200).render("user/home", {
-      products: products,
+      products: latestProducts,
       bannerHome,
       user,
       wishlistProducts: user?.wishlist.products,
@@ -553,7 +557,9 @@ let getProductsByCategory = async (req, res) => {
       user = await User.findById(userId);
     }
 
-    res.status(200).json({ message: "product filtered", filteredProducts });
+    res
+      .status(200)
+      .json({ message: "product filtered", filteredProducts, user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -613,6 +619,9 @@ let getSearchProduct = async (req, res) => {
           .includes(searchTerm.trim().toLowerCase()) ||
         product.productName
           .toLowerCase()
+          .includes(searchTerm.trim().toLowerCase()) ||
+          product.productCategory
+          .toLowerCase()
           .includes(searchTerm.trim().toLowerCase())
     );
 
@@ -640,6 +649,9 @@ let singleProductGetPage = async (req, res) => {
 
     const vendor = await Vendor.findOne({ "products._id": productId });
 
+
+    const relatedProducts  = vendor.products.filter((prod)=> prod._id.toString() !== productId)
+
     if (!vendor) {
       throw new Error("Product not found");
     }
@@ -663,6 +675,7 @@ let singleProductGetPage = async (req, res) => {
       products: products,
       user,
       wishlistProducts: user?.wishlist.products,
+      relatedProducts: relatedProducts,
     });
   } catch (error) {
     console.log("page not found :", error);

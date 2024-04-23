@@ -1,690 +1,1129 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
-
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/addProduct by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:26 GMT -->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Vendor Product Add </title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Favicon-->
+  <!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/addProduct by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:26 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Vendor Product Add</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <!-- Favicon-->
 
     <!--plugin css file -->
-    <link rel="stylesheet" href="/vendor/assets/plugin/multi-select/css/multi-select.css"><!-- Multi Select Css -->
-    <link rel="stylesheet" href="/vendor/assets/plugin/bootstrap-tagsinput/bootstrap-tagsinput.css"><!-- Bootstrap Tagsinput Css -->
-    <link rel="stylesheet" href="/vendor/assets/plugin/cropper/cropper.min.css"><!--Cropperer Css -->   
-    <link rel="stylesheet" href="/vendor/assets/plugin/dropify/dist/css/dropify.min.css"/><!-- Dropify Css -->
-    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/responsive.dataTables.min.css"><!-- Datatable Css -->
-    <link rel="stylesheet" href="/vendor/assets/plugin/datatables/dataTables.bootstrap5.min.css"><!-- Datatable Css -->
+    <link
+      rel="stylesheet"
+      href="/vendor/assets/plugin/multi-select/css/multi-select.css"
+    />
+    <!-- Multi Select Css -->
+    <link
+      rel="stylesheet"
+      href="/vendor/assets/plugin/bootstrap-tagsinput/bootstrap-tagsinput.css"
+    />
+    <!-- Bootstrap Tagsinput Css -->
+    <link
+      rel="stylesheet"
+      href="/vendor/assets/plugin/cropper/cropper.min.css"
+    />
+    <!--Cropperer Css -->
+    <link
+      rel="stylesheet"
+      href="/vendor/assets/plugin/dropify/dist/css/dropify.min.css"
+    />
+    <!-- Dropify Css -->
+    <link
+      rel="stylesheet"
+      href="/vendor/assets/plugin/datatables/responsive.dataTables.min.css"
+    />
+    <!-- Datatable Css -->
+    <link
+      rel="stylesheet"
+      href="/vendor/assets/plugin/datatables/dataTables.bootstrap5.min.css"
+    />
+    <!-- Datatable Css -->
 
     <!-- Project css file  -->
-    <link rel="stylesheet" href="/vendor/assets/css/ebazar.style.min.css">
+    <link rel="stylesheet" href="/vendor/assets/css/ebazar.style.min.css" />
 
     <style>
-        /* Add your CSS styles here */
-        label {
-          display: block;
-          margin-bottom: 5px;
-        }
-        input[type="text"],
-        input[type="number"],
-        textarea {
-          width: 100%;
-          padding: 10px;
-          margin-bottom: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          box-sizing: border-box;
-        }
-        select {
-          width: 100%;
-          padding: 10px;
-          margin-bottom: 10px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-          box-sizing: border-box;
-        }
-        .form-group {
-          margin-bottom: 20px;
-        }
-        .form-group label {
-          font-weight: bold;
-        }
-        .form-group.images label {
-          display: block;
-          margin-bottom: 5px;
-        }
-        .form-group.images input[type="file"] {
-          margin-bottom: 10px;
-        }
-        .btn-submit {
-          background-color: #007bff;
-          color: white;
-          padding: 10px 20px;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .btn-submit:hover {
-          background-color: #0056b3;
-        }
-      </style>
-    
-</head>
-<body>
+      /* Add your CSS styles here */
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      input[type="text"],
+      input[type="number"],
+      textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        font-weight: bold;
+      }
+      .form-group.images label {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .form-group.images input[type="file"] {
+        margin-bottom: 10px;
+      }
+      .btn-submit {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .btn-submit:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
     <div id="ebazar-layout" class="theme-blue">
-        
-        <!-- sidebar -->
-        <div class="sidebar px-4 py-4 py-md-4 me-0">
-            <div class="d-flex flex-column h-100">
-                <a href="index.html" class="mb-0 brand-icon">
-                    <span class="logo-icon">
-                        <i class="bi bi-bag-check-fill fs-4"></i>
-                    </span>
-                    <span class="logo-text">eBazar</span>
-                </a>
-                <!-- Menu: main ul -->
-                <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link active" href="/vendor/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
-                            <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                            <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse" id="menu-product">
-                                <li><a class="ms-link" href="/vendor/productList">Products List</a></li>
-                                <li><a class="ms-link" href="/vendor/addProduct">Add Products</a></li>
-                            </ul>
-                    </li>
+      <!-- sidebar -->
+      <div class="sidebar px-4 py-4 py-md-4 me-0">
+        <div class="d-flex flex-column h-100">
+          <a href="index.html" class="mb-0 brand-icon">
+            <span class="logo-icon">
+              <i class="bi bi-bag-check-fill fs-4"></i>
+            </span>
+            <span class="logo-text">eBazar</span>
+          </a>
+          <!-- Menu: main ul -->
+          <ul class="menu-list flex-grow-1 mt-3">
+            <li>
+              <a class="m-link" href="/vendor/dashboard"
+                ><i class="icofont-home fs-5"></i> <span>Dashboard</span></a
+              >
+            </li>
 
-                    <li class="collapsed">
-                        <li><a class="m-link " href="/vendor/orders"><i class="icofont-notepad"></i> <span>Orders</span></a></li>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
-                        <i class="icofont-funky-man fs-5"></i> <span>Customers</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="customers-info">
-                            <li><a class="ms-link" href="customers.html">Customers List</a></li>
-                            <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li>
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-sale" href="#">
-                        <i class="icofont-sale-discount fs-5"></i> <span>Sales Promotion</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-sale">
-                            <li><a class="ms-link" href="coupons-list.html">Coupons List</a></li>
-                            <li><a class="ms-link" href="coupon-add.html">Coupons Add</a></li>
-                            <li><a class="ms-link" href="coupon-edit.html">Coupons Edit</a></li>
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
-                        <i class="icofont-chart-histogram fs-5"></i> <span>Inventory</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-inventory">
-                            <li><a class="ms-link" href="inventory-info.html">Stock List</a></li>
-                            <li><a class="ms-link" href="purchase.html">Purchase</a></li>
-                            <li><a class="ms-link" href="supplier.html">Supplier</a></li>
-                            <li><a class="ms-link" href="returns.html">Returns</a></li>
-                            <li><a class="ms-link" href="department.html">Department</a></li>
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-Componentsone" href="#"><i
-                                class="icofont-ui-calculator"></i> <span>Accounts</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-Componentsone">
-                            <li><a class="ms-link" href="invoices.html">Invoices </a></li>
-                            <li><a class="ms-link" href="expenses.html">Expenses </a></li>
-                            <li><a class="ms-link" href="salaryslip.html">Salary Slip </a></li>
-                            <li><a class="ms-link" href="create-invoice.html">Create Invoice </a></li>
-                        </ul>
-                    </li>
-                    <li><a class="m-link " href="/vendor/returnRepayment"><i class="icofont-notepad"></i> <span>Return & Repayment</span></a></li>
-  
-                    
-                </ul>
-              
-            </div>
-        </div>    
+            <li>
+              <a class="m-link active" href="/vendor/productList"
+                ><i class="icofont-truck-loaded fs-5"></i>Products</a
+              >
+            </li>
+            <li>
+              <a class="m-link" href="/vendor/addProduct"
+                ><i class="icofont-truck-loaded fs-5"></i>Add Product</a
+              >
+            </li>
 
-        <!-- main body area -->
-        <div class="main px-lg-4 px-md-4"> 
+            <li></li>
 
-            <!-- Body: Header -->
-            <div class="header">
-                <nav class="navbar py-4">
-                    <div class="container-xxl">
-        
-                        <!-- header rightbar icon -->
-                        <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
-                            <div class="d-flex">
-                                <a class="nav-link text-primary collapsed" href="help.html" title="Get Help">
-                                    <i class="icofont-info-square fs-5"></i>
-                                </a>
-                            </div>
-                            <div class="dropdown zindex-popover">
-                                <a class="nav-link dropdown-toggle pulse" href="#" role="button" data-bs-toggle="dropdown">
-                                    <img src="/vendor/assets/images/flag/GB.png" alt="">
-                                </a>
-                                <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-md-end p-0 m-0 mt-3">
-                                    <div class="card border-0">
-                                        <ul class="list-unstyled py-2 px-3">
-                                            <li>
-                                                <a href="#" class=""><img src="/vendor/assets/images/flag/GB.png" alt=""> English</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class=""><img src="/vendor/assets/images/flag/DE.png" alt=""> German</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class=""><img src="/vendor/assets/images/flag/FR.png" alt=""> French</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class=""><img src="/vendor/assets/images/flag/IT.png" alt=""> Italian</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class=""><img src="/vendor/assets/images/flag/RU.png" alt=""> Russian</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="dropdown notifications">
-                                <a class="nav-link dropdown-toggle pulse" href="#" role="button" data-bs-toggle="dropdown">
-                                    <i class="icofont-alarm fs-5"></i>
-                                    <span class="pulse-ring"></span>
-                                </a>
-                                <div id="NotificationsDiv" class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-md-end p-0 m-0 mt-3">
-                                    <div class="card border-0 w380">
-                                        <div class="card-header border-0 p-3">
-                                            <h5 class="mb-0 font-weight-light d-flex justify-content-between">
-                                                <span>Notifications</span>
-                                                <span class="badge text-white">06</span>
-                                            </h5>
-                                        </div>
-                                        <div class="tab-content card-body">
-                                            <div class="tab-pane fade show active">
-                                                <ul class="list-unstyled list mb-0">
-                                                    <li class="py-2 mb-1 border-bottom">
-                                                        <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar1.svg" alt="">
-                                                            <div class="flex-fill ms-2">
-                                                                <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Chloe Walkerr</span> <small>2MIN</small></p>
-                                                                <span class="">Added New Product 2021-07-15 <span class="badge bg-success">Add</span></span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="py-2 mb-1 border-bottom">
-                                                        <a href="javascript:void(0);" class="d-flex">
-                                                            <div class="avatar rounded-circle no-thumbnail">AH</div>
-                                                            <div class="flex-fill ms-2">
-                                                                <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Alan	Hill</span> <small>13MIN</small></p>
-                                                                <span class="">Invoice generator </span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="py-2 mb-1 border-bottom">
-                                                        <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar3.svg" alt="">
-                                                            <div class="flex-fill ms-2">
-                                                                <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Melanie	Oliver</span> <small>1HR</small></p>
-                                                                <span class="">Orader  Return RT-00004</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="py-2 mb-1 border-bottom">
-                                                        <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar5.svg" alt="">
-                                                            <div class="flex-fill ms-2">
-                                                                <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Boris Hart</span> <small>13MIN</small></p>
-                                                                <span class="">Product Order to Toyseller</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="py-2 mb-1 border-bottom">
-                                                        <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar6.svg" alt="">
-                                                            <div class="flex-fill ms-2">
-                                                                <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Alan	Lambert</span> <small>1HR</small></p>
-                                                                <span class="">Leave Apply</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li class="py-2">
-                                                        <a href="javascript:void(0);" class="d-flex">
-                                                            <img class="avatar rounded-circle" src="/vendor/assets/images/xs/avatar7.svg" alt="">
-                                                            <div class="flex-fill ms-2">
-                                                                <p class="d-flex justify-content-between mb-0 "><span class="font-weight-bold">Zoe Wright</span> <small class="">1DAY</small></p>
-                                                                <span class="">Product Stoke Entry Updated</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <a class="card-footer text-center border-top-0" href="#"> View all notifications</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
-                                <div class="u-info me-2">
-                                    <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">John Quinn</span></p>
-                                    <small>Admin Profile</small>
-                                </div>
-                                <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
-                                    <img class="avatar lg rounded-circle img-thumbnail" src="/vendor/assets/images/profile_av.svg" alt="profile">
-                                </a>
-                                <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
-                                    <div class="card border-0 w280">
-                                        <div class="card-body pb-0">
-                                            <div class="d-flex py-1">
-                                                <img class="avatar rounded-circle" src="/vendor/assets/images/profile_av.svg" alt="profile">
-                                                <div class="flex-fill ms-3">
-                                                    <p class="mb-0"><span class="font-weight-bold">John	Quinn</span></p>
-                                                    <small class="">Johnquinn@gmail.com</small>
-                                                </div>
-                                            </div>
-                                            
-                                            <div><hr class="dropdown-divider border-dark"></div>
-                                        </div>
-                                        <div class="list-group m-2 ">
-                                            <a href="admin-profile.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user fs-5 me-3"></i>Profile Page</a>
-                                            <a href="order-invoices.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a>
-                                            <a href="ui-elements/auth-signin.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-5 me-3"></i>Signout</a>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="setting ms-2">
-                                <a href="#" data-bs-toggle="modal" data-bs-target="#Settingmodal"><i class="icofont-gear-alt fs-5"></i></a>
-                            </div>
-                        </div>
-        
-                        <!-- menu toggler -->
-                        <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
-                            <span class="fa fa-bars"></span>
-                        </button>
-        
-                        <!-- main menu Search-->
-                        <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
-                            <div class="input-group flex-nowrap input-group-lg">
-                                <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
-                                <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-        
-                    </div>
-                </nav>
-            </div>
+            <li class=""></li>
+            <li>
+              <a class="m-link" href="/vendor/orders"
+                ><i class="icofont-notepad"></i> <span>Orders</span></a
+              >
+            </li>
 
-<!-- Body: Body --><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
-<h2 class="text-uppercase fw-bold px-3">Edit Product</h2>
-    <form class="needs-validation" action="/vendor/editProduct/<%= product._id %>" method="post" enctype="multipart/form-data">
-        
-        <div>
-            <div class="form-group px-3">
-                <label for="productName">Product Name:</label>
-                <input type="text" id="productName" name="productName" value="<%= product.productName %>" required>
-            </div>
-    
-            <div class="form-group px-3">
-                <label for="productBrand">Product Brand:</label>
-                <input type="text" id="productBrand" name="productBrand" value="<%= product.productBrand %>" required>
-            </div>
-    
-            <div class="form-group px-3">
-                <label for="productColor">Product Color:</label>
-                <input type="text" id="productColor" name="productColor" value="<%= product.productColor %>" required>
-            </div>
-    
-            <div class="form-group px-3">
-                <label for="productSize">Product Size:</label>
-                <input type="text" id="productSize" name="productSize" value="<%= product.productSize %>" required>
-            </div>
-    
-            <div class="form-group px-3">
-                <label for="productQuantity">Product Quantity:</label>
-                <input type="number" id="productQuantity" name="productQuantity" value="<%= product.productQTY %>" required>
-            </div>
-    
-            <div class="form-group px-3">
-                <label for="productPrice">Product Price:</label>
-                <input type="number" id="productPrice" name="productPrice" value="<%= product.productPrice %>" required>
-            </div>
-    
-            <div class="form-group px-3">
-                <label for="productMRP">Product MRP:</label>
-                <input type="number" id="productMRP" name="productMRP" value="<%= product.productMRP %>" required>
-            </div>
-    
-            <div class="form-group px-3">
-                <label for="productDiscount">Product Discount:</label>
-                <input type="number" id="productDiscount" name="productDiscount" value="<%= product.productDiscount %>" required>
-            </div>
-    
-            <div class="form-group px-3">
-                <label for="productCategory">Category:</label>
-                <select id="productCategory" name="productCategory" onchange="getSubcategory()" required>
-                    <option value="">Select Category</option>
-                        <% categories.forEach(category => { %>
-                            <option value="<%= category.categoryName %>"><%= category.categoryName %></option>
-                        <% }); %>
-                    </select>
+            <li>
+              <a class="m-link" href="/vendor/returnRepayment"
+                ><i class="icofont-notepad"></i>
+                <span>Return & Repayment</span></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- main body area -->
+      <div class="main px-lg-4 px-md-4">
+        <!-- Body: Header -->
+        <div class="header">
+          <nav class="navbar py-4">
+            <div class="container-xxl">
+              <!-- header rightbar icon -->
+              <div
+                class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1"
+              >
+                <div class="d-flex">
+                  <a
+                    class="nav-link text-primary collapsed"
+                    href="help.html"
+                    title="Get Help"
+                  >
+                    <i class="icofont-info-square fs-5"></i>
+                  </a>
                 </div>
-    
-                <input type="hidden" id="categoriesData" value='<%= JSON.stringify(categories) %>'>
-    
-                <div class="form-group px-3">
-                <label for="productSubcategory">Subcategory:</label>
-                <select id="productSubcategory" name="productSubcategory" required>
-                    <option value="">Select Subcategory</option>
-                </select>
+                <div class="dropdown zindex-popover">
+                  <a
+                    class="nav-link dropdown-toggle pulse"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    <img src="/vendor/assets/images/flag/GB.png" alt="" />
+                  </a>
+                  <div
+                    class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-md-end p-0 m-0 mt-3"
+                  >
+                    <div class="card border-0">
+                      <ul class="list-unstyled py-2 px-3">
+                        <li>
+                          <a href="#" class=""
+                            ><img
+                              src="/vendor/assets/images/flag/GB.png"
+                              alt=""
+                            />
+                            English</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#" class=""
+                            ><img
+                              src="/vendor/assets/images/flag/DE.png"
+                              alt=""
+                            />
+                            German</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#" class=""
+                            ><img
+                              src="/vendor/assets/images/flag/FR.png"
+                              alt=""
+                            />
+                            French</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#" class=""
+                            ><img
+                              src="/vendor/assets/images/flag/IT.png"
+                              alt=""
+                            />
+                            Italian</a
+                          >
+                        </li>
+                        <li>
+                          <a href="#" class=""
+                            ><img
+                              src="/vendor/assets/images/flag/RU.png"
+                              alt=""
+                            />
+                            Russian</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dropdown notifications">
+                  <a
+                    class="nav-link dropdown-toggle pulse"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                  >
+                    <i class="icofont-alarm fs-5"></i>
+                    <span class="pulse-ring"></span>
+                  </a>
+                  <div
+                    id="NotificationsDiv"
+                    class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-md-end p-0 m-0 mt-3"
+                  >
+                    <div class="card border-0 w380">
+                      <div class="card-header border-0 p-3">
+                        <h5
+                          class="mb-0 font-weight-light d-flex justify-content-between"
+                        >
+                          <span>Notifications</span>
+                          <span class="badge text-white">06</span>
+                        </h5>
+                      </div>
+                      <div class="tab-content card-body">
+                        <div class="tab-pane fade show active">
+                          <ul class="list-unstyled list mb-0">
+                            <li class="py-2 mb-1 border-bottom">
+                              <a href="javascript:void(0);" class="d-flex">
+                                <img
+                                  class="avatar rounded-circle"
+                                  src="/vendor/assets/images/xs/avatar1.svg"
+                                  alt=""
+                                />
+                                <div class="flex-fill ms-2">
+                                  <p
+                                    class="d-flex justify-content-between mb-0"
+                                  >
+                                    <span class="font-weight-bold"
+                                      >Chloe Walkerr</span
+                                    >
+                                    <small>2MIN</small>
+                                  </p>
+                                  <span class=""
+                                    >Added New Product 2021-07-15
+                                    <span class="badge bg-success"
+                                      >Add</span
+                                    ></span
+                                  >
+                                </div>
+                              </a>
+                            </li>
+                            <li class="py-2 mb-1 border-bottom">
+                              <a href="javascript:void(0);" class="d-flex">
+                                <div class="avatar rounded-circle no-thumbnail">
+                                  AH
+                                </div>
+                                <div class="flex-fill ms-2">
+                                  <p
+                                    class="d-flex justify-content-between mb-0"
+                                  >
+                                    <span class="font-weight-bold"
+                                      >Alan Hill</span
+                                    >
+                                    <small>13MIN</small>
+                                  </p>
+                                  <span class="">Invoice generator </span>
+                                </div>
+                              </a>
+                            </li>
+                            <li class="py-2 mb-1 border-bottom">
+                              <a href="javascript:void(0);" class="d-flex">
+                                <img
+                                  class="avatar rounded-circle"
+                                  src="/vendor/assets/images/xs/avatar3.svg"
+                                  alt=""
+                                />
+                                <div class="flex-fill ms-2">
+                                  <p
+                                    class="d-flex justify-content-between mb-0"
+                                  >
+                                    <span class="font-weight-bold"
+                                      >Melanie Oliver</span
+                                    >
+                                    <small>1HR</small>
+                                  </p>
+                                  <span class="">Orader Return RT-00004</span>
+                                </div>
+                              </a>
+                            </li>
+                            <li class="py-2 mb-1 border-bottom">
+                              <a href="javascript:void(0);" class="d-flex">
+                                <img
+                                  class="avatar rounded-circle"
+                                  src="/vendor/assets/images/xs/avatar5.svg"
+                                  alt=""
+                                />
+                                <div class="flex-fill ms-2">
+                                  <p
+                                    class="d-flex justify-content-between mb-0"
+                                  >
+                                    <span class="font-weight-bold"
+                                      >Boris Hart</span
+                                    >
+                                    <small>13MIN</small>
+                                  </p>
+                                  <span class=""
+                                    >Product Order to Toyseller</span
+                                  >
+                                </div>
+                              </a>
+                            </li>
+                            <li class="py-2 mb-1 border-bottom">
+                              <a href="javascript:void(0);" class="d-flex">
+                                <img
+                                  class="avatar rounded-circle"
+                                  src="/vendor/assets/images/xs/avatar6.svg"
+                                  alt=""
+                                />
+                                <div class="flex-fill ms-2">
+                                  <p
+                                    class="d-flex justify-content-between mb-0"
+                                  >
+                                    <span class="font-weight-bold"
+                                      >Alan Lambert</span
+                                    >
+                                    <small>1HR</small>
+                                  </p>
+                                  <span class="">Leave Apply</span>
+                                </div>
+                              </a>
+                            </li>
+                            <li class="py-2">
+                              <a href="javascript:void(0);" class="d-flex">
+                                <img
+                                  class="avatar rounded-circle"
+                                  src="/vendor/assets/images/xs/avatar7.svg"
+                                  alt=""
+                                />
+                                <div class="flex-fill ms-2">
+                                  <p
+                                    class="d-flex justify-content-between mb-0"
+                                  >
+                                    <span class="font-weight-bold"
+                                      >Zoe Wright</span
+                                    >
+                                    <small class="">1DAY</small>
+                                  </p>
+                                  <span class=""
+                                    >Product Stoke Entry Updated</span
+                                  >
+                                </div>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <a class="card-footer text-center border-top-0" href="#">
+                        View all notifications</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover"
+                >
+                  <div class="u-info me-2">
+                    <p class="mb-0 text-end line-height-sm">
+                      <span class="font-weight-bold">John Quinn</span>
+                    </p>
+                    <small>Admin Profile</small>
+                  </div>
+                  <a
+                    class="nav-link dropdown-toggle pulse p-0"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    data-bs-display="static"
+                  >
+                    <img
+                      class="avatar lg rounded-circle img-thumbnail"
+                      src="/vendor/assets/images/profile_av.svg"
+                      alt="profile"
+                    />
+                  </a>
+                  <div
+                    class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0"
+                  >
+                    <div class="card border-0 w280">
+                      <div class="card-body pb-0">
+                        <div class="d-flex py-1">
+                          <img
+                            class="avatar rounded-circle"
+                            src="/vendor/assets/images/profile_av.svg"
+                            alt="profile"
+                          />
+                          <div class="flex-fill ms-3">
+                            <p class="mb-0">
+                              <span class="font-weight-bold">John Quinn</span>
+                            </p>
+                            <small class="">Johnquinn@gmail.com</small>
+                          </div>
+                        </div>
+
+                        <div><hr class="dropdown-divider border-dark" /></div>
+                      </div>
+                      <div class="list-group m-2">
+                        <a
+                          href="admin-profile.html"
+                          class="list-group-item list-group-item-action border-0"
+                          ><i class="icofont-ui-user fs-5 me-3"></i>Profile
+                          Page</a
+                        >
+                        <a
+                          href="order-invoices.html"
+                          class="list-group-item list-group-item-action border-0"
+                          ><i class="icofont-file-text fs-5 me-3"></i>Order
+                          Invoices</a
+                        >
+                        <a
+                          href="ui-elements/auth-signin.html"
+                          class="list-group-item list-group-item-action border-0"
+                          ><i class="icofont-logout fs-5 me-3"></i>Signout</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="setting ms-2">
+                  <a
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#Settingmodal"
+                    ><i class="icofont-gear-alt fs-5"></i
+                  ></a>
+                </div>
+              </div>
+
+              <!-- menu toggler -->
+              <button
+                class="navbar-toggler p-0 border-0 menu-toggle order-3"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainHeader"
+              >
+                <span class="fa fa-bars"></span>
+              </button>
+
+              <!-- main menu Search-->
+              <div
+                class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0"
+              >
+                <div class="input-group flex-nowrap input-group-lg">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search"
+                    aria-label="search"
+                    aria-describedby="addon-wrapping"
+                  />
+                  <button
+                    type="button"
+                    class="input-group-text"
+                    id="addon-wrapping"
+                  >
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
             </div>
-    
+          </nav>
         </div>
 
-        <div class="form-group px-3">
+        <!-- Body: Body --><!-- ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
+        <h2 class="text-uppercase fw-bold px-3">Edit Product</h2>
+        <form
+          class="needs-validation"
+          action="/vendor/editProduct/<%= product._id %>"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <div>
+            <div class="form-group px-3">
+              <label for="productName">Product Name:</label>
+              <input
+                type="text"
+                id="productName"
+                name="productName"
+                value="<%= product.productName %>"
+                required
+              />
+            </div>
+
+            <div class="form-group px-3">
+              <label for="productBrand">Product Brand:</label>
+              <input
+                type="text"
+                id="productBrand"
+                name="productBrand"
+                value="<%= product.productBrand %>"
+                required
+              />
+            </div>
+
+            <div class="form-group px-3">
+              <label for="productColor">Product Color:</label>
+              <input
+                type="text"
+                id="productColor"
+                name="productColor"
+                value="<%= product.productColor %>"
+                required
+              />
+            </div>
+
+            <div class="form-group px-3">
+              <label for="productSize">Product Size:</label>
+              <input
+                type="text"
+                id="productSize"
+                name="productSize"
+                value="<%= product.productSize %>"
+                required
+              />
+            </div>
+
+            <div class="form-group px-3">
+              <label for="productQuantity">Product Quantity:</label>
+              <input
+                type="number"
+                id="productQuantity"
+                name="productQuantity"
+                value="<%= product.productQTY %>"
+                required
+              />
+            </div>
+
+            <div class="form-group px-3">
+              <label for="productPrice">Product Price:</label>
+              <input
+                type="number"
+                id="productPrice"
+                name="productPrice"
+                value="<%= product.productPrice %>"
+                required
+              />
+            </div>
+
+            <div class="form-group px-3">
+              <label for="productMRP">Product MRP:</label>
+              <input
+                type="number"
+                id="productMRP"
+                name="productMRP"
+                value="<%= product.productMRP %>"
+                required
+              />
+            </div>
+
+            <div class="form-group px-3">
+              <label for="productDiscount">Product Discount:</label>
+              <input
+                type="number"
+                id="productDiscount"
+                name="productDiscount"
+                value="<%= product.productDiscount %>"
+                required
+              />
+            </div>
+
+            <div class="form-group px-3">
+              <label for="productCategory">Category:</label>
+              <select
+                id="productCategory"
+                name="productCategory"
+                onchange="getSubcategory()"
+                required
+              >
+                <option value="">Select Category</option>
+                <% categories.forEach(category => { %>
+                <option value="<%= category.categoryName %>">
+                  <%= category.categoryName %>
+                </option>
+                <% }); %>
+              </select>
+            </div>
+
+            <input
+              type="hidden"
+              id="categoriesData"
+              value="<%= JSON.stringify(categories) %>"
+            />
+
+            <div class="form-group px-3">
+              <label for="productSubcategory">Subcategory:</label>
+              <select
+                id="productSubcategory"
+                name="productSubcategory"
+                required
+              >
+                <option value="">Select Subcategory</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group px-3">
             <label for="productDescription">Product Description:</label>
-            <textarea id="productDescription" name="productDescription" rows="5" required><%= product.productDescription %></textarea>
-        </div>
+            <textarea
+              id="productDescription"
+              name="productDescription"
+              rows="5"
+              required
+            >
+<%= product.productDescription %></textarea
+            >
+          </div>
 
-        <div class="form-group images px-3">
-            
-        <label for="productImages">Product Images ( 4 images ):</label><br>
-            
+          <div class="form-group images px-3">
+            <label for="productImages">Product Images ( 4 images ):</label
+            ><br />
 
-            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[0] %>" >
-            <img src="<%= product.productImages[0] %>" alt="No image added" style="max-width: 100px;"><br>
+            <input
+              type="file"
+              id="productImages"
+              name="productImages"
+              value="<%= product.productImages[0] %>"
+            />
+            <img
+              src="<%= product.productImages[0] %>"
+              alt="No image added"
+              style="max-width: 100px"
+            /><br />
 
-            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[1] %>">
-            <img src="<%= product.productImages[1] %>" alt="No image added" style="max-width: 100px;"><br>
+            <input
+              type="file"
+              id="productImages"
+              name="productImages"
+              value="<%= product.productImages[1] %>"
+            />
+            <img
+              src="<%= product.productImages[1] %>"
+              alt="No image added"
+              style="max-width: 100px"
+            /><br />
 
-            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[2] %>" >
-            <img src="<%= product.productImages[2] %>" alt="No image added" style="max-width: 100px;"><br>
+            <input
+              type="file"
+              id="productImages"
+              name="productImages"
+              value="<%= product.productImages[2] %>"
+            />
+            <img
+              src="<%= product.productImages[2] %>"
+              alt="No image added"
+              style="max-width: 100px"
+            /><br />
 
-            <input type="file" id="productImages" name="productImages" value="<%= product.productImages[3] %>" >
-            <img src="<%= product.productImages[2] %>" alt="No image added" style="max-width: 100px;"><br>
+            <input
+              type="file"
+              id="productImages"
+              name="productImages"
+              value="<%= product.productImages[3] %>"
+            />
+            <img
+              src="<%= product.productImages[2] %>"
+              alt="No image added"
+              style="max-width: 100px"
+            /><br />
+          </div>
 
-            
-        </div>
+          <div class="px-3">
+            <input type="submit" value="Edit Product" class="btn-submit" />
+          </div>
+        </form>
+        <br />
 
+        <script>
+          function getSubcategory() {
+            const categoriesInput = document.getElementById("categoriesData");
+            const categoriesJson = categoriesInput.value;
 
+            // Parse the JSON string to get the categories array
+            const categories = JSON.parse(categoriesJson);
 
-        <div class="px-3">
-            <input type="submit" value="Edit Product" class="btn-submit">
-        </div>
-    </form><br>
+            const categoryDropdown = document.getElementById("productCategory");
+            const subcategoryDropdown =
+              document.getElementById("productSubcategory");
 
-  <script>
-     function getSubcategory() {
-        const categoriesInput = document.getElementById('categoriesData');
-        const categoriesJson = categoriesInput.value;
+            // Clear previous options
+            subcategoryDropdown.innerHTML =
+              '<option value="">Select Subcategory</option>';
 
-        // Parse the JSON string to get the categories array
-        const categories = JSON.parse(categoriesJson);
+            const selectedCategory = categoryDropdown.value;
+            if (!selectedCategory) {
+              return;
+            }
 
-        const categoryDropdown = document.getElementById('productCategory');
-        const subcategoryDropdown = document.getElementById('productSubcategory');
-        
-        // Clear previous options
-        subcategoryDropdown.innerHTML = '<option value="">Select Subcategory</option>';
+            // Find the selected category from the categories array
+            const selectedCategoryObj = categories.find(
+              (category) => category.categoryName === selectedCategory
+            );
 
-        const selectedCategory = categoryDropdown.value;
-        if (!selectedCategory) {
-        return;
-        }
+            if (selectedCategoryObj) {
+              selectedCategoryObj.subcategories.forEach((subcategory) => {
+                const option = document.createElement("option");
+                option.text = subcategory;
+                option.value = subcategory;
+                subcategoryDropdown.add(option);
+              });
+            }
+          }
 
-        // Find the selected category from the categories array
-        const selectedCategoryObj = categories.find(category => category.categoryName === selectedCategory);
-
-        if (selectedCategoryObj) {
-        selectedCategoryObj.subcategories.forEach(subcategory => {
-            const option = document.createElement('option');
-            option.text = subcategory;
-            option.value = subcategory;
-            subcategoryDropdown.add(option);
-        });
-        }
-    }
-
-    // Trigger getSubcategory() when the page loads
-    document.addEventListener('DOMContentLoaded', () => {
-        getSubcategory();
-    });
-  </script>
-            <!--------------------------------------------------------------------------------------------------------------------------------------------->   
-            <!-- Modal Custom Settings-->
-            <div class="modal fade right" id="Settingmodal" tabindex="-1"  aria-hidden="true">
-                <div class="modal-dialog  modal-sm">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Custom Settings</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body custom_setting">
-                            <!-- Settings: Color -->
-                            <div class="setting-theme pb-3">
-                                <h6 class="card-title mb-2 fs-6 d-flex align-items-center"><i class="icofont-color-bucket fs-4 me-2 text-primary"></i>Template Color Settings</h6>
-                                <ul class="list-unstyled row row-cols-3 g-2 choose-skin mb-2 mt-2">
-                                    <li data-theme="indigo"><div class="indigo"></div></li>
-                                    <li data-theme="tradewind"><div class="tradewind"></div></li>
-                                    <li data-theme="monalisa"><div class="monalisa"></div></li>
-                                    <li data-theme="blue" class="active"><div class="blue"></div></li>
-                                    <li data-theme="cyan"><div class="cyan"></div></li>
-                                    <li data-theme="green"><div class="green"></div></li>
-                                    <li data-theme="orange"><div class="orange"></div></li>
-                                    <li data-theme="blush"><div class="blush"></div></li>
-                                    <li data-theme="red"><div class="red"></div></li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-gradient py-3">
-                                <h6 class="card-title mb-2 fs-6 d-flex align-items-center"><i class="icofont-paint fs-4 me-2 text-primary"></i>Sidebar Gradient</h6>
-                                <div class="form-check form-switch gradient-switch pt-2 mb-2">
-                                    <input class="form-check-input" type="checkbox" id="CheckGradient">
-                                    <label class="form-check-label" for="CheckGradient">Enable Gradient! ( Sidebar )</label>
-                                </div>
-                            </div>
-                            <!-- Settings: Template dynamics -->
-                            <div class="dynamic-block py-3">
-                                <ul class="list-unstyled choose-skin mb-2 mt-1">
-                                    <li data-theme="dynamic"><div class="dynamic"><i class="icofont-paint me-2"></i> Click to Dyanmic Setting</div></li>
-                                </ul>
-                                <div class="dt-setting">
-                                    <ul class="list-group list-unstyled mt-1">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label>Primary Color</label>
-                                            <button id="primaryColorPicker" class="btn bg-primary avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label>Secondary Color</label>
-                                            <button id="secondaryColorPicker" class="btn bg-secondary avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 1</label>
-                                            <button id="chartColorPicker1" class="btn chart-color1 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 2</label>
-                                            <button id="chartColorPicker2" class="btn chart-color2 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 3</label>
-                                            <button id="chartColorPicker3" class="btn chart-color3 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 4</label>
-                                            <button id="chartColorPicker4" class="btn chart-color4 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                        <li class="list-group-item d-flex justify-content-between align-items-center py-1 px-2">
-                                            <label class="text-muted">Chart Color 5</label>
-                                            <button id="chartColorPicker5" class="btn chart-color5 avatar xs border-0 rounded-0"></button>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Settings: Font -->
-                            <div class="setting-font py-3">
-                                <h6 class="card-title mb-2 fs-6 d-flex align-items-center"><i class="icofont-font fs-4 me-2 text-primary"></i> Font Settings</h6>
-                                <ul class="list-group font_setting mt-1">
-                                    <li class="list-group-item py-1 px-2">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="font" id="font-poppins" value="font-poppins">
-                                            <label class="form-check-label" for="font-poppins">
-                                                Poppins Google Font
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item py-1 px-2">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="font" id="font-opensans" value="font-opensans" checked="">
-                                            <label class="form-check-label" for="font-opensans">
-                                                Open Sans Google Font
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item py-1 px-2">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="font" id="font-montserrat" value="font-montserrat">
-                                            <label class="form-check-label" for="font-montserrat">
-                                                Montserrat Google Font
-                                            </label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item py-1 px-2">
-                                        <div class="form-check mb-0">
-                                            <input class="form-check-input" type="radio" name="font" id="font-mukta" value="font-mukta">
-                                            <label class="form-check-label" for="font-mukta">
-                                                Mukta Google Font
-                                            </label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- Settings: Light/dark -->
-                            <div class="setting-mode py-3">
-                                <h6 class="card-title mb-2 fs-6 d-flex align-items-center"><i class="icofont-layout fs-4 me-2 text-primary"></i>Contrast Layout</h6>
-                                <ul class="list-group list-unstyled mb-0 mt-1">
-                                    <li class="list-group-item d-flex align-items-center py-1 px-2">
-                                        <div class="form-check form-switch theme-switch mb-0">
-                                            <input class="form-check-input" type="checkbox" id="theme-switch">
-                                            <label class="form-check-label" for="theme-switch">Enable Dark Mode!</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-1 px-2">
-                                        <div class="form-check form-switch theme-high-contrast mb-0">
-                                            <input class="form-check-input" type="checkbox" id="theme-high-contrast">
-                                            <label class="form-check-label" for="theme-high-contrast">Enable High Contrast</label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item d-flex align-items-center py-1 px-2">
-                                        <div class="form-check form-switch theme-rtl mb-0">
-                                            <input class="form-check-input" type="checkbox" id="theme-rtl">
-                                            <label class="form-check-label" for="theme-rtl">Enable RTL Mode!</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="modal-footer justify-content-start">
-                            <button type="button" class="btn btn-white border lift" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary lift">Save Changes</button>
-                        </div>
-                    </div>
+          // Trigger getSubcategory() when the page loads
+          document.addEventListener("DOMContentLoaded", () => {
+            getSubcategory();
+          });
+        </script>
+        <!--------------------------------------------------------------------------------------------------------------------------------------------->
+        <!-- Modal Custom Settings-->
+        <div
+          class="modal fade right"
+          id="Settingmodal"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Custom Settings</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body custom_setting">
+                <!-- Settings: Color -->
+                <div class="setting-theme pb-3">
+                  <h6 class="card-title mb-2 fs-6 d-flex align-items-center">
+                    <i class="icofont-color-bucket fs-4 me-2 text-primary"></i
+                    >Template Color Settings
+                  </h6>
+                  <ul
+                    class="list-unstyled row row-cols-3 g-2 choose-skin mb-2 mt-2"
+                  >
+                    <li data-theme="indigo"><div class="indigo"></div></li>
+                    <li data-theme="tradewind">
+                      <div class="tradewind"></div>
+                    </li>
+                    <li data-theme="monalisa"><div class="monalisa"></div></li>
+                    <li data-theme="blue" class="active">
+                      <div class="blue"></div>
+                    </li>
+                    <li data-theme="cyan"><div class="cyan"></div></li>
+                    <li data-theme="green"><div class="green"></div></li>
+                    <li data-theme="orange"><div class="orange"></div></li>
+                    <li data-theme="blush"><div class="blush"></div></li>
+                    <li data-theme="red"><div class="red"></div></li>
+                  </ul>
                 </div>
-            </div> 
-
-            <!-- Modal Cropper-->
-            <div class="modal docs-cropped" id="getCroppedCanvasModal" tabindex="-1"  aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Cropped</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body"></div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-white border lift" data-bs-dismiss="modal">Close</button>
-                            <a class="btn btn-primary" id="download" href="javascript:void(0);" download="cropped.html">Download</a>
-                        </div>
-                    </div>
+                <div class="sidebar-gradient py-3">
+                  <h6 class="card-title mb-2 fs-6 d-flex align-items-center">
+                    <i class="icofont-paint fs-4 me-2 text-primary"></i>Sidebar
+                    Gradient
+                  </h6>
+                  <div class="form-check form-switch gradient-switch pt-2 mb-2">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="CheckGradient"
+                    />
+                    <label class="form-check-label" for="CheckGradient"
+                      >Enable Gradient! ( Sidebar )</label
+                    >
+                  </div>
                 </div>
+                <!-- Settings: Template dynamics -->
+                <div class="dynamic-block py-3">
+                  <ul class="list-unstyled choose-skin mb-2 mt-1">
+                    <li data-theme="dynamic">
+                      <div class="dynamic">
+                        <i class="icofont-paint me-2"></i> Click to Dyanmic
+                        Setting
+                      </div>
+                    </li>
+                  </ul>
+                  <div class="dt-setting">
+                    <ul class="list-group list-unstyled mt-1">
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label>Primary Color</label>
+                        <button
+                          id="primaryColorPicker"
+                          class="btn bg-primary avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label>Secondary Color</label>
+                        <button
+                          id="secondaryColorPicker"
+                          class="btn bg-secondary avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 1</label>
+                        <button
+                          id="chartColorPicker1"
+                          class="btn chart-color1 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 2</label>
+                        <button
+                          id="chartColorPicker2"
+                          class="btn chart-color2 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 3</label>
+                        <button
+                          id="chartColorPicker3"
+                          class="btn chart-color3 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 4</label>
+                        <button
+                          id="chartColorPicker4"
+                          class="btn chart-color4 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-center py-1 px-2"
+                      >
+                        <label class="text-muted">Chart Color 5</label>
+                        <button
+                          id="chartColorPicker5"
+                          class="btn chart-color5 avatar xs border-0 rounded-0"
+                        ></button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- Settings: Font -->
+                <div class="setting-font py-3">
+                  <h6 class="card-title mb-2 fs-6 d-flex align-items-center">
+                    <i class="icofont-font fs-4 me-2 text-primary"></i> Font
+                    Settings
+                  </h6>
+                  <ul class="list-group font_setting mt-1">
+                    <li class="list-group-item py-1 px-2">
+                      <div class="form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="font"
+                          id="font-poppins"
+                          value="font-poppins"
+                        />
+                        <label class="form-check-label" for="font-poppins">
+                          Poppins Google Font
+                        </label>
+                      </div>
+                    </li>
+                    <li class="list-group-item py-1 px-2">
+                      <div class="form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="font"
+                          id="font-opensans"
+                          value="font-opensans"
+                          checked=""
+                        />
+                        <label class="form-check-label" for="font-opensans">
+                          Open Sans Google Font
+                        </label>
+                      </div>
+                    </li>
+                    <li class="list-group-item py-1 px-2">
+                      <div class="form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="font"
+                          id="font-montserrat"
+                          value="font-montserrat"
+                        />
+                        <label class="form-check-label" for="font-montserrat">
+                          Montserrat Google Font
+                        </label>
+                      </div>
+                    </li>
+                    <li class="list-group-item py-1 px-2">
+                      <div class="form-check mb-0">
+                        <input
+                          class="form-check-input"
+                          type="radio"
+                          name="font"
+                          id="font-mukta"
+                          value="font-mukta"
+                        />
+                        <label class="form-check-label" for="font-mukta">
+                          Mukta Google Font
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <!-- Settings: Light/dark -->
+                <div class="setting-mode py-3">
+                  <h6 class="card-title mb-2 fs-6 d-flex align-items-center">
+                    <i class="icofont-layout fs-4 me-2 text-primary"></i
+                    >Contrast Layout
+                  </h6>
+                  <ul class="list-group list-unstyled mb-0 mt-1">
+                    <li
+                      class="list-group-item d-flex align-items-center py-1 px-2"
+                    >
+                      <div class="form-check form-switch theme-switch mb-0">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="theme-switch"
+                        />
+                        <label class="form-check-label" for="theme-switch"
+                          >Enable Dark Mode!</label
+                        >
+                      </div>
+                    </li>
+                    <li
+                      class="list-group-item d-flex align-items-center py-1 px-2"
+                    >
+                      <div
+                        class="form-check form-switch theme-high-contrast mb-0"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="theme-high-contrast"
+                        />
+                        <label
+                          class="form-check-label"
+                          for="theme-high-contrast"
+                          >Enable High Contrast</label
+                        >
+                      </div>
+                    </li>
+                    <li
+                      class="list-group-item d-flex align-items-center py-1 px-2"
+                    >
+                      <div class="form-check form-switch theme-rtl mb-0">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          id="theme-rtl"
+                        />
+                        <label class="form-check-label" for="theme-rtl"
+                          >Enable RTL Mode!</label
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="modal-footer justify-content-start">
+                <button
+                  type="button"
+                  class="btn btn-white border lift"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button type="button" class="btn btn-primary lift">
+                  Save Changes
+                </button>
+              </div>
             </div>
+          </div>
+        </div>
 
-        </div>      
-
+        <!-- Modal Cropper-->
+        <div
+          class="modal docs-cropped"
+          id="getCroppedCanvasModal"
+          tabindex="-1"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Cropped</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-white border lift"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+                <a
+                  class="btn btn-primary"
+                  id="download"
+                  href="javascript:void(0);"
+                  download="cropped.html"
+                  >Download</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Jquery Core Js -->      
+    <!-- Jquery Core Js -->
     <script src="/vendor/assets/bundles/libscripts.bundle.js"></script>
 
-    <!-- Jquery Plugin -->  
+    <!-- Jquery Plugin -->
     <script src="../../../../../cdn.ckeditor.com/ckeditor5/29.0.0/classic/ckeditor.js"></script>
     <script src="/vendor/assets/plugin/multi-select/js/jquery.multi-select.js"></script>
-    <script src="/vendor/assets/plugin/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>  
+    <script src="/vendor/assets/plugin/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
     <script src="/vendor/assets/plugin/cropper/cropper.min.js"></script>
     <script src="/vendor/assets/plugin/cropper/cropper-init.js"></script>
     <script src="/vendor/assets/bundles/dropify.bundle.js"></script>
     <script src="/vendor/assets/bundles/dataTables.bundle.js"></script>
 
-    <!-- Jquery Page Js -->   
+    <!-- Jquery Page Js -->
     <script src="../js/template.js"></script>
     <script>
-        $(document).ready(function() {
+      $(document).ready(function () {
         //Ch-editer
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .catch( error => {
-                console.error( error );
-            } );
-            //Datatable
-            $('#myCartTable')
-            .addClass( 'nowrap' )
-            .dataTable( {
-                responsive: true,
-                columnDefs: [
-                    { targets: [-1, -3], className: 'dt-body-right' }
-                ]
-            });
-            $('.deleterow').on('click',function(){
-            var tablename = $(this).closest('table').DataTable();  
-            tablename
-                    .row( $(this)
-                    .parents('tr') )
-                    .remove()
-                    .draw();
+        ClassicEditor.create(document.querySelector("#editor")).catch(
+          (error) => {
+            console.error(error);
+          }
+        );
+        //Datatable
+        $("#myCartTable")
+          .addClass("nowrap")
+          .dataTable({
+            responsive: true,
+            columnDefs: [{ targets: [-1, -3], className: "dt-body-right" }],
+          });
+        $(".deleterow").on("click", function () {
+          var tablename = $(this).closest("table").DataTable();
+          tablename.row($(this).parents("tr")).remove().draw();
+        });
+        //Multiselect
+        $("#optgroup").multiSelect({ selectableOptgroup: true });
+      });
 
-            } );
-           //Multiselect
-           $('#optgroup').multiSelect({ selectableOptgroup: true });
+      $(function () {
+        $(".dropify").dropify();
+
+        var drEvent = $("#dropify-event").dropify();
+        drEvent.on("dropify.beforeClear", function (event, element) {
+          return confirm(
+            'Do you really want to delete "' + element.file.name + '" ?'
+          );
         });
 
-        $(function() {
-            $('.dropify').dropify();
-
-            var drEvent = $('#dropify-event').dropify();
-            drEvent.on('dropify.beforeClear', function(event, element) {
-                return confirm("Do you really want to delete \"" + element.file.name + "\" ?");
-            });
-
-            drEvent.on('dropify.afterClear', function(event, element) {
-                alert('File deleted');
-            });
-
-            $('.dropify-fr').dropify({
-                messages: {
-                    default: 'Glissez-dÃ©posez un fichier ici ou cliquez',
-                    replace: 'Glissez-dÃ©posez un fichier ou cliquez pour remplacer',
-                    remove: 'Supprimer',
-                    error: 'DÃ©solÃ©, le fichier trop volumineux'
-                }
-            });
+        drEvent.on("dropify.afterClear", function (event, element) {
+          alert("File deleted");
         });
-            
+
+        $(".dropify-fr").dropify({
+          messages: {
+            default: "Glissez-dÃ©posez un fichier ici ou cliquez",
+            replace: "Glissez-dÃ©posez un fichier ou cliquez pour remplacer",
+            remove: "Supprimer",
+            error: "DÃ©solÃ©, le fichier trop volumineux",
+          },
+        });
+      });
     </script>
-</body>
+  </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/addProduct by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:27 GMT -->
-</html> 
+  <!-- Mirrored from pixelwibes.com/template/ebazar/html/dist//vendor/addProduct by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:27 GMT -->
+</html>

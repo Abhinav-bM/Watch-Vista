@@ -24,7 +24,6 @@
         max-width: 500px;
         width: 100%;
         padding: 1px;
-        text-align: center;
       }
 
       .logo {
@@ -79,7 +78,9 @@
 
   <body>
     <div class="signup-container">
-      <img src="/img/logo/logo1.png" alt="" style="max-width: 180px" />
+      <div class="text-center">
+        <img src="/img/logo/logo1.png" alt="" style="max-width: 160px" />
+      </div>
 
       <% if (typeof error !== 'undefined' && error !== null) { %>
       <p style="color: red"><%= error %></p>
@@ -88,16 +89,16 @@
       <form id="loginForm" action="/user/login" method="post" class="pt-4 px-3">
         <p id="errorMessage" style="color: red"></p>
 
-        <label for="email">Email Address <span>**</span></label>
+        <label for="email">Enter email <span class="text-danger">**</span></label>
         <input
           id="email"
           class="form-control my-0 py-2"
           name="email"
           type="text"
-          placeholder="Email address..."
+          placeholder="Enter email address..."
         />
 
-        <label for="pass">Password <span>**</span></label>
+        <label for="pass" class="pt-3">Password <span class="text-danger">**</span></label>
         <input
           id="pass"
           class="form-control my-0 py-2"
@@ -126,7 +127,7 @@
           </button>
         </div>
 
-        <div class="or-divide"><span>or</span></div>
+        <div class="text-center"><span>or</span></div>
       </form>
 
       <div class="px-3">

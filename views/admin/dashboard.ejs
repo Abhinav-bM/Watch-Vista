@@ -1,285 +1,364 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en" dir="ltr">
-
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:55:54 GMT -->
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> ADMIN </title>
-    <link rel="icon" href="" type="image/x-icon"> <!-- Favicon-->
+  <!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:55:54 GMT -->
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>ADMIN</title>
+    <link rel="icon" href="" type="image/x-icon" />
+    <!-- Favicon-->
 
     <!-- plugin css file  -->
-    <link rel="stylesheet" href="/admin/assets/plugin/datatables/responsive.dataTables.min.css">
-    <link rel="stylesheet" href="/admin/assets/plugin/datatables/dataTables.bootstrap5.min.css">
+    <link
+      rel="stylesheet"
+      href="/admin/assets/plugin/datatables/responsive.dataTables.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/admin/assets/plugin/datatables/dataTables.bootstrap5.min.css"
+    />
 
     <!-- project css file  -->
-    <link rel="stylesheet" href="/admin/assets/css/ebazar.style.min.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/admin/assets/css/ebazar.style.min.css" />
+  </head>
+  <body>
     <div id="ebazar-layout" class="theme-blue">
-        
-        <!-- sidebar -->
-        <div class="sidebar px-4 py-4 py-md-4 me-0">
-            <div class="d-flex flex-column h-100">
-                <a href="index.html" class="mb-0 brand-icon">
-                    <span class="logo-icon">
-                        <i class="bi bi-bag-check-fill fs-4"></i>
-                    </span>
-                    <span class="logo-text">WatchVista</span>
-                </a>
-                <!-- Menu: main ul -->
-                <ul class="menu-list flex-grow-1 mt-3">
-                    <li><a class="m-link active" href="/admin/dashboard"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
-                            <i class="icofont-truck-loaded fs-5"></i> <span>Products</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                            <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse" id="menu-product">
-                                <!-- <li><a class="ms-link" href="product-grid.html">Product Grid</a></li> -->
-                                <li><a class="ms-link" href="/admin/productList">Product List</a></li>
-                            </ul>
-                    </li>
-                    <li class="collapsed">
-                            <li><a class="m-link " href="/admin/categoryList"><i class="icofont-chart-flow fs-5"></i> <span>Category</span></a></li>
-                            <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse" id="categories">
-                                <!-- <li><a class="ms-link" href="/admin/categoryList">Category List</a></li> -->
-                                <!-- <li><a class="ms-link" href="/admin/subcategoryList">Subcategory List</a></li> -->
-                                <!-- <li><a class="ms-link" href="categories-add.html">Add category</a></li> -->
-                            </ul>
-                    </li>
+      <!-- sidebar -->
+      <div class="sidebar px-4 py-4 py-md-4 me-0">
+        <div class="d-flex flex-column h-100">
+          <a href="index.html" class="mb-0 brand-icon">
+            <span class="logo-icon">
+              <i class="bi bi-bag-check-fill fs-4"></i>
+            </span>
+            <span class="logo-text">WatchVista</span>
+          </a>
+          <!-- Menu: main ul -->
+          <ul class="menu-list flex-grow-1 mt-3">
+            <li>
+              <a class="m-link active" href="/admin/dashboard"
+                ><i class="icofont-home fs-5"></i> <span>Dashboard</span></a
+              >
+            </li>
+            <li class="collapsed">
+              <a class="m-link" href="/admin/productList">
+                <i class="icofont-truck-loaded fs-5"></i> <span>Products</span>
+              </a>
+            </li>
+            <li>
+              <a class="m-link" href="/admin/categoryList"
+                ><i class="icofont-chart-flow fs-5"></i>
+                <span>Category</span></a
+              >
+            </li>
+            <li>
+              <a class="m-link" href="/admin/subcategoryList"
+                ><i class="icofont-chart-flow fs-5"></i>
+                <span>Subcategory</span></a
+              >
+            </li>
 
-                    <li class="collapsed">
-                            <li><a class="m-link " href="/admin/subcategoryList"><i class="icofont-chart-flow fs-5"></i> <span>Subcategory</span></a></li>
-                            <!-- Menu: Sub menu ul -->
-                            <ul class="sub-menu collapse" id="categories">
-                                <!-- <li><a class="ms-link" href="/admin/categoryList">Category List</a></li> -->
-                                <!-- <li><a class="ms-link" href="/admin/subcategoryList">Subcategory List</a></li> -->
-                                <!-- <li><a class="ms-link" href="categories-add.html">Add category</a></li> -->
-                            </ul>
-                    </li>
+            <li>
+              <a class="m-link" href="/admin/orders">
+                <i class="icofont-notepad fs-5"></i> <span>Orders</span>
+              </a>
+            </li>
+            <li class="collapsed"></li>
+            <li>
+              <a class="m-link" href="/admin/customersList"
+                ><i class="icofont-funky-man fs-5"></i> <span>Users</span></a
+              >
+            </li>
 
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-order" href="#">
-                        <i class="icofont-notepad fs-5"></i> <span>Orders</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-order">
-                            <li><a class="ms-link" href="order-list.html">Orders List</a></li>
-                            <li><a class="ms-link" href="order-details.html">Order Details</a></li>
-                            <li><a class="ms-link" href="order-invoices.html">Order Invoices</a></li>
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <li><a class="m-link " href="/admin/customersList"><i class="icofont-funky-man fs-5"></i> <span>Users</span></a></li>                        
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="customers-info">
-                            <!-- <li><a class="ms-link" href="/admin/customersList">Users List</a></li> -->
-                            <!-- <li><a class="ms-link" href="customer-detail.html">User Details</a></li> -->
-                        </ul>
-                    </li>
-                    <li class="collapsed">
-                        <li><a class="m-link " href="/admin/couponList"><i class="icofont-sale-discount fs-5"></i> <span>Coupons</span></a></li>                        
-                        <!-- Menu: Sub menu ul -->
-                        <!-- <ul class="sub-menu collapse" id="menu-sale">
-                            <li><a class="ms-link" href="">Coupons List</a></li>
-                            <li><a class="ms-link" href="coupon-add.html">Coupons Add</a></li>
-                            <li><a class="ms-link" href="coupon-edit.html">Coupons Edit</a></li>
-                        </ul> -->
-                    </li>
-                    <li class="collapsed">
-                        <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
-                        <i class="icofont-funky-man fs-5"></i> <span>Vendors</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                        <!-- Menu: Sub menu ul -->
-                        <ul class="sub-menu collapse" id="menu-inventory">
-                            <li><a class="ms-link" href="/admin/vendorsList">Vendors List</a></li>
-                            <!-- <li><a class="ms-link" href="purchase.html">Purchase</a></li> -->
-                        </ul>
-                    </li>
-                    <li><a class="m-link" href="/admin/banner"><i class="icofont-page fs-5"></i> <span>Banner</span></a></li>
+            <li>
+              <a class="m-link" href="/admin/couponList"
+                ><i class="icofont-sale-discount fs-5"></i>
+                <span>Coupons</span></a
+              >
+            </li>
 
-                </ul>
+            <li>
+              <a class="m-link" href="/admin/vendorsList">
+                <i class="icofont-funky-man fs-5"></i> <span>Vendors</span>
+              </a>
+            </li>
+            <li>
+              <a class="m-link" href="/admin/banner"
+                ><i class="icofont-page fs-5"></i> <span>Banner</span></a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- main body area -->
+      <div class="main px-lg-4 px-md-4">
+        <!-- Body: Header -->
+        <div class="header">
+          <nav class="navbar py-4">
+            <div class="container-xxl">
+              <!-- header rightbar icon -->
+              <div
+                class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1"
+              >
+                <div
+                  class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover"
+                >
+                  <div class="u-info me-2">
+                    <p class="mb-0 text-end line-height-sm">
+                      <span class="font-weight-bold"><%= user.name %></span>
+                    </p>
+                    <small>WatchVista Admin</small>
+                  </div>
+                  <a
+                    class="nav-link dropdown-toggle pulse p-0"
+                    href="#"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    data-bs-display="static"
+                  >
+                    <img
+                      class="avatar lg rounded-circle img-thumbnail"
+                      src="/admin/assets/images/profile_av.svg"
+                      alt="profile"
+                    />
+                  </a>
+                  <div
+                    class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0"
+                  >
+                    <div class="card border-0 w280">
+                      <div class="card-body pb-0">
+                        <div class="d-flex py-1">
+                          <img
+                            class="avatar rounded-circle"
+                            src="/admin/assets/images/profile_av.svg"
+                            alt="profile"
+                          />
+                          <div class="flex-fill ms-3">
+                            <p class="mb-0">
+                              <span class="font-weight-bold"
+                                ><%= user.name %></span
+                              >
+                            </p>
+                            <small class=""><%= user.email %></small>
+                          </div>
+                        </div>
+
+                        <div><hr class="dropdown-divider border-dark" /></div>
+                      </div>
+                      <div class="list-group m-2">
+                        <a
+                          href="admin-profile.html"
+                          class="list-group-item list-group-item-action border-0"
+                          ><i class="icofont-ui-user fs-5 me-3"></i>Profile
+                          Page</a
+                        >
+                        <!-- <a href="order-invoices.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a> -->
+                        <a
+                          href="/admin/logout"
+                          class="list-group-item list-group-item-action border-0"
+                          ><i class="icofont-logout fs-5 me-3"></i>Logout</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- menu toggler -->
+              <button
+                class="navbar-toggler p-0 border-0 menu-toggle order-3"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainHeader"
+              >
+                <span class="fa fa-bars"></span>
+              </button>
+
+              <!-- main menu Search-->
+              <div
+                class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0"
+              >
+                <div class="input-group flex-nowrap input-group-lg">
+                  <input
+                    type="search"
+                    class="form-control"
+                    placeholder="Search"
+                    aria-label="search"
+                    aria-describedby="addon-wrapping"
+                  />
+                  <button
+                    type="button"
+                    class="input-group-text"
+                    id="addon-wrapping"
+                  >
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
             </div>
+          </nav>
         </div>
 
-        <!-- main body area -->
-        <div class="main px-lg-4 px-md-4">
-
-            <!-- Body: Header -->
-            <div class="header">
-                <nav class="navbar py-4">
-                    <div class="container-xxl">
-
-                        <!-- header rightbar icon -->
-                        <div class="h-right d-flex align-items-center mr-5 mr-lg-0 order-1">
-                           
-                            <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
-                                <div class="u-info me-2">
-                                    <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold"><%= user.name %></span></p>
-                                    <small>WatchVista Admin</small>
-                                </div>
-                                <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
-                                    <img class="avatar lg rounded-circle img-thumbnail" src="/admin/assets/images/profile_av.svg" alt="profile">
-                                </a>
-                                <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-end p-0 m-0">
-                                    <div class="card border-0 w280">
-                                        <div class="card-body pb-0">
-                                            <div class="d-flex py-1">
-                                                <img class="avatar rounded-circle" src="/admin/assets/images/profile_av.svg" alt="profile">
-                                                <div class="flex-fill ms-3">
-                                                    <p class="mb-0"><span class="font-weight-bold"><%= user.name %></span></p>
-                                                    <small class=""><%= user.email %></small>
-                                                </div>
-                                            </div>
-                                            
-                                            <div><hr class="dropdown-divider border-dark"></div>
-                                        </div>
-                                        <div class="list-group m-2 ">
-                                            <a href="admin-profile.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-ui-user fs-5 me-3"></i>Profile Page</a>
-                                            <!-- <a href="order-invoices.html" class="list-group-item list-group-item-action border-0 "><i class="icofont-file-text fs-5 me-3"></i>Order Invoices</a> -->
-                                            <a href="/admin/logout" class="list-group-item list-group-item-action border-0 "><i class="icofont-logout fs-5 me-3"></i>Logout</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                        </div>
-        
-                        <!-- menu toggler -->
-                        <button class="navbar-toggler p-0 border-0 menu-toggle order-3" type="button" data-bs-toggle="collapse" data-bs-target="#mainHeader">
-                            <span class="fa fa-bars"></span>
-                        </button>
-        
-                        <!-- main menu Search-->
-                        <div class="order-0 col-lg-4 col-md-4 col-sm-12 col-12 mb-3 mb-md-0 ">
-                            <div class="input-group flex-nowrap input-group-lg">
-                                <input type="search" class="form-control" placeholder="Search" aria-label="search" aria-describedby="addon-wrapping">
-                                <button type="button" class="input-group-text" id="addon-wrapping"><i class="fa fa-search"></i></button>
-                            </div>
-                        </div>
-        
+        <!-- Body: Body -->
+        <div class="body d-flex py-3">
+          <div class="container-xxl">
+            <div
+              class="row g-3 mb-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-4"
+            >
+              <div class="col">
+                <div class="alert-success alert mb-0">
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="avatar rounded no-thumbnail bg-success text-light"
+                    >
+                      <i class="icofont-chart-growth"></i>
                     </div>
-                </nav>
-            </div>
-
-            <!-- Body: Body -->
-            <div class="body d-flex py-3">
-                <div class="container-xxl">
-
-                    <div class="row g-3 mb-3 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-4">
-                        <div class="col">
-                            <div class="alert-success alert mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar rounded no-thumbnail bg-success text-light"><i class="icofont-chart-growth"></i></div>
-                                    <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Total Sales</div>
-                                        <span class="small"><%= totalSales %></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="alert-danger alert mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar rounded no-thumbnail bg-danger text-light"><i class="icofont-student-alt fs-3"></i></div>
-                                    <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Users</div>
-                                        <span class="small"><%= users.length %></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="alert-warning alert mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar rounded no-thumbnail bg-warning text-light"><i class="icofont-student-alt fs-3"></i></div>
-                                    <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Visitors</div>
-                                        <span class="small">150</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="alert-info alert mb-0">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar rounded no-thumbnail bg-info text-light"><i class="icofont-student-alt fs-3" aria-hidden="true"></i></div>
-                                    <div class="flex-fill ms-3 text-truncate">
-                                        <div class="h6 mb-0">Vendors</div>
-                                        <span class="small"><%= vendors.length %></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Row end  -->
-
-
-                    <div class="row g-3 mb-3">
-                        <div class="col-xxl-7 col-xl-7 " style="margin-right: 10px;">
-                            <div class="card mb-2"  >
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Sales</h6>
-                                </div>
-                                <div class="card-body ">
-                                    <canvas id="myChart"></canvas>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="col-xxl-4 col-xl-4">
-                            <div class="card mb-2">
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Orders</h6>
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="myChartOrders"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Row end  -->
-
-                    <div class="row g-3 mb-3"> 
-                        <div class="col-md-12">
-                            <div class="card"> 
-                                <div class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0">
-                                    <h6 class="m-0 fw-bold">Recent Orders</h6>
-                                </div>
-                                <div class="card-body"> 
-                                    <table id="myDataTable" class="table table-hover align-middle mb-0" style="width: 100%;">  
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Item</th>
-                                                <th>Customer Name</th>
-                                                <th>Payment Info</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-
-                                        <tbody>
-                                            <% latest10orders.forEach(order => { %>
-                                            <tr>
-                                                <td><strong><%= order.orderId %></strong></td>
-                                                <td><img src="<%= order.image %>" class="avatar lg rounded me-2" alt="profile-image"><span><%= order.productName %></span></td>
-                                                <td><%= order.userName %></td>
-                                                <td><%= order.paymentMethod %></td>
-                                             
-                                                <td><span class="badge bg-dark"><%= order.orderStatus %></span></td>
-                                            </tr> 
-                                            <% }) %>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div><!-- Row end  -->
-                    
+                    <div class="flex-fill ms-3 text-truncate">
+                      <div class="h6 mb-0">Total Sales</div>
+                      <span class="small"><%= totalSales %></span>
+                    </div>
+                  </div>
                 </div>
-            </div> 
+              </div>
+              <div class="col">
+                <div class="alert-danger alert mb-0">
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="avatar rounded no-thumbnail bg-danger text-light"
+                    >
+                      <i class="icofont-student-alt fs-3"></i>
+                    </div>
+                    <div class="flex-fill ms-3 text-truncate">
+                      <div class="h6 mb-0">Users</div>
+                      <span class="small"><%= users.length %></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="alert-warning alert mb-0">
+                  <div class="d-flex align-items-center">
+                    <div
+                      class="avatar rounded no-thumbnail bg-warning text-light"
+                    >
+                      <i class="icofont-student-alt fs-3"></i>
+                    </div>
+                    <div class="flex-fill ms-3 text-truncate">
+                      <div class="h6 mb-0">Visitors</div>
+                      <span class="small">150</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <div class="alert-info alert mb-0">
+                  <div class="d-flex align-items-center">
+                    <div class="avatar rounded no-thumbnail bg-info text-light">
+                      <i
+                        class="icofont-student-alt fs-3"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                    <div class="flex-fill ms-3 text-truncate">
+                      <div class="h6 mb-0">Vendors</div>
+                      <span class="small"><%= vendors.length %></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Row end  -->
 
-            <div class="d-flex">
-                <!-- Sales report  -->
-                <div class="col-5 mt-5 mb-5 mx-4">
+            <div class="row g-3 mb-3">
+              <div class="col-xxl-7 col-xl-7" style="margin-right: 10px">
+                <div class="card mb-2">
+                  <div
+                    class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0"
+                  >
+                    <h6 class="m-0 fw-bold">Sales</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="myChart"></canvas>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xxl-4 col-xl-4">
+                <div class="card mb-2">
+                  <div
+                    class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0"
+                  >
+                    <h6 class="m-0 fw-bold">Orders</h6>
+                  </div>
+                  <div class="card-body">
+                    <canvas id="myChartOrders"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Row end  -->
+
+            <div class="row g-3 mb-3">
+              <div class="col-md-12">
+                <div class="card">
+                  <div
+                    class="card-header py-3 d-flex justify-content-between align-items-center bg-transparent border-bottom-0"
+                  >
+                    <h6 class="m-0 fw-bold">Recent Orders</h6>
+                  </div>
+                  <div class="card-body">
+                    <table
+                      id="myDataTable"
+                      class="table table-hover align-middle mb-0"
+                      style="width: 100%"
+                    >
+                      <thead>
+                        <tr>
+                          <th>Id</th>
+                          <th>Item</th>
+                          <th>Customer Name</th>
+                          <th>Payment Info</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <% latest10orders.forEach(order => { %>
+                        <tr>
+                          <td><strong><%= order.orderId %></strong></td>
+                          <td>
+                            <img
+                              src="<%= order.image %>"
+                              class="avatar lg rounded me-2"
+                              alt="profile-image"
+                            /><span><%= order.productName %></span>
+                          </td>
+                          <td><%= order.userName %></td>
+                          <td><%= order.paymentMethod %></td>
+
+                          <td>
+                            <span class="badge bg-dark"
+                              ><%= order.orderStatus %></span
+                            >
+                          </td>
+                        </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Row end  -->
+          </div>
+        </div>
+
+        <!-- <div class="d-flex"> -->
+        <!-- Sales report  -->
+        <!-- <div class="col-5 mt-5 mb-5 mx-4">
                     <h3 class="py-2 font-weight-bold">Sales Report</h3>
                     <p id="reportDateError" style="color: red;"></p>
                     <form id="reportForm">
@@ -297,119 +376,125 @@
                         <button type="button" class="btn btn-success" onclick="generateExcelReport()">Generate Excel Report</button>
                     </div>
                     </form>
-                </div>
-            
-                
-            </div>
-        </div>
+                </div> -->
+
+        <!-- </div> -->
+      </div>
     </div>
 
-    <input type="hidden" name="" id="salesData" value="<%= JSON.stringify(salesData) %>">
-    <input type="hidden" name="" id="orderData" value="<%= JSON.stringify(ordersCountForLast10Days) %>">
-
+    <input
+      type="hidden"
+      name=""
+      id="salesData"
+      value="<%= JSON.stringify(salesData) %>"
+    />
+    <input
+      type="hidden"
+      name=""
+      id="orderData"
+      value="<%= JSON.stringify(ordersCountForLast10Days) %>"
+    />
 
     <!-- Jquery Core Js -->
     <script src="/admin/assets/bundles/libscripts.bundle.js"></script>
 
     <!-- Plugin Js -->
     <script src="/admin/assets/bundles/apexcharts.bundle.js"></script>
-    <script src="/admin/assets/bundles/dataTables.bundle.js"></script>  
+    <script src="/admin/assets/bundles/dataTables.bundle.js"></script>
 
     <!-- Jquery Page Js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script src="../js/template.js"></script>
     <script src="../js/page/index.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU&amp;callback=myMap"></script>  
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1Jr7axGGkwvHRnNfoOzoVRFV3yOPHJEU&amp;callback=myMap"></script>
 
     <script>
+      // SALES DATA CHART
+      const ctx = document.getElementById("myChart");
 
-        // SALES DATA CHART
-        const ctx = document.getElementById('myChart');
-
-        function getSalesData() {
-            const salesDataInput = document.getElementById('salesData');
-            if (salesDataInput) {
-                const salesData = JSON.parse(salesDataInput.value);
-                return salesData;
-            }
-            return []
+      function getSalesData() {
+        const salesDataInput = document.getElementById("salesData");
+        if (salesDataInput) {
+          const salesData = JSON.parse(salesDataInput.value);
+          return salesData;
         }
-        
-        const salesData = getSalesData();
-        const chartLabels = salesData.map(item => item.date);
-        const chartValues = salesData.map(item => item.totalSales);
-        
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: chartLabels,
-                datasets: [{
-                    label: 'Sales',
-                    data: chartValues,
-                    backgroundColor: ['rgb(255, 99, 132)']
-                }]
+        return [];
+      }
+
+      const salesData = getSalesData();
+      const chartLabels = salesData.map((item) => item.date);
+      const chartValues = salesData.map((item) => item.totalSales);
+
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: chartLabels,
+          datasets: [
+            {
+              label: "Sales",
+              data: chartValues,
+              backgroundColor: ["rgb(255, 99, 132)"],
             },
-            options: {
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
+          ],
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true },
+          },
+        },
+      });
 
-
-        // CHART ORDERS
-        const ctx2 = document.getElementById('myChartOrders');
-        function getOrderData (){
-            const orderDataInput = document.getElementById('orderData')
-            if(orderDataInput){
-                const orderData  = JSON.parse(orderDataInput.value)
-                return orderData
-            }
-            return []
+      // CHART ORDERS
+      const ctx2 = document.getElementById("myChartOrders");
+      function getOrderData() {
+        const orderDataInput = document.getElementById("orderData");
+        if (orderDataInput) {
+          const orderData = JSON.parse(orderDataInput.value);
+          return orderData;
         }
-        const orderData = getOrderData()
-        const orderDataLabels = []
-        const orderDataValues = []
+        return [];
+      }
+      const orderData = getOrderData();
+      const orderDataLabels = [];
+      const orderDataValues = [];
 
-        Object.keys(orderData).forEach((date) => {
-            orderDataLabels.push(date);
-            orderDataValues.push(orderData[date]);
-        });
-        orderDataLabels.reverse()
-        orderDataValues.reverse()
+      Object.keys(orderData).forEach((date) => {
+        orderDataLabels.push(date);
+        orderDataValues.push(orderData[date]);
+      });
+      orderDataLabels.reverse();
+      orderDataValues.reverse();
 
-        new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: orderDataLabels,
-                datasets: [{
-                    label: 'orders',
-                    data: orderDataValues,
-                    backgroundColor: [
-                        'rgb(0, 128, 0)',
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(153, 102, 255)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 0, 0)',
-                        'rgb(0, 255, 255)',
-                        'rgb(128, 0, 128)'
-                    ]
-                }]
+      new Chart(ctx2, {
+        type: "pie",
+        data: {
+          labels: orderDataLabels,
+          datasets: [
+            {
+              label: "orders",
+              data: orderDataValues,
+              backgroundColor: [
+                "rgb(0, 128, 0)",
+                "rgb(255, 99, 132)",
+                "rgb(54, 162, 235)",
+                "rgb(255, 205, 86)",
+                "rgb(75, 192, 192)",
+                "rgb(153, 102, 255)",
+                "rgb(255, 159, 64)",
+                "rgb(255, 0, 0)",
+                "rgb(0, 255, 255)",
+                "rgb(128, 0, 128)",
+              ],
             },
-            options: {
-                scales: {
-                    y: { beginAtZero: true }
-                }
-            }
-        });
-
-
-
-
+          ],
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true },
+          },
+        },
+      });
     </script>
 
     <!-- <script>
@@ -422,7 +507,7 @@
             ]
         });
     </script> -->
-</body>
+  </body>
 
-<!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:09 GMT -->
-</html> 
+  <!-- Mirrored from pixelwibes.com/template/ebazar/html/dist/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 08 Feb 2024 06:56:09 GMT -->
+</html>

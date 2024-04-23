@@ -83,7 +83,7 @@
 
     <!-- header section start -->
     <header
-      class="header pt-30 pb-30 header-sticky header-static"
+      class="header pt-30 pb-30 header-sticky header-static bg-white"
       style="padding-top: 30px; padding-bottom: 15px; top: 0px"
     >
       <div class="container-fluid">
@@ -125,6 +125,7 @@
             <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
               <div class="header-right">
                 <ul class="text-right">
+                  <% if(!user){ %>
                   <li>
                     <a href="/login" class="account"
                       ><i class="fal fa-user-friends"></i>
@@ -133,6 +134,7 @@
                       </article></a
                     >
                   </li>
+                  <% } %>
 
                   <li>
                     <a href="/wishlist"
@@ -149,12 +151,14 @@
                     >
                   </li>
                   <li>
-                    <a href=""><i class="fal fa-align-right"></i></a>
+                    <a><i class="fal fa-align-right"></i></a>
                     <ul class="submenu bold-content text-right">
                       <li><a href="/userProfile">My Account</a></li>
                       <li><a href="/wishlist">Wishlist</a></li>
                       <li><a href="/cart">Cart</a></li>
+                      <% if(user){ %>
                       <li><a href="/user/logout">Logout</a></li>
+                      <% } %>
                     </ul>
                   </li>
                 </ul>
@@ -166,10 +170,8 @@
           <div id="mobile-menu">
             <ul>
               <li><a class="pl-3" href="/home">Home</a></li>
-              <li><a class="">Shop</a></li>
-              <li><a href="">Blog</a></li>
-              <li><a href="">Portfolio</a></li>
-              <li><a href="">Contact</a></li>
+              <li><a href="/">Shop</a></li>
+              <li><a href="/">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -389,51 +391,69 @@
         <div class="generic-title text-center">
           <h2 class="mb-20">Related Product</h2>
         </div>
+
         <div class="main-product-carousel owl-carousel red-nav mt-50">
+          <% relatedProducts.forEach((prod) => { %>
+
           <div class="carousel-single-item">
             <div class="col-12">
               <div class="product-box">
                 <div class="product-box-wrapper">
                   <div class="product-img">
-                    <img
-                      src="/img/product/farniture-1.jpg"
-                      class="w-100"
-                      alt=""
-                    />
-                    <a href="single-product-3.html" class="d-block">
-                      <div class="second-img">
-                        <img
-                          src="/img/product/farniture-1-hover.jpg"
-                          alt=""
-                          class="w-100"
-                        />
-                      </div>
+                    <a
+                      href="/products?productId=<%= prod._id %>"
+                      class="product-category"
+                    >
+                      <img
+                        src="<%= prod.productImages[0] %>"
+                        class="w-100"
+                        alt="<%= prod.productName %>"
+                      />
                     </a>
                   </div>
 
                   <div class="product-desc pb-20">
                     <div class="product-desc-top">
                       <div class="categories">
-                        <a href="" class="product-category"><span></span></a>
+                        <a href="" class="product-category"><span><%= prod.productCategory %></span></a>
                       </div>
-                      <a href="" class="wishlist float-right"
-                        ><span><i class="fal fa-heart"></i></span
-                      ></a>
+
+                      <button
+                      class="btn btn-link"
+                      onclick="addToWishlist(event, '<%= prod._id %>')"
+                    >
+                      <div class="wishlist float-right">
+                        <% if(user && user.wishlist.products.some( wProduct =>
+                        wProduct.productId.toString() ===
+                        prod._id.toString() )) { %>
+                        <i
+                          id="heartIcon-<%= prod._id %>"
+                          class="fas fa-heart fa-lg text-danger"
+                        ></i>
+                        <% } else { %>
+                        <i
+                          id="heartIcon-<%= prod._id %>"
+                          class="fal fa-heart fa-lg"
+                        ></i>
+                        <% } %>
+                      </div>
+                    </button>
+
                     </div>
-                    <a href="" class="product-title"
-                      >Light green crewnecksweatshir</a
+                    <a href="/products?productId=<%= prod._id %>" class="product-title"
+                      ><%= prod.productName %></a
                     >
                     <div class="price-switcher">
-                      <span class="price switcher-item">$58.00</span>
-                      <a href="" class="add-cart text-capitalize switcher-item"
-                        >+add to cart</a
-                      >
+                      <span class="price switcher-item">₹ <%= prod.productPrice %></span>
+                      <span class="price switcher-item">₹ <%= prod.productPrice %></span>
+
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          <% }) %>
         </div>
       </div>
     </section>

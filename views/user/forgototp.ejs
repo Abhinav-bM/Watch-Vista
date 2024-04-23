@@ -80,55 +80,67 @@
     <div class="signup-container">
       <div class="text-center">
         <img
-          class="pb-5"
+          class="pb-4"
           src="/img/logo/logo1.png"
           alt=""
           style="max-width: 160px"
         />
       </div>
 
-      <form action="/resetPassword" method="post">
+      <form
+        action="/resetPassword"
+        class="px-3"
+        method="post"
+        onsubmit="return validateForm(event)"
+      >
         <% if (typeof error !== 'undefined' && error !== null) { %>
-        <p style="color: red"><%= error %></p>
+        <p class="m-0 p-0" style="color: red"><%= error %></p>
               <% } %>
 
-        <input
-          type="hidden"
-          name="emailOrPhone"
-          value="<%= emailOrPhone %>"
-        />
+        <p id="nullErr" class="text-danger"></p>
 
-        <label for="name">Enter OTP <span>**</span></label>
+        <label for="name" class=""
+          >Enter OTP <span class="text-danger">**</span></label
+        >
+        <p class="text-danger" id="errorOtp" style="display: none">
+          Please enter a 6-digit numeric OTP.
+        </p>
         <input
-          id="name"
+          id="otp"
           class="form-control my-0 mb-4 py-2"
           name="otp"
           type="text"
           placeholder="Enter OTP"
-          required
         />
 
-        <label for="newPassword">Password <span>**</span></label>
+        <label for="newPassword"
+          >Password <span class="text-danger">**</span></label
+        >
+        <p class="text-danger" id="errorPass" style="display: none">
+          Password must be at least 6 characters long.
+        </p>
         <input
           id="newPassword"
           class="form-control my-0 mb-4 py-2"
           name="newPassword"
           type="password"
           placeholder="Enter password..."
-          required
         />
 
         <label for="confirmPassword"
-          >confirm Password <span>**</span></label
+          >confirm Password <span class="text-danger">**</span></label
         >
+        <p class="text-danger" id="errorPassConfirm" style="display: none">
+          Passwords do not match.
+        </p>
         <input
           id="confirmPassword"
           class="form-control my-0 mb-4 py-2"
           name="confirmPassword"
           type="password"
           placeholder="Enter password..."
-          required
         />
+        <input type="hidden" name="emailOrPhone" value="<%= emailOrPhone %>" />
 
         <button type="submit" class="btn btn-primary btn-block">
           Change password</button
@@ -136,11 +148,59 @@
       </form>
     </div>
 
+    <script>
+      function validateForm(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        document.getElementById("errorOtp").style.display = "none";
+        document.getElementById("errorPass").style.display = "none";
+        document.getElementById("errorPassConfirm").style.display = "none";
+        document.getElementById("nullErr").textContent = "";
+
+        console.log("here we are");
+
+        const otp = document.getElementById("otp").value;
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        if (otp === "" || newPassword === "" || confirmPassword === "") {
+          document.getElementById("nullErr").textContent =
+            "Please fill all the fields.";
+          return false;
+        }
+
+        // Validate OTP
+        if (otp.length !== 6 || isNaN(otp)) {
+          document.getElementById("errorOtp").style.display = "block";
+          return false;
+        }
+
+        // Validate Password
+        if (
+          newPassword.length < 6 ||
+          !/[0-9]/.test(newPassword) ||
+          !/[a-zA-Z]/.test(newPassword)
+        ) {
+          document.getElementById("errorPass").style.display = "block";
+          return false;
+        }
+
+        // Validate Confirm Password
+        if (newPassword !== confirmPassword) {
+          document.getElementById("errorPassConfirm").style.display = "block";
+          return false;
+        }
+
+        // All validations passed, allow form submission
+        return true;
+      }
+    </script>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

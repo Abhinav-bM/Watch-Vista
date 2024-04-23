@@ -80,16 +80,16 @@
   <body>
     <div class="signup-container">
       <div class="text-center">
-        <img class="pb-5" src="/img/logo/logo1.png" alt="" style="max-width: 160px" />
+        <img class="pb-4" src="/img/logo/logo1.png" alt="" style="max-width: 160px" />
       </div>
 
-      <form action="/loginOtp" method="post" onsubmit="return validatePhone()">
+      <form action="/loginOtp" class="px-3" method="post" onsubmit="return validatePhone()">
         <% if (typeof error !== 'undefined' && error !== null) { %>
         <p style="color: red"><%= error %></p>
         <% } %>
 
         <div>
-          <label for="phone"><strong>Phone <span>**</span></strong></label>
+          <label for="phone">Phone <span class="text-danger">**</span></label>
 
         </div>
 

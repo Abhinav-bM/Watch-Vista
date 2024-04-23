@@ -101,58 +101,6 @@
     #searchIconDiv {
       display: none;
     }
-
-    /* Search area styles */
-    .search-area {
-      transform: translateX(-15%);
-      background: #fff;
-      width: 200px; /* Adjust as needed */
-    }
-
-    .search-area form {
-      display: flex;
-      align-items: center;
-    }
-
-    .search-area input[type="text"] {
-      flex: 1;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px 0 0 4px;
-      font-size: 14px;
-    }
-
-    .search-area button {
-      padding: 8px 12px;
-      background-color: #282829;
-      color: #fff;
-      border: none;
-      border-radius: 0 4px 4px 0;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .search-area button:hover {
-      background-color: #0056b3;
-    }
-
-    /* Media query for smaller screens */
-    @media screen and (max-width: 767px) {
-      #searchIconDiv {
-        display: inline-block;
-      }
-
-      .search-area {
-        display: none;
-      }
-    }
-
-    @media screen and (min-width: 1000px) and (max-width: 1260px) {
-      #smallSearchPopup {
-        width: 10%; /* Adjust as needed */
-        margin: 0 auto; /* Center horizontally */
-      }
-    }
   </style>
   <body>
     <!-- preloader -->
@@ -162,7 +110,7 @@
 
     <!-- header section start -->
     <header
-      class="header pt-30 pb-30 header-sticky header-static"
+      class="header pt-30 pb-30 header-sticky header-static bg-white"
       style="padding-top: 30px; padding-bottom: 15px; top: 0px"
     >
       <div class="container-fluid">
@@ -195,15 +143,65 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
               <div class="logo">
-                <a href="index3.html"
-                  ><img src="/img/logo/logo1.png" alt=""
-                /></a>
+                <a href="/"><img src="/img/logo/logo1.png" alt="" /></a>
               </div>
             </div>
 
             <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
               <div class="header-right">
                 <ul class="text-right">
+                  <li style="display: flex; align-items: center">
+                    <div
+                      id="searchContainer"
+                      style="display: flex; align-items: center"
+                    >
+                      <!-- Search Input and Button for larger screens -->
+                      <div id="searchLargeScreen" style="display: none">
+                        <input
+                          type="text"
+                          name="search"
+                          id="searchInput"
+                          placeholder="Search..."
+                          style="
+                            padding: 5px;
+                            border-radius: 5px;
+                            border: 1px solid #ccc;
+                            margin-right: 1px;
+                          "
+                        />
+                        <button
+                          id="searchButton"
+                          style="
+                            padding: 5px 6px 5px 3px;
+                            border: none;
+                            border-radius: 5px;
+                            background-color: #353636;
+                            color: #fff;
+                            cursor: pointer;
+                          "
+                        >
+                          <i class="fal fa-search"></i>
+                        </button>
+                      </div>
+                      <!-- Search Icon for smaller screens -->
+                      <div id="searchIconSmallScreen">
+                        <button
+                          id="searchIcon"
+                          style="
+                            border: none;
+                            background-color: transparent;
+                            cursor: pointer;
+                          "
+                        >
+                          <i
+                            class="fal fa-search"
+                            style="font-size: 1.2rem"
+                          ></i>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <% if(!user){ %>
                   <li>
                     <a href="/login" class="account"
                       ><i class="fal fa-user-friends"></i>
@@ -212,10 +210,11 @@
                       </article></a
                     >
                   </li>
+                  <% } %>
 
                   <li>
                     <a href="/wishlist"
-                      ><i class="fal fa-heart active"
+                      ><i class="fal fa-heart"
                         ><span><%= wishlistProducts?.length %></span></i
                       ></a
                     >
@@ -228,12 +227,14 @@
                     >
                   </li>
                   <li>
-                    <a href=""><i class="fal fa-align-right"></i></a>
+                    <a><i class="fal fa-align-right"></i></a>
                     <ul class="submenu bold-content text-right">
                       <li><a href="/userProfile">My Account</a></li>
                       <li><a href="/wishlist">Wishlist</a></li>
                       <li><a href="/cart">Cart</a></li>
+                      <% if(user){ %>
                       <li><a href="/user/logout">Logout</a></li>
+                      <% } %>
                     </ul>
                   </li>
                 </ul>
@@ -375,7 +376,7 @@
                         </div>
                       </div>
                       <div class="text-center mt-20">
-                        <a href="shop.html" class="load-more">LOAD MORE...</a>
+                        <a href="" class="load-more">...</a>
                       </div>
                     </div>
                   </div>
@@ -645,6 +646,27 @@
         </div>
       </section>
       <!-- footer section end -->
+      <script>
+        // Toggle visibility of search input and button for larger screens
+        const searchContainer = document.getElementById("searchContainer");
+        const searchLargeScreen = document.getElementById("searchLargeScreen");
+        const searchIconSmallScreen = document.getElementById(
+          "searchIconSmallScreen"
+        );
+
+        function toggleSearchInput() {
+          if (window.innerWidth >= 768) {
+            searchLargeScreen.style.display = "flex";
+            searchIconSmallScreen.style.display = "none";
+          } else {
+            searchLargeScreen.style.display = "none";
+            searchIconSmallScreen.style.display = "flex";
+          }
+        }
+
+        window.onload = toggleSearchInput;
+        window.onresize = toggleSearchInput;
+      </script>
 
       <script>
         // Function to fetch products by category
@@ -729,11 +751,17 @@
 
             const productImg = document.createElement("div");
             productImg.classList.add("product-img");
+
+            const imgLink = document.createElement("a");
+            imgLink.href = `/products?productId=${product._id}`;
+
             const img = document.createElement("img");
             img.src = product.productImages[0];
             img.classList.add("w-100");
             img.alt = product.productName;
-            productImg.appendChild(img);
+
+            imgLink.appendChild(img);
+            productImg.appendChild(imgLink);
 
             const productDesc = document.createElement("div");
             productDesc.classList.add("product-desc", "pb-20");
@@ -795,7 +823,7 @@
             // Append the product to the display container
             productDisplay.appendChild(productDiv);
 
-            // Toggle heart icon based on wishlist status
+            // Reload wishlist icon status
             if (
               user &&
               user.wishlist.products.some(
@@ -803,7 +831,7 @@
                   wProduct.productId.toString() === product._id.toString()
               )
             ) {
-              wishlistIcon.classList.add("text-danger");
+              wishlistIcon.classList.add("text-danger", "fas");
             }
           });
         }

@@ -66,16 +66,10 @@
           transform: scale(1);
         }
       }
+    
     </style>
   </head>
   <body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
-      </p>
-    <![endif]-->
 
     <!-- preloader -->
     <div id="loader-wrapper">
@@ -83,7 +77,7 @@
     </div>
 
     <!-- header section start -->
-    <header class="header header-2 pt-30 pb-20 header-sticky header-static">
+    <header class="header header-2 pt-30 pb-20 header-sticky header-static bg-white">
       <div class="container-fluid">
         <div class="header-nav header-nav-2 position-relative">
           <div class="row align-items-center">
@@ -114,15 +108,14 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
               <div class="logo">
-                <a href="index3.html"
-                  ><img src="img/logo/logo1.png" alt=""
-                /></a>
+                <a href="/"><img src="img/logo/logo1.png" alt="" /></a>
               </div>
             </div>
 
             <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
               <div class="header-right">
                 <ul class="text-right">
+                  <% if(!user){ %>
                   <li>
                     <a href="/login" class="account"
                       ><i class="fal fa-user-friends"></i>
@@ -131,6 +124,7 @@
                       </article></a
                     >
                   </li>
+                  <% } %>
 
                   <li>
                     <a href="/wishlist"
@@ -152,7 +146,9 @@
                       <li><a href="/userProfile">My Account</a></li>
                       <li><a href="/wishlist">Wishlist</a></li>
                       <li><a href="/cart">Cart</a></li>
+                      <% if(user){ %>
                       <li><a href="/user/logout">Logout</a></li>
+                      <% } %>
                     </ul>
                   </li>
                 </ul>
@@ -240,8 +236,7 @@
 
         <div class="new-arrival-wrapper mt-55">
           <div class="row">
-            <% products.forEach(prod=>{ %> <% prod.products.forEach(product=>{
-            %>
+            <% products.forEach(product=>{ %>
             <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
               <div class="product-box mb-40">
                 <div class="product-box-wrapper">
@@ -305,7 +300,7 @@
                 </div>
               </div>
             </div>
-            <% }); %> <% }); %>
+            <% }) %>
           </div>
         </div>
       </div>

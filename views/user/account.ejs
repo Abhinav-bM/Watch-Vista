@@ -23,37 +23,33 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
 
-
-<!-- ----------------------------------- -->
-  <!-- CSS here -->
-  <link rel="stylesheet" href="css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/owl.carousel.min.css">
-  <link rel="stylesheet" href="css/fontawesome.min.css">
-  <link rel="stylesheet" href="css/jquery-ui.css">
-  <link rel="stylesheet" href="css/animate.min.css">
-  <link rel="stylesheet" href="css/magnific-popup.css">
-  <link rel="stylesheet" href="css/fontawesome-all.min.css">
-  <link rel="stylesheet" href="css/meanmenu.css">
-  <link rel="stylesheet" href="css/slick.css">
-  <link rel="stylesheet" href="css/default.css">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/responsive.css">
-
-<!-- ----------------------------------- -->
+    <!-- CSS here -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/owl.carousel.min.css" />
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/animate.min.css" />
+    <link rel="stylesheet" href="css/magnific-popup.css" />
+    <link rel="stylesheet" href="css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="css/meanmenu.css" />
+    <link rel="stylesheet" href="css/slick.css" />
+    <link rel="stylesheet" href="css/default.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
 
 
     <!--== Bootstrap CSS ==-->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <!--== Font Awesome Min Icon CSS ==-->
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- <link href="assets/css/font-awesome.min.css" rel="stylesheet" /> -->
     <!--== 7 Stroke Icon CSS ==-->
-    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <!-- <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" /> -->
     <!--== Swiper CSS ==-->
-    <link href="assets/css/swiper.min.css" rel="stylesheet" />
+    <!-- <link href="assets/css/swiper.min.css" rel="stylesheet" /> -->
     <!--== Fancybox Min CSS ==-->
-    <link href="assets/css/fancybox.min.css" rel="stylesheet" />
+    <!-- <link href="assets/css/fancybox.min.css" rel="stylesheet" /> -->
     <!--== Range Slider Min CSS ==-->
-    <link href="assets/css/ion.rangeSlider.min.css" rel="stylesheet" />
+    <!-- <link href="assets/css/ion.rangeSlider.min.css" rel="stylesheet" /> -->
 
     <!--== Main Style CSS ==-->
     <link href="assets/css/style.css" rel="stylesheet" />
@@ -132,81 +128,100 @@
 
 <body>
 
-<!-- preloader -->
-<!-- <div id="loader-wrapper">
-  <div id="loader"></div>
-</div> -->
 
- 
-
-  <!-- header section start -->
-  <header class="header header-2 pt-30 pb-20  header-sticky header-static">
-    <div class="container-fluid">
-        <div class="header-nav header-nav-2 position-relative">
+    <!-- header section start -->
+    <header class="header header-2 pt-30 pb-20 header-sticky header-static bg-white">
+        <div class="container-fluid">
+          <div class="header-nav header-nav-2 position-relative">
             <div class="row align-items-center">
-                <div class="col-xl-5 col-lg-6 hidden-md position-static">
-                    <div class="header-nav">
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="/">
-                                        <span>Home </span>
-                                    </a>
-                                </li>
-
-                                <li class="position-static">
-                                    <a href="/shop">
-                                        <span>Shop</span>
-                                    </a>
-                                </li>
-
-                                <li>
-                                    <a href="/contact">
-                                        <span>Contact</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
-                        <div class="logo">
-                            <a href=""><img src="img/logo/logo1.png" alt=""></a>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
-                        <div class="header-right">
-                            <ul class="text-right">
-                                <li><a href="/login" class="account"><i class="fal fa-user-friends"></i> <article class="account-registar d-inline-block"></article></a></li>
-                                <li><a href="/wishlist" data-toggle="tooltip" data-placement="bottom" title="view wishlist"><i class="fal fa-heart"><span>0</span></i></a></li>
-                                <li><a href="/cart"><i class="fal fa-shopping-bag"><span><%= user.cart.products.length %></span></i></a>             </li>
-                                <li><a href="javascript:void(0)"><i class="fal fa-align-right"></i></a>
-                                    <ul class="submenu bold-content text-right">
-                                        <li><a href="/userProfile">My Account</a></li>
-                                        <li><a href="/wishlist">Wishlist</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+              <div class="col-xl-5 col-lg-6 hidden-md position-static">
+                <div class="header-nav">
+                  <nav>
+                    <ul>
+                      <li>
+                        <a href="/">
+                          <span>Home </span>
+                        </a>
+                      </li>
+  
+                      <li class="position-static">
+                        <a href="/shop">
+                          <span>Shop</span>
+                        </a>
+                      </li>
+  
+                      <li>
+                        <a href="/contact">
+                          <span>Contact</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
-        </div>
-        <div class="mobile-menu visible-sm">
-            <div id="mobile-menu">
-                <ul>
-                    <li><a  class="pl-3" href="">Home</a></li>
-                    <li><a  class="pl-3" href="">Shop</a></li>
-                    <li><a href="">Blog</a></li>
-                    <li><a href="">Portfolio</a></li>
-                    <li><a href="">Contact</a></li>
-                </ul>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
+                <div class="logo">
+                  <a href="/"><img src="img/logo/logo1.png" alt="" /></a>
+                </div>
+              </div>
+  
+              <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
+                <div class="header-right">
+                  <ul class="text-right">
+                    <% if(!user){ %>
+                    <li>
+                      <a href="/login" class="account"
+                        ><i class="fal fa-user-friends"></i>
+                        <article class="account-registar d-inline-block">
+                          Login
+                        </article></a
+                      >
+                    </li>
+                    <% } %>
+  
+                    <li>
+                      <a href="/wishlist"
+                        ><i class="fal fa-heart active"
+                          ><span><%= wishlistProducts?.length %></span></i
+                        ></a
+                      >
+                    </li>
+                    <li>
+                      <a href="/cart"
+                        ><i class="fal fa-shopping-bag"
+                          ><span><%= user?.cart.products.length %></span></i
+                        ></a
+                      >
+                    </li>
+                    <li>
+                      <a><i class="fal fa-align-right"></i></a>
+                      <ul class="submenu bold-content text-right">
+                        <li><a href="/userProfile">My Account</a></li>
+                        <li><a href="/wishlist">Wishlist</a></li>
+                        <li><a href="/cart">Cart</a></li>
+                        <% if(user){ %>
+                        <li><a href="/user/logout">Logout</a></li>
+                        <% } %>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="mobile-menu visible-sm">
+            <div id="mobile-menu">
+              <ul>
+                <li><a class="pl-3" href="/">Home</a></li>
+                <li><a class="pl-3" href="/shop">Shop</a></li>
+                <li><a href="/contact">Contact</a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /. mobile nav -->
         </div>
-        <!-- /. mobile nav -->
-    </div>
-</header>
-<!-- header section end -->
+      </header>
+      <!-- header section end -->
 
   
     <main class="main-content" >
@@ -337,51 +352,37 @@
                                                                         <div class="col-12 p-2">
                                                                             <label for="name" class="form-label">Name</label>
                                                                             <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter your name.
-                                                                            </div> -->
+                                                                        
                                                                         </div>
                                                                         <div class="col-12 p-2">
                                                                             <label for="address" class="form-label">Address</label>
                                                                             <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter your address.
-                                                                            </div> -->
+                                                                          
                                                                         </div>
                                                                         <div class="col-md-6 p-2">
                                                                             <label for="district" class="form-label">District</label>
                                                                             <input type="text" name="district" class="form-control" id="district" placeholder="Town or city" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter your district.
-                                                                            </div> -->
+                                                                          
                                                                         </div>
                                                                         <div class="col-md-6 p-2">
                                                                             <label for="state" class="form-label">State</label>
                                                                             <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter your state.
-                                                                            </div> -->
+                                                                        
                                                                         </div>
                                                                         <div class="col-md-6 p-2">
                                                                             <label for="zip" class="form-label">Zip</label>
                                                                             <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip/Postal" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter a valid zip code.
-                                                                            </div> -->
+                                                                            
                                                                         </div>
                                                                         <div class="col-md-6 p-2">
                                                                             <label for="phone" class="form-label">Phone Number</label>
                                                                             <input type="tel" name="phone" class="form-control" id="phone" placeholder="Your Phone" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please provide a valid phone number.
-                                                                            </div> -->
+                                                                           
                                                                         </div>
                                                                         <div class="col-12 p-2">
                                                                             <label for="email" class="form-label">Email Address</label>
                                                                             <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please provide a valid email.
-                                                                            </div> -->
+                                                                           
                                                                         </div>
 
                                                                         <div class="col-12 pt-3">
@@ -411,51 +412,37 @@
                                                                         <div class="col-12 p-2">
                                                                             <label for="editName" class="form-label">Name</label>
                                                                             <input type="text" name="name" class="form-control" id="nameEdit" placeholder="Your Name" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter your name.
-                                                                            </div> -->
+                                                                           
                                                                         </div>
                                                                         <div class="col-12 p-2">
                                                                             <label for="editAddress" class="form-label">Address</label>
                                                                             <input type="text" name="address" class="form-control" id="addressEdit" placeholder="Enter your address" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter your address.
-                                                                            </div> -->
+                                                                            
                                                                         </div>
                                                                         <div class="col-md-6 p-2">
                                                                             <label for="editDistrict" class="form-label">District</label>
                                                                             <input type="text" name="district" class="form-control" id="districtEdit" placeholder="Town or city" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter your district.
-                                                                            </div> -->
+                                                                            
                                                                         </div>
                                                                         <div class="col-md-6 p-2">
                                                                             <label for="editState" class="form-label">State</label>
                                                                             <input type="text" name="state" class="form-control" id="stateEdit" placeholder="Enter your state" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter your state.
-                                                                            </div> -->
+                                                                           
                                                                         </div>
                                                                         <div class="col-md-6 p-2">
                                                                             <label for="editZip" class="form-label">Zip</label>
                                                                             <input type="text" name="zip" class="form-control" id="zipEdit" placeholder="Zip/Postal" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please enter a valid zip code.
-                                                                            </div> -->
+                                                                            
                                                                         </div>
                                                                         <div class="col-md-6 p-2">
                                                                             <label for="editPhone" class="form-label">Phone Number</label>
                                                                             <input type="number" name="phone" class="form-control" id="phoneEdit" placeholder="Your Phone" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please provide a valid phone number.
-                                                                            </div> -->
+                                                                            
                                                                         </div>
                                                                         <div class="col-12 p-2">
                                                                             <label for="editEmail" class="form-label">Email Address</label>
                                                                             <input type="email" name="email" class="form-control" id="emailEdit" placeholder="Your Email" required>
-                                                                            <!-- <div class="invalid-feedback">
-                                                                                Please provide a valid email.
-                                                                            </div> -->
+                                                                            
                                                                         </div>
 
                                                                         <div class="col-12 pt-3">
