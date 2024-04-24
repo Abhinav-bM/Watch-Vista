@@ -159,56 +159,26 @@
                       class="col-md-1 p-0"
                     >
                       <!-- Search Input and Button for larger screens -->
-                      <div id="searchLargeScreen" class="d-none d-md-flex">
+                      <div id="searchLargeScreen" class="d-none d-sm-flex">
                         <input
                           type="text"
                           name="search"
                           id="searchInput"
                           placeholder="Search..."
                           style="
-                            padding: 1px;
-                            border-radius: 5px;
+                            padding: 3px;
+                            border-radius: 2px;
                             border: 1px solid #ccc;
-                            margin-right: 1px;
+                            margin-right: px;
                           "
                         />
                         <button
                           id="searchButton"
                           style="
-                            padding: 4px 4px 2px 1px;
+                            padding: .1rem .3rem .1rem .1rem;
                             border: none;
-                            border-radius: 5px;
-                            background-color: #353636;
-                            color: #fff;
-                            cursor: pointer;
-                          "
-                        >
-                          <i class="fal fa-search"></i>
-                        </button>
-                      </div>
-
-                      <!-- Small Search Input and Button for smaller screens -->
-                      <div id="searchSmallScreen" class="d-flex d-md-none">
-                        <input
-                          type="text"
-                          name="search"
-                          id="searchInput1"
-                          placeholder="Search..."
-                          style="
-                            padding: 5px;
-                            border-radius: 5px;
-                            border: 1px solid #ccc;
-                            margin-right: 1px;
-                            width: 100px; /* Adjust as needed */
-                          "
-                        />
-                        <button
-                          id="searchButtonSmall"
-                          style="
-                            padding: 5px 6px 5px 3px;
-                            border: none;
-                            border-radius: 5px;
-                            background-color: #353636;
+                            border-radius: 2px;
+                            background-color: #3e3f3f;
                             color: #fff;
                             cursor: pointer;
                           "
@@ -276,6 +246,39 @@
     </header>
     <!-- header section end -->
 
+    <div class="col-12">
+      <div id="searchSmallScreen" class="d-flex  d-sm-none ">
+        <input
+          type="text"
+          class="col-11"
+          name="search"
+          id="searchInput1"
+          placeholder="Search..."
+          style="
+            padding: 5px;
+            border-radius: 2px;
+            border: 1px solid #ccc;
+            margin-right: 1px;
+            width: -webkit-fill-available;
+          "
+        />
+        <button
+          id="searchButtonSmall"
+          class="col-1"
+          style="
+            padding: 5px 6px 5px 3px;
+            border: none;
+            border-radius: 2px;
+            background-color: #3e3f3f;
+            color: #fff;
+            cursor: pointer;
+          "
+        >
+          <i class="fal fa-search"></i>
+        </button>
+      </div>
+    </div>
+
     <div class="shop-body">
       <div class="container-fluid">
         <nav aria-label="breadcrumb" class="mb-40">
@@ -285,7 +288,7 @@
           <div class="row">
             <div class="col-12">
               <div class="filter-heading">
-                <div class="row justify-content-end">
+                <div class="row justify-content-end px-4">
                   <div class="sorting d-inline-block">
                     <select name="sort" id="shop-sort">
                       <option value="Default">Default sorting</option>
@@ -410,9 +413,7 @@
                           </div>
                           <% }); %> <% }); %>
                         </div>
-                        <div class="text-center mt-20 mb-20">
-                          ... 
-                        </div>
+                        <div class="text-center mt-20 mb-20">...</div>
                       </div>
                     </div>
                   </div>
@@ -517,7 +518,7 @@
             searchLargeScreen.style.display = "flex";
             searchIconSmallScreen.style.display = "none";
           } else {
-            searchLargeScreen.style.display = "none";
+            // searchLargeScreen.style.display = "none";
             searchIconSmallScreen.style.display = "flex";
           }
         }
