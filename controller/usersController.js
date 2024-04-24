@@ -524,11 +524,26 @@ let shopGetPage = async (req, res) => {
       user = await User.findById(userId);
     }
 
+    // Pagination logic
+    // const ITEMS_PER_PAGE = 4;
+    // const page = +req.query.page || 1; 
+    // const totalProducts = products.length;
+    // const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+    // const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    // const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalProducts);
+    // const paginatedProducts = products.slice(startIndex, endIndex);
+
     res.status(200).render("user/shop", {
-      products,
+      products: products,
       allCategories,
       user,
       wishlistProducts: user?.wishlist.products,
+      // currentPage: page,
+      // hasNextPage: ITEMS_PER_PAGE * page < totalProducts,
+      // hasPrevPage: page > 1,
+      // nextPage: page + 1,
+      // prevPage: page - 1,
+      // lastPage: totalPages,
     });
   } catch (error) {
     console.log("page not found :", error);
@@ -620,7 +635,7 @@ let getSearchProduct = async (req, res) => {
         product.productName
           .toLowerCase()
           .includes(searchTerm.trim().toLowerCase()) ||
-          product.productCategory
+        product.productCategory
           .toLowerCase()
           .includes(searchTerm.trim().toLowerCase())
     );
@@ -649,8 +664,9 @@ let singleProductGetPage = async (req, res) => {
 
     const vendor = await Vendor.findOne({ "products._id": productId });
 
-
-    const relatedProducts  = vendor.products.filter((prod)=> prod._id.toString() !== productId)
+    const relatedProducts = vendor.products.filter(
+      (prod) => prod._id.toString() !== productId
+    );
 
     if (!vendor) {
       throw new Error("Product not found");

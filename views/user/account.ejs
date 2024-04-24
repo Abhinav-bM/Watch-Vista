@@ -40,16 +40,6 @@
 
     <!--== Bootstrap CSS ==-->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
-    <!--== Font Awesome Min Icon CSS ==-->
-    <!-- <link href="assets/css/font-awesome.min.css" rel="stylesheet" /> -->
-    <!--== 7 Stroke Icon CSS ==-->
-    <!-- <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" /> -->
-    <!--== Swiper CSS ==-->
-    <!-- <link href="assets/css/swiper.min.css" rel="stylesheet" /> -->
-    <!--== Fancybox Min CSS ==-->
-    <!-- <link href="assets/css/fancybox.min.css" rel="stylesheet" /> -->
-    <!--== Range Slider Min CSS ==-->
-    <!-- <link href="assets/css/ion.rangeSlider.min.css" rel="stylesheet" /> -->
 
     <!--== Main Style CSS ==-->
     <link href="assets/css/style.css" rel="stylesheet" />
@@ -77,31 +67,27 @@
         }
 
         /* scroballe code */
-        .scrollable{    
+        /* .scrollable{    
             overflow-y: scroll;
             height: 400px;
             background: #ffffff;
             padding: 20px;
-        }
+        } */
         ::-webkit-scrollbar {
             display: none;
         }
         .disable-scroll{
             overflow-y: hidden;
         }
-        iframe[sandbox] .read-article{
-            display: none;
-        }
+       
 
+        /* STYLES FOR RETURN AREA */
         .bankDetails {
             display: none;
         }
-
         #option1:checked + label + .bankDetails {
             display: block;
         }
-
-        /* style for return area */
         .bankDetails {
             display: none;
             margin-top: 10px;
@@ -130,327 +116,463 @@
 
 
     <!-- header section start -->
-    <header class="header header-2 pt-30 pb-20 header-sticky header-static bg-white">
+    <header class="header header-2 pt-30 pb-10 header-sticky header-static bg-white">
         <div class="container-fluid">
-          <div class="header-nav header-nav-2 position-relative">
-            <div class="row align-items-center">
-              <div class="col-xl-5 col-lg-6 hidden-md position-static">
-                <div class="header-nav">
-                  <nav>
-                    <ul>
-                      <li>
-                        <a href="/">
-                          <span>Home </span>
-                        </a>
-                      </li>
-  
-                      <li class="position-static">
-                        <a href="/shop">
-                          <span>Shop</span>
-                        </a>
-                      </li>
-  
-                      <li>
-                        <a href="/contact">
-                          <span>Contact</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
+            <div class="header-nav header-nav-2 position-relative">
+                <div class="row">
+                    <div class="col-xl-5 col-lg-5 hidden-md position-static ">
+                        <div class="header-nav">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a href="/">
+                                        <span> <strong>Home</strong> </span>
+                                        </a>
+                                    </li>
+                
+                                    <li class="position-static">
+                                        <a href="/shop">
+                                        <span><strong>Shop</strong></span>
+                                        </a>
+                                    </li>
+                
+                                    <li>
+                                        <a href="/contact">
+                                        <span><strong>Contact</strong></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-3 col-md-6 pt-md-2 col-sm-6 pt-2 col-3">
+                        <div class="logo">
+                            <a href="/">
+                                <img src="img/logo/logo1.png" alt="" />
+                            </a>
+                        </div>
+                    </div>
+    
+                    <div class="col-xl-4 col-lg-4 col-6 col-md-6 col-sm-6 col-9">
+                        <div class="header-right">
+                            <ul class="text-right">
+                                <% if(!user){ %>
+                                <li>
+                                    <a href="/login" class="account"
+                                        ><i class="fal fa-user-friends"></i>
+                                        <article class="account-registar d-inline-block">
+                                        Login
+                                        </article>
+                                    </a>
+                                </li>
+                                <% } %>
+            
+                                <li>
+                                    <a href="/wishlist"
+                                        ><i class="fal fa-heart active"
+                                        ><span><%= wishlistProducts?.length %></span></i
+                                        >
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/cart">
+                                        <i class="fal fa-shopping-bag">
+                                            <span><%= user?.cart.products.length %></span>
+                                        </i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a><i class="fal fa-align-right"></i></a>
+                                    <ul class="submenu bold-content text-right">
+                                        <li><a href="/userProfile">My Account</a></li>
+                                        <li><a href="/wishlist">Wishlist</a></li>
+                                        <li><a href="/cart">Cart</a></li>
+                                        <% if(user){ %>
+                                        <li><a href="/user/logout">Logout</a></li>
+                                        <% } %>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
-                <div class="logo">
-                  <a href="/"><img src="img/logo/logo1.png" alt="" /></a>
-                </div>
-              </div>
-  
-              <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
-                <div class="header-right">
-                  <ul class="text-right">
-                    <% if(!user){ %>
-                    <li>
-                      <a href="/login" class="account"
-                        ><i class="fal fa-user-friends"></i>
-                        <article class="account-registar d-inline-block">
-                          Login
-                        </article></a
-                      >
-                    </li>
-                    <% } %>
-  
-                    <li>
-                      <a href="/wishlist"
-                        ><i class="fal fa-heart active"
-                          ><span><%= wishlistProducts?.length %></span></i
-                        ></a
-                      >
-                    </li>
-                    <li>
-                      <a href="/cart"
-                        ><i class="fal fa-shopping-bag"
-                          ><span><%= user?.cart.products.length %></span></i
-                        ></a
-                      >
-                    </li>
-                    <li>
-                      <a><i class="fal fa-align-right"></i></a>
-                      <ul class="submenu bold-content text-right">
-                        <li><a href="/userProfile">My Account</a></li>
-                        <li><a href="/wishlist">Wishlist</a></li>
-                        <li><a href="/cart">Cart</a></li>
-                        <% if(user){ %>
-                        <li><a href="/user/logout">Logout</a></li>
-                        <% } %>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
-              </div>
             </div>
-          </div>
-          <div class="mobile-menu visible-sm">
-            <div id="mobile-menu">
-              <ul>
-                <li><a class="pl-3" href="/">Home</a></li>
-                <li><a class="pl-3" href="/shop">Shop</a></li>
-                <li><a href="/contact">Contact</a></li>
-              </ul>
+
+            <!--mobile nav -->
+            <div class="mobile-menu visible-sm ">
+                <div id="mobile-menu">
+                <ul>
+                    <li><a class="pl-3" href="/">Home</a></li>
+                    <li><a class="pl-3" href="/shop">Shop</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+                </div>
             </div>
-          </div>
-          <!-- /. mobile nav -->
         </div>
-      </header>
-      <!-- header section end -->
+    </header>
+    <!-- header section end -->
 
   
     <main class="main-content" >
         <!--== Start My Account Wrapper ==-->
         <section class="my-account-area">
-            <div class="container pt--0 pb--0">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="myaccount-page-wrapper">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-4">
-                                        <nav>
-                                            <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
-                                                <button class="nav-link active"id="dashboad-tab" data-bs-toggle="tab"  data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">
-                                                    Personal Information
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="myaccount-page-wrapper">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4">
+                                    <nav>
+                                        <div class="myaccount-tab-menu nav nav-tabs" id="nav-tab" role="tablist">
+                                            <button class="nav-link active"id="dashboad-tab" data-bs-toggle="tab"  data-bs-target="#dashboad" type="button" role="tab" aria-controls="dashboad" aria-selected="true">
+                                                Personal Information
+                                            </button>
+                                            <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false">
+                                                Orders
+                                            </button>
+                                            <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">
+                                                address
+                                            </button>
+                                            <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">
+                                                Change Password
                                                 </button>
-                                                <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab" aria-controls="orders" aria-selected="false">
-                                                    Orders
-                                                </button>
-                                                <button class="nav-link" id="address-edit-tab" data-bs-toggle="tab" data-bs-target="#address-edit" type="button" role="tab" aria-controls="address-edit" aria-selected="false">
-                                                    address
-                                                </button>
-                                                <button class="nav-link" id="account-info-tab" data-bs-toggle="tab" data-bs-target="#account-info" type="button" role="tab" aria-controls="account-info" aria-selected="false">
-                                                    Change Password
-                                                </button>
-                                                <button class="nav-link" onclick="window.location.href = '/user/logout'" type="button">
-                                                    Logout
-                                                </button>
+                                            <button class="nav-link" onclick="window.location.href = '/user/logout'" type="button">
+                                                Logout
+                                            </button>
 
+                                        </div>
+                                    </nav>
+                                </div>  
+                                <div class="col-lg-7 col-md-8">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="dashboad" role="tabpanel" aria-labelledby="dashboad-tab">
+                                            <div class="myaccount-content">
+                                                <div class="welcome d-flex justify-content-between">
+                                                    <h3>Hello, <span id="userName"><%= user.name %></span> </h3>
+                                                    <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
+                                                </div>
+                                                <p><strong>phone : <%= user.phoneNumber %></strong></p>
+                                                <p><strong>Email : <%= user.email %></strong></p><br>
+                                                <p>From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
+                                                <p></p>
                                             </div>
-                                        </nav>
-                                    </div>  
-                                    <div class="col-lg-7 col-md-8">
-                                        <div class="tab-content" id="nav-tabContent">
-                                            <div class="tab-pane fade show active" id="dashboad" role="tabpanel" aria-labelledby="dashboad-tab">
-                                                <div class="myaccount-content">
-                                                    <div class="welcome d-flex justify-content-between">
-                                                        <h3>Hello, <span id="userName"><%= user.name %></span> </h3>
-                                                        <i class="fas fa-edit" data-toggle="modal" data-target="#editModal"></i>
+                                        </div>
+
+                                        <!-- modal for details edit -->
+                                        <div class="modal" id="editModal">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Edit Details</h5>
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                                     </div>
-                                                    <p><strong>phone : <%= user.phoneNumber %></strong></p>
-                                                    <p><strong>Email : <%= user.email %></strong></p><br>
-                                                    <p>From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
-                                                    <p></p>
+                                                    <div class="modal-body">
+                                                        <form id="editForm" >
+                                                            <div class="form-group">
+                                                                <label for="newName">Name:</label>
+                                                                <input type="text" class="form-control" id="newName" value="<%= user.name %>" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="newEmail">Email:</label>
+                                                                <input type="text" class="form-control" id="newEmail" value="<%= user.email %>" required>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="newPhone">Phone:</label>
+                                                                <input type="text" class="form-control" id="newPhone" value="<%= user.phoneNumber %>" required>
+                                                            </div>
+                                                            <button type="button" onclick="submitUserEditForm(event)" class="btn btn-dark">Save Changes</button>
+                                                        </form>
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <!-- modal for details edit -->
-                                            <div class="modal" id="editModal">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Edit Details</h5>
-                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form id="editForm" >
-                                                                <div class="form-group">
-                                                                    <label for="newName">Name:</label>
-                                                                    <input type="text" class="form-control" id="newName" value="<%= user.name %>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="newEmail">Email:</label>
-                                                                    <input type="text" class="form-control" id="newEmail" value="<%= user.email %>" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="newPhone">Phone:</label>
-                                                                    <input type="text" class="form-control" id="newPhone" value="<%= user.phoneNumber %>" required>
-                                                                </div>
-                                                                <button type="button" onclick="submitUserEditForm(event)" class="btn btn-dark">Save Changes</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
-                                                <div class="myaccount-content">
+                                        <div class="tab-pane fade scrollable" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                                            <div class="myaccount-content">
+                                                <h3>Orders</h3>
                                                     
-                                                    <!-- Button trigger modal -->
-                                                    <div class="d-flex justify-content-between">
-                                                        <h3>Addresses</h3>
-                                                        <button type="button" class="text-center" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: auto; height: 30px; border-radius: 5px; border: 2px;" >
-                                                            Add new address
-                                                        </button>
+                                                <div class="" style="height: 300px; overflow-y: auto;">
+
+                                                <% if (user.orders.length > 0) { %>
+                                                <% cart.forEach((prod) => { %>
+                                                
+                                                    <!-- ORDER HISTORY TABLE STARTS -->  
+                                                    <div class="d-xl-flex d-lg-flex d-md-flex d-sm-flex  mb-2 rounded " style="border: 2px solid whitesmoke ; background-color: #f5f3f3;">
+
+                                                        <div class="d-xl-grid d-lg-grid d-md-grid align-items-md-center text-center">
+
+                                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center col-12">
+                                                                <a href="/products?productId=<%= prod._id %>">
+                                                                    <img class="img-fluid pt-1" src="<%= prod.images[0] %>" alt="" width="150px">
+                                                                </a>
+
+                                                                <div class="p-2">
+                                                                    <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled' && prod.orderStatus !== 'Delivered' && prod.orderStatus !== "Requested for Refund" && prod.orderStatus !== "Refund Processed") { %>
+                                                                        <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')" >Cancel</button>
+                                                                    <% } else if( prod.orderStatus === 'Delivered' && prod.differenceInDays <= 7 ) { %>
+                                                                        <button class="rounded" onclick="openReturnModal('<%= prod.orderId %>', '<%= prod._id %>')">Return</button>
+                                                                    <% } else if( prod.orderStatus === "Refund Processed" || prod.orderStatus === "Requested for Refund") { %>
+                                                                        <button class="rounded" onclick="openReturnModal('<%= prod.orderId %>', '<%= prod._id %>')" disabled>Return</button>
+                                                                    <% } else { %>
+                                                                        <button class="rounded" disabled>Cancel</button>
+                                                                    <% } %>
+                                                                </div>
+                                                                
+                                                            </div>
+
+                                                            </div>
+                                                    
+                                                            <div class="row p-2">
+                                                                <div class="col-xl-12 text-xl-start col-lg-12 text-lg-start col-md-12 text-md-start col-sm-12 text-sm-start col-12 ">
+                                                                    <h6 class=""><%= prod.name %></h6>
+                                                                    <small>Color: <%= prod.color %> & Price: <%= prod.price %></small><br>
+                                                                    <small>Size: <%= prod.size %> & Quantity: <%= prod.quantity %></small><br>
+                                                                    <small>Order Status :</small><small class="<%= prod.orderStatus === 'Delivered' ? 'text-success' : prod.orderStatus === 'Cancelled' ? 'text-danger' : 'text-warning' %>"> <%= prod.orderStatus %></small><br>
+                                                                    <small>Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<br><%= prod.shippingAddress.state %></small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            
+                                                        <!-- MODAL FOR ORDER CANCELLATION -->
+                                                        <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                        
+                                                                    <div class="modal-body">
+                                                                        <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
+                                                                            <div class="mb-3">
+                                                                                <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
+                                                                                <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
+                                                                            </div>
+                                                                            <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
+                                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="modal fade" id="returnlModal_<%= prod._id %>" tabindex="-1" aria-labelledby="returnModalLabel_<%= prod._id %>" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="returnModalLabel_<%= prod._id %>">Return Product</h5>
+                                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                   
+                                                                    <div class="modal-body">
+                                                                        <form id="returnOrderForm_<%= prod._id %>" onsubmit="submitReturn(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>',)">
+                                                                            <div class="mb-3">
+                                                                                <label for="cancelReason_<%= prod._id %>" class="form-label pt-10">Return Reason</label>
+                                                                                <textarea class="form-control" id="returnReason_<%= prod._id %>" name="returnReason" rows="3" required></textarea>
+                                                                            </div>
+                                                                            <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
+                                                                            <div>
+                                                                                <h6>Refund</h6>
+                                                                                <% if (prod.paymentMethod === 'RazorPay') { %>
+                                                                                    <input type="radio" id="originalPayment" name="paymentOption" value="Original Payment Method" checked>
+                                                                                    <label for="originalPayment">Original Payment method</label>
+                                                                                    <p>or</p>
+                                                                                <% } %>
+
+                                                                                <input type="radio" id="option1" name="paymentOption" value="Add Bank Account Details">
+                                                                                <label for="option1">Add Bank Account Details</label>
+
+                                                                                <div class="bankDetails">
+                                                                                    <label for="bankName">Bank Name:</label>
+                                                                                    <input type="text" id="bankName" name="bankName" placeholder="Enter Bank Name" required>
+                                                                                    <label for="accountHolderName">Account Holder Name:</label>
+                                                                                    <input type="text" id="accountHolderName" name="accountHolderName" placeholder="Enter Account Holder Name" required>
+                                                                                    <label for="accountNumber">Account Number:</label>
+                                                                                    <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter Account Number" required>
+                                                                                    <label for="ifsc">IFSC:</label>
+                                                                                    <input type="text" id="ifsc" name="ifsc" placeholder="Enter IFSC Code" required>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            
+                                                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                                        </form>
+                                                                    
+                                                                </div>      
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 
-                                                
-                                                    <div class="" style="height: 300px; overflow-y: auto;">
-                                                        <div id="addressList">
-                                                            <!-- Checkbox for Delivery Address -->
-                                                            <% addresses.forEach(address => { %>
-                                                            <div class="my-3 px-4 py-3 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
-                                                                <div>
-                                                                    <p class="m-0"><strong><%= address.name %></strong></p>
-                                                                    <p class="m-0"><%= address.address %></p>
-                                                                    <p class="m-0"><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
-                                                                    <p class="m-0"><%= address.email %> , <%= address.phone %></p>
-                                                                </div>
+                                                    <% }) %>
+                                                    <% } else { %>
+                                                    <p>No orders found.</p>
+                                                    <% } %>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                        <!-- ORDER HISTORY TABLE ENDS --> 
+                                        
 
-                                                                <!-- Edit and Delete Buttons -->
-                                                                <div class="mt-3 ">
-                                                                    <button type="button" class="btn btn-sm border edit-address-btn"  data-address-id="<%= address._id %>" >
+                                        <div class="tab-pane fade" id="address-edit" role="tabpanel" aria-labelledby="address-edit-tab">
+                                            <div class="myaccount-content">
+                                                    
+                                                <!-- Button trigger modal -->
+                                                <div class="d-flex justify-content-between">
+                                                    <h3>Addresses</h3>
+                                                    <button type="button" class="text-center" data-toggle="modal" data-target="#exampleModal" style="background-color: #525151; color: white; width: auto; height: 30px; border-radius: 5px; border: 2px;" >
+                                                        Add new address
+                                                    </button>
+                                                </div>
+                                                
+                                                
+                                                <div class="" style="height: 300px; overflow-y: auto;">
+                                                    <div id="addressList" class="col-xl-12 ">
+                                                        <!--  Addresses -->
+                                                        <% addresses.forEach(address => { %>
+                                                        <div class="my-3 px-2 py-2 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
+                                                            <div >
+                                                                <p class="m-0"><strong><%= address.name %></strong></p>
+                                                                <p class="m-0"><%= address.address %></p>
+                                                                <p class="m-0"><%= address.district %>, <%= address.state %>, <%= address.zip %></p>
+                                                                <p class="m-0"><%= address.email %> , <%= address.phone %></p>
+                                                            </div>
+
+                                                            <!-- Edit and Delete Buttons -->
+                                                            <div class="d-flex d-sm-grid justify-content-end">
+
+                                                                <div class="gap-2">
+                                                                    <button type="button" class="btn btn-sm border mb-1 edit-address-btn"  data-address-id="<%= address._id %>" >
                                                                         <i class="fas fa-edit text-success"></i>
                                                                     </button>
-                                                                    <button type="button" class="btn btn-sm border ml-2 delete-address-btn" data-address-id="<%= address._id %>">
+    
+                                                                    <button type="button" class="btn btn-sm border mb-1 delete-address-btn" data-address-id="<%= address._id %>">
                                                                         <i class="fas fa-trash text-danger"></i> 
                                                                     </button>
                                                                 </div>
-                                                            </div>
-                                                            <% }) %>
-                                                        </div>
-                                                    
-                                                    </div>
 
-                                                    <!-- Modal for add address -->
-                                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
+
+                                                            </div>
+                                                        </div>
+                                                        <% }) %>
+                                                    </div>
+                                                    
+                                                </div>
+
+                                                <!-- Modal for add address -->
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
                                                                 <h5 class="modal-title">New Address</h5>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form id="addressForm" class="row g-3 needs-validation" onsubmit="return addressSubmission(event)" novalidate>
-                                                                        <div class="col-12 p-2">
-                                                                            <label for="name" class="form-label">Name</label>
-                                                                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                                                                        
-                                                                        </div>
-                                                                        <div class="col-12 p-2">
-                                                                            <label for="address" class="form-label">Address</label>
-                                                                            <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
-                                                                          
-                                                                        </div>
-                                                                        <div class="col-md-6 p-2">
-                                                                            <label for="district" class="form-label">District</label>
-                                                                            <input type="text" name="district" class="form-control" id="district" placeholder="Town or city" required>
-                                                                          
-                                                                        </div>
-                                                                        <div class="col-md-6 p-2">
-                                                                            <label for="state" class="form-label">State</label>
-                                                                            <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required>
-                                                                        
-                                                                        </div>
-                                                                        <div class="col-md-6 p-2">
-                                                                            <label for="zip" class="form-label">Zip</label>
-                                                                            <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip/Postal" required>
-                                                                            
-                                                                        </div>
-                                                                        <div class="col-md-6 p-2">
-                                                                            <label for="phone" class="form-label">Phone Number</label>
-                                                                            <input type="tel" name="phone" class="form-control" id="phone" placeholder="Your Phone" required>
-                                                                           
-                                                                        </div>
-                                                                        <div class="col-12 p-2">
-                                                                            <label for="email" class="form-label">Email Address</label>
-                                                                            <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
-                                                                           
-                                                                        </div>
-
-                                                                        <div class="col-12 pt-3">
-                                                                            <button id="submitAddressBtn" type="submit"  class="btn btn-primary">Submit</button>
-                                                                        </div>
-                                                                    </form>
-                                                                    
-                                                                </div>
-
                                                             </div>
+                                                            <div class="modal-body">
+                                                                <form id="addressForm" class="row g-3 needs-validation" onsubmit="return addressSubmission(event)" novalidate>
+                                                                    <div class="col-12 p-2">
+                                                                        <label for="name" class="form-label">Name</label>
+                                                                        <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                                                    </div>
+                                                                    <div class="col-12 p-2">
+                                                                        <label for="address" class="form-label">Address</label>
+                                                                        <input type="text" name="address" class="form-control" id="address" placeholder="Enter your address" required>
+                                                                          
+                                                                    </div>
+                                                                    <div class="col-md-6 p-2">
+                                                                        <label for="district" class="form-label">District</label>
+                                                                        <input type="text" name="district" class="form-control" id="district" placeholder="Town or city" required>
+                                                                          
+                                                                    </div>
+                                                                    <div class="col-md-6 p-2">
+                                                                        <label for="state" class="form-label">State</label>
+                                                                        <input type="text" name="state" class="form-control" id="state" placeholder="Enter your state" required>
+                                                                        
+                                                                    </div>
+                                                                    <div class="col-md-6 p-2">
+                                                                        <label for="zip" class="form-label">Zip</label>
+                                                                        <input type="text" name="zip" class="form-control" id="zip" placeholder="Zip/Postal" required>
+                                                                            
+                                                                    </div>
+                                                                    <div class="col-md-6 p-2">
+                                                                        <label for="phone" class="form-label">Phone Number</label>
+                                                                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Your Phone" required>
+                                                                           
+                                                                    </div>
+                                                                    <div class="col-12 p-2">
+                                                                        <label for="email" class="form-label">Email Address</label>
+                                                                        <input type="email" name="email" class="form-control" id="email" placeholder="Your Email" required>
+                                                                           
+                                                                    </div>
+
+                                                                    <div class="col-12 pt-3">
+                                                                        <button id="submitAddressBtn" type="submit"  class="btn btn-primary">Submit</button>
+                                                                    </div>
+                                                                </form>
+                                                                    
+                                                            </div>
+
                                                         </div>
                                                     </div>
-                                                    <!-- address modal ends here -->
+                                                </div>
+                                                <!-- address modal ends here -->
 
-                                                    <!-- modal for edit address starts here -->
-                                                    <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form id="editAddressForm" class="row g-3" novalidate>
-                                                                        <div class="col-12 p-2">
-                                                                            <label for="editName" class="form-label">Name</label>
-                                                                            <input type="text" name="name" class="form-control" id="nameEdit" placeholder="Your Name" required>
+                                                <!-- modal for edit address starts here -->
+                                                <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="editAddressModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="editAddressModalLabel">Edit Address</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            
+                                                            <div class="modal-body">
+                                                                <form id="editAddressForm" class="row g-3" novalidate>
+                                                                    <div class="col-12 p-2">
+                                                                        <label for="editName" class="form-label">Name</label>
+                                                                        <input type="text" name="name" class="form-control" id="nameEdit" placeholder="Your Name" required>
                                                                            
-                                                                        </div>
-                                                                        <div class="col-12 p-2">
-                                                                            <label for="editAddress" class="form-label">Address</label>
-                                                                            <input type="text" name="address" class="form-control" id="addressEdit" placeholder="Enter your address" required>
+                                                                    </div>
+                                                                    <div class="col-12 p-2">
+                                                                        <label for="editAddress" class="form-label">Address</label>
+                                                                        <input type="text" name="address" class="form-control" id="addressEdit" placeholder="Enter your address" required>
                                                                             
-                                                                        </div>
-                                                                        <div class="col-md-6 p-2">
-                                                                            <label for="editDistrict" class="form-label">District</label>
-                                                                            <input type="text" name="district" class="form-control" id="districtEdit" placeholder="Town or city" required>
+                                                                    </div>
+                                                                    <div class="col-md-6 p-2">
+                                                                        <label for="editDistrict" class="form-label">District</label>
+                                                                        <input type="text" name="district" class="form-control" id="districtEdit" placeholder="Town or city" required>
                                                                             
-                                                                        </div>
-                                                                        <div class="col-md-6 p-2">
-                                                                            <label for="editState" class="form-label">State</label>
-                                                                            <input type="text" name="state" class="form-control" id="stateEdit" placeholder="Enter your state" required>
+                                                                    </div>
+                                                                    <div class="col-md-6 p-2">
+                                                                        <label for="editState" class="form-label">State</label>
+                                                                        <input type="text" name="state" class="form-control" id="stateEdit" placeholder="Enter your state" required>
                                                                            
-                                                                        </div>
-                                                                        <div class="col-md-6 p-2">
-                                                                            <label for="editZip" class="form-label">Zip</label>
-                                                                            <input type="text" name="zip" class="form-control" id="zipEdit" placeholder="Zip/Postal" required>
-                                                                            
-                                                                        </div>
-                                                                        <div class="col-md-6 p-2">
-                                                                            <label for="editPhone" class="form-label">Phone Number</label>
-                                                                            <input type="number" name="phone" class="form-control" id="phoneEdit" placeholder="Your Phone" required>
-                                                                            
-                                                                        </div>
-                                                                        <div class="col-12 p-2">
-                                                                            <label for="editEmail" class="form-label">Email Address</label>
-                                                                            <input type="email" name="email" class="form-control" id="emailEdit" placeholder="Your Email" required>
-                                                                            
-                                                                        </div>
+                                                                    </div>
 
-                                                                        <div class="col-12 pt-3">
-                                                                            <button type="button" id="updateAddressBtn" class="btn btn-primary">Submit</button>
-                                                                        </div>
-                                                                    </form>
+                                                                    <div class="col-md-6 p-2">
+                                                                        <label for="editZip" class="form-label">Zip</label>
+                                                                        <input type="text" name="zip" class="form-control" id="zipEdit" placeholder="Zip/Postal" required>
+                                                                            
+                                                                    </div>
+                                                                    <div class="col-md-6 p-2">
+                                                                        <label for="editPhone" class="form-label">Phone Number</label>
+                                                                        <input type="number" name="phone" class="form-control" id="phoneEdit" placeholder="Your Phone" required>
+                                                                            
+                                                                    </div>
+                                                                    <div class="col-12 p-2">
+                                                                        <label for="editEmail" class="form-label">Email Address</label>
+                                                                        <input type="email" name="email" class="form-control" id="emailEdit" placeholder="Your Email" required>
+                                                                    </div>
+
+                                                                    <div class="col-12 pt-3">
+                                                                        <button type="button" id="updateAddressBtn" class="btn btn-primary">Submit</button>
+                                                                    </div>
+                                                                </form>
                                                                     
-                                                                </div>
+                                                            </div>
 
                                                             </div>
                                                         </div>
@@ -481,130 +603,15 @@
                                                 </div>
                                             </div>
                                             
-
-                                                <div class="tab-pane fade scrollable" id="orders" role="tabpanel" aria-labelledby="orders-tab">
-                                                    <div class="myaccount-content">
-                                                        <h3>Orders</h3>
-                                                        
-                                                        <% if (user.orders.length > 0) { %>
-                                                        <% cart.forEach((prod) => { %>
-                                                        <div class="myaccount-table table-responsive text-center">
-                                                            <!-- ORDER HISTORY TABLE STARTS ----------------------------------------------------------------------->  
-                                                            <div class="d-flex py-2 mb-2 align-items-center rounded " style="border: 2px solid rgb(224, 222, 222); background-color: #eeeeee;">
-
-                                                                <div class="product col-4">
-                                                                    <img src="<%= prod.images[0] %>" alt="" width="150px">
-                                                                    <div class="mt-2">
-                                                                        <% if (prod.orderStatus !== 'Requested for Cancellation' && prod.orderStatus !== 'Cancelled' && prod.orderStatus !== 'Delivered' && prod.orderStatus !== "Requested for Refund" && prod.orderStatus !== "Refund Processed") { %>
-                                                                            <button class="rounded" onclick="openCancelModal('<%= prod.orderId %>', '<%= prod._id %>')" >Cancel Order</button>
-                                                                        <% } else if( prod.orderStatus === 'Delivered' && prod.differenceInDays <= 7 ) { %>
-                                                                            <button class="rounded" onclick="openReturnModal('<%= prod.orderId %>', '<%= prod._id %>')">Return</button>
-                                                                        <% } else if( prod.orderStatus === "Refund Processed" || prod.orderStatus === "Requested for Refund") { %>
-                                                                            <button class="rounded" onclick="openReturnModal('<%= prod.orderId %>', '<%= prod._id %>')" disabled>Return</button>
-                                                                        <% } else { %>
-                                                                            <button class="rounded" disabled>Cancel Order</button>
-                                                                        <% } %>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="d-grid text-start">
-                                                                    <h6><%= prod.name %></h6>
-                                                                    <p class="m-0"><small>Color: <%= prod.color %> & Price:  <%= prod.price %></small></p>
-                                                                    <p class="m-0"><small>Size: <%= prod.size %> & Quantity: <%= prod.quantity %></small></p>
-                                                                    <p class="m-0"><small>Seller: <%= prod.vendor.vendorName %></small></p>
-                                                                    <p class="m-0"><small>Expected Delivery: <%= prod.expectedDeliveryDate %></small></p>
-                                                                    <p class="m-0"><small>Order Status :</small><small class="<%= prod.orderStatus === 'Delivered' ? 'text-success' : prod.orderStatus === 'Cancelled' ? 'text-danger' : 'text-warning' %>"> <%= prod.orderStatus %></small></p>
-                                                                    <p class="m-0"><small>Delivery Address: <%= prod.shippingAddress.name %>,<br><%= prod.shippingAddress.address %>,<%= prod.shippingAddress.district %>, <%= prod.shippingAddress.zip %>,<br><%= prod.shippingAddress.state %>,<%= prod.shippingAddress.phone %></small></p>
-                                                                </div>
-                                                            </div>
-                                                                
-                                                            <!-- MODAL FOR ORDER CANCELLATION -->
-                                                            <div class="modal fade" id="cancelModal_<%= prod._id %>" tabindex="-1" aria-labelledby="cancelModalLabel_<%= prod._id %>" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="cancelModalLabel_<%= prod._id %>">Cancel Order</h5>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                            
-                                                                        <div class="modal-body">
-                                                                            <form id="cancelOrderForm_<%= prod._id %>" onsubmit="submitCancellation(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>')">
-                                                                                <div class="mb-3">
-                                                                                    <label for="cancelReason_<%= prod._id %>" class="form-label">Cancellation Reason</label>
-                                                                                    <textarea class="form-control" id="cancelReason_<%= prod._id %>" name="cancelReason" rows="3" required></textarea>
-                                                                                </div>
-                                                                                <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
-                                                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                                            </form>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="modal fade" id="returnlModal_<%= prod._id %>" tabindex="-1" aria-labelledby="returnModalLabel_<%= prod._id %>" aria-hidden="true">
-                                                                <div class="modal-dialog modal-dialog-centered">
-                                                                    <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                            <h5 class="modal-title" id="returnModalLabel_<%= prod._id %>">Return Product</h5>
-                                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                                        </div>
-                                                                       
-                                                                        <div class="modal-body">
-                                                                            <form id="returnOrderForm_<%= prod._id %>" onsubmit="submitReturn(event, $('#orderIdInput_<%= prod._id %>').val(), '<%= prod._id %>',)">
-                                                                                <div class="mb-3">
-                                                                                    <label for="cancelReason_<%= prod._id %>" class="form-label pt-10">Return Reason</label>
-                                                                                    <textarea class="form-control" id="returnReason_<%= prod._id %>" name="returnReason" rows="3" required></textarea>
-                                                                                </div>
-                                                                                <input type="hidden" id="orderIdInput_<%= prod._id %>" value="<%= prod.orderId %>">
-                                                                                <div>
-                                                                                    <h6>Refund</h6>
-                                                                                    <% if (prod.paymentMethod === 'RazorPay') { %>
-                                                                                        <input type="radio" id="originalPayment" name="paymentOption" value="Original Payment Method" checked>
-                                                                                        <label for="originalPayment">Original Payment method</label>
-                                                                                        <p>or</p>
-                                                                                    <% } %>
-
-                                                                                    <input type="radio" id="option1" name="paymentOption" value="Add Bank Account Details">
-                                                                                    <label for="option1">Add Bank Account Details</label>
-
-                                                                                    <div class="bankDetails">
-                                                                                        <label for="bankName">Bank Name:</label>
-                                                                                        <input type="text" id="bankName" name="bankName" placeholder="Enter Bank Name" required>
-                                                                                        <label for="accountHolderName">Account Holder Name:</label>
-                                                                                        <input type="text" id="accountHolderName" name="accountHolderName" placeholder="Enter Account Holder Name" required>
-                                                                                        <label for="accountNumber">Account Number:</label>
-                                                                                        <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter Account Number" required>
-                                                                                        <label for="ifsc">IFSC:</label>
-                                                                                        <input type="text" id="ifsc" name="ifsc" placeholder="Enter IFSC Code" required>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                                
-                                                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                                                            </form>
-                                                                           
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                        <% }) %>
-                                                        <% } else { %>
-                                                        <p>No orders found.</p>
-                                                        <% } %>
-                                                    </div>    
-                                                </div>
-
-                                            <!-- ORDER HISTORY TABLE ENDS --> 
                                         </div>   
                                     </div>
-                                </div>
+                                
                             </div>
                         
                         </div>
                     </div>
-                </div>    
+                </div>  
+            </div>      
         </section>
         <!--== End My Account Wrapper ==-->
     </main>
@@ -1155,14 +1162,6 @@
 <!-- Toastify JS -->
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-
-  
-
-  
-
-<!--=======================Javascript============================-->
-
-
  <!-- JS here -->
  <script src="js/vendor/jquery-1.12.4.min.js"></script>
  <script src="js/popper.min.js"></script>
@@ -1175,7 +1174,6 @@
  <script src="js/ajax-form.js"></script>
  <script src="js/fontawesome.min.js"></script>
  <script src="js/wow.min.js"></script>
- <script src="js/jquery-ui.js"></script>
  <script src="js/jquery.scrollUp.min.js"></script>
  <script src="js/imagesloaded.pkgd.min.js"></script>
  <script src="js/jquery.magnific-popup.min.js"></script>
@@ -1183,34 +1181,7 @@
  <script src="js/main.js"></script>
 
 
-<!-- -------------------------------------------------------- -->
-
-<!--=== jQuery Modernizr Min Js ===-->
-<script src="assets/js/modernizr.js"></script>
-<!--=== jQuery Min Js ===-->
-<script src="assets/js/jquery-main.js"></script>
-<!--=== jQuery Migration Min Js ===-->
-<script src="assets/js/jquery-migrate.js"></script>
-<!--=== jQuery Popper Min Js ===-->
-<script src="assets/js/popper.min.js"></script>
-<!--=== jQuery Bootstrap Min Js ===-->
-<script src="assets/js/bootstrap.min.js"></script>
-<!--=== jQuery Swiper Min Js ===-->
-<script src="assets/js/swiper.min.js"></script>
-<!--=== jQuery Fancybox Min Js ===-->
-<script src="assets/js/fancybox.min.js"></script>
-<!--=== jQuery Countdown Min Js ===-->
-<script src="assets/js/countdown.js"></script>
-<!--=== jQuery Isotope Min Js ===-->
-<script src="assets/js/isotope.pkgd.min.js"></script>
-<!--=== jQuery Range Slider Min Js ===-->
-<script src="assets/js/ion.rangeSlider.min.js"></script>
-
-<!--=== jQuery Custom Js ===-->
-<script src="assets/js/custom.js"></script>
-
 </body>
 
 
-<!-- Mirrored from htmldemo.net/tuime/tuime/account.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 10 Feb 2024 04:43:25 GMT -->
 </html>

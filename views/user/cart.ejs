@@ -39,33 +39,25 @@
     <style>
       .incrementButton {
         border: 0.5px solid rgb(162, 162, 162);
-        border-radius: 10px;
         margin-top: 0.4rem;
       }
       .decrementButton {
         border: 0.5px solid rgb(162, 162, 162);
-        border-radius: 10px;
         margin-top: 0.4rem;
       }
     </style>
   </head>
 
   <body>
-    <!--[if lte IE 9]>
-      <p class="browserupgrade">
-        You are using an <strong>outdated</strong> browser. Please
-        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
-        your experience and security.
-      </p>
-    <![endif]-->
-
     <!-- preloader -->
     <div id="loader-wrapper">
       <div id="loader"></div>
     </div>
 
     <!-- header section start -->
-    <header class="header header-2 pt-30 pb-30 header-sticky header-static bg-white ">
+    <header
+      class="header header-2 pt-30 pb-30 header-sticky header-static bg-white"
+    >
       <div class="container-fluid">
         <div class="header-nav position-relative">
           <div class="row align-items-center">
@@ -107,41 +99,41 @@
               <div class="header-right">
                 <ul class="text-right">
                   <% if(!user){ %>
-                    <li>
-                      <a href="/login" class="account"
-                        ><i class="fal fa-user-friends"></i>
-                        <article class="account-registar d-inline-block">
-                          Login
-                        </article></a
-                      >
-                    </li>
-                    <% } %>
-  
-                    <li>
-                      <a href="/wishlist"
-                        ><i class="fal fa-heart active"
-                          ><span><%= wishlistProducts?.length %></span></i
-                        ></a
-                      >
-                    </li>
-                    <li>
-                      <a href="/cart"
-                        ><i class="fal fa-shopping-bag"
-                          ><span><%= user?.cart.products.length %></span></i
-                        ></a
-                      >
-                    </li>
-                    <li>
-                      <a><i class="fal fa-align-right"></i></a>
-                      <ul class="submenu bold-content text-right">
-                        <li><a href="/userProfile">My Account</a></li>
-                        <li><a href="/wishlist">Wishlist</a></li>
-                        <li><a href="/cart">Cart</a></li>
-                        <% if(user){ %>
-                        <li><a href="/user/logout">Logout</a></li>
-                        <% } %>
-                      </ul>
-                    </li>
+                  <li>
+                    <a href="/login" class="account"
+                      ><i class="fal fa-user-friends"></i>
+                      <article class="account-registar d-inline-block">
+                        Login
+                      </article></a
+                    >
+                  </li>
+                  <% } %>
+
+                  <li>
+                    <a href="/wishlist"
+                      ><i class="fal fa-heart active"
+                        ><span><%= wishlistProducts?.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a href="/cart"
+                      ><i class="fal fa-shopping-bag"
+                        ><span><%= user?.cart.products.length %></span></i
+                      ></a
+                    >
+                  </li>
+                  <li>
+                    <a><i class="fal fa-align-right"></i></a>
+                    <ul class="submenu bold-content text-right">
+                      <li><a href="/userProfile">My Account</a></li>
+                      <li><a href="/wishlist">Wishlist</a></li>
+                      <li><a href="/cart">Cart</a></li>
+                      <% if(user){ %>
+                      <li><a href="/user/logout">Logout</a></li>
+                      <% } %>
+                    </ul>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -150,11 +142,10 @@
         <div class="mobile-menu visible-sm">
           <div id="mobile-menu">
             <ul>
-              <li><a class="pl-3" href="javascript:void(0)">Home</a></li>
-              <li><a class="pl-3" href="javascript:void(0)">Shop</a></li>
-              <li><a href="javascript:void(0)">Blog</a></li>
-              <li><a href="javascript:void(0)">About</a></li>
-              <li><a href="contact.html">Contact</a></li>
+              <li><a class="pl-3" href="/home">Home</a></li>
+              <li><a class="/shop">Shop</a></li>
+              <li><a href="">Portfolio</a></li>
+              <li><a href="">Contact</a></li>
             </ul>
           </div>
         </div>
@@ -164,160 +155,156 @@
     <!-- header section end -->
 
     <!-- shop body section start -->
-    <section class="cart-body mb-90 gray-border-top pt-35">
-      <div class="has-breadcrumb-content">
-        <div class="container container-1430">
-          <div class="breadcrumb-content" style="flex-direction: column">
-            <nav aria-label="breadcrumb"></nav>
-          </div>
+    <section class="cart-area pt-50 pb-50">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-10">
+            <form action="#">
+              <div class="table-content table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="product-thumbnail">Image</th>
+                      <th class="cart-product-name">Product</th>
+                      <th class="product-price">Price</th>
+                      <th class="product-quantity">Quantity</th>
+                      <th class="total">Total</th>
+                      <th class="product-remove">Remove</th>
+                    </tr>
+                  </thead>
+                  <% cart.forEach(prod => { %>
+                  <tbody>
+                    <tr id="productRow-<%= prod._id %>">
+                      <td>
+                        <div class="table-data">
+                          <img src="<%= prod.images[0] %>" width="80" alt="" />
+                        </div>
+                      </td>
 
-          <div class="cart-body-content mt-5">
-            <div class="row">
-              <div class="col-xl-8">
-                <div class="product-content">
-                  <form action="#">
-                    <div class="table-responsive">
-                      <table class="table table-2">
-                        <thead>
-                          <tr>
-                            <th class="remove-porduct"></th>
-                            <th class="product-image"></th>
-                            <th class="product-title">Product</th>
-                            <th>Price</th>
-                            <th class="quantity">Quantity</th>
-                            <th class="total">Total</th>
-                          </tr>
-                        </thead>
-                        <% cart.forEach(prod => { %>
-                        <tbody>
-                          <tr id="productRow-<%= prod._id %>">
-                            <td class="">
-                              <div class="table-data">
-                                <button
-                                  class="close-btn"
-                                  onclick="removeProduct(event,'<%= prod._id %>')"
-                                >
-                                  <i class="fal fa-times"></i>
-                                </button>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="table-data">
-                                <img
-                                  src="<%= prod.images[0] %>"
-                                  width="80"
-                                  alt=""
-                                />
-                              </div>
-                            </td>
-                            <td>
-                              <div class="table-data">
-                                <h6>
-                                  <a href="" class="title"><%= prod.name %></a>
-                                </h6>
-                              </div>
-                              <% if(prod.productQTY <= 0) { %>
-                              <small class="text-danger">Out of stock</small>
-                              <% } %>
-                            </td>
-                            <td>
-                              <div class="table-data">
-                                <span class="price"><%= prod.price %></span>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex">
-                                <div>
-                                  <button
-                                    onclick="quantityMinus(event,'<%= prod._id %>','<%= prod.price %>')"
-                                    id="buttonCartQTY<%= prod._id %>"
-                                    class="decrementButton"
-                                    data-product-id="<%= prod._id %>"
-                                  >
-                                    -
-                                  </button>
-                                </div>
+                      <td>
+                        <div class="table-data">
+                          <h6>
+                            <a href="" class="title"><%= prod.name %></a>
+                          </h6>
+                        </div>
+                        <% if(prod.productQTY <= 0) { %>
+                        <small class="text-danger">Out of stock</small>
+                        <% } %>
+                      </td>
 
-                                <div
-                                  id="quantityArea<%= prod._id %>"
-                                  class="d-flex justify-content-center"
-                                >
-                                  <input
-                                    class="mx-1"
-                                    id="quantityAre<%= prod._id %>"
-                                    type="number"
-                                    disabled
-                                    min="1"
-                                    value="<%= prod.quantity %>"
-                                    style="width: 3rem; height: 2.4rem"
-                                    data-product-id="<%= prod.productId %>"
-                                  />
-                                </div>
+                      <td>
+                        <div class="table-data">
+                          <span class="price"><%= prod.price %></span>
+                        </div>
+                      </td>
 
-                                <div>
-                                  <button
-                                    onclick="quantityPlus(event,'<%= prod._id %>','<%= prod.price %>')"
-                                    id="buttonCartQTY<%= prod._id %>"
-                                    class="incrementButton"
-                                    data-product-id="<%= prod._id %>"
-                                  >
-                                    +
-                                  </button>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="table-data">
-                                <span class="total" id="total-<%= prod._id %>"
-                                  ><%= prod.price * prod.quantity %></span
-                                >
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                        <% }) %>
-                      </table>
-                    </div>
-                  </form>
-                </div>
+                      <td>
+                        <div class="d-flex justify-content-center">
+                          <div>
+                            <button
+                              onclick="quantityMinus(event,'<%= prod._id %>','<%= prod.price %>')"
+                              id="buttonCartQTY<%= prod._id %>"
+                              class="decrementButton"
+                              data-product-id="<%= prod._id %>"
+                            >
+                              -
+                            </button>
+                          </div>
+
+                          <div
+                            id="quantityArea<%= prod._id %>"
+                            class="d-flex justify-content-center"
+                          >
+                            <input
+                              class="mx-1 text-center"
+                              id="quantityAre<%= prod._id %>"
+                              type="number"
+                              disabled
+                              min="1"
+                              value="<%= prod.quantity %>"
+                              style="width: 3rem; height: 2.4rem"
+                              data-product-id="<%= prod.productId %>"
+                            />
+                          </div>
+
+                          <div>
+                            <button
+                              onclick="quantityPlus(event,'<%= prod._id %>','<%= prod.price %>')"
+                              id="buttonCartQTY<%= prod._id %>"
+                              class="incrementButton"
+                              data-product-id="<%= prod._id %>"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td>
+                        <div class="table-data">
+                          <span class="total" id="total-<%= prod._id %>"
+                            ><%= prod.price * prod.quantity %></span
+                          >
+                        </div>
+                      </td>
+
+                      <td class="">
+                        <div class="table-data">
+                          <button
+                            class="close-btn"
+                            onclick="removeProduct(event,'<%= prod._id %>')"
+                          >
+                            <i class="fal fa-times"></i>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <% }) %>
+                </table>
               </div>
-              <input
-                type="hidden"
-                id="cartData"
-                value="<%= JSON.stringify(cart) %>"
-              />
-              <div class="col-xl-4">
-                <div class="cart-widget">
-                  <h4 class="title">Cart Totals</h4>
-                  <table class="table table-2 no-border">
-                    <tbody>
-                      <tr>
-                        <th>Subtotal</th>
-                        <td id="subtotal"><%= subtotal %></td>
-                      </tr>
-                      <tr>
-                        <th>Delivery Charge :</th>
-                        <td><%= deliveryCharge %></td>
-                      </tr>
-                      <tr>
-                        <th>Total</th>
-                        <td id="total"><%= subtotal %></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <a
-                    href="/checkout"
-                    id="checkoutLink"
-                    class="mt-40 generic-btn red-hover-btn w-100 d-block"
-                    style="height: 50px"
-                    >Procced to checkout</a
-                  >
-                </div>
-                <!-- /. cart widget -->
+            </form>
+          </div>
+          <input
+            type="hidden"
+            id="cartData"
+            value="<%= JSON.stringify(cart) %>"
+          />
+        </div>
+        <!-- .. -->
+        <div class="container" style="padding: 0rem 5rem;">
+          <div class="row col-xl-12 justify-content-end ">
+            
+            <div class="col-xl-4  col-lg-8 col-md-10 col-sm-12">
+              <div class="cart-widget">
+                <h4 class="title">Cart Totals</h4>
+                <table class="table table-2 no-border">
+                  <tbody>
+                    <tr>
+                      <th>Subtotal</th>
+                      <td id="subtotal"><%= subtotal %></td>
+                    </tr>
+                    <tr>
+                      <th>Delivery Charge :</th>
+                      <td><%= deliveryCharge %></td>
+                    </tr>
+                    <tr>
+                      <th>Total</th>
+                      <td id="total"><%= subtotal %></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a
+                  href="/checkout"
+                  id="checkoutLink"
+                  class="mt-3 generic-btn red-hover-btn d-block"
+                  >Proceed to Checkout</a
+                >
               </div>
             </div>
           </div>
         </div>
+    
       </div>
     </section>
     <!-- shop body section end -->

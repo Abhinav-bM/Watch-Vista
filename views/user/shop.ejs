@@ -97,9 +97,11 @@
       }
     }
 
-    /* search  */
-    #searchIconDiv {
-      display: none;
+    @media (max-width: 767px) {
+      /* Hide on screens smaller than 767px */
+      .hide-on-small {
+        display: none;
+      }
     }
   </style>
   <body>
@@ -116,7 +118,7 @@
       <div class="container-fluid">
         <div class="header-nav position-relative">
           <div class="row align-items-center">
-            <div class="col-xl-5 col-lg-6 hidden-md position-static">
+            <div class="col-xl-5 col-lg-5 hidden-md position-static">
               <div class="header-nav">
                 <nav>
                   <ul>
@@ -141,29 +143,30 @@
                 </nav>
               </div>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-3">
+            <div class="col-xl-2 col-lg-2 col-md-4 col-sm-4 col-3">
               <div class="logo">
                 <a href="/"><img src="/img/logo/logo1.png" alt="" /></a>
               </div>
             </div>
 
-            <div class="col-xl-4 col-lg-3 col-6 col-md-6 col-sm-6 col-9">
+            <div class="col-xl-5 col-lg-5 col-md-8 col-sm-8 col-9">
               <div class="header-right">
                 <ul class="text-right">
                   <li style="display: flex; align-items: center">
                     <div
                       id="searchContainer"
                       style="display: flex; align-items: center"
+                      class="col-md-1 p-0"
                     >
                       <!-- Search Input and Button for larger screens -->
-                      <div id="searchLargeScreen" style="display: none">
+                      <div id="searchLargeScreen" class="d-none d-md-flex">
                         <input
                           type="text"
                           name="search"
                           id="searchInput"
                           placeholder="Search..."
                           style="
-                            padding: 5px;
+                            padding: 1px;
                             border-radius: 5px;
                             border: 1px solid #ccc;
                             margin-right: 1px;
@@ -171,6 +174,36 @@
                         />
                         <button
                           id="searchButton"
+                          style="
+                            padding: 4px 4px 2px 1px;
+                            border: none;
+                            border-radius: 5px;
+                            background-color: #353636;
+                            color: #fff;
+                            cursor: pointer;
+                          "
+                        >
+                          <i class="fal fa-search"></i>
+                        </button>
+                      </div>
+
+                      <!-- Small Search Input and Button for smaller screens -->
+                      <div id="searchSmallScreen" class="d-flex d-md-none">
+                        <input
+                          type="text"
+                          name="search"
+                          id="searchInput1"
+                          placeholder="Search..."
+                          style="
+                            padding: 5px;
+                            border-radius: 5px;
+                            border: 1px solid #ccc;
+                            margin-right: 1px;
+                            width: 100px; /* Adjust as needed */
+                          "
+                        />
+                        <button
+                          id="searchButtonSmall"
                           style="
                             padding: 5px 6px 5px 3px;
                             border: none;
@@ -183,26 +216,10 @@
                           <i class="fal fa-search"></i>
                         </button>
                       </div>
-                      <!-- Search Icon for smaller screens -->
-                      <div id="searchIconSmallScreen">
-                        <button
-                          id="searchIcon"
-                          style="
-                            border: none;
-                            background-color: transparent;
-                            cursor: pointer;
-                          "
-                        >
-                          <i
-                            class="fal fa-search"
-                            style="font-size: 1.2rem"
-                          ></i>
-                        </button>
-                      </div>
                     </div>
                   </li>
                   <% if(!user){ %>
-                  <li>
+                  <li class="hide-on-small">
                     <a href="/login" class="account"
                       ><i class="fal fa-user-friends"></i>
                       <article class="account-registar d-inline-block">
@@ -212,14 +229,14 @@
                   </li>
                   <% } %>
 
-                  <li>
+                  <li class="hide-on-small">
                     <a href="/wishlist"
                       ><i class="fal fa-heart"
                         ><span><%= wishlistProducts?.length %></span></i
                       ></a
                     >
                   </li>
-                  <li>
+                  <li class="hide-on-small">
                     <a href="/cart"
                       ><i class="fal fa-shopping-bag"
                         ><span><%= user?.cart.products.length %></span></i
@@ -232,7 +249,9 @@
                       <li><a href="/userProfile">My Account</a></li>
                       <li><a href="/wishlist">Wishlist</a></li>
                       <li><a href="/cart">Cart</a></li>
-                      <% if(user){ %>
+                      <% if(!user){ %>
+                      <li><a href="/login">Login</a></li>
+                      <% } %> <% if(user){ %>
                       <li><a href="/user/logout">Logout</a></li>
                       <% } %>
                     </ul>
@@ -260,10 +279,7 @@
     <div class="shop-body">
       <div class="container-fluid">
         <nav aria-label="breadcrumb" class="mb-40">
-          <ol class="breadcrumb p-0 m-0">
-            <!-- <li class="breadcrumb-item"><a href="i">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Shop</li> -->
-          </ol>
+          <ol class="breadcrumb p-0 m-0"></ol>
         </nav>
         <div class="shop-wrapper">
           <div class="row">
@@ -311,142 +327,9 @@
                   </div>
                 </div>
               </div>
-              <!-- /. filter heading -->
+
               <div class="filter-content">
                 <div class="tab-content">
-                  <div class="tab-pane fade" id="shop-tab-1">
-                    <div class="product-wrapper mt-55">
-                      <div class="row">
-                        <div class="col-6">
-                          <div class="product-box mb-40">
-                            <div class="product-box-wrapper">
-                              <div class="product-img">
-                                <img
-                                  src="/img/product/5.jpg"
-                                  class="w-100"
-                                  alt=""
-                                />
-                                <a href="/singleProduct" class="d-block">
-                                  <div class="second-img">
-                                    <img
-                                      src="/img/product/5-hover.jpg"
-                                      alt=""
-                                      class="w-100"
-                                    />
-                                  </div>
-                                </a>
-                                <a
-                                  href="javascript:void(0)"
-                                  class="product-img-link quick-view-1 text-capitalize"
-                                  >Quick view</a
-                                >
-                              </div>
-
-                              <div class="product-desc pb-20">
-                                <div class="product-desc-top">
-                                  <div class="categories">
-                                    <a
-                                      href="/singleProduct"
-                                      class="product-category"
-                                      ><span>Men</span></a
-                                    >
-                                  </div>
-                                  <a
-                                    href="/wishlist"
-                                    class="wishlist float-right"
-                                    ><span><i class="fal fa-heart"></i></span
-                                  ></a>
-                                </div>
-                                <a href="/singleProduct" class="product-title"
-                                  >Light green crewnec...</a
-                                >
-                                <div class="price-switcher">
-                                  <span class="price switcher-item"
-                                    >$58.00</span
-                                  >
-                                  <a
-                                    href="cart.html"
-                                    class="add-cart text-capitalize switcher-item"
-                                    >+add to cart</a
-                                  >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="text-center mt-20">
-                        <a href="" class="load-more">...</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="tab-pane fade" id="shop-tab-2">
-                    <div class="product-wrapper mt-55">
-                      <div class="row">
-                        <div class="col-xl-4 col-md-4 col-6">
-                          <div class="product-box mb-40">
-                            <div class="product-box-wrapper">
-                              <div class="product-img">
-                                <img
-                                  src="/img/product/5.jpg"
-                                  class="w-100"
-                                  alt=""
-                                />
-                                <a href="/singleProduct" class="d-block">
-                                  <div class="second-img">
-                                    <img
-                                      src="/img/product/5-hover.jpg"
-                                      alt=""
-                                      class="w-100"
-                                    />
-                                  </div>
-                                </a>
-                                <a
-                                  href="javascript:void(0)"
-                                  class="product-img-link quick-view-1 text-capitalize"
-                                  >Quick view</a
-                                >
-                              </div>
-
-                              <div class="product-desc pb-20">
-                                <div class="product-desc-top">
-                                  <div class="categories">
-                                    <a
-                                      href="shop2.html"
-                                      class="product-category"
-                                      ><span>Woman</span></a
-                                    >
-                                  </div>
-                                  <a
-                                    href="/wishlist"
-                                    class="wishlist float-right"
-                                    ><span><i class="fal fa-heart"></i></span
-                                  ></a>
-                                </div>
-                                <a href="/singleProduct/" class="product-title"
-                                  >Light green crewnec...</a
-                                >
-                                <div class="price-switcher">
-                                  <span class="price switcher-item"
-                                    >$58.00</span
-                                  >
-                                  <a
-                                    href="cart.html"
-                                    class="add-cart text-capitalize switcher-item"
-                                    >+add to cart</a
-                                  >
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="text-center mt-20">
-                        <a href="shop.html" class="load-more">LOAD MORE...</a>
-                      </div>
-                    </div>
-                  </div>
-
                   <div
                     id="productList"
                     data-products="<%- JSON.stringify(products) %>"
@@ -454,9 +337,7 @@
                     <div class="tab-pane fade show active" id="shop-tab-3">
                       <div class="product-wrapper mt-55">
                         <div class="row" id="productDisplay">
-                          <!------------------------------------------------------------------------------------------------------------------------------------------>
-
-                          <!-- Initial product list div -->
+                          <!-- PRODUCT LIST -->
                           <% products.forEach(prod=>{ %> <%
                           prod.products.forEach(product=>{ %>
                           <div
@@ -528,38 +409,15 @@
                             </div>
                           </div>
                           <% }); %> <% }); %>
-                          <!------------------------------------------------------------------------------------------------------------------------------------------>
                         </div>
-                        <div class="text-center mt-20">
-                          <a href="" class="load-more">LOAD MORE...</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="tab-pane fade" id="shop-tab-4">
-                      <div class="product-wrapper mt-55">
-                        <div class="product-box mb-40">
-                          <div class="product-box-wrapper"></div>
-                        </div>
-                        <div class="product-box mb-40">
-                          <div class="product-box-wrapper"></div>
-                        </div>
-                        <div class="product-box mb-40">
-                          <div class="product-box-wrapper"></div>
-                        </div>
-                        <div class="product-box mb-40">
-                          <div class="product-box-wrapper"></div>
-                        </div>
-                        <!-- /. product box -->
-                        <div class="text-center mt-20">
-                          <a href="" class="load-more">LOAD MORE...</a>
+                        <div class="text-center mt-20 mb-20">
+                          ... 
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <!-- /. filter content -->
               </div>
-              <!-- /. shop products -->
             </div>
           </div>
         </div>
@@ -655,7 +513,7 @@
         );
 
         function toggleSearchInput() {
-          if (window.innerWidth >= 768) {
+          if (window.innerWidth >= 700) {
             searchLargeScreen.style.display = "flex";
             searchIconSmallScreen.style.display = "none";
           } else {
@@ -707,25 +565,52 @@
         }
 
         // SEARCH FUNCTION
+        // Function to handle search functionality
+        function handleSearch() {
+          const inputValue = document.getElementById("searchInput").value;
+
+          axios
+            .get(`/products/search/${inputValue}`)
+            .then((response) => {
+              console.log(response);
+              displayProducts(
+                response.data.filteredProducts,
+                response.data.user
+              );
+              document.getElementById("searchInput").value = "";
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+
+        function handleSearch2() {
+          const inputValue = document.getElementById("searchInput1").value;
+
+          axios
+            .get(`/products/search/${inputValue}`)
+            .then((response) => {
+              console.log(response);
+              displayProducts(
+                response.data.filteredProducts,
+                response.data.user
+              );
+              document.getElementById("searchInput").value = "";
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+
+        // Add event listener to the first button
         document
           .getElementById("searchButton")
-          .addEventListener("click", function () {
-            const inputValue = document.getElementById("searchInput").value;
+          .addEventListener("click", handleSearch);
 
-            axios
-              .get(`/products/search/${inputValue}`)
-              .then((response) => {
-                console.log(response);
-                displayProducts(
-                  response.data.filteredProducts,
-                  response.data.user
-                );
-                document.getElementById("searchInput").value = "";
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-          });
+        // Add event listener to the second button
+        document
+          .getElementById("searchButtonSmall")
+          .addEventListener("click", handleSearch2);
 
         // Function to display products on the page
         function displayProducts(products, user) {
