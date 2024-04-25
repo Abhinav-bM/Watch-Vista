@@ -5,6 +5,7 @@ const Vendor = require("../models/vendorsModel");
 const { calculateTotalSales, getOrdersCountForLast10Days, getLatest10Orders } = require("../helpers/adminDashboard");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
+const {getOrdersWithProducts} = require('../helpers/userOrdersAdmin')
 
 
 // ADMIN LOGIN PAGE DISPLAY
@@ -60,6 +61,15 @@ let loginPostPage = async (req, res) => {
 // ADMIN DASHBOARD DISPLAY
 let dashboardPage = async (req, res) => {
   try {
+    getOrdersWithProducts()
+    .then(orders => {
+      console.log('Orders with products:', orders);
+      
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+
     const user = req.user;
     const vendors = await Vendor.find();
     const users = await User.find({}, "orders");
@@ -160,7 +170,7 @@ let categoryList = async (req, res) => {
   try {
     let admin = await Admin.findOne();
     let data = admin.categories;
-    res.render("admin/category-list", { data });
+    res.render("admin/category-list", { data, user:admin });
   } catch (error) {
     console.error(error);
     res.status(404).send("page not found");
@@ -260,6 +270,7 @@ let subcategoryList = async (req, res) => {
     res.render("admin/subcategory-list", {
       subcategories: subcategoriesWithCategories,
       categories,
+      user:admin
     });
   } catch (error) {
     console.error(error);
@@ -375,6 +386,7 @@ let vendorsList = async (req, res) => {
 // LIST PRODUCT PAGE
 let productList = async (req, res) => {
   try {
+    const user = await Admin.findOne()
     const products = await Vendor.aggregate([
       { $unwind: '$products' },
       {
@@ -395,7 +407,7 @@ let productList = async (req, res) => {
         }
       }
     ]);
-    res.status(200).render("admin/product-list", { products });
+    res.status(200).render("admin/product-list", { products, user });
   } catch (error) {
     console.error("vendor product list error", error);
     res.status(404).send("page not found");
@@ -421,9 +433,9 @@ let verifyVendor = async (req, res) => {
 // COUPON LIST GET PAGE
 let couponList = async (req, res) => {
   try {
-    const admin = await Admin.findOne();
+    const admin = await Admin.findOne({});
     const coupons = admin.coupons;
-    res.render("admin/coupons-list", { coupons });
+    res.render("admin/coupons-list", { coupons, user:admin });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -437,7 +449,7 @@ let couponAddGet = async (req, res) => {
       { $unwind: "$categories" },
       { $project: { _id: 0, categoryName: "$categories.categoryName" } },
     ]);
-    res.status(200).render("admin/coupon-add", { categories });
+    res.status(200).render("admin/coupon-add", { categories});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server error" });
@@ -535,7 +547,7 @@ let bannerGetPage = async (req, res)=>{
   try {
     const admin = await Admin.findOne()
     const banner = admin.banner
-    res.status(200).render("admin/banner",{banner})
+    res.status(200).render("admin/banner",{banner, user:admin})
   } catch (error) {
     console.error(error)
     res.status(500).json({error:"internal server error"})
