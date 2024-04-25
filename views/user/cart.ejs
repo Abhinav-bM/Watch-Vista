@@ -45,6 +45,18 @@
         border: 0.5px solid rgb(162, 162, 162);
         margin-top: 0.4rem;
       }
+
+      .empty-cart {
+      
+        text-align: center;
+        height: 12.33rem;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+
     </style>
   </head>
 
@@ -118,6 +130,7 @@
                   </li>
                   <li>
                     <a href="/cart"
+                      class="active"
                       ><i class="fal fa-shopping-bag"
                         ><span><%= user?.cart.products.length %></span></i
                       ></a
@@ -127,8 +140,6 @@
                     <a><i class="fal fa-align-right"></i></a>
                     <ul class="submenu bold-content text-right">
                       <li><a href="/userProfile">My Account</a></li>
-                      <li><a href="/wishlist">Wishlist</a></li>
-                      <li><a href="/cart">Cart</a></li>
                       <% if(user){ %>
                       <li><a href="/user/logout">Logout</a></li>
                       <% } %>
@@ -157,6 +168,7 @@
     <!-- shop body section start -->
     <section class="cart-area pt-50 pb-50">
       <div class="container">
+        <% if(cart.length > 0){ %>
         <div class="row justify-content-center">
           <div class="col-10">
             <form action="#">
@@ -262,7 +274,9 @@
                   </tbody>
                   <% }) %>
                 </table>
+
               </div>
+
             </form>
           </div>
           <input
@@ -306,6 +320,11 @@
             </div>
           </div>
         </div>
+        <% } else { %>
+          <div class="d-flex justify-content-center align-items-center empty-cart">
+            <h1>Your cart is empty !</h1>
+        </div>
+        <% } %>
       </div>
     </section>
     <!-- shop body section end -->

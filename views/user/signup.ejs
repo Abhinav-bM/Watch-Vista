@@ -81,8 +81,9 @@
       <div class="text-center">
         <img src="/img/logo/logo1.png" alt="" style="max-width: 160px" />
       </div>
-
       <form id="signupForm" method="post" class="pt-4 px-3">
+        <p id="alreadyExist" class="text-danger p-2"></p>
+
         <label for="userName">Name <span class="text-danger">**</span></label>
         <small id="name-error" style="color: red; display: none"
           >Invalid Name</small
@@ -176,7 +177,7 @@
               </button>
             </div>
             <div class="modal-body">
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="phoneOtpInput">Phone OTP</label>
                 <input
                   type="text"
@@ -184,7 +185,7 @@
                   id="phoneOtpInput"
                   placeholder="Enter Phone OTP"
                 />
-              </div>
+              </div> -->
               <div class="form-group">
                 <label for="emailOtpInput">Email OTP</label>
                 <input
@@ -216,6 +217,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script>
       // VERIFY OTP
       $(document).on("click", "#verifyOtpBtn", function () {
@@ -226,12 +229,11 @@
         var phoneInput = document.getElementById("phone").value;
         var passwordInput = document.getElementById("pass").value;
 
-        var phoneOtpInput = document.getElementById("phoneOtpInput").value;
         var emailOtpInput = document.getElementById("emailOtpInput").value;
         var otpError = document.getElementById("otp-error");
 
         // Check if OTP fields are not empty
-        if (phoneOtpInput.trim() === "" || emailOtpInput.trim() === "") {
+        if (emailOtpInput.trim() === "") {
           otpError.textContent = "Please enter both OTPs";
           otpError.style.display = "block";
           return;
@@ -244,7 +246,7 @@
           phoneNumber: phoneInput,
           password: passwordInput,
 
-          phoneOtp: phoneOtpInput,
+          // phoneOtp: phoneOtpInput,
           emailOtp: emailOtpInput,
         };
 
@@ -256,6 +258,7 @@
           body: JSON.stringify(formData),
         })
           .then((response) => {
+            console.log("hlfkadsjlfk :", response);
             if (response.ok) {
               return response.json();
             } else {
@@ -269,18 +272,18 @@
               window.location.href = "/";
             } else {
               // OTPs are invalid
-              otpError.textContent = "Invalid OTPs. Please try again.";
-              // otpError.style.display = 'block';
+              otpError.textContent = "Invalid OTP. Please try again.";
             }
           })
           .catch((error) => {
             console.error("Error verifying OTPs:", error);
-            otpError.textContent = "Invalid OTPs. Please try again.";
-            // otpError.style.display = 'block';
+            otpError.textContent = "Invalid OTP. Please try again.";
           });
       });
 
       function validateAndSendOTP() {
+        document.getElementById('alreadyExist').innerHTML = ""
+
         var nameInput = document.getElementById("userName").value;
         var emailInput = document.getElementById("email-id").value;
         var phoneInput = document.getElementById("phone").value;
@@ -322,22 +325,19 @@
         };
 
         // Send data to backend to start OTP verification process
-        fetch("/user/send-otp", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        })
+        axios.post("/user/send-otp",formData)
           .then((response) => {
-            if (response.ok) {
-              // Show the Bootstrap modal
+
               $("#otpModal").modal("show");
-            } else {
-              console.log("Failed to send OTP");
-            }
           })
           .catch((error) => {
+            console.log(";aishf : ",);
+            if(error.response.data.error === "Email already exists."){
+              document.getElementById('alreadyExist').innerHTML = "Email already exists."
+            }
+            if(error.response.data.error === "Phone number already exists."){
+              document.getElementById('alreadyExist').innerHTML = "Phone number already exists."
+            }
             console.error("Error sending OTP:", error);
           });
       }

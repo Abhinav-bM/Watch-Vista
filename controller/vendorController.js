@@ -22,9 +22,8 @@ const Excel = require("exceljs");
 // VENDOR DASHBOARD PAGE DISPLAY
 let dashboard = async (req, res) => {
   try {
-    let email = req.user.email;
-    let vendor = await Vendor.findOne({ email });
-    let vendorId = vendor._id;
+    let vendorId = req.user.id
+    let vendor = await Vendor.findOne({_id:vendorId });
 
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
       "products"
@@ -184,6 +183,8 @@ let vendorLoginPostPage = async (req, res) => {
 // ADD PRODUCT PAGE DISPLAY
 let addProduct = async (req, res) => {
   try {
+    const vendorId = req.user.id
+    const vendor = await Vendor.findOne({_id:vendorId})
     const admin = await Admin.findOne();
     const categories = admin.categories.map((category) => ({
       categoryName: category.categoryName,
@@ -192,7 +193,7 @@ let addProduct = async (req, res) => {
       ),
     }));
 
-    res.status(200).render("vendor/product-add", { categories });
+    res.status(200).render("vendor/product-add", { categories, vendor});
   } catch (error) {
     console.error(error);
     res.status(404).send("page not found");
@@ -257,7 +258,7 @@ let producList = async (req, res) => {
     let _id = req.user.id;
     const vendor = await Vendor.findOne({ _id });
     let products = vendor.products;
-    res.status(200).render("vendor/product-list", { products });
+    res.status(200).render("vendor/product-list", { vendor, products });
   } catch (error) {
     console.error("vendor product list error", error);
     res.status(404).send("page not found");
@@ -289,7 +290,7 @@ let editProduct = async (req, res) => {
         (subcategory) => subcategory.subcategoryName
       ),
     }));
-    res.render("vendor/product-edit", { product, categories });
+    res.render("vendor/product-edit", { product, categories, vendor });
   } catch (error) {
     console.error(error);
     res.status(500).send("failed to get editproduct page");
@@ -450,6 +451,7 @@ let vendorLogout = (req, res) => {
 let getOrdersForVendor = async (req, res) => {
   const vendorId = req.user.id;
   try {
+    const vendor = await Vendor.findOne({_id:vendorId})
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
       "products"
     );
@@ -493,7 +495,7 @@ let getOrdersForVendor = async (req, res) => {
 
     const vendorOrders = vendorOrder1.sort((a,b)=> b.orderDate - a.orderDate)
     console.log("sdfgjdf : ",vendorOrders);
-    res.render("vendor/order-list", { vendorOrders });
+    res.render("vendor/order-list", { vendorOrders,vendor });
 
   } catch (error) {
     console.error(error);
@@ -632,10 +634,11 @@ let returnRepaymentGetPage = async (req, res) => {
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
       "products"
     );
+    const vendor = vendorProducts
     const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
     const orders = vendorOrders(vendorProducts, usersWithOrders);
     const returnOrders = orders.filter((order) => order.returnReason);
-    res.status(200).render("vendor/return-repayment", { returnOrders });
+    res.status(200).render("vendor/return-repayment", { returnOrders, vendor });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

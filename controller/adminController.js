@@ -375,7 +375,26 @@ let vendorsList = async (req, res) => {
 // LIST PRODUCT PAGE
 let productList = async (req, res) => {
   try {
-    let products = await Vendor.find().select("products");
+    const products = await Vendor.aggregate([
+      { $unwind: '$products' },
+      {
+        $project: {
+          _id: '$products._id',
+          productName: '$products.productName',
+          productCategory: '$products.productCategory',
+          productSubCategory: '$products.productSubCategory',
+          productBrand: '$products.productBrand',
+          productColor: '$products.productColor',
+          productSize: '$products.productSize',
+          productQTY: '$products.productQTY',
+          productPrice: '$products.productPrice',
+          productMRP: '$products.productMRP',
+          productDiscount: '$products.productDiscount',
+          productImages: '$products.productImages',
+          productDescription: '$products.productDescription'
+        }
+      }
+    ]);
     res.status(200).render("admin/product-list", { products });
   } catch (error) {
     console.error("vendor product list error", error);

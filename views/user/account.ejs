@@ -186,8 +186,6 @@
                                     <a><i class="fal fa-align-right"></i></a>
                                     <ul class="submenu bold-content text-right">
                                         <li><a href="/userProfile">My Account</a></li>
-                                        <li><a href="/wishlist">Wishlist</a></li>
-                                        <li><a href="/cart">Cart</a></li>
                                         <% if(user){ %>
                                         <li><a href="/user/logout">Logout</a></li>
                                         <% } %>
@@ -326,6 +324,7 @@
                                                             <div class="row p-2">
                                                                 <div class="col-xl-12 text-xl-start col-lg-12 text-lg-start col-md-12 text-md-start col-sm-12 text-sm-start col-12 ">
                                                                     <h6 class=""><%= prod.name %></h6>
+                                                                    <small>Order ID : <%= prod.orderId %></small><br>
                                                                     <small>Color: <%= prod.color %> & Price: <%= prod.price %></small><br>
                                                                     <small>Size: <%= prod.size %> & Quantity: <%= prod.quantity %></small><br>
                                                                     <small>Order Status :</small><small class="<%= prod.orderStatus === 'Delivered' ? 'text-success' : prod.orderStatus === 'Cancelled' ? 'text-danger' : 'text-warning' %>"> <%= prod.orderStatus %></small><br>

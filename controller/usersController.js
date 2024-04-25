@@ -77,20 +77,26 @@ let signupPostPage = async (req, res) => {
       phone = "+91" + phone;
     }
 
+    const existingEmailUser = await User.findOne({ email });
+    if (existingEmailUser) {
+      return res.status(400).json({ error: "Email already exists." });
+    }
+
+    const existingPhoneUser = await User.findOne({ phoneNumber :phone });
+    if (existingPhoneUser) {
+      return res.status(400).json({ error: "Phone number already exists." });
+    }
+
+
     // Generate a random 4-digit OTPs
     const emailOtp = generateOTP();
-    const phoneOtp = generateOTP();
 
     // Send OTP via Email
     const emailMessage = `your otp for verification is ${emailOtp}`;
     sendOtpEmail(email, emailMessage);
 
-    // send OTP via phone
-    smsService.sendOTP(phone, phoneOtp);
-
     console.log("otps send successfully");
-    // Save the OTPs to the session for verification
-    req.session.phoneOtp = phoneOtp;
+  
     req.session.emailOtp = emailOtp;
 
     return res.status(200).json({ message: "OTP sent to phone and email." });
@@ -104,11 +110,11 @@ let signupVerify = async (req, res) => {
   try {
     const { userName, email, phoneNumber, password, phoneOtp, emailOtp } =
       req.body;
-    const sessionPhoneOtp = req.session.phoneOtp;
+    
     const sessionEmailOtp = req.session.emailOtp;
 
-    if (phoneOtp === sessionPhoneOtp && emailOtp === sessionEmailOtp) {
-      // If both OTPs are valid, create and save the new user
+    if ( emailOtp === sessionEmailOtp) {
+  
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = new User({
@@ -495,7 +501,7 @@ let userLogout = async (req, res) => {
     // Clear the JWT cookie
     res.clearCookie("jwt");
 
-    res.redirect("/login");
+    res.redirect("/");
     console.log("User logged out");
   } catch (error) {
     console.error("Error logging out:", error);
@@ -526,7 +532,7 @@ let shopGetPage = async (req, res) => {
 
     // Pagination logic
     // const ITEMS_PER_PAGE = 4;
-    // const page = +req.query.page || 1; 
+    // const page = +req.query.page || 1;
     // const totalProducts = products.length;
     // const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
     // const startIndex = (page - 1) * ITEMS_PER_PAGE;
@@ -1104,6 +1110,10 @@ let checkoutpage = async (req, res) => {
     const user = await User.findById({ _id: userId });
     const addresses = user.addresses;
 
+    if (user.cart.products.length === 0) {
+      return res.redirect("/cart");
+    }
+
     ///////////////////////////////////
     const allProducts = await Vendor.find({}).populate("products");
     let cart = [];
@@ -1373,6 +1383,7 @@ let deleteAddress = async (req, res) => {
 let placeOrderPost = async (req, res) => {
   const { selectedAddressId, paymentMethod, totalPrice } = req.body;
 
+  console.log("dpofdo ", selectedAddressId, paymentMethod);
   try {
     const userId = req.user.id;
 

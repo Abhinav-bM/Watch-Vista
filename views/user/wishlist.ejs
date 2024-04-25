@@ -124,6 +124,7 @@
 
                   <li>
                     <a href="/wishlist"
+                      class="active"
                       ><i class="fal fa-heart active"
                         ><span><%= wishlistProducts?.length %></span></i
                       ></a
@@ -131,7 +132,7 @@
                   </li>
                   <li>
                     <a href="/cart"
-                      ><i class="fal fa-shopping-bag"
+                      ><i class="fal fa-shopping-bag active"
                         ><span><%= user?.cart.products.length %></span></i
                       ></a
                     >
@@ -140,8 +141,7 @@
                     <a><i class="fal fa-align-right"></i></a>
                     <ul class="submenu bold-content text-right">
                       <li><a href="/userProfile">My Account</a></li>
-                      <li><a href="/wishlist">Wishlist</a></li>
-                      <li><a href="/cart">Cart</a></li>
+
                       <% if(user){ %>
                       <li><a href="/user/logout">Logout</a></li>
                       <% } %>

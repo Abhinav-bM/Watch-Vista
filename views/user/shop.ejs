@@ -129,7 +129,7 @@
                     </li>
 
                     <li class="position-static">
-                      <a href="/shop">
+                      <a href="/shop" class="active">
                         <span>Shop</span>
                       </a>
                     </li>
@@ -175,7 +175,7 @@
                         <button
                           id="searchButton"
                           style="
-                            padding: .1rem .3rem .1rem .1rem;
+                            padding: 0.1rem 0.3rem 0.1rem 0.1rem;
                             border: none;
                             border-radius: 2px;
                             background-color: #3e3f3f;
@@ -217,11 +217,7 @@
                     <a><i class="fal fa-align-right"></i></a>
                     <ul class="submenu bold-content text-right">
                       <li><a href="/userProfile">My Account</a></li>
-                      <li><a href="/wishlist">Wishlist</a></li>
-                      <li><a href="/cart">Cart</a></li>
-                      <% if(!user){ %>
-                      <li><a href="/login">Login</a></li>
-                      <% } %> <% if(user){ %>
+                      <% if(user){ %>
                       <li><a href="/user/logout">Logout</a></li>
                       <% } %>
                     </ul>
@@ -231,7 +227,7 @@
             </div>
           </div>
         </div>
-
+        <!-- /. mobile nav -->
         <div class="mobile-menu visible-sm">
           <div id="mobile-menu">
             <ul>
@@ -241,13 +237,12 @@
             </ul>
           </div>
         </div>
-        <!-- /. mobile nav -->
       </div>
     </header>
     <!-- header section end -->
 
     <div class="col-12">
-      <div id="searchSmallScreen" class="d-flex  d-sm-none ">
+      <div id="searchSmallScreen" class="d-flex d-sm-none">
         <input
           type="text"
           class="col-11"
