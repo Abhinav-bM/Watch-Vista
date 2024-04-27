@@ -1,146 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Create an Account</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #fff;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Create an Account</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-color: #fff;
-    }
+      .signup-container {
+        max-width: 400px;
+        width: 100%;
+        padding: 1px;
+      }
 
-    .signup-container {
-      max-width: 400px;
-      width: 100%;
-      padding: 1px;
-      text-align: center;
-    }
+      .logo {
+        max-width: 100px;
+        margin-bottom: 20px;
+      }
 
-    .logo {
-      max-width: 100px;
-      margin-bottom: 20px;
-    }
+      .form-control {
+        border: 2px solid #ced4da;
+        border-radius: 5px;
+        height: 46px;
+      }
 
-    .form-control {
-      border: 2px solid #ced4da;
-      border-radius: 5px;
-      height: 46px;
-    }
+      .btn-primary {
+        background-color: #6610f2;
+        border-color: #6610f2;
+        height: 46px;
+        color: #fff;
+        /* Set text color to white */
+      }
 
-    .btn-primary {
-      background-color: #6610f2;
-      border-color: #6610f2;
-      height: 46px;
-      color: #fff;
-      /* Set text color to white */
-    }
+      .btn-primary:hover {
+        background-color: #000;
+        /* No hover effect */
+        border-color: #000;
+      }
 
-    .btn-primary:hover {
-      background-color: #000;
-      /* No hover effect */
-      border-color: #000;
-    }
+      /* Remove underline from <a> tag */
+      a {
+        text-decoration: none;
+      }
 
-    /* Remove underline from <a> tag */
-    a {
-      text-decoration: none;
-    }
+      a {
+        text-decoration: none;
+        color: #000;
+        /* Set link color to black */
+      }
 
-    a {
-      text-decoration: none;
-      color: #000;
-      /* Set link color to black */
-    }
+      h2 {
+        font-weight: bolder;
+        font-size: 28px;
+      }
 
-    h2 {
-      font-weight: bolder;
-      font-size: 28px;
-    }
-
-    */
+      */
 
     /* Additional style for terms and conditions checkbox */
     .form-check-label {
-      font-size: 14px;
-    }
-  </style>
+        font-size: 14px;
+      }
+    </style>
+  </head>
 
-</head>
+  <body>
+    <div class="signup-container">
+      <!-- <img src="https://see.fontimg.com/api/renderfont4/owrrV/eyJyIjoiZnMiLCJoIjo0MCwidyI6MTI1MCwiZnMiOjMyLCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/TUVHWA/black-romero-demo.png" alt="logo" class="logo"> -->
+      <br />
+      <br />
 
-<body>
+      <h2 class="text-center mb-4">Vendor Register</h2>
 
-  <div class="signup-container">
+      <form
+        action="/vendor/register"
+        method="post"
+        onsubmit="return validateAndSubmit()"
+      >
+        <div class="text-start">
+          <label for="name" class="m-0"
+            ><strong>Name <span class="text-danger">**</span></strong></label
+          ><br />
+          <small id="name-error" style="color: red"></small>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            class="form-control my-2 py-2"
+            placeholder="Enter your name..."
+          />
 
-    <!-- <img src="https://see.fontimg.com/api/renderfont4/owrrV/eyJyIjoiZnMiLCJoIjo0MCwidyI6MTI1MCwiZnMiOjMyLCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/TUVHWA/black-romero-demo.png" alt="logo" class="logo"> -->
-    <br>
-    <br>
+          <label for="email" class="m-0"
+            ><strong>Email <span class="text-danger">**</span></strong></label
+          ><br />
+          <small id="email-error" style="color: red"></small>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="form-control my-2 py-2"
+            placeholder="Enter your email..."
+          />
 
-    <h2 class="text-center mb-4">Vendor Register</h2>
+          <label for="phone" class="m-0"
+            ><strong>Phone <span class="text-danger">**</span></strong></label
+          ><br />
+          <small id="phone-error" style="color: red"></small>
+          <input
+            type="text"
+            name="phone"
+            id="phone"
+            class="form-control my-2 py-2"
+            placeholder="Enter your phone..."
+          />
 
-    <form action="/vendor/register" method="post" onsubmit="return validateAndSubmit()" >
+          <label for="password" class="m-0"
+            ><strong
+              >Password <span class="text-danger">**</span></strong
+            ></label
+          ><br />
+          <small id="password-error" style="color: red"></small>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control my-2 py-2"
+            placeholder="Enter your password..."
+          />
 
-      <small id="name-error" style="color:red; display: none;">Invalid Name</small>
-      <input type="text" name="name" id="name" class="form-control my-2 py-2" placeholder="name" />
+          <button class="mt-3 btn btn-primary btn-block" type="submit">
+            Register
+          </button>
+        </div>
+      </form>
 
-      <small id="email-error" style="color:red; display: none;">Invalid email</small>
-      <input type="email" name="email" id="email" class="form-control my-2 py-2" placeholder="email" />
+      <script>
+        function validateAndSubmit() {
 
-      <small id="phone-error" style="color:red; display: none;">Invalid phone</small>
-      <input type="text" name="phone" id="phone" class="form-control my-2 py-2" placeholder="phone" />
 
-      <small id="password-error" style="color:red; display: none;">Invalid password</small>
-      <input type="password" name="password" id="password" class="form-control my-2 py-2" placeholder="Password" />
-     
-      <button class="mt-3 btn btn-primary btn-block" type="submit">Register</button>
-    </form>
 
-    <script>
-      function validateAndSubmit(){
+          var nameInput = document.getElementById("name");
+          var emailInput = document.getElementById("email");
+          var phoneInput = document.getElementById("phone");
+          var passwordInput = document.getElementById("password");
 
-          var nameInput = document.getElementById('name')
-          var emailInput = document.getElementById('email')
-          var phoneInput = document.getElementById('phone')
-          var passwordInput = document.getElementById('password')
-          
-          var nameError = document.getElementById('name-error')
-          var emailError = document.getElementById('email-error')
+          var nameError = document.getElementById("name-error");
+          var emailError = document.getElementById("email-error");
           var phoneError = document.getElementById("phone-error");
-          var passwordError = document.getElementById('password-error')
-          
+          var passwordError = document.getElementById("password-error");
 
+          nameError.textContent = ''
+          emailError.textContent = ''
+          phoneError.textContent = ''
+          passwordError.textContent = ''
 
-          var isValidName = /^[a-zA-Z\s]{3,}$/.test(nameInput.value)
-          var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)
+          if (nameInput.value === "") {
+            nameError.textContent = "Please fill the field";
+            return false;
+          }
+          if (emailInput.value === "") {
+            emailError.textContent = "Please fill the field";
+            return false;
+          }
+          if (phoneInput.value === "") {
+            phoneError.textContent = "Please fill the field";
+            return false;
+          }
+          if (passwordInput.value === "") {
+            passwordError.textContent = "Please fill the field";
+            return false;
+          }
+
+          var isValidName = /^[a-zA-Z\s]{3,}$/.test(nameInput.value);
+          var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+            emailInput.value
+          );
           var isvalidPhone = /^(\+91)?\d{10}$/.test(phoneInput.value);
           var isvalidPassword = passwordInput.value.length >= 6;
-      
 
           // Show/hide error messages based on validation
-          nameError.style.display = isValidName ? 'none' : 'block';
-          emailError.style.display = isvalidEmail ? 'none' : 'block';
-          phoneError.style.display = isvalidPhone ? 'none' : 'block';
-          passwordError.style.display = isvalidPassword ? 'none' : 'block';
-
+          if (!isValidName) {
+            nameError.textContent = "Invalide name";
+          }
+          if (!isvalidEmail) {
+            emailError.textContent = "Invalid email";
+          }
+          if (!isvalidPhone) {
+            phoneError.textContent = "Invalid phone";
+          }
+          if (!isvalidPassword) {
+            passwordError.textContent = "Invalid phone";
+          }
           // Return false if any validation fails to prevent form submission
-          if (!isValidName || !isvalidEmail || !isvalidPhone || !isvalidPassword) {
-              return false;
+          if (
+            !isValidName ||
+            !isvalidEmail ||
+            !isvalidPhone ||
+            !isvalidPassword
+          ) {
+            return false;
           }
 
           return true;
-      }
-  </script>
-  
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-</body>
-
+        }
+      </script>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </body>
 </html>

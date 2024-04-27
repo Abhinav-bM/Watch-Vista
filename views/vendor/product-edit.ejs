@@ -200,12 +200,12 @@
                         <div><hr class="dropdown-divider border-dark" /></div>
                       </div>
                       <div class="list-group m-2">
-                        <a
+                        <!-- <a
                           href="/vendorProfile"
                           class="list-group-item list-group-item-action border-0"
                           ><i class="icofont-ui-user fs-5 me-3"></i>Profile
                           Page</a
-                        >
+                        > -->
                         <a
                           href="/vendor/logout"
                           class="list-group-item list-group-item-action border-0"
@@ -313,28 +313,6 @@
                 id="productPrice"
                 name="productPrice"
                 value="<%= product.productPrice %>"
-                required
-              />
-            </div>
-
-            <div class="form-group px-3">
-              <label for="productMRP">Product MRP:</label>
-              <input
-                type="number"
-                id="productMRP"
-                name="productMRP"
-                value="<%= product.productMRP %>"
-                required
-              />
-            </div>
-
-            <div class="form-group px-3">
-              <label for="productDiscount">Product Discount:</label>
-              <input
-                type="number"
-                id="productDiscount"
-                name="productDiscount"
-                value="<%= product.productDiscount %>"
                 required
               />
             </div>

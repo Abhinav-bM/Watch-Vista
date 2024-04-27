@@ -27,7 +27,7 @@ const adminAuthMiddleware = (req, res, next) => {
     jwt.verify(token, process.env.JWT_KEY, (err, decodedToken)=>{
       if(err){
         // Token expired or invalid 
-        res.redirect("/adminLogin")
+        res.redirect("/admin/login")
       }
       else{
         // Token is valid and attach decoded token to request
@@ -37,7 +37,7 @@ const adminAuthMiddleware = (req, res, next) => {
     })
   }else{
     // No token provided
-    res.redirect("/adminLogin")
+    res.redirect("/admin/login")
   }
 };
 

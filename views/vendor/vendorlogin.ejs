@@ -1,137 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>Vendor Login</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #fff;
+      }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Vendor Login</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background-color: #fff;
-    }
+      .signup-container {
+        max-width: 400px;
+        width: 100%;
+        padding: 1px;
+      }
 
-    .signup-container {
-      max-width: 400px;
-      width: 100%;
-      padding: 1px;
-      text-align: center;
-    }
+      .logo {
+        max-width: 100px;
+        margin-bottom: 20px;
+      }
 
-    .logo {
-      max-width: 100px;
-      margin-bottom: 20px;
-    }
+      .form-control {
+        border: 2px solid #ced4da;
+        border-radius: 5px;
+        height: 46px;
+      }
 
-    .form-control {
-      border: 2px solid #ced4da;
-      border-radius: 5px;
-      height: 46px;
-    }
+      .btn-primary {
+        background-color: #6610f2;
+        border-color: #6610f2;
+        height: 46px;
+        color: #fff;
+        /* Set text color to white */
+      }
 
-    .btn-primary {
-      background-color: #6610f2;
-      border-color: #6610f2;
-      height: 46px;
-      color: #fff;
-      /* Set text color to white */
-    }
+      .btn-primary:hover {
+        background-color: #000;
+        /* No hover effect */
+        border-color: #000;
+      }
 
-    .btn-primary:hover {
-      background-color: #000;
-      /* No hover effect */
-      border-color: #000;
-    }
+      /* Remove underline from <a> tag */
+      a {
+        text-decoration: none;
+      }
 
-    /* Remove underline from <a> tag */
-    a {
-      text-decoration: none;
-    }
+      a {
+        text-decoration: none;
+        color: #000;
+        /* Set link color to black */
+      }
 
-    a {
-      text-decoration: none;
-      color: #000;
-      /* Set link color to black */
-    }
+      h2 {
+        font-weight: bolder;
+        font-size: 28px;
+      }
 
-    h2 {
-      font-weight: bolder;
-      font-size: 28px;
-    }
-
-    */
+      */
 
     /* Additional style for terms and conditions checkbox */
     .form-check-label {
-      font-size: 14px;
-    }
-  </style>
+        font-size: 14px;
+      }
+    </style>
+  </head>
 
-</head>
+  <body>
+    <div class="signup-container">
+      <!-- <img src="https://see.fontimg.com/api/renderfont4/owrrV/eyJyIjoiZnMiLCJoIjo0MCwidyI6MTI1MCwiZnMiOjMyLCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/TUVHWA/black-romero-demo.png" alt="logo" class="logo"> -->
+      <br />
+      <br />
 
-<body>
+      <h2 class="text-center mb-4">Vendor Login</h2>
 
-  <div class="signup-container">
+      <form
+        action="/vendor/login"
+        method="post"
+        onsubmit="return validateAndSubmit()"
+      >
+        <% if (typeof error !== 'undefined' && error !== null) { %>
+        <p style="color: red"><%= error %></p>
+        <% } %>
 
-    <!-- <img src="https://see.fontimg.com/api/renderfont4/owrrV/eyJyIjoiZnMiLCJoIjo0MCwidyI6MTI1MCwiZnMiOjMyLCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/TUVHWA/black-romero-demo.png" alt="logo" class="logo"> -->
-    <br>
-    <br>
+        <div>
+          <small id="email-error" style="color: red; display: none"
+            >Invalid email</small
+          >
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="form-control my-2 py-2"
+            placeholder="email..."
+          />
 
-    <h2 class="text-center mb-4">Vendor Login</h2>
+          <small id="password-error" style="color: red; display: none"
+            >Invalid password</small
+          >
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control my-2 py-2"
+            placeholder="Password..."
+          />
 
-    <form action="/vendor/login" method="post" onsubmit="return validateAndSubmit()">
+          <div class="text-center">
+            <small
+              ><a href="/venodor/forgotPassword">Forgot password ?</a></small
+            ><br />
+            <small><a href="/vendor/register">New vendor ?</a></small>
+          </div>
 
-      <% if (typeof error !== 'undefined' && error !== null) { %>
-          <p style="color: red;"><%= error %></p>
-      <% } %>
+          <button class="mt-3 btn btn-primary btn-block" type="submit">
+            Login
+          </button>
+        </div>
+      </form>
 
-      <small id="email-error" style="color:red; display: none;">Invalid email</small>
-      <input type="email" name="email" id="email" class="form-control my-2 py-2" placeholder="email" />
+      <script>
+        function validateAndSubmit() {
+          var emailInput = document.getElementById("email");
+          var passwordInput = document.getElementById("password");
 
-      <small id="password-error" style="color:red; display: none;">Invalid password</small>
-      <input type="password" name="password" id="password" class="form-control my-2 py-2" placeholder="Password" />
+          var emailError = document.getElementById("email-error");
+          var passwordError = document.getElementById("password-error");
 
-      <small><a href="/venodor/forgotPassword">Forgot password ?</a></small><br>
-      <small><a href="/vendor/register">New vendor ?</a></small>
-      <button class="mt-3 btn btn-primary btn-block" type="submit">Login</button>
-      
-    </form>
-
-    <script>
-      function validateAndSubmit(){
-
-          var emailInput = document.getElementById('email')
-          var passwordInput = document.getElementById('password')
-          
-          var emailError = document.getElementById('email-error')
-          var passwordError = document.getElementById('password-error')
-          
-          var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value)
+          var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+            emailInput.value
+          );
           var isvalidPassword = passwordInput.value.length >= 6;
-      
 
           // Show/hide error messages based on validation
-          emailError.style.display = isvalidEmail ? 'none' : 'block';
-          passwordError.style.display = isvalidPassword ? 'none' : 'block';
+          emailError.style.display = isvalidEmail ? "none" : "block";
+          passwordError.style.display = isvalidPassword ? "none" : "block";
 
           // Return false if any validation fails to prevent form submission
-          if ( !isvalidEmail || !isvalidPassword) {
-              return false;
+          if (!isvalidEmail || !isvalidPassword) {
+            return false;
           }
 
           return true;
-      }
-  </script>
-  
-  
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        }
+      </script>
 
-</body>
-
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </div>
+  </body>
 </html>

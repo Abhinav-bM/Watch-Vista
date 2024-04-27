@@ -489,6 +489,7 @@ let resetPassword = async (req, res) => {
 };
 // FORGOT PASSWORD -- ENDS HERE
 
+
 // LOGOUT STARTS HERE
 let userLogout = async (req, res) => {
   const token = req.cookies.jwt;
@@ -501,6 +502,7 @@ let userLogout = async (req, res) => {
     // Clear the JWT cookie
     res.clearCookie("jwt");
 
+
     res.redirect("/");
     console.log("User logged out");
   } catch (error) {
@@ -508,7 +510,6 @@ let userLogout = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-// LOGOUT ENDS HERE
 
 // SHOP PAGE DISPLAY
 let shopGetPage = async (req, res) => {

@@ -96,12 +96,12 @@
                                             <div><hr class="dropdown-divider border-dark"></div>
                                         </div>
                                         <div class="list-group m-2 ">
-                                            <a
+                                            <!-- <a
                                             href="/vendorProfile"
                                             class="list-group-item list-group-item-action border-0"
                                             ><i class="icofont-ui-user fs-5 me-3"></i>Profile
                                             Page</a
-                                          >
+                                          > -->
                                           <a
                                             href="/vendor/logout"
                                             class="list-group-item list-group-item-action border-0"
@@ -171,8 +171,8 @@
                                               <td>
                                                 <form id="updateOrderForm-<%= order.orderId %>-<%= index %>" method="POST">
                                                     <select name="status" class="form-select" onchange="updateOrderStatus(event, '<%= order.orderId %>', '<%= order.productId %>', '<%= index %>')">
-                                                      <option value="Pending" <%= order.orderStatus === "Pending" ? "selected" : "" %>>Pending</option>
-                                                      <option value="Processing" <%= order.orderStatus === "Processing" ? "selected" : "" %>>Processing</option>
+                                                      <option value="Pending" <%= order.orderStatus === "Pending" ? "selected" : "" %>> Pending</option>
+                                                      <option value="Processing" <%= order.orderStatus === "Processing" ? "selected" : "" %>> Processing</option>
                                                       <option value="Shipped" <%= order.orderStatus === "Shipped" ? "selected" : "" %>>Shipped</option>
                                                       <option value="Delivered" <%= order.orderStatus === "Delivered" ? "selected" : "" %>>Delivered</option>
                                                       <option value="Requested for Cancellation" <%= order.orderStatus === "Requested for Cancellation" ? "selected" : "" %>>Requested for Cancellation</option>

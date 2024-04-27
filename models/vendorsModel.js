@@ -11,8 +11,6 @@ const productSchema = new mongoose.Schema({
   productSize: { type: String,},
   productQTY: { type: Number,  },
   productPrice: { type: Number,  },
-  productMRP: { type: Number,  },
-  productDiscount: { type: Number,  },
   productImages: {type:Array},
   productDescription: { type: String,  },
 }, { timestamps: true });

@@ -8,7 +8,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <title>customers List</title>
+    <title>Orders</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <!-- Favicon-->
 
@@ -21,6 +21,7 @@
       rel="stylesheet"
       href="/admin/assets/plugin/datatables/dataTables.bootstrap5.min.css"
     />
+
 
     <!-- project css file  -->
     <link rel="stylesheet" href="/admin/assets/css/ebazar.style.min.css" />
@@ -62,13 +63,13 @@
             </li>
 
             <li>
-              <a class="m-link" href="/admin/orders">
+              <a class="m-link active" href="/admin/orders">
                 <i class="icofont-notepad fs-5"></i> <span>Orders</span>
               </a>
             </li>
             <li class="collapsed"></li>
             <li>
-              <a class="m-link active" href="/admin/customersList"
+              <a class="m-link " href="/admin/customersList"
                 ><i class="icofont-funky-man fs-5"></i> <span>Users</span></a
               >
             </li>
@@ -204,9 +205,8 @@
                 <div
                   class="card-header py-3 no-bg bg-transparent d-flex align-items-center px-0 justify-content-between border-bottom flex-wrap"
                 >
-                  <h3 class="fw-bold mb-0">Customers Information</h3>
+                  <h3 class="fw-bold mb-0">Orders</h3>
                   <div class="col-auto d-flex w-sm-100">
-                    <!-- <button type="button" class="btn btn-primary btn-set-task w-sm-100" data-bs-toggle="modal" data-bs-target="#expadd"><i class="icofont-plus-circle me-2 fs-6"></i>Add Customers</button> -->
                   </div>
                 </div>
               </div>
@@ -216,93 +216,51 @@
               <div class="col-sm-12">
                 <div class="card mb-3">
                   <div class="card-body">
+
+
+
+
                     <table
-                      id="myProjectTable"
-                      class="table table-hover align-middle mb-0"
-                      style="width: 100%"
-                    >
-                      <thead>
-                        <tr>
-                          <!-- <th>Id</th> -->
-                          <th>Customers</th>
-                          <th>Register Date</th>
-                          <th>Mail</th>
-                          <th>Phone</th>
-                          <!-- <th>Country</th>  -->
-                          <th>Total Order</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <% user.forEach(data=>{ %>
-                        <tr>
-                          <!-- <td><strong>#CS-00002</strong></td> -->
-                          <td>
-                            <a href="customer-detail.html">
-                              <img
-                                class="avatar rounded"
-                                src="/admin/assets/images/xs/avatar1.svg"
-                                alt=""
-                              />
-                              <span class="fw-bold ms-1"><%= data.name %></span>
-                            </a>
-                          </td>
-                          <td>
-                            <%= data.createdAt.toLocaleDateString('en-US', {
-                            month: 'short', day: '2-digit', year: 'numeric' })
-                            %>
-                          </td>
-                          <td><%= data.email %></td>
-                          <td><%= data.phoneNumber %></td>
-                          <!-- <td>South Africa</td> -->
-                          <td>18</td>
-                          <td>
-                            <% if (data.blocked) { %>
-                            <form
-                              class="unblock-form"
-                              method="post"
-                              action="/blockUser"
-                            >
-                              <input
-                                type="hidden"
-                                name="email"
-                                value="<%= data.email %>"
-                              />
-                              <button
-                                type="submit"
-                                class="btn btn-success text-light"
-                              >
-                                UnBlock
-                              </button>
-                            </form>
-                            <% } else { %>
-                            <form
-                              class="block-form"
-                              method="post"
-                              action="/blockUser"
-                            >
-                              <input
-                                type="hidden"
-                                name="email"
-                                value="<%= data.email %>"
-                              />
-                              <button
-                                type="submit"
-                                class="btn btn-danger text-light"
-                              >
-                                Block
-                              </button>
-                            </form>
-                            <% } %>
-                            <!-- <div class="btn-group" role="group" aria-label="Basic outlined example"> -->
-                            <!-- <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#expedit"><i class="icofont-edit text-success"></i></button> -->
-                            <!-- <button type="button" class="btn btn-outline-secondary deleterow"><i class="icofont-ui-delete text-danger"></i></button> -->
-                            <!-- </div> -->
-                          </td>
-                        </tr>
-                        <% }) %>
-                      </tbody>
-                    </table>
+                    id="myDataTable"
+                    class="table table-hover align-middle mb-0"
+                    style="width: 100%"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Id</th>
+                        <th>Item</th>
+                        <th>Customer Name</th>
+                        <th>Payment Info</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <% orders.forEach(order => { %>
+                      <tr>
+                        <td><strong><%= order.orderId %></strong></td>
+                        <td>
+                          <img
+                            src="<%= order.productImages[0] %>"
+                            class="avatar lg rounded me-2"
+                            alt="profile-image"
+                          /><span><%= order.productName %></span>
+                        </td>
+                        <td><%= order.userName %></td>
+                        <td><%= order.paymentMethod %></td>
+
+                        <td>
+                          <span class="badge bg-dark"
+                            ><%= order.orderStatus %></span
+                          >
+                        </td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+
+
+
                   </div>
                 </div>
               </div>
@@ -323,18 +281,14 @@
     <script src="../js/template.js"></script>
     <script>
       // project data table
-      $(document).ready(function () {
-        $("#myProjectTable")
-          .addClass("nowrap")
-          .dataTable({
+      $('#myDataTable')
+        .addClass( 'nowrap')
+        .dataTable( {
             responsive: true,
-            columnDefs: [{ targets: [-1, -3], className: "dt-body-right" }],
-          });
-        $(".deleterow").on("click", function () {
-          var tablename = $(this).closest("table").DataTable();
-          tablename.row($(this).parents("tr")).remove().draw();
+            columnDefs: [
+                { targets: [-1, -3], className: 'dt-body-right' }
+            ]
         });
-      });
     </script>
   </body>
 

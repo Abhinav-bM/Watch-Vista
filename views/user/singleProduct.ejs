@@ -385,6 +385,7 @@
     <!-- single product end -->
 
     <!-- related product start -->
+    <% if(relatedProducts && relatedProducts.length > 0) { %>
     <section class="related-product mt-120 mb-100">
       <div class="container-fluid">
         <div class="generic-title text-center">
@@ -414,38 +415,44 @@
                   <div class="product-desc pb-20">
                     <div class="product-desc-top">
                       <div class="categories">
-                        <a href="" class="product-category"><span><%= prod.productCategory %></span></a>
+                        <a href="" class="product-category"
+                          ><span><%= prod.productCategory %></span></a
+                        >
                       </div>
 
                       <button
-                      class="btn btn-link"
-                      onclick="addToWishlist(event, '<%= prod._id %>')"
-                    >
-                      <div class="wishlist float-right">
-                        <% if(user && user.wishlist.products.some( wProduct =>
-                        wProduct.productId.toString() ===
-                        prod._id.toString() )) { %>
-                        <i
-                          id="heartIcon-<%= prod._id %>"
-                          class="fas fa-heart fa-lg text-danger"
-                        ></i>
-                        <% } else { %>
-                        <i
-                          id="heartIcon-<%= prod._id %>"
-                          class="fal fa-heart fa-lg"
-                        ></i>
-                        <% } %>
-                      </div>
-                    </button>
-
+                        class="btn btn-link"
+                        onclick="addToWishlist(event, '<%= prod._id %>')"
+                      >
+                        <div class="wishlist float-right">
+                          <% if(user && user.wishlist.products.some( wProduct =>
+                          wProduct.productId.toString() === prod._id.toString()
+                          )) { %>
+                          <i
+                            id="heartIcon-<%= prod._id %>"
+                            class="fas fa-heart fa-lg text-danger"
+                          ></i>
+                          <% } else { %>
+                          <i
+                            id="heartIcon-<%= prod._id %>"
+                            class="fal fa-heart fa-lg"
+                          ></i>
+                          <% } %>
+                        </div>
+                      </button>
                     </div>
-                    <a href="/products?productId=<%= prod._id %>" class="product-title"
+                    <a
+                      href="/products?productId=<%= prod._id %>"
+                      class="product-title"
                       ><%= prod.productName %></a
                     >
                     <div class="price-switcher">
-                      <span class="price switcher-item">₹ <%= prod.productPrice %></span>
-                      <span class="price switcher-item">₹ <%= prod.productPrice %></span>
-
+                      <span class="price switcher-item"
+                        >₹ <%= prod.productPrice %></span
+                      >
+                      <span class="price switcher-item"
+                        >₹ <%= prod.productPrice %></span
+                      >
                     </div>
                   </div>
                 </div>
@@ -456,6 +463,8 @@
         </div>
       </div>
     </section>
+    <% } %>
+
     <!-- related product end -->
 
     <!-- footer section start -->
@@ -552,6 +561,8 @@
             if (
               response.data.message === "Product added to wishlist successfully"
             ) {
+              window.location.reload()
+
               Toastify({
                 text: "Product added to wishlist",
                 duration: 3000,
@@ -559,13 +570,15 @@
                 position: "right",
                 backgroundColor: "black",
               }).showToast();
-              heartIcon.classList.remove("fal");
-              heartIcon.classList.add("fas");
-              heartIcon.classList.add("text-danger");
+              // heartIcon.classList.remove("fal");
+              // heartIcon.classList.add("fas");
+              // heartIcon.classList.add("text-danger");
             } else if (
               response.data.message ===
               "Product removed from wishlist successfully"
             ) {
+              window.location.reload()
+
               // Change heart icon to regular red heart
               Toastify({
                 text: "Product removed from wishlist",
@@ -574,9 +587,9 @@
                 position: "right",
                 backgroundColor: "black",
               }).showToast();
-              heartIcon.classList.remove("fas");
-              heartIcon.classList.remove("text-danger");
-              heartIcon.classList.add("fal");
+              // heartIcon.classList.remove("fas");
+              // heartIcon.classList.remove("text-danger");
+              // heartIcon.classList.add("fal");
             }
           })
           .catch((error) => {

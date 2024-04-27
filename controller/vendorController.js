@@ -237,8 +237,6 @@ let addProductpost = async (req, res) => {
       productSize: req.body.productSize,
       productQTY: req.body.productQuantity,
       productPrice: req.body.productPrice,
-      productMRP: req.body.productMRP,
-      productDiscount: req.body.productDiscount,
       productImages: imageUrls,
       productDescription: req.body.productDescription,
     };
@@ -330,8 +328,6 @@ let editProductPost = async (req, res) => {
       updatedProduct.productSize = req.body.productSize;
       updatedProduct.productQTY = req.body.productQuantity;
       updatedProduct.productPrice = req.body.productPrice;
-      updatedProduct.productMRP = req.body.productMRP;
-      updatedProduct.productDiscount = req.body.productDiscount;
       updatedProduct.productDescription = req.body.productDescription;
 
       // Only update productImages if there are new imageUrls

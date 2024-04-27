@@ -2,11 +2,13 @@ const { defaultWorkerPolicies } = require("twilio/lib/jwt/taskrouter/util");
 const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
 const Vendor = require("../models/vendorsModel");
-const { calculateTotalSales, getOrdersCountForLast10Days, getLatest10Orders } = require("../helpers/adminDashboard");
+const {
+  calculateTotalSales,
+  getOrdersCountForLast10Days,
+  getLatest10Orders,
+} = require("../helpers/adminDashboard");
 const jwt = require("jsonwebtoken");
 const cloudinary = require("../config/cloudinary");
-const {getOrdersWithProducts} = require('../helpers/userOrdersAdmin')
-
 
 // ADMIN LOGIN PAGE DISPLAY
 let loginGetPage = (req, res) => {
@@ -41,19 +43,19 @@ let loginPostPage = async (req, res) => {
         console.log("Admin logged in successfully, jwt created");
         return;
       } else {
-        res.status(401).render("admin/adminlogin", { error: "Wrong password" });
+        res.status(401).render("admin/adminLogin", { error: "Wrong password" });
         return;
       }
     } else {
       console.log("User not found:", req.body.email);
-      res.status(404).render("admin/adminlogin", { error: "User not found" });
+      res.status(404).render("admin/adminLogin", { error: "User not found" });
       return;
     }
   } catch (error) {
     console.error("Internal server error:", error);
     res
       .status(500)
-      .render("admin/adminlogin", { error: "Internal server error" });
+      .render("admin/adminLogin", { error: "Internal server error" });
     return;
   }
 };
@@ -61,19 +63,10 @@ let loginPostPage = async (req, res) => {
 // ADMIN DASHBOARD DISPLAY
 let dashboardPage = async (req, res) => {
   try {
-    getOrdersWithProducts()
-    .then(orders => {
-      console.log('Orders with products:', orders);
-      
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-
     const user = req.user;
     const vendors = await Vendor.find();
     const users = await User.find({}, "orders");
-    const admin = await Admin.findOne()    
+    const admin = await Admin.findOne();
 
     const allOrders = users.flatMap((user) => user.orders);
 
@@ -143,8 +136,9 @@ let dashboardPage = async (req, res) => {
 // CUSTOMERS LIST
 let customersList = async (req, res) => {
   try {
-    let user = await User.find();
-    res.render("admin/customersList", { user });
+    let users = await User.find();
+    const admin = await Admin.findOne();
+    res.render("admin/customersList", { user: users, admin });
   } catch (error) {
     console.log(error);
   }
@@ -170,7 +164,7 @@ let categoryList = async (req, res) => {
   try {
     let admin = await Admin.findOne();
     let data = admin.categories;
-    res.render("admin/category-list", { data, user:admin });
+    res.render("admin/category-list", { data, user: admin });
   } catch (error) {
     console.error(error);
     res.status(404).send("page not found");
@@ -270,7 +264,7 @@ let subcategoryList = async (req, res) => {
     res.render("admin/subcategory-list", {
       subcategories: subcategoriesWithCategories,
       categories,
-      user:admin
+      user: admin,
     });
   } catch (error) {
     console.error(error);
@@ -376,7 +370,8 @@ let deleteSubcategory = async (req, res) => {
 let vendorsList = async (req, res) => {
   try {
     const vendors = await Vendor.find();
-    res.status(200).render("admin/vendorsList", { vendors });
+    const admin = await Admin.findOne({});
+    res.status(200).render("admin/vendorsList", { vendors, user: admin });
   } catch (error) {
     console.error(error);
     res.status(500).send("server error");
@@ -386,26 +381,26 @@ let vendorsList = async (req, res) => {
 // LIST PRODUCT PAGE
 let productList = async (req, res) => {
   try {
-    const user = await Admin.findOne()
+    const user = await Admin.findOne();
     const products = await Vendor.aggregate([
-      { $unwind: '$products' },
+      { $unwind: "$products" },
       {
         $project: {
-          _id: '$products._id',
-          productName: '$products.productName',
-          productCategory: '$products.productCategory',
-          productSubCategory: '$products.productSubCategory',
-          productBrand: '$products.productBrand',
-          productColor: '$products.productColor',
-          productSize: '$products.productSize',
-          productQTY: '$products.productQTY',
-          productPrice: '$products.productPrice',
-          productMRP: '$products.productMRP',
-          productDiscount: '$products.productDiscount',
-          productImages: '$products.productImages',
-          productDescription: '$products.productDescription'
-        }
-      }
+          _id: "$products._id",
+          productName: "$products.productName",
+          productCategory: "$products.productCategory",
+          productSubCategory: "$products.productSubCategory",
+          productBrand: "$products.productBrand",
+          productColor: "$products.productColor",
+          productSize: "$products.productSize",
+          productQTY: "$products.productQTY",
+          productPrice: "$products.productPrice",
+          productMRP: "$products.productMRP",
+          productDiscount: "$products.productDiscount",
+          productImages: "$products.productImages",
+          productDescription: "$products.productDescription",
+        },
+      },
     ]);
     res.status(200).render("admin/product-list", { products, user });
   } catch (error) {
@@ -435,7 +430,7 @@ let couponList = async (req, res) => {
   try {
     const admin = await Admin.findOne({});
     const coupons = admin.coupons;
-    res.render("admin/coupons-list", { coupons, user:admin });
+    res.render("admin/coupons-list", { coupons, user: admin });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" });
@@ -449,7 +444,8 @@ let couponAddGet = async (req, res) => {
       { $unwind: "$categories" },
       { $project: { _id: 0, categoryName: "$categories.categoryName" } },
     ]);
-    res.status(200).render("admin/coupon-add", { categories});
+    const admin = await Admin.findOne({});
+    res.status(200).render("admin/coupon-add", { categories, user: admin });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server error" });
@@ -459,13 +455,8 @@ let couponAddGet = async (req, res) => {
 // ADD COUPON POST
 let couponAddPost = async (req, res) => {
   console.log("added coupon: ", req.body);
-  const {
-    couponCode,
-    couponStatus,
-    couponType,
-    discountValue,
-    endDate,
-  } = req.body;
+  const { couponCode, couponStatus, couponType, discountValue, endDate } =
+    req.body;
   try {
     const admin = await Admin.findOne();
     const coupon = {
@@ -500,7 +491,9 @@ let editCouponGet = async (req, res) => {
       { $project: { _id: 0, categoryName: "$categories.categoryName" } },
     ]);
 
-    res.status(200).render("admin/coupon-edit", { couponForEdit, categories });
+    res
+      .status(200)
+      .render("admin/coupon-edit", { couponForEdit, categories, user: admin });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server error" });
@@ -508,21 +501,23 @@ let editCouponGet = async (req, res) => {
 };
 
 // EDIT COUPON POST PAGE
-let editCouponPost = async (req,res)=>{
-  const couponId = req.body.id
-  const data = req.body.data
+let editCouponPost = async (req, res) => {
+  const couponId = req.body.id;
+  const data = req.body.data;
   try {
-    const admin = await Admin.findOne()
-    const index = admin?.coupons.findIndex(coupon => coupon._id.toString() == couponId)
-    admin.coupons[index] = data
-    console.log(data)
-    await admin.save()
-    res.status(200).json({message:"Coupon updated successfully"})
+    const admin = await Admin.findOne();
+    const index = admin?.coupons.findIndex(
+      (coupon) => coupon._id.toString() == couponId
+    );
+    admin.coupons[index] = data;
+    console.log(data);
+    await admin.save();
+    res.status(200).json({ message: "Coupon updated successfully" });
   } catch (error) {
-    console.error(error)
-    res.status(200).json({error: "Internal server error"})
+    console.error(error);
+    res.status(200).json({ error: "Internal server error" });
   }
-}
+};
 
 // COUPON DELETE
 let deleteCoupon = async (req, res) => {
@@ -540,19 +535,19 @@ let deleteCoupon = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
-}; 
+};
 
 // BANNER GET PAGE
-let bannerGetPage = async (req, res)=>{
+let bannerGetPage = async (req, res) => {
   try {
-    const admin = await Admin.findOne()
-    const banner = admin.banner
-    res.status(200).render("admin/banner",{banner, user:admin})
+    const admin = await Admin.findOne();
+    const banner = admin.banner;
+    res.status(200).render("admin/banner", { banner, user: admin });
   } catch (error) {
-    console.error(error)
-    res.status(500).json({error:"internal server error"})
+    console.error(error);
+    res.status(500).json({ error: "internal server error" });
   }
-}
+};
 
 // BANNER ADD POST
 let bannerAddPost = async (req, res) => {
@@ -592,20 +587,20 @@ let bannerAddPost = async (req, res) => {
 };
 
 // DELETE BANNER
-let deleteBanner = async (req, res)=>{
-  const bannerId = req.params.bannerId
+let deleteBanner = async (req, res) => {
+  const bannerId = req.params.bannerId;
   try {
-    const admin = await Admin.findOne()
-    const banner = admin.banner
-    const index = banner.findIndex(ban => ban._id.toString() === bannerId)
-    banner.splice(index,1)
-    await admin.save()
-    res.status(200).json({message:"Banner deleted successfully"})
+    const admin = await Admin.findOne();
+    const banner = admin.banner;
+    const index = banner.findIndex((ban) => ban._id.toString() === bannerId);
+    banner.splice(index, 1);
+    await admin.save();
+    res.status(200).json({ message: "Banner deleted successfully" });
   } catch (error) {
-    console.error(error)
-    res.status(500).json({error:"Internal server error"})
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
-}
+};
 
 //ADMIN LOGOUT
 let adminLogout = (req, res) => {
@@ -619,6 +614,68 @@ let adminLogout = (req, res) => {
   } catch (error) {
     console.error("Error logging out:", error);
     res.status(500).send("Internal Server Error");
+  }
+};
+
+// ORDERS LIST PAGE
+const ordersList = async (req, res) => {
+  try {
+    const ordersWithProducts = await User.aggregate([
+      {
+        $unwind: "$orders",
+      },
+      {
+        $lookup: {
+          from: "vendors",
+          localField: "orders.products.productId",
+          foreignField: "products._id",
+          as: "vendorDetails",
+        },
+      },
+      {
+        $unwind: "$vendorDetails",
+      },
+      {
+        $unwind: "$vendorDetails.products",
+      },
+      {
+        $unwind: "$orders.products",
+      },
+      {
+        $sort: { "orders.orderDate": -1 },
+      },
+      {
+        $project: {
+          _id: "$orders._id",
+          orderId: "$orders.orderId",
+          userName: "$name",
+          userEmail: "$email",
+          productName: "$vendorDetails.products.productName",
+          productImages: "$vendorDetails.products.productImages",
+          size: "$orders.products.size",
+          qty: "$orders.products.qty",
+          price: "$orders.products.price",
+          orderStatus: "$orders.products.orderStatus",
+          cancelReason: "$orders.products.cancelReason",
+          totalAmount: "$orders.totalAmount",
+          orderDate: "$orders.orderDate",
+          expectedDeliveryDate: "$orders.expectedDeliveryDate",
+          shippingAddress: "$orders.shippingAddress",
+          paymentMethod: "$orders.paymentMethod",
+        },
+      },
+    ]);
+
+    const admin = await Admin.findOne();
+
+    console.log("admin side orders with aggregation :", ordersWithProducts);
+
+    res
+      .status(200)
+      .render("admin/orders-list", { orders: ordersWithProducts, admin });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
@@ -649,4 +706,5 @@ module.exports = {
   bannerGetPage,
   bannerAddPost,
   deleteBanner,
+  ordersList,
 };

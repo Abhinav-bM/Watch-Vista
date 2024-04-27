@@ -13,7 +13,7 @@ router.use(bodyParser.urlencoded({ extended: true }));
 
 
 // ROUTER
-router.get("/adminLogin", adminController.loginGetPage);
+router.get("/admin/login", adminController.loginGetPage);
 router.get("/admin/dashboard",adminAuthMiddleware,adminController.dashboardPage)
 router.get("/admin/logout",adminController.adminLogout)
 router.get("/admin/customersList",adminAuthMiddleware,adminController.customersList)
@@ -25,8 +25,9 @@ router.get("/admin/couponList",adminAuthMiddleware,adminController.couponList)
 router.get("/admin/couponAddGet",adminAuthMiddleware,adminController.couponAddGet)
 router.get("/admin/editCouponGet/:id",adminAuthMiddleware,adminController.editCouponGet)
 router.get("/admin/banner",adminAuthMiddleware,adminController.bannerGetPage)
+router.get("/admin/orders",adminAuthMiddleware,adminController.ordersList)
 
-router.post("/admin/login", adminController.loginPostPage);
+router.post("/admin/loginPost", adminController.loginPostPage);
 router.post("/admin/addCategory",adminAuthMiddleware,adminController.addCategory)
 router.post("/admin/updateCategory",adminAuthMiddleware,adminController.updateCategory)
 router.post("/admin/deleteCategory",adminAuthMiddleware,adminController.deleteCategory)

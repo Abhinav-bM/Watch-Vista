@@ -83,12 +83,12 @@
 
     <h2 class="text-center mb-4">Admin Login</h2>
 
-    <form action="/admin/login" method="post">
+    <form action="/admin/loginPost" method="post">
       <% if (typeof error !== 'undefined' && error !== null) { %>
           <p style="color: red;"><%= error %></p>
       <% } %>
-      <input type="email" name="email" id="email" class="form-control my-4 py-2" placeholder="email" />
-      <input type="password" name="password" id="email" class="form-control my-4 py-2" placeholder="Password" />
+      <input type="email" name="email" id="email" class="form-control my-4 py-2" placeholder="email" required />
+      <input type="password" name="password" id="email" class="form-control my-4 py-2" placeholder="Password" required />
       <button class="btn btn-primary btn-block" type="submit">Login</button>
     </form>
   
