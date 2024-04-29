@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "views")));
 
 // Serve static files from the 'uploads' directory
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -40,19 +40,29 @@ const { parsed: config } = require("dotenv").config();
 global.config = config;
 
 //CONNECT TO MONGODB
-mongoose.connect("mongodb://localhost:27017/watch-store", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.MONGODCo, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+mongoose.connect(process.env.MONGODCo,{
+  dbName:'watch-store',
+  connectTimeoutMS:30000
+})
+.then((data)=>
+{ 
+  console.log("DB Connected");
+}).catch((err)=>
+{
+  console.log(err);
+})
 
 // // Set up routes
 app.use("/", userRouter);
 app.use("/", adminRouter);
 app.use("/", vendorRouter);
-app.use((req,res,next)=>
-{
-  res.status(404).render("user/notFound")
-})
+app.use((req, res, next) => {
+  res.status(404).render("user/notFound");
+});
 
 // Start the server
 app.listen(3000, () => {
