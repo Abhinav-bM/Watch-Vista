@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controller/adminController");
-const { adminAuthMiddleware, vendorAuthMiddleware }  = require("../middleware/jwtMiddleware");
+const { adminAuthMiddleware }  = require("../middleware/jwtMiddleware");
 const bodyParser = require("body-parser");
 const adminModel = require("../models/adminModel");
 const upload = require("../config/multer")

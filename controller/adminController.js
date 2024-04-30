@@ -1,4 +1,3 @@
-const { defaultWorkerPolicies } = require("twilio/lib/jwt/taskrouter/util");
 const Admin = require("../models/adminModel");
 const User = require("../models/usersModel");
 const Vendor = require("../models/vendorsModel");
