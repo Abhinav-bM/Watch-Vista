@@ -592,7 +592,6 @@
                 response.data.user
               );
               document.getElementById("searchInput1").value = "";
-
             })
             .catch((error) => {
               console.error(error);
@@ -613,6 +612,14 @@
         function displayProducts(products, user) {
           const productDisplay = document.getElementById("productDisplay");
           productDisplay.innerHTML = ""; // Clear existing products
+
+          if (products.length === 0) {
+            // If no products, display a message
+            const noProductMessage = document.createElement("div");
+            noProductMessage.textContent = "No products available.";
+            productDisplay.appendChild(noProductMessage);
+            return; // Exit function
+          }
 
           products.forEach((product) => {
             // Create elements for product components
