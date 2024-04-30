@@ -429,22 +429,27 @@
 
                         <div class="">
                             <label for="">Name</label><br>
+                            <small id="addErrName" class="text-danger"></small><br>
                             <input type="text" name="name" class="form-control form-control-lg" id="name" placeholder="Your Name"> <br>
         
                             <label for="">Address</label><br>
+                            <small id="addErrAddress" class="text-danger"></small><br>
                             <input type="text" name="address" class="form-control form-control-lg" id="address" placeholder="Enter your address"><br>
         
                             <label for="">District</label><br>
+                            <small id="addErrDistrict" class="text-danger"></small><br>
                             <input type="text" name="district" class="form-control form-control-lg" id="district" placeholder="Town or city"><br>
         
                             
                             <div class="d-flex justify-content-between" >
                                 <div class="pr-2">
                                     <label for="">State</label><br>
+                                    <small id="addErrState" class="text-danger"></small><br>
                                     <input type="text" name="state" class="form-control form-control-lg" id="state" placeholder="Enter your state"><br>
                                 </div>
                                 <div>
                                     <label for="">Postal Code</label><br>
+                                    <small id="addErrPin" class="text-danger"></small><br>
                                     <input type="number" name="zip" class="form-control form-control-lg" id="zip" placeholder="Zip/Postal"><br>
                                 </div>
                             </div>
@@ -453,11 +458,13 @@
 
                                 <div class="pr-2">
                                     <label for="">Email Address</label><br>
+                                    <small id="addErrEmail" class="text-danger"></small><br>
                                     <input type="text" name="email" class="form-control form-control-lg" id="email" placeholder="">
                                 </div>
             
                                 <div>
                                     <label for="">Phone Number</label><br>
+                                    <small id="addErrPhone" class="text-danger"></small><br>
                                     <input type="number" name="phone" class="form-control form-control-lg" id="phone" placeholder=""><br>
                                 </div>
                             </div>
@@ -785,6 +792,15 @@
 
         // ADD NEW ADDRESS - CHECKOUT AREA
         document.getElementById("submitAddressBtn").addEventListener("click", function() {
+            document.getElementById('addErrName').textContent = ''
+            document.getElementById('addErrAddress').textContent = ''
+            document.getElementById('addErrDistrict').textContent = ''
+            document.getElementById('addErrState').textContent = ''
+            document.getElementById('addErrPin').textContent = ''
+            document.getElementById('addErrEmail').textContent = ''
+            document.getElementById('addErrPhone').textContent = ''
+
+
             // Get form data
             const formData = {
                 name: document.getElementById("name").value,
@@ -795,6 +811,43 @@
                 email: document.getElementById("email").value,
                 phone: document.getElementById("phone").value
             };
+
+            // VALIDATION
+            if (formData.name.trim() === '') {
+                document.getElementById('addErrName').textContent = 'Please enter your name.'
+                return false;
+            }
+
+            if (formData.address.trim() === '') {
+                document.getElementById('addErrAddress').textContent = 'Please enter your address.'
+                return false;
+            }
+
+            if (formData.district.trim() === '') {
+                document.getElementById('addErrDistrict').textContent = 'Please enter your district.'
+                return false;
+            }
+
+            if (formData.state.trim() === '') {
+                document.getElementById('addErrState').textContent = 'Please enter your state.'
+                return false;
+            }
+
+            if (formData.zip.trim() === '') {
+                document.getElementById('addErrPin').textContent = 'Please enter your postal code.'
+                return false;
+            }
+
+            if (formData.email.trim() === '') {
+                document.getElementById('addErrEmail').textContent = 'Please enter your email address.'
+                return false;
+            }
+
+            if (formData.phone.trim() === '') {
+                document.getElementById('addErrPhone').textContent = 'Please enter your phone number.'
+                return false;
+            }
+
 
             axios.post('/add-address', formData)
             .then(function (response) {

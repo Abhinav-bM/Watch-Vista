@@ -109,6 +109,25 @@
             margin-bottom: 5px;
         }
 
+
+        /* No orders div */
+        .no-orders {
+        background-color: #f8f9fa; /* Light gray background */
+        border: 1px solid #ced4da; /* Light border */
+        border-radius: 5px; /* Rounded corners */
+        padding: 20px; /* Spacing around the text */
+        text-align: center; /* Center align the text */
+        max-width: 400px; /* Limit width to prevent stretching */
+        margin: 0 auto; /* Center the div horizontally */
+        }
+
+        /* CSS for the message text */
+        .no-orders p {
+        margin: 0; /* Remove default margins */
+        color: #6c757d; /* Gray text color */
+        font-size: 16px; /* Font size */
+        font-weight: bold; /* Bold font */
+        }
     </style>
 </head>
 
@@ -290,7 +309,7 @@
                                             <div class="myaccount-content">
                                                 <h3>Orders</h3>
                                                     
-                                                <div class="" style="height: 300px; overflow-y: auto;">
+                                                <div class="" style="height: 200px; overflow-y: auto;">
 
                                                 <% if (user.orders.length > 0) { %>
                                                 <% cart.forEach((prod) => { %>
@@ -405,7 +424,9 @@
                                                 
                                                     <% }) %>
                                                     <% } else { %>
-                                                    <p>No orders found.</p>
+                                                        <div class="no-orders">
+                                                            <p>No orders found.</p>
+                                                        </div>
                                                     <% } %>
                                                 </div>
                                             </div>    
@@ -425,9 +446,10 @@
                                                 </div>
                                                 
                                                 
-                                                <div class="" style="height: 300px; overflow-y: auto;">
+                                                <div class="" style="height: 200px; overflow-y: auto;">
                                                     <div id="addressList" class="col-xl-12 ">
                                                         <!--  Addresses -->
+                                                        <% if (addresses.length > 0) { %>
                                                         <% addresses.forEach(address => { %>
                                                         <div class="my-3 px-2 py-2 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
                                                             <div >
@@ -454,6 +476,12 @@
                                                             </div>
                                                         </div>
                                                         <% }) %>
+                                                        <% } else { %>
+                                                            <div class="no-orders">
+                                                                <p>No address found.</p>
+                                                            </div>
+                                                        <% } %>
+
                                                     </div>
                                                     
                                                 </div>

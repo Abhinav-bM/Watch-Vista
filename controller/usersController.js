@@ -5,12 +5,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const smsService = require("../helpers/smsService");
 const { sendOtpEmail } = require("../helpers/emailService");
-const { name } = require("ejs");
 const mongoose = require("mongoose");
 const Razorpay = require("razorpay");
 const { findUserOrders } = require("../helpers/userHelper");
-const { messages } = require("springedge");
-const { vendorLogout } = require("./vendorController");
 require("dotenv").config();
 
 const generateOTP = () => {
@@ -113,6 +110,8 @@ let signupVerify = async (req, res) => {
       let phone = phoneNumber
     
     const sessionEmailOtp = req.session.emailOtp;
+
+    console.log("signup post otp :", sessionEmailOtp);
 
     if (!phone.startsWith("+91")) {
       phone = "+91" + phone;

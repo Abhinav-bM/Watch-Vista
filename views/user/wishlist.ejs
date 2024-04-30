@@ -58,6 +58,16 @@
         background-color: #18191a;
         border-color: #18191a;
       }
+
+      .empty-cart {
+        text-align: center;
+        height: 12.33rem;
+        padding: 20px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 20px;
+    }
     </style>
   </head>
 
@@ -171,6 +181,7 @@
       <!-- Cart Area Strat-->
       <section class="cart-area pt-100 pb-100">
         <div class="container">
+          <% if(wishlistProducts?.length > 0){ %>
           <div class="row justify-content-center">
             <div class="col-10">
               <form action="#">
@@ -229,6 +240,11 @@
               </form>
             </div>
           </div>
+          <% } else { %>
+            <div class="d-flex justify-content-center align-items-center empty-cart">
+              <h1>Your wishlist is empty !</h1>
+            </div>
+          <% } %>
         </div>
       </section>
       <!-- Cart Area End-->

@@ -56,6 +56,7 @@ mongoose.connect(process.env.MONGODCo,{
 app.use("/", userRouter);
 app.use("/admin", adminRouter);
 app.use("/vendor", vendorRouter);
+
 app.use((req, res, next) => {
   res.status(404).render("user/notFound");
 });
