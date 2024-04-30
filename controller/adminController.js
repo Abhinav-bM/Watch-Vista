@@ -12,7 +12,7 @@ const cloudinary = require("../config/cloudinary");
 // ADMIN LOGIN PAGE DISPLAY
 let loginGetPage = (req, res) => {
   try {
-    res.render("/admin/adminLogin");
+    res.render("admin/adminLogin");
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
   }
