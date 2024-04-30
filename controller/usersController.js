@@ -7,7 +7,6 @@ const smsService = require("../helpers/smsService");
 const { sendOtpEmail } = require("../helpers/emailService");
 const { name } = require("ejs");
 const mongoose = require("mongoose");
-const { log } = require("firebase-functions/logger");
 const Razorpay = require("razorpay");
 const { findUserOrders } = require("../helpers/userHelper");
 const { messages } = require("springedge");
