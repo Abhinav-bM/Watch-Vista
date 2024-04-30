@@ -309,7 +309,7 @@
                                             <div class="myaccount-content">
                                                 <h3>Orders</h3>
                                                     
-                                                <div class="" style="height: 200px; overflow-y: auto;">
+                                                <div class="" style="height: 35vh; overflow-y: auto;">
 
                                                 <% if (user.orders.length > 0) { %>
                                                 <% cart.forEach((prod) => { %>
@@ -446,10 +446,10 @@
                                                 </div>
                                                 
                                                 
-                                                <div class="" style="height: 200px; overflow-y: auto;">
+                                                <div class="" style="height: 35vh; overflow-y: auto;">
+                                                    <% if (addresses.length > 0) { %>
                                                     <div id="addressList" class="col-xl-12 ">
                                                         <!--  Addresses -->
-                                                        <% if (addresses.length > 0) { %>
                                                         <% addresses.forEach(address => { %>
                                                         <div class="my-3 px-2 py-2 form-check rounded d-flex justify-content-between" style="border: 2px solid rgb(223, 223, 223); background-color: rgb(246, 246, 246);">
                                                             <div >

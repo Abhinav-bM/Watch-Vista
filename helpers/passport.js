@@ -10,6 +10,7 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+// http://localhost:3000/auth/google/callback
 passport.use(
   new GoogleStrategy(
     {
