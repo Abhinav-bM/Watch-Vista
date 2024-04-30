@@ -425,7 +425,10 @@ let forgotEmailPostPage = async (req, res) => {
 
 // RESET PASSWORD
 let resetPassword = async (req, res) => {
+  console.log("here we are");
+
   const { emailOrPhone, otp, newPassword, confirmPassword } = req.body;
+
 
   try {
     let user;

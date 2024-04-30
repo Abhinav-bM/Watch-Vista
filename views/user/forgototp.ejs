@@ -157,7 +157,6 @@
         document.getElementById("errorPassConfirm").style.display = "none";
         document.getElementById("nullErr").textContent = "";
 
-        console.log("here we are");
 
         const otp = document.getElementById("otp").value;
         const newPassword = document.getElementById("newPassword").value;
@@ -177,11 +176,7 @@
         }
 
         // Validate Password
-        if (
-          newPassword.length < 6 ||
-          !/[0-9]/.test(newPassword) ||
-          !/[a-zA-Z]/.test(newPassword)
-        ) {
+        if (newPassword.length < 6 ) {
           document.getElementById("errorPass").style.display = "block";
           return false;
         }
@@ -192,6 +187,7 @@
           return false;
         }
 
+        console.log("here we are");
         // All validations passed, allow form submission
         return true;
       }

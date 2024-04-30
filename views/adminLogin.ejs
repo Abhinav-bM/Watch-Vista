@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>admin login</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #fff;
+    }
+
+    .signup-container {
+      max-width: 400px;
+      width: 100%;
+      padding: 1px;
+      text-align: center;
+    }
+
+    .logo {
+      max-width: 100px;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      border: 2px solid #ced4da;
+      border-radius: 5px;
+      height: 46px;
+    }
+
+    .btn-primary {
+      background-color: #000;
+      border-color: #000;
+      height: 46px;
+      color: #fff;
+      /* Set text color to white */
+    }
+
+    .btn-primary:hover {
+      background-color: #000;
+      /* No hover effect */
+      border-color: #000;
+    }
+
+    /* Remove underline from <a> tag */
+    a {
+      text-decoration: none;
+    }
+
+    a {
+      text-decoration: none;
+      color: #000;
+      /* Set link color to black */
+    }
+
+    h2 {
+      font-weight: bolder;
+      font-size: 28px;
+    }
+
+    */
+
+    /* Additional style for terms and conditions checkbox */
+    .form-check-label {
+      font-size: 14px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="signup-container">
+
+    <!-- <img src="https://see.fontimg.com/api/renderfont4/owrrV/eyJyIjoiZnMiLCJoIjo0MCwidyI6MTI1MCwiZnMiOjMyLCJmZ2MiOiIjMDAwMDAwIiwiYmdjIjoiI0ZGRkZGRiIsInQiOjF9/TUVHWA/black-romero-demo.png" alt="logo" class="logo"> -->
+    <br>
+    <br>
+
+    <h2 class="text-center mb-4">Admin Login</h2>
+
+    <form action="/admin/loginPost" method="post">
+      <% if (typeof error !== 'undefined' && error !== null) { %>
+          <p style="color: red;"><%= error %></p>
+      <% } %>
+      <input type="email" name="email" id="email" class="form-control my-4 py-2" placeholder="email" required />
+      <input type="password" name="password" id="email" class="form-control my-4 py-2" placeholder="Password" required />
+      <button class="btn btn-primary btn-block" type="submit">Login</button>
+    </form>
+  
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
