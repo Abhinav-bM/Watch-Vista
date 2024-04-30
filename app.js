@@ -40,10 +40,6 @@ const { parsed: config } = require("dotenv").config();
 global.config = config;
 
 //CONNECT TO MONGODB
-// mongoose.connect(process.env.MONGODCo, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
 mongoose.connect(process.env.MONGODCo,{
   dbName:'watch-store',
   connectTimeoutMS:30000
