@@ -607,7 +607,7 @@ let adminLogout = (req, res) => {
     // Clear the JWT cookie
     res.clearCookie("admin_jwt");
 
-    res.redirect("/adminLogin");
+    res.redirect("/admin/login");
     console.log("Admin logged out");
     return;
   } catch (error) {

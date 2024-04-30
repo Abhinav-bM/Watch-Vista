@@ -540,16 +540,6 @@ let updateOrderStatus = async (req, res) => {
   }
 };
 
-// GET VENDOR PROFILE
-let vendorProfile = async (req, res) => {
-  const vendorId = req.user.id;
-  try {
-    const vendor = await Vendor.findOne({ _id: vendorId });
-
-    res.status(200).render("vendor/vendor-profile", { vendor });
-  } catch (error) {}
-};
-
 // SALES REPORT EXCEL
 let salesExcel = async (req, res) => {
   const { startDate, endDate } = req.params;
@@ -659,7 +649,6 @@ module.exports = {
   deleteProduct,
   getOrdersForVendor,
   updateOrderStatus,
-  vendorProfile,
   salesExcel,
   returnRepaymentGetPage,
 };
