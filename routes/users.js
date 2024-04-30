@@ -75,6 +75,7 @@ router.get(
     failureRedirect: "/failure",
   })
 );
+
 router.get("/success", userController.successGoogleLogin);
 router.get("/failure", userController.failureGooglelogin);
 // LOGIN WITH GOOGLE ENDS HERE

@@ -6,8 +6,19 @@ const userRouter = require("./routes/users");
 const adminRouter = require("./routes/admin");
 const vendorRouter = require("./routes/vendor");
 
+
 // const passport = require("./passport")
 require("dotenv").config();
+mongoose.connect(process.env.MONGODCo,{
+  dbName:'watch-store',
+})
+.then((data)=>
+{ 
+  console.log("DB Connected");
+}).catch((err)=>
+{
+  console.log(err);
+})
 const path = require("path");
 const app = express();
 
@@ -40,17 +51,7 @@ const { parsed: config } = require("dotenv").config();
 global.config = config;
 
 //CONNECT TO MONGODB
-mongoose.connect(process.env.MONGODCo,{
-  dbName:'watch-store',
-  connectTimeoutMS:30000
-})
-.then((data)=>
-{ 
-  console.log("DB Connected");
-}).catch((err)=>
-{
-  console.log(err);
-})
+
 
 // // Set up routes
 app.use("/", userRouter);
