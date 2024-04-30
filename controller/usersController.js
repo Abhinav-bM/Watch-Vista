@@ -109,8 +109,14 @@ let signupVerify = async (req, res) => {
   try {
     const { userName, email, phoneNumber, password, phoneOtp, emailOtp } =
       req.body;
+
+      let phone = phoneNumber
     
     const sessionEmailOtp = req.session.emailOtp;
+
+    if (!phone.startsWith("+91")) {
+      phone = "+91" + phone;
+    }
 
     if ( emailOtp === sessionEmailOtp) {
   
@@ -119,7 +125,7 @@ let signupVerify = async (req, res) => {
       const newUser = new User({
         name: userName,
         email,
-        phoneNumber,
+        phoneNumber:phone,
         password: hashedPassword,
       });
 
