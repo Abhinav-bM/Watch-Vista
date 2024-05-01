@@ -91,7 +91,7 @@ let dashboard = async (req, res) => {
 // VENDOR LOGIN PAGE DISPLAY
 let loginGetPage = (req, res) => {
   try {
-    res.status(200).render("vendor/vendorLogin");
+    res.status(200).render("vendor/vendorlogin");
   } catch (error) {
     res.status(500).send("server error : ", error);
   }
@@ -137,7 +137,7 @@ let vendorLoginPostPage = async (req, res) => {
     const vendor = await Vendor.findOne({ email: req.body.email });
 
     if (vendor?.status) {
-      return res.render("vendor/vendorLogin", {
+      return res.render("vendor/vendorlogin", {
         error: "you are restricted by admin",
       });
     } else if (vendor) {
@@ -166,17 +166,17 @@ let vendorLoginPostPage = async (req, res) => {
       } else {
         res
           .status(200)
-          .render("vendor/VendorLogin", { error: "Wrong password" });
+          .render("vendor/Vendorlogin", { error: "Wrong password" });
       }
     } else if (!vendor) {
       console.log("Vendor not found:", req.body.email);
-      res.status(200).render("vendor/vendorLogin", { error: "User not found" });
+      res.status(200).render("vendor/vendorlogin", { error: "User not found" });
     }
   } catch (error) {
     console.error("Internal server error:", error);
     res
       .status(500)
-      .render("vendor/vendorLogin", { error: "Internal server error" });
+      .render("vendor/vendorlogin", { error: "Internal server error" });
   }
 };
 
@@ -418,7 +418,7 @@ let forgotOrpVerify = async (req, res) => {
       delete req.session.otp;
       delete req.session.email;
       console.log("vendor password resetted");
-      res.render("vendor/vendorLogin");
+      res.render("vendor/vendorlogin");
     } else {
       res.status(400).render("vendor/forgotOtp", { error: "Invalid OTP" });
     }

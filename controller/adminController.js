@@ -12,7 +12,7 @@ const cloudinary = require("../config/cloudinary");
 // ADMIN LOGIN PAGE DISPLAY
 let loginGetPage = (req, res) => {
   try {
-    res.render("admin/adminLogin");
+    res.render("admin/adminlogin");
   } catch (error) {
     res.status(500).json({ msg: "Internal server error" });
   }
@@ -42,19 +42,19 @@ let loginPostPage = async (req, res) => {
         console.log("Admin logged in successfully, jwt created");
         return;
       } else {
-        res.status(401).render("admin/adminLogin", { error: "Wrong password" });
+        res.status(401).render("admin/adminlogin", { error: "Wrong password" });
         return;
       }
     } else {
       console.log("User not found:", req.body.email);
-      res.status(404).render("admin/adminLogin", { error: "User not found" });
+      res.status(404).render("admin/adminlogin", { error: "User not found" });
       return;
     }
   } catch (error) {
     console.error("Internal server error:", error);
     res
       .status(500)
-      .render("admin/adminLogin", { error: "Internal server error" });
+      .render("admin/adminlogin", { error: "Internal server error" });
     return;
   }
 };
