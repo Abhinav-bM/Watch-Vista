@@ -1361,6 +1361,7 @@ let editAddress = async (req, res) => {
 // DELETE ADDRESS
 let deleteAddress = async (req, res) => {
   const addressId = req.params.addressId;
+  console.log("addressid For deletion :", addressId);
   const userId = req.user.id;
 
   try {
