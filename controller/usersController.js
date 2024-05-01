@@ -323,7 +323,7 @@ const loginRequestOTP = async (req, res) => {
 
     smsService.sendOTP(phoneNumber, otp);
 
-    res.status(200).render("user/loginOtp", { phone });
+    res.status(200).render("user/loginotp", { phone });
     console.log("OTP SMS sent");
   } catch (error) {
     console.error("Error requesting OTP:", error);
@@ -340,7 +340,7 @@ const loginVerifyOTP = async (req, res) => {
     if (user.otp !== otp || Date.now() > user.otpExpiration) {
       return res
         .status(400)
-        .render("user/loginOtp", { error: "Invalid or expired OTP", phone });
+        .render("user/loginotp", { error: "Invalid or expired OTP", phone });
     }
 
     // Clear OTP fields after successful verification
