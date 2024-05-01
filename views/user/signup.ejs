@@ -81,7 +81,7 @@
       <div class="text-center">
         <img src="/img/logo/logo1.png" alt="" style="max-width: 160px" />
       </div>
-      <form id="signupForm" method="post" class="pt-4 px-3">
+      <form id="signupForm" method="post" class="pt-1 px-3">
         <p id="alreadyExist" class="text-danger p-2"></p>
 
         <label for="userName">Name <span class="text-danger">**</span></label>
@@ -100,7 +100,7 @@
           >Email Address <span class="text-danger">**</span></label
         >
         <small id="email-error" style="color: red; display: none"
-          >Invalid email</small
+          >Please enter a valid email address.</small
         >
         <input
           id="email-id"
@@ -114,7 +114,7 @@
           >Phone <span class="text-danger">**</span></label
         >
         <small id="phone-error" style="color: red; display: none"
-          >Invalid phone</small
+          >Please enter a valid phone number. It should be a 10-digit number or start with '+91' followed by 10 digits.</small
         >
         <input
           id="phone"
@@ -166,7 +166,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="otpModalLabel">Enter OTPs</h5>
+              <h5 class="modal-title" id="otpModalLabel">Enter OTP</h5>
               <button
                 type="button"
                 class="close"
@@ -192,7 +192,7 @@
                   type="text"
                   class="form-control"
                   id="emailOtpInput"
-                  placeholder="Enter Email OTP"
+                  placeholder="Enter OTP received on email"
                 />
               </div>
               <small id="otp-error" class="text-danger"></small>
@@ -245,7 +245,6 @@
           email: emailInput,
           phoneNumber: phoneInput,
           password: passwordInput,
-
           // phoneOtp: phoneOtpInput,
           emailOtp: emailOtpInput,
         };
@@ -293,6 +292,11 @@
         var emailError = document.getElementById("email-error");
         var phoneError = document.getElementById("phone-error");
         var passwordError = document.getElementById("password-error");
+
+        if(nameInput === "" || emailInput === "" || phoneInput === "" || passwordInput === ""){
+          document.getElementById('alreadyExist').textContent = "Please fill all the input fields";
+          return false;
+        }
 
         var isValidName = /^[a-zA-Z\s]{3,}$/.test(nameInput);
         var isvalidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput);

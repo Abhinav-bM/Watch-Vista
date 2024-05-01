@@ -111,6 +111,8 @@ let signupVerify = async (req, res) => {
     
     const sessionEmailOtp = req.session.emailOtp;
 
+    console.log(sessionEmailOtp, emailOtp);
+
     console.log("signup post otp :", sessionEmailOtp);
 
     if (!phone.startsWith("+91")) {

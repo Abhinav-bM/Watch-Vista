@@ -43,7 +43,7 @@ const wishlistSchema = new mongoose.Schema({
 // ORDER SCHEMA
 const orderSchema = new mongoose.Schema(
   {
-    orderId: { type: String, required: true, unique: true },
+    orderId: { type: String, required: true },
     products: [
       {
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
