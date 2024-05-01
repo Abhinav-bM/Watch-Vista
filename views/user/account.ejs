@@ -67,12 +67,7 @@
         }
 
         /* scroballe code */
-        /* .scrollable{    
-            overflow-y: scroll;
-            height: 400px;
-            background: #ffffff;
-            padding: 20px;
-        } */
+     
         ::-webkit-scrollbar {
             display: none;
         }
@@ -112,21 +107,21 @@
 
         /* No orders div */
         .no-orders {
-        background-color: #f8f9fa; /* Light gray background */
-        border: 1px solid #ced4da; /* Light border */
-        border-radius: 5px; /* Rounded corners */
-        padding: 20px; /* Spacing around the text */
-        text-align: center; /* Center align the text */
-        max-width: 400px; /* Limit width to prevent stretching */
-        margin: 0 auto; /* Center the div horizontally */
+        background-color: #f8f9fa; 
+        border: 1px solid #ced4da; 
+        border-radius: 5px; 
+        padding: 20px; 
+        text-align: center; 
+        max-width: 400px; 
+        margin: 0 auto;
         }
 
         /* CSS for the message text */
         .no-orders p {
-        margin: 0; /* Remove default margins */
-        color: #6c757d; /* Gray text color */
-        font-size: 16px; /* Font size */
-        font-weight: bold; /* Bold font */
+        margin: 0; 
+        color: #6c757d; 
+        font-size: 16px; 
+        font-weight: bold; 
         }
     </style>
 </head>
@@ -375,6 +370,7 @@
                                                             </div>
                                                         </div>
 
+                                                        <!-- RETURN MODAL -->
                                                         <div class="modal fade" id="returnlModal_<%= prod._id %>" tabindex="-1" aria-labelledby="returnModalLabel_<%= prod._id %>" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered">
                                                                 <div class="modal-content">
@@ -607,6 +603,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
 
                                             <div class="tab-pane fade" id="account-info" role="tabpanel" aria-labelledby="account-info-tab">
@@ -766,8 +763,11 @@
             console.log("Cancellation successful:", response.data);
             const statusElement = $('#orderStatus_' + productId);
             statusElement.text("Requested for Cancellation");
-
+            
             $('#cancelModal_' + productId).modal('hide');
+
+            window.location.href = `/userProfile?scrollTo=orders`
+
         })
         .catch(error => {
             console.error(error);
@@ -782,13 +782,24 @@
         $('#returnlModal_' + productId).modal('show');
     }
 
+    // const paymentOption = $('input[name="paymentOption"]:checked').val();
+
     // FUNCTION FOR RETURN REASON AND REFUND POST
     function submitReturn(event, orderId, productId){
         event.preventDefault()
         const returnReason = $('#returnReason_' + productId).val()
-        const paymentOption = $('input[name="paymentOption"]:checked').val(); // Get selected payment option
+        const paymentOptions = document.getElementsByName("paymentOption");
+        let paymentOption;
+        for (const option of paymentOptions) {
+            if (option.checked) {
+                paymentOption = option.value;
+                break;
+            }
+        }
 
         console.log("payment option :", paymentOption);
+
+      
 
         const refundData = {
             orderId : orderId,
@@ -811,7 +822,6 @@
             }
 
             refundData.refundDetails = refundDetail
-            // Add bank details to refund data
            
         }   
 

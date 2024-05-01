@@ -542,8 +542,13 @@ let updateOrderStatus = async (req, res) => {
 
 // SALES REPORT EXCEL
 let salesExcel = async (req, res) => {
+
+  
   const { startDate, endDate } = req.params;
   const vendorId = req.user.id;
+
+  console.log("here we are", startDate, endDate);
+
 
   try {
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
@@ -556,6 +561,7 @@ let salesExcel = async (req, res) => {
     }
 
     const orders = vendorOrders(vendorProducts, usersWithOrders);
+
     const startDateObj = new Date(startDate);
     const endDateObj = new Date(endDate);
     const deliveredOrders = orders.filter(
