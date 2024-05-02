@@ -453,6 +453,7 @@
           .catch((error) => {
             console.log("sdfnjshfk :", error);
             if (error.response.status === 400) {
+              window.location.href = "/cart"
               Toastify({
                 text: "Product is out of stock",
                 duration: 2000,

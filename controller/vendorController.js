@@ -22,8 +22,8 @@ const Excel = require("exceljs");
 // VENDOR DASHBOARD PAGE DISPLAY
 let dashboard = async (req, res) => {
   try {
-    let vendorId = req.user.id
-    let vendor = await Vendor.findOne({_id:vendorId });
+    let vendorId = req.user.id;
+    let vendor = await Vendor.findOne({ _id: vendorId });
 
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
       "products"
@@ -183,8 +183,8 @@ let vendorLoginPostPage = async (req, res) => {
 // ADD PRODUCT PAGE DISPLAY
 let addProduct = async (req, res) => {
   try {
-    const vendorId = req.user.id
-    const vendor = await Vendor.findOne({_id:vendorId})
+    const vendorId = req.user.id;
+    const vendor = await Vendor.findOne({ _id: vendorId });
     const admin = await Admin.findOne();
     const categories = admin.categories.map((category) => ({
       categoryName: category.categoryName,
@@ -193,7 +193,7 @@ let addProduct = async (req, res) => {
       ),
     }));
 
-    res.status(200).render("vendor/product-add", { categories, vendor});
+    res.status(200).render("vendor/product-add", { categories, vendor });
   } catch (error) {
     console.error(error);
     res.status(404).send("page not found");
@@ -243,7 +243,6 @@ let addProductpost = async (req, res) => {
     vendor.products.push(newProduct);
     await vendor.save();
     res.redirect("/vendor/productList");
-    console.log("product added successful");
   } catch (error) {
     console.log(error);
     res.status(500).send("server error");
@@ -343,7 +342,7 @@ let editProductPost = async (req, res) => {
     console.error(error);
     res.status(500).send("server error edit failed");
   }
-}
+};
 
 // DELETE PRODUCT POST PAGE
 let deleteProduct = async (req, res) => {
@@ -417,7 +416,6 @@ let forgotOrpVerify = async (req, res) => {
 
       delete req.session.otp;
       delete req.session.email;
-      console.log("vendor password resetted");
       res.render("vendor/vendorlogin");
     } else {
       res.status(400).render("vendor/forgotOtp", { error: "Invalid OTP" });
@@ -435,7 +433,6 @@ let vendorLogout = (req, res) => {
     res.clearCookie("vendor_jwt");
 
     res.redirect("/vendor/login");
-    console.log("vendor logged out");
     return;
   } catch (error) {
     console.error("Error logging out:", error);
@@ -447,7 +444,7 @@ let vendorLogout = (req, res) => {
 let getOrdersForVendor = async (req, res) => {
   const vendorId = req.user.id;
   try {
-    const vendor = await Vendor.findOne({_id:vendorId})
+    const vendor = await Vendor.findOne({ _id: vendorId });
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
       "products"
     );
@@ -488,11 +485,8 @@ let getOrdersForVendor = async (req, res) => {
       });
     });
 
-
-    const vendorOrders = vendorOrder1.sort((a,b)=> b.orderDate - a.orderDate)
-    console.log("sdfgjdf : ",vendorOrders);
-    res.render("vendor/order-list", { vendorOrders,vendor });
-
+    const vendorOrders = vendorOrder1.sort((a, b) => b.orderDate - a.orderDate);
+    res.render("vendor/order-list", { vendorOrders, vendor });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server Error" });
@@ -542,13 +536,8 @@ let updateOrderStatus = async (req, res) => {
 
 // SALES REPORT EXCEL
 let salesExcel = async (req, res) => {
-
-  
   const { startDate, endDate } = req.params;
   const vendorId = req.user.id;
-
-  console.log("here we are", startDate, endDate);
-
 
   try {
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
@@ -626,7 +615,7 @@ let returnRepaymentGetPage = async (req, res) => {
     const vendorProducts = await Vendor.findOne({ _id: vendorId }).populate(
       "products"
     );
-    const vendor = vendorProducts
+    const vendor = vendorProducts;
     const usersWithOrders = await User.find({ "orders.0": { $exists: true } });
     const orders = vendorOrders(vendorProducts, usersWithOrders);
     const returnOrders = orders.filter((order) => order.returnReason);

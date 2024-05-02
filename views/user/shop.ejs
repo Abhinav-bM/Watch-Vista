@@ -564,6 +564,10 @@
         function handleSearch() {
           const inputValue = document.getElementById("searchInput").value;
 
+          if(inputValue === ""){
+            return false;
+          }
+
           axios
             .get(`/products/search/${inputValue}`)
             .then((response) => {
@@ -582,6 +586,10 @@
         function handleSearch2() {
           const inputValue = document.getElementById("searchInput1").value;
 
+          if(inputValue === ""){
+            return false;
+          }
+          
           axios
             .get(`/products/search/${inputValue}`)
             .then((response) => {
