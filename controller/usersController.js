@@ -110,10 +110,6 @@ let signupVerify = async (req, res) => {
 
     const sessionEmailOtp = req.session.emailOtp;
 
-    console.log(sessionEmailOtp, emailOtp);
-
-    console.log("signup post otp :", sessionEmailOtp);
-
     if (!phone.startsWith("+91")) {
       phone = "+91" + phone;
     }
@@ -146,7 +142,6 @@ let signupVerify = async (req, res) => {
 
       res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
 
-      console.log("New user created:", newUser);
       return res
         .status(200)
         .json({ success: true, message: "User created successfully" });
@@ -322,7 +317,6 @@ const loginRequestOTP = async (req, res) => {
     smsService.sendOTP(phoneNumber, otp);
 
     res.status(200).render("user/loginotp", { phone });
-    console.log("OTP SMS sent");
   } catch (error) {
     console.error("Error requesting OTP:", error);
     res.status(500).json({ message: "Server Error" });
@@ -430,7 +424,6 @@ let forgotEmailPostPage = async (req, res) => {
 
 // RESET PASSWORD
 let resetPassword = async (req, res) => {
-  console.log("here we are");
 
   const { emailOrPhone, otp, newPassword, confirmPassword } = req.body;
 
@@ -485,8 +478,6 @@ let resetPassword = async (req, res) => {
     user.otpExpiration = undefined;
     await user.save();
 
-    console.log("Password reset successful");
-
     res.status(200).redirect("/login");
   } catch (error) {
     console.error("Error resetting password:", error);
@@ -508,7 +499,6 @@ let userLogout = async (req, res) => {
     res.clearCookie("jwt");
 
     res.redirect("/");
-    console.log("User logged out");
   } catch (error) {
     console.error("Error logging out:", error);
     res.status(500).send("Internal Server Error");
@@ -519,9 +509,26 @@ let userLogout = async (req, res) => {
 let shopGetPage = async (req, res) => {
   const token = req.cookies.jwt;
   try {
-    let products = await Vendor.find().select("products");
+    const allProducts = await Vendor.aggregate([
+      { $unwind: "$products" },
+      {
+        $project: {
+          _id: "$products._id",
+          productName: "$products.productName",
+          productCategory: "$products.productCategory",
+          productSubCategory: "$products.productSubCategory",
+          productBrand: "$products.productBrand",
+          productColor: "$products.productColor",
+          productSize: "$products.productSize",
+          productQTY: "$products.productQTY",
+          productPrice: "$products.productPrice",
+          productImages: "$products.productImages",
+          productDescription: "$products.productDescription"
+        }
+      }
+    ]);
 
-    const admin = await Admin.findOne({}); // Assuming there's only one admin for simplicity
+    const admin = await Admin.findOne({});
     const allCategories = [];
 
     admin.categories.forEach((category) => {
@@ -536,25 +543,25 @@ let shopGetPage = async (req, res) => {
     }
 
     // Pagination logic
-    // const ITEMS_PER_PAGE = 4;
-    // const page = +req.query.page || 1;
-    // const totalProducts = products.length;
-    // const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
-    // const startIndex = (page - 1) * ITEMS_PER_PAGE;
-    // const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalProducts);
-    // const paginatedProducts = products.slice(startIndex, endIndex);
+    const ITEMS_PER_PAGE = 8;
+    const page = +req.query.page || 1;
+    const totalProducts = allProducts.length;
+    const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+    const startIndex = (page - 1) * ITEMS_PER_PAGE;
+    const endIndex = Math.min(startIndex + ITEMS_PER_PAGE, totalProducts);
+    const paginatedProducts = allProducts.slice(startIndex, endIndex);
 
     res.status(200).render("user/shop", {
-      products: products,
+      products: paginatedProducts,
       allCategories,
       user,
       wishlistProducts: user?.wishlist.products,
-      // currentPage: page,
-      // hasNextPage: ITEMS_PER_PAGE * page < totalProducts,
-      // hasPrevPage: page > 1,
-      // nextPage: page + 1,
-      // prevPage: page - 1,
-      // lastPage: totalPages,
+      currentPage: page,
+      hasNextPage: ITEMS_PER_PAGE * page < totalProducts,
+      hasPrevPage: page > 1,
+      nextPage: page + 1,
+      prevPage: page - 1,
+      lastPage: totalPages,
     });
   } catch (error) {
     console.log("page not found :", error);
@@ -705,7 +712,7 @@ let singleProductGetPage = async (req, res) => {
       relatedProducts: relatedProducts,
     });
   } catch (error) {
-    console.log("page not found :", error);
+    console.error( error);
     res.status(404).send("page not found");
   }
 };
@@ -773,7 +780,6 @@ let addToWishlist = async (req, res) => {
       userId = decoded.id;
     }
 
-    console.log(userId, productId);
 
     const user = await User.findById(userId);
 
@@ -1031,7 +1037,6 @@ let updateCartQuantity = async (req, res) => {
 
   try {
     const user = await User.findById(userId);
-    console.log("quantity :", quantity);
     const vendor = await Vendor.findOne({ "products._id": productId });
     const product = vendor.products.filter(
       (prod) => prod._id.toString() === productId
@@ -1304,7 +1309,7 @@ let editAddress = async (req, res) => {
 // DELETE ADDRESS
 let deleteAddress = async (req, res) => {
   const addressId = req.params.addressId;
-  console.log("addressid For deletion :", addressId);
+  
   const userId = req.user.id;
 
   try {
@@ -1337,7 +1342,6 @@ let deleteAddress = async (req, res) => {
 let placeOrderPost = async (req, res) => {
   const { selectedAddressId, paymentMethod, totalPrice } = req.body;
 
-  console.log("dpofdo ", selectedAddressId, paymentMethod);
   try {
     const userId = req.user.id;
 
@@ -1467,11 +1471,9 @@ let placeOrderPostRazorpay = async (req, res) => {
   }
 };
 let successfulRazorpayOrder = async (req, res) => {
-  console.log(req.body);
   const { razorpay_payment_id, razorpay_order_id } = req.body.response;
   const { selectedAddressId, paymentMethod } = req.body;
   try {
-    console.log("user :", req);
     const userId = req.user.id;
 
     const user = await User.findById(userId);
@@ -1692,7 +1694,7 @@ let productReturnPost = async (req, res) => {
 let changePasswordPost = async (req, res) => {
   const { currentPassword, newPassword } = req.body;
   const userId = req.user.id;
-  console.log(currentPassword, newPassword);
+  
   try {
     const user = await User.findOne({ _id: userId });
 
@@ -1713,7 +1715,7 @@ let changePasswordPost = async (req, res) => {
     user.password = newHashedPassword;
 
     await user.save();
-    console.log("password changed successfully");
+    
     res.status(200).json({ message: "Password changed successfully" });
   } catch (error) {
     console.error(error);
@@ -1723,8 +1725,7 @@ let changePasswordPost = async (req, res) => {
 
 let updateUserDetails = async (req, res) => {
   const { newName, newEmail, newPhone } = req.body;
-  console.log("user details check", req.body);
-  console.log(newName, newEmail, newPhone);
+  
   const userId = req.user.id;
   try {
     const user = await User.findOne({ _id: userId });
