@@ -143,7 +143,7 @@
                   <li>
                     <a href="/cart"
                       ><i class="fal fa-shopping-bag active"
-                        ><span><%= user?.cart.products.length %></span></i
+                        ><span id="cartCount"><%= user?.cart.products.length %></span></i
                       ></a
                     >
                   </li>
@@ -340,6 +340,19 @@
             console.log("rrspnse :", response);
 
             if (response.status === 200) {
+              Toastify({
+                text: "Product Added to cart",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "black",
+              }).showToast();
+              let cartCount = document.getElementById('cartCount')
+              let count = parseFloat(cartCount.textContent)
+              cartCount.textContent = count += 1
+              
+            }
+            if (response.status === 201) {
               Toastify({
                 text: "Product Added to cart",
                 duration: 2000,

@@ -139,14 +139,14 @@
                   <li>
                     <a href="/wishlist"
                       ><i class="fal fa-heart active"
-                        ><span><%= wishlistProducts?.length %></span></i
+                        ><span id="wishlistCount"><%= wishlistProducts?.length %></span></i
                       ></a
                     >
                   </li>
                   <li>
                     <a href="/cart"
                       ><i class="fal fa-shopping-bag"
-                        ><span><%= user?.cart.products.length %></span></i
+                        ><span id="cartCount"><%= user?.cart.products.length %></span></i
                       ></a
                     >
                   </li>
@@ -305,27 +305,7 @@
                           Size : <span> <%= products.productSize %></span>
                         </h6>
                       </div>
-                      <button
-                        class="wishlist-btn"
-                        onclick="addToWishlist(event, '<%= products._id %>')"
-                        style="background: none; border: none"
-                      >
-                        <div class="wishlist float-right">
-                          <% if(user && user.wishlist.products.some(wProduct =>
-                          wProduct.productId.toString() ===
-                          products._id.toString())) { %>
-                          <i
-                            id="heartIcon-<%= products._id %>"
-                            class="fas fa-heart fa-2x text-danger"
-                          ></i>
-                          <% } else { %>
-                          <i
-                            id="heartIcon-<%= products._id %>"
-                            class="fal fa-heart fa-2x"
-                          ></i>
-                          <% } %>
-                        </div>
-                      </button>
+
                     </div>
 
                     <div class="quick-quantity mt-60">
@@ -341,6 +321,20 @@
                         "
                       >
                         Add to Cart
+                      </button>
+
+                      <button
+                        type="button"
+                        onclick="addToWishlist(event,'<%= products._id %>')"
+                        id=""
+                        class="list-add-cart-btn red-hover-btn border-0"
+                        style="
+                          padding-left: 20px;
+                          padding-right: 20px;
+                          transition: all 0.5s;
+                        "
+                        >
+                        Add to Wishlist
                       </button>
                     </div>
                     <div class="single-product-action mt-35"></div>
@@ -554,14 +548,14 @@
         axios
           .post("/products/addToWishlist", { productId })
           .then((response) => {
-            console.log(response);
-            // Get the corresponding heart icon element
             const heartIcon = document.getElementById(`heartIcon-${productId}`);
             // Check if the product was added or removed from wishlist
             if (
               response.data.message === "Product added to wishlist successfully"
             ) {
-              window.location.reload()
+              let wishlistCount = document.getElementById('wishlistCount')
+              let count = parseFloat(wishlistCount.textContent)
+              wishlistCount.textContent = count +=1
 
               Toastify({
                 text: "Product added to wishlist",
@@ -577,9 +571,10 @@
               response.data.message ===
               "Product removed from wishlist successfully"
             ) {
-              window.location.reload()
-
-              // Change heart icon to regular red heart
+              let wishlistCount = document.getElementById('wishlistCount')
+              let count = parseFloat(wishlistCount.textContent)
+              wishlistCount.textContent = count -=1
+              
               Toastify({
                 text: "Product removed from wishlist",
                 duration: 3000,
@@ -622,8 +617,23 @@
                 duration: 2000,
                 gravity: "top",
                 position: "right",
+                backgroundColor: "black",
+              }).showToast();
+
+              let cartCount = document.getElementById('cartCount')
+              let count = parseFloat(cartCount.textContent)
+              cartCount.textContent = count += 1
+            }
+            if (response.status === 201) {
+              Toastify({
+                text: "Product Added to cart",
+                duration: 2000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "black",
               }).showToast();
             }
+
           })
           .catch(function (error) {
             if (error.response.status === 404) {

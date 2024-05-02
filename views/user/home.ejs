@@ -129,7 +129,7 @@
                   <li>
                     <a href="/wishlist"
                       ><i class="fal fa-heart active"
-                        ><span><%= wishlistProducts?.length %></span></i
+                        ><span id="wishlistCount"><%= wishlistProducts?.length %></span></i
                       ></a
                     >
                   </li>
@@ -400,6 +400,11 @@
               heartIcon.classList.remove("fal");
               heartIcon.classList.add("fas");
               heartIcon.classList.add("text-danger");
+
+              let wishlistCount = document.getElementById('wishlistCount')
+              let count = parseFloat(wishlistCount.textContent)
+              wishlistCount.textContent = count +=1
+
               Toastify({
                 text: "Product added to wishlist",
                 duration: 2000,
@@ -415,6 +420,9 @@
               heartIcon.classList.remove("fas");
               heartIcon.classList.remove("text-danger");
               heartIcon.classList.add("fal");
+              let wishlistCount = document.getElementById('wishlistCount')
+              let count = parseFloat(wishlistCount.textContent)
+              wishlistCount.textContent = count -=1
               Toastify({
                 text: "Product removed from wishlist",
                 duration: 2000,

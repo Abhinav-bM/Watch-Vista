@@ -78,11 +78,10 @@ let signupPostPage = async (req, res) => {
       return res.status(400).json({ error: "Email already exists." });
     }
 
-    const existingPhoneUser = await User.findOne({ phoneNumber :phone });
+    const existingPhoneUser = await User.findOne({ phoneNumber: phone });
     if (existingPhoneUser) {
       return res.status(400).json({ error: "Phone number already exists." });
     }
-
 
     // Generate a random 4-digit OTPs
     const emailOtp = generateOTP();
@@ -92,7 +91,7 @@ let signupPostPage = async (req, res) => {
     sendOtpEmail(email, emailMessage);
 
     console.log("otps send successfully");
-  
+
     req.session.emailOtp = emailOtp;
 
     return res.status(200).json({ message: "OTP sent to phone and email." });
@@ -107,8 +106,8 @@ let signupVerify = async (req, res) => {
     const { userName, email, phoneNumber, password, phoneOtp, emailOtp } =
       req.body;
 
-      let phone = phoneNumber
-    
+    let phone = phoneNumber;
+
     const sessionEmailOtp = req.session.emailOtp;
 
     console.log(sessionEmailOtp, emailOtp);
@@ -119,14 +118,13 @@ let signupVerify = async (req, res) => {
       phone = "+91" + phone;
     }
 
-    if ( emailOtp === sessionEmailOtp) {
-  
+    if (emailOtp === sessionEmailOtp) {
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const newUser = new User({
         name: userName,
         email,
-        phoneNumber:phone,
+        phoneNumber: phone,
         password: hashedPassword,
       });
 
@@ -436,7 +434,6 @@ let resetPassword = async (req, res) => {
 
   const { emailOrPhone, otp, newPassword, confirmPassword } = req.body;
 
-
   try {
     let user;
 
@@ -498,7 +495,6 @@ let resetPassword = async (req, res) => {
 };
 // FORGOT PASSWORD -- ENDS HERE
 
-
 // LOGOUT STARTS HERE
 let userLogout = async (req, res) => {
   const token = req.cookies.jwt;
@@ -510,7 +506,6 @@ let userLogout = async (req, res) => {
   try {
     // Clear the JWT cookie
     res.clearCookie("jwt");
-
 
     res.redirect("/");
     console.log("User logged out");
@@ -877,15 +872,17 @@ let addToCart = async (req, res) => {
 
     if (existingProductIndex !== -1) {
       user.cart.products[existingProductIndex].quantity += 1;
+      await user.save();
+      return res
+        .status(201)
+        .json({ message: "Product added to cart successfully" });
     } else {
       user.cart.products.push({ productId, quantity: 1 });
+      await user.save();
+      return res
+        .status(200)
+        .json({ message: "Product added to cart successfully" });
     }
-
-    await user.save();
-
-    return res
-      .status(200)
-      .json({ message: "Product added to cart successfully" });
   } catch (error) {
     console.error("Error adding product to cart:", error);
     res.status(500).json({ error: "Unable to add product to cart" });
@@ -1197,60 +1194,6 @@ let checkoutpage = async (req, res) => {
     res.status(500).json({ message: "An error occurred" });
   }
 };
-
-// BUY NOW TO CHECKOUTPAGE
-// let buyNowCheckOut = async (req, res) => {
-//   const userId = req.user.id;
-//   const { productId } = req.params;
-
-//   try {
-//     const user = await User.findById({ _id: userId });
-//     const addresses = user.addresses;
-
-//     ///////////////////////////////////
-//     const allProducts = await Vendor.find({}).populate("products");
-//     let cart = [];
-
-//     // Find the product in allProducts
-//     allProducts.forEach((vendor) => {
-//       vendor.products.forEach((product) => {
-//         if (product._id.equals(productId)) {
-//           const vendorInfo = {
-//             vendorId: vendor._id,
-//             vendorName: vendor.vendorName,
-//           };
-//           const productDetails = {
-//             _id: product._id,
-//             name: product.productName,
-//             category: product.productCategory,
-//             subcategory: product.productSubCategory,
-//             brand: product.productBrand,
-//             color: product.productColor,
-//             size: product.productSize,
-//             quantity: 1,
-//             price: product.productPrice,
-//             mrp: product.productMRP,
-//             discount: product.productDiscount,
-//             images: product.productImages,
-//             description: product.productDescription,
-//             vendor: vendorInfo,
-//           };
-
-//           cart.push(productDetails);
-//         }
-//       });
-//     });
-
-//     //////////////////////////////////////////////
-//     let totalPrice = 0;
-//     cart.forEach((prod) => (totalPrice += prod.price * prod.quantity));
-
-//     res.status(200).render("user/checkout", { addresses, cart, totalPrice });
-//   } catch (error) {
-//     console.error("Error on checkout page display :", error);
-//     res.status(500).json({ message: "An error occured" });
-//   }
-// };
 
 // ADD ADDRESS
 let addAddress = async (req, res) => {
@@ -1965,7 +1908,6 @@ module.exports = {
   placeOrderPost,
   placeOrderPostRazorpay,
   successfulRazorpayOrder,
-  // buyNowCheckOut,
   orderCancelRequestPost,
   changePasswordPost,
   updateUserDetails,
