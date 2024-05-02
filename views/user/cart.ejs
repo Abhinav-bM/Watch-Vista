@@ -62,9 +62,9 @@
 
   <body>
     <!-- preloader -->
-    <div id="loader-wrapper">
+    <!-- <div id="loader-wrapper">
       <div id="loader"></div>
-    </div>
+    </div> -->
 
     <!-- header section start -->
     <header
@@ -359,26 +359,27 @@
         axios
           .delete(`/cart/${productId}`)
           .then((response) => {
-            const productRow = document.getElementById(
-              `productRow-${productId}`
-            );
-            if (productRow) {
-              productRow.remove();
-            }
-            const updatedCart = response.data.cart;
+            // const productRow = document.getElementById(
+            //   `productRow-${productId}`
+            // );
+            // if (productRow) {
+            //   productRow.remove();
+            // }
+            // const updatedCart = response.data.cart;
 
-            // UPDATE SUBTOTAL
-            let subtotal = 0;
-            updatedCart.forEach((item) => {
-              subtotal += item.quantity * item.price;
-            });
-            const subtotalElement = document.getElementById("subtotal");
-            subtotalElement.textContent = subtotal;
+            // // UPDATE SUBTOTAL
+            // let subtotal = 0;
+            // updatedCart.forEach((item) => {
+            //   subtotal += item.quantity * item.price;
+            // });
+            // const subtotalElement = document.getElementById("subtotal");
+            // subtotalElement.textContent = subtotal;
 
-            // UPDATE TOTAL
-            let total = subtotal;
-            const totalElemen = document.getElementById("total");
-            totalElemen.textContent = subtotal;
+            // // UPDATE TOTAL
+            // let total = subtotal;
+            // const totalElemen = document.getElementById("total");
+            // totalElemen.textContent = subtotal;
+            window.location.reload()
           })
           .catch((error) => {
             console.error("Error removing product:", error);

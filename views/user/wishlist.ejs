@@ -73,9 +73,9 @@
 
   <body>
     <!-- preloader -->
-    <div id="loader-wrapper">
+    <!-- <div id="loader-wrapper">
       <div id="loader"></div>
-    </div>
+    </div> -->
 
     <!-- header section start -->
     <header
@@ -385,28 +385,29 @@
           .delete(`/wishlist/remove/${productId}`)
           .then((response) => {
             console.log(response.data);
-            updateWishlistUI(productId);
+            // updateWishlistUI(productId);
+            window.location.reload()
           })
           .catch((error) => {
             console.error(error);
           });
       }
 
-      function updateWishlistUI(productId) {
-        const wishlistItem = document.getElementById(
-          `wishlistItem-${productId}`
-        );
-        if (wishlistItem) {
-          wishlistItem.remove();
-          Toastify({
-            text: "Product Removed from wishlist",
-            duration: 2000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "black",
-          }).showToast();
-        }
-      }
+      // function updateWishlistUI(productId) {
+      //   const wishlistItem = document.getElementById(
+      //     `wishlistItem-${productId}`
+      //   );
+      //   if (wishlistItem) {
+      //     wishlistItem.remove();
+      //     Toastify({
+      //       text: "Product Removed from wishlist",
+      //       duration: 2000,
+      //       gravity: "top",
+      //       position: "right",
+      //       backgroundColor: "black",
+      //     }).showToast();
+      //   }
+      // }
     </script>
 
     <!-- JS here -->
