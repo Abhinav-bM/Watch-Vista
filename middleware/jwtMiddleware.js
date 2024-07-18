@@ -3,9 +3,9 @@ require("dotenv").config();
 
 const verifyToken = (req, res, next) => {
   
-  const token = req.cookies.jwt; // Assuming you're using cookies for token storage
+  const token = req.cookies.jwt; // token from cookie
   if (!token) {
-    return res.render("user/login"); // If no token, redirect to login
+    return res.render("user/login");
   }
 
   try {
@@ -19,17 +19,15 @@ const verifyToken = (req, res, next) => {
 
 // ADMIN
 const adminAuthMiddleware = (req, res, next) => {
-  // Get token from cookies
+
   const token = req.cookies.admin_jwt;
 
   if (token) {
     jwt.verify(token, process.env.JWT_KEY, (err, decodedToken)=>{
       if(err){
-        // Token expired or invalid 
         res.redirect("/admin/login")
       }
       else{
-        // Token is valid and attach decoded token to request
         req.user = decodedToken
         next()
       }
@@ -44,7 +42,7 @@ const adminAuthMiddleware = (req, res, next) => {
 
 // ADMIN
 const vendorAuthMiddleware = (req, res, next) => {
-  // Get token from cookies
+
   const token = req.cookies.vendor_jwt;
 
   if (token) {
@@ -54,7 +52,6 @@ const vendorAuthMiddleware = (req, res, next) => {
         res.redirect("/vendor/login")
       }
       else{
-        // Token is valid and attach decoded token to request
         req.user = decodedToken
         next()
       }
