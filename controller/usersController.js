@@ -140,6 +140,8 @@ let signupVerify = async (req, res) => {
         }
       );
 
+
+      
       res.cookie("jwt", token, { httpOnly: true, maxAge: 86400000 }); // 24 hour expiry
 
       return res
